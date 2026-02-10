@@ -1,0 +1,2998 @@
+{
+  "FAISS": [
+    {
+      "name": "FAISS",
+      "display_name": "FAISS",
+      "description": "FAISS Vector Store with search capabilities",
+      "icon": "FAISS",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "Notion": [
+    {
+      "name": "AddContentToPage",
+      "display_name": "Add Content to Page ",
+      "description": "Convert markdown text to Notion blocks and append them to a Notion page.",
+      "icon": "NotionDirectoryLoader",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NotionPageCreator",
+      "display_name": "Create Page ",
+      "description": "A component for creating Notion pages.",
+      "icon": "NotionDirectoryLoader",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NotionDatabaseProperties",
+      "display_name": "List Database Properties ",
+      "description": "Retrieve properties of a Notion database.",
+      "icon": "NotionDirectoryLoader",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NotionListPages",
+      "display_name": "List Pages ",
+      "description": "Query a Notion database with filtering and sorting. The input should be a JSON string containing the 'filter' and 'sorts' objects. Example input:\n{\"filter\": {\"property\": \"Status\", \"select\": {\"equals\": \"Done\"}}, \"sorts\": [{\"timestamp\": \"created_time\", \"direction\": \"descending\"}]}",
+      "icon": "NotionDirectoryLoader",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NotionUserList",
+      "display_name": "List Users ",
+      "description": "Retrieve users from Notion.",
+      "icon": "NotionDirectoryLoader",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NotionPageContent",
+      "display_name": "Page Content Viewer ",
+      "description": "Retrieve the content of a Notion page as plain text.",
+      "icon": "NotionDirectoryLoader",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NotionSearch",
+      "display_name": "Search ",
+      "description": "Searches all pages and databases that have been shared with an integration.",
+      "icon": "NotionDirectoryLoader",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NotionPageUpdate",
+      "display_name": "Update Page Property ",
+      "description": "Update the properties of a Notion page.",
+      "icon": "NotionDirectoryLoader",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "agentql": [
+    {
+      "name": "AgentQL",
+      "display_name": "Extract Web Data",
+      "description": "Extracts structured data from a web page using an AgentQL query or a Natural Language description.",
+      "icon": "AgentQL",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "aiml": [
+    {
+      "name": "AIMLModel",
+      "display_name": "AI/ML API",
+      "description": "Generates text using AI/ML API LLMs.",
+      "icon": "AIML",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "AIMLEmbeddings",
+      "display_name": "AI/ML API Embeddings",
+      "description": "Generate embeddings using the AI/ML API.",
+      "icon": "AIML",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "altk": [
+    {
+      "name": "ALTK Agent",
+      "display_name": "ALTK Agent",
+      "description": "Advanced agent with both pre-tool validation and post-tool processing capabilities.",
+      "icon": "zap",
+      "beta": true,
+      "legacy": false
+    }
+  ],
+  "amazon": [
+    {
+      "name": "AmazonBedrockModel",
+      "display_name": "Amazon Bedrock",
+      "description": "Generate text using Amazon Bedrock LLMs with the legacy ChatBedrock API. This component is deprecated. Please use Amazon Bedrock Converse instead for better compatibility, newer features, and improved conversation handling.",
+      "icon": "Amazon",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "AmazonBedrockConverseModel",
+      "display_name": "Amazon Bedrock Converse",
+      "description": "Generate text using Amazon Bedrock LLMs with the modern Converse API for improved conversation handling.",
+      "icon": "Amazon",
+      "beta": true,
+      "legacy": false
+    },
+    {
+      "name": "AmazonBedrockEmbeddings",
+      "display_name": "Amazon Bedrock Embeddings",
+      "description": "Generate embeddings using Amazon Bedrock models.",
+      "icon": "Amazon",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "s3bucketuploader",
+      "display_name": "S3 Bucket Uploader",
+      "description": "Uploads files to S3 bucket.",
+      "icon": "Amazon",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "anthropic": [
+    {
+      "name": "AnthropicModel",
+      "display_name": "Anthropic",
+      "description": "Generate text using Anthropic's Messages API and models.",
+      "icon": "Anthropic",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "apify": [
+    {
+      "name": "ApifyActors",
+      "display_name": "Apify Actors",
+      "description": "Use Apify Actors to extract data from hundreds of places fast. This component can be used in a flow to retrieve data or as a tool with an agent.",
+      "icon": "Apify",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "arxiv": [
+    {
+      "name": "ArXivComponent",
+      "display_name": "arXiv",
+      "description": "Search and retrieve papers from arXiv.org",
+      "icon": "arXiv",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "assemblyai": [
+    {
+      "name": "AssemblyAIGetSubtitles",
+      "display_name": "AssemblyAI Get Subtitles",
+      "description": "Export your transcript in SRT or VTT format for subtitles and closed captions",
+      "icon": "AssemblyAI",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "AssemblyAILeMUR",
+      "display_name": "AssemblyAI LeMUR",
+      "description": "Apply Large Language Models to spoken data using the AssemblyAI LeMUR framework",
+      "icon": "AssemblyAI",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "AssemblyAIListTranscripts",
+      "display_name": "AssemblyAI List Transcripts",
+      "description": "Retrieve a list of transcripts from AssemblyAI with filtering options",
+      "icon": "AssemblyAI",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "AssemblyAITranscriptionJobPoller",
+      "display_name": "AssemblyAI Poll Transcript",
+      "description": "Poll for the status of a transcription job using AssemblyAI",
+      "icon": "AssemblyAI",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "AssemblyAITranscriptionJobCreator",
+      "display_name": "AssemblyAI Start Transcript",
+      "description": "Create a transcription job for an audio file using AssemblyAI with advanced options",
+      "icon": "AssemblyAI",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "azure": [
+    {
+      "name": "AzureOpenAIModel",
+      "display_name": "Azure OpenAI",
+      "description": "Generate text using Azure OpenAI LLMs.",
+      "icon": "Azure",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "AzureOpenAIEmbeddings",
+      "display_name": "Azure OpenAI Embeddings",
+      "description": "Generate embeddings using Azure OpenAI models.",
+      "icon": "Azure",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "baidu": [
+    {
+      "name": "BaiduQianfanChatModel",
+      "display_name": "Qianfan",
+      "description": "Generate text using Baidu Qianfan LLMs.",
+      "icon": "BaiduQianfan",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "bing": [
+    {
+      "name": "BingSearchAPI",
+      "display_name": "Bing Search API",
+      "description": "Call the Bing Search API.",
+      "icon": "Bing",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "cassandra": [
+    {
+      "name": "Cassandra",
+      "display_name": "Cassandra",
+      "description": "Cassandra Vector Store with search capabilities",
+      "icon": "Cassandra",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "CassandraChatMemory",
+      "display_name": "Cassandra Chat Memory",
+      "description": "Retrieves and store chat messages from Apache Cassandra.",
+      "icon": "Cassandra",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "CassandraGraph",
+      "display_name": "Cassandra Graph",
+      "description": "Cassandra Graph Vector Store",
+      "icon": "Cassandra",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "chroma": [
+    {
+      "name": "Chroma",
+      "display_name": "Chroma DB",
+      "description": "Chroma Vector Store with search capabilities",
+      "icon": "Chroma",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "cleanlab": [
+    {
+      "name": "CleanlabEvaluator",
+      "display_name": "Cleanlab Evaluator",
+      "description": "Evaluates any LLM response using Cleanlab and outputs trust score and explanation.",
+      "icon": "Cleanlab",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "CleanlabRAGEvaluator",
+      "display_name": "Cleanlab RAG Evaluator",
+      "description": "Evaluates context, query, and response from a RAG pipeline using Cleanlab and outputs trust metrics.",
+      "icon": "Cleanlab",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "CleanlabRemediator",
+      "display_name": "Cleanlab Remediator",
+      "description": "Remediates an untrustworthy response based on trust score from the Cleanlab Evaluator, score threshold, and message handling settings.",
+      "icon": "Cleanlab",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "clickhouse": [
+    {
+      "name": "Clickhouse",
+      "display_name": "ClickHouse",
+      "description": "ClickHouse Vector Store with search capabilities",
+      "icon": "Clickhouse",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "cloudflare": [
+    {
+      "name": "CloudflareWorkersAIEmbeddings",
+      "display_name": "Cloudflare Workers AI Embeddings",
+      "description": "Generate embeddings using Cloudflare Workers AI models.",
+      "icon": "Cloudflare",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "cohere": [
+    {
+      "name": "CohereEmbeddings",
+      "display_name": "Cohere Embeddings",
+      "description": "Generate embeddings using Cohere models.",
+      "icon": "Cohere",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "CohereModel",
+      "display_name": "Cohere Language Models",
+      "description": "Generate text using Cohere LLMs.",
+      "icon": "Cohere",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "CohereRerank",
+      "display_name": "Cohere Rerank",
+      "description": "Rerank documents using the Cohere API.",
+      "icon": "Cohere",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "cometapi": [
+    {
+      "name": "CometAPIModel",
+      "display_name": "CometAPI",
+      "description": "All AI Models in One API 500+ AI Models",
+      "icon": "CometAPI",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "composio": [
+    {
+      "name": "ComposioAgentQLAPIComponent",
+      "display_name": "AgentQL",
+      "description": "",
+      "icon": "AgentQL",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioAgiledAPIComponent",
+      "display_name": "Agiled",
+      "description": "",
+      "icon": "Agiled",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioAirtableAPIComponent",
+      "display_name": "Airtable",
+      "description": "",
+      "icon": "Airtable",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioApolloAPIComponent",
+      "display_name": "Apollo",
+      "description": "",
+      "icon": "Apollo",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioAsanaAPIComponent",
+      "display_name": "Asana",
+      "description": "",
+      "icon": "Asana",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioAttioAPIComponent",
+      "display_name": "Attio",
+      "description": "",
+      "icon": "Attio",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioBitbucketAPIComponent",
+      "display_name": "Bitbucket",
+      "description": "",
+      "icon": "Bitbucket",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioBolnaAPIComponent",
+      "display_name": "Bolna",
+      "description": "",
+      "icon": "Bolna",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioBrightdataAPIComponent",
+      "display_name": "Brightdata",
+      "description": "",
+      "icon": "Brightdata",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioCalendlyAPIComponent",
+      "display_name": "Calendly",
+      "description": "",
+      "icon": "Calendly",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioCanvaAPIComponent",
+      "display_name": "Canva",
+      "description": "",
+      "icon": "Canva",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioCanvasAPIComponent",
+      "display_name": "Canvas",
+      "description": "",
+      "icon": "Canvas",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioCodaAPIComponent",
+      "display_name": "Coda",
+      "description": "",
+      "icon": "Coda",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioAPI",
+      "display_name": "Composio Tools",
+      "description": "Use Composio toolset to run actions with your agent",
+      "icon": "Composio",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioContentfulAPIComponent",
+      "display_name": "Contentful",
+      "description": "",
+      "icon": "Contentful",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioDigicertAPIComponent",
+      "display_name": "Digicert",
+      "description": "",
+      "icon": "Digicert",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioDiscordAPIComponent",
+      "display_name": "Discord",
+      "description": "",
+      "icon": "discord",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioDropboxAPIComponent",
+      "display_name": "Dropbox",
+      "description": "",
+      "icon": "Dropbox",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioElevenLabsAPIComponent",
+      "display_name": "ElevenLabs",
+      "description": "",
+      "icon": "Elevenlabs",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioExaAPIComponent",
+      "display_name": "Exa",
+      "description": "",
+      "icon": "ExaComposio",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioFigmaAPIComponent",
+      "display_name": "Figma",
+      "description": "",
+      "icon": "Figma",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioFinageAPIComponent",
+      "display_name": "Finage",
+      "description": "",
+      "icon": "Finage",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioFirecrawlAPIComponent",
+      "display_name": "Firecrawl",
+      "description": "",
+      "icon": "Firecrawl",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioFirefliesAPIComponent",
+      "display_name": "Fireflies",
+      "description": "",
+      "icon": "Fireflies",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioFixerAPIComponent",
+      "display_name": "Fixer",
+      "description": "",
+      "icon": "Fixer",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioFlexisignAPIComponent",
+      "display_name": "Flexisign",
+      "description": "",
+      "icon": "Flexisign",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioFreshdeskAPIComponent",
+      "display_name": "Freshdesk",
+      "description": "",
+      "icon": "Freshdesk",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioGitHubAPIComponent",
+      "display_name": "GitHub",
+      "description": "",
+      "icon": "Github",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioGmailAPIComponent",
+      "display_name": "Gmail",
+      "description": "",
+      "icon": "Gmail",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioGoogleclassroomAPIComponent",
+      "display_name": "Google Classroom",
+      "description": "",
+      "icon": "Classroom",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioGoogleBigQueryAPIComponent",
+      "display_name": "GoogleBigQuery",
+      "description": "",
+      "icon": "Googlebigquery",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioGoogleCalendarAPIComponent",
+      "display_name": "GoogleCalendar",
+      "description": "",
+      "icon": "Googlecalendar",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioGoogleDocsAPIComponent",
+      "display_name": "GoogleDocs",
+      "description": "",
+      "icon": "Googledocs",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioGooglemeetAPIComponent",
+      "display_name": "GoogleMeet",
+      "description": "",
+      "icon": "Googlemeet",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioGoogleSheetsAPIComponent",
+      "display_name": "GoogleSheets",
+      "description": "",
+      "icon": "Googlesheets",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioGoogleTasksAPIComponent",
+      "display_name": "GoogleTasks",
+      "description": "",
+      "icon": "GoogleTasks",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioHeygenAPIComponent",
+      "display_name": "Heygen",
+      "description": "",
+      "icon": "Heygen",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioInstagramAPIComponent",
+      "display_name": "Instagram",
+      "description": "",
+      "icon": "Instagram",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioJiraAPIComponent",
+      "display_name": "Jira",
+      "description": "",
+      "icon": "Jira",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioJotformAPIComponent",
+      "display_name": "Jotform",
+      "description": "",
+      "icon": "Jotform",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioKlaviyoAPIComponent",
+      "display_name": "Klaviyo",
+      "description": "",
+      "icon": "Klaviyo",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioLinearAPIComponent",
+      "display_name": "Linear",
+      "description": "",
+      "icon": "Linear",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioListennotesAPIComponent",
+      "display_name": "Listennotes",
+      "description": "",
+      "icon": "Listennotes",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioMem0APIComponent",
+      "display_name": "Mem0",
+      "description": "",
+      "icon": "Mem0Composio",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioMiroAPIComponent",
+      "display_name": "Miro",
+      "description": "",
+      "icon": "Miro",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioMissiveAPIComponent",
+      "display_name": "Missive",
+      "description": "",
+      "icon": "Missive",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioNotionAPIComponent",
+      "display_name": "Notion",
+      "description": "",
+      "icon": "Notion",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioOneDriveAPIComponent",
+      "display_name": "OneDrive",
+      "description": "",
+      "icon": "One_Drive",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioOutlookAPIComponent",
+      "display_name": "Outlook",
+      "description": "",
+      "icon": "Outlook",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioPandadocAPIComponent",
+      "display_name": "Pandadoc",
+      "description": "",
+      "icon": "Pandadoc",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioPeopleDataLabsAPIComponent",
+      "display_name": "PeopleDataLabs",
+      "description": "",
+      "icon": "Peopledatalabs",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioPerplexityAIAPIComponent",
+      "display_name": "PerplexityAI",
+      "description": "",
+      "icon": "PerplexityComposio",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioRedditAPIComponent",
+      "display_name": "Reddit",
+      "description": "",
+      "icon": "Reddit",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioSerpAPIComponent",
+      "display_name": "SerpAPI",
+      "description": "",
+      "icon": "SerpSearchComposio",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioSlackAPIComponent",
+      "display_name": "Slack",
+      "description": "",
+      "icon": "SlackComposio",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioSlackbotAPIComponent",
+      "display_name": "Slackbot",
+      "description": "",
+      "icon": "SlackComposio",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioSnowflakeAPIComponent",
+      "display_name": "Snowflake",
+      "description": "",
+      "icon": "Snowflake",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioSupabaseAPIComponent",
+      "display_name": "Supabase",
+      "description": "",
+      "icon": "Supabase",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioTavilyAPIComponent",
+      "display_name": "Tavily",
+      "description": "",
+      "icon": "Tavily",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioTimelinesAIAPIComponent",
+      "display_name": "TimelinesAI",
+      "description": "",
+      "icon": "Timelinesai",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioTodoistAPIComponent",
+      "display_name": "Todoist",
+      "description": "",
+      "icon": "Todoist",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioWrikeAPIComponent",
+      "display_name": "Wrike",
+      "description": "",
+      "icon": "Wrike",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ComposioYoutubeAPIComponent",
+      "display_name": "YouTube",
+      "description": "",
+      "icon": "YouTube",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "confluence": [
+    {
+      "name": "Confluence",
+      "display_name": "Confluence",
+      "description": "Confluence wiki collaboration platform",
+      "icon": "Confluence",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "couchbase": [
+    {
+      "name": "Couchbase",
+      "display_name": "Couchbase",
+      "description": "Couchbase Vector Store with search capabilities",
+      "icon": "Couchbase",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "crewai": [
+    {
+      "name": "CrewAIAgentComponent",
+      "display_name": "CrewAI Agent",
+      "description": "Represents an agent of CrewAI.",
+      "icon": "CrewAI",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "HierarchicalCrewComponent",
+      "display_name": "Hierarchical Crew",
+      "description": "Represents a group of agents, defining how they should collaborate and the tasks they should perform.",
+      "icon": "CrewAI",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "HierarchicalTaskComponent",
+      "display_name": "Hierarchical Task",
+      "description": "Each task must have a description, an expected output and an agent responsible for execution.",
+      "icon": "CrewAI",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "SequentialCrewComponent",
+      "display_name": "Sequential Crew",
+      "description": "Represents a group of agents with tasks that are executed sequentially.",
+      "icon": "CrewAI",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "SequentialTaskComponent",
+      "display_name": "Sequential Task",
+      "description": "Each task must have a description, an expected output and an agent responsible for execution.",
+      "icon": "CrewAI",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "SequentialTaskAgentComponent",
+      "display_name": "Sequential Task Agent",
+      "description": "Creates a CrewAI Task and its associated Agent.",
+      "icon": "CrewAI",
+      "beta": false,
+      "legacy": true
+    }
+  ],
+  "cuga": [
+    {
+      "name": "Cuga",
+      "display_name": "Cuga",
+      "description": "Define the Cuga agent's instructions, then assign it a task.",
+      "icon": "bot",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "custom_component": [
+    {
+      "name": "CustomComponent",
+      "display_name": "Custom Component",
+      "description": "Use as a template to create your own component.",
+      "icon": "code",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "data_source": [
+    {
+      "name": "APIRequest",
+      "display_name": "API Request",
+      "description": "Make HTTP requests using URL or cURL commands.",
+      "icon": "Globe",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "CSVtoData",
+      "display_name": "Load CSV",
+      "description": "Load a CSV file, CSV from a file path, or a valid CSV string and convert it to a list of Data",
+      "icon": "file-spreadsheet",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "JSONtoData",
+      "display_name": "Load JSON",
+      "description": "Convert a JSON file, JSON from a file path, or a JSON string to a Data object or a list of Data objects",
+      "icon": "braces",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "MockDataGenerator",
+      "display_name": "Mock Data",
+      "description": "Generate mock data for testing and development.",
+      "icon": "database",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NewsSearch",
+      "display_name": "News Search",
+      "description": "Searches Google News via RSS. Returns clean article data.",
+      "icon": "newspaper",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "RSSReaderSimple",
+      "display_name": "RSS Reader",
+      "description": "Fetches and parses an RSS feed.",
+      "icon": "rss",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "SQLComponent",
+      "display_name": "SQL Database",
+      "description": "Executes SQL queries on SQLAlchemy-compatible databases.",
+      "icon": "database",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "URLComponent",
+      "display_name": "URL",
+      "description": "Fetch content from one or more web pages, following links recursively.",
+      "icon": "layout-template",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "UnifiedWebSearch",
+      "display_name": "Web Search",
+      "description": "Search the web, news, or RSS feeds.",
+      "icon": "search",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "datastax": [
+    {
+      "name": "Astra Assistant Agent",
+      "display_name": "Astra Assistant Agent",
+      "description": "Manages Assistant Interactions",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "AstraDB",
+      "display_name": "Astra DB",
+      "description": "Ingest and search documents in Astra DB",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "AstraDBCQLToolComponent",
+      "display_name": "Astra DB CQL",
+      "description": "Create a tool to get transactional data from DataStax Astra DB CQL Table",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "AstraDBChatMemory",
+      "display_name": "Astra DB Chat Memory",
+      "description": "Retrieves and stores chat messages from Astra DB.",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "AstraDBGraph",
+      "display_name": "Astra DB Graph",
+      "description": "Implementation of Graph Vector Store using Astra DB",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "AstraDBTool",
+      "display_name": "Astra DB Tool",
+      "description": "Tool to run hybrid vector and metadata search on DataStax Astra DB Collection",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "AstraVectorize",
+      "display_name": "Astra Vectorize",
+      "description": "Configuration options for Astra Vectorize server-side embeddings. ",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "AssistantsCreateAssistant",
+      "display_name": "Create Assistant",
+      "description": "Creates an Assistant and returns it's id",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "AssistantsCreateThread",
+      "display_name": "Create Assistant Thread",
+      "description": "Creates a thread and returns the thread id",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "Dotenv",
+      "display_name": "Dotenv",
+      "description": "Load .env file into env vars",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "AssistantsGetAssistantName",
+      "display_name": "Get Assistant name",
+      "description": "Assistant by id",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "GetEnvVar",
+      "display_name": "Get Environment Variable",
+      "description": "Gets the value of an environment variable from the system.",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "GraphRAG",
+      "display_name": "Graph RAG",
+      "description": "Graph RAG traversal for vector store.",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "HCD",
+      "display_name": "Hyper-Converged Database",
+      "description": "Implementation of Vector Store using Hyper-Converged Database (HCD) with search capabilities",
+      "icon": "HCD",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "AssistantsListAssistants",
+      "display_name": "List Assistants",
+      "description": "Returns a list of assistant id's",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "AssistantsRun",
+      "display_name": "Run Assistant",
+      "description": "Executes an Assistant Run against a thread",
+      "icon": "AstraDB",
+      "beta": false,
+      "legacy": true
+    }
+  ],
+  "deepseek": [
+    {
+      "name": "DeepSeekModelComponent",
+      "display_name": "DeepSeek",
+      "description": "Generate text using DeepSeek LLMs.",
+      "icon": "DeepSeek",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "docling": [
+    {
+      "name": "ChunkDoclingDocument",
+      "display_name": "Chunk DoclingDocument",
+      "description": "Use the DocumentDocument chunkers to split the document into chunks.",
+      "icon": "Docling",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "DoclingInline",
+      "display_name": "Docling",
+      "description": "Uses Docling to process input documents running the Docling models locally.",
+      "icon": "Docling",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "DoclingRemote",
+      "display_name": "Docling Serve",
+      "description": "Uses Docling to process input documents connecting to your instance of Docling Serve.",
+      "icon": "Docling",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ExportDoclingDocument",
+      "display_name": "Export DoclingDocument",
+      "description": "Export DoclingDocument to markdown, html or other formats.",
+      "icon": "Docling",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "duckduckgo": [
+    {
+      "name": "DuckDuckGoSearchComponent",
+      "display_name": "DuckDuckGo Search",
+      "description": "Search the web using DuckDuckGo with customizable result limits",
+      "icon": "DuckDuckGo",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "elastic": [
+    {
+      "name": "Elasticsearch",
+      "display_name": "Elasticsearch",
+      "description": "Elasticsearch Vector Store with with advanced, customizable search capabilities.",
+      "icon": "ElasticsearchStore",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "OpenSearchVectorStoreComponent",
+      "display_name": "OpenSearch",
+      "description": "Store and search documents using OpenSearch with hybrid semantic and keyword search capabilities.",
+      "icon": "OpenSearch",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "embeddings": [
+    {
+      "name": "EmbeddingSimilarityComponent",
+      "display_name": "Embedding Similarity",
+      "description": "Compute selected form of similarity between two embedding vectors.",
+      "icon": "equal",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "TextEmbedderComponent",
+      "display_name": "Text Embedder",
+      "description": "Generate embeddings for a given message using the specified embedding model.",
+      "icon": "binary",
+      "beta": false,
+      "legacy": true
+    }
+  ],
+  "exa": [
+    {
+      "name": "ExaSearch",
+      "display_name": "Exa Search",
+      "description": "Exa Search toolkit for search and content retrieval",
+      "icon": "ExaSearch",
+      "beta": true,
+      "legacy": false
+    }
+  ],
+  "files_and_knowledge": [
+    {
+      "name": "Directory",
+      "display_name": "Directory",
+      "description": "Recursively load files from a directory.",
+      "icon": "folder",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "KnowledgeIngestion",
+      "display_name": "Knowledge Ingestion",
+      "description": "Create or update knowledge in Langflow.",
+      "icon": "upload",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "KnowledgeRetrieval",
+      "display_name": "Knowledge Retrieval",
+      "description": "Search and retrieve data from knowledge.",
+      "icon": "download",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "File",
+      "display_name": "Read File",
+      "description": "Loads and returns the content from uploaded files.",
+      "icon": "file-text",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "SaveToFile",
+      "display_name": "Write File",
+      "description": "Save data to local file, AWS S3, or Google Drive in the selected format.",
+      "icon": "file-text",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "firecrawl": [
+    {
+      "name": "FirecrawlCrawlApi",
+      "display_name": "Firecrawl Crawl API",
+      "description": "Crawls a URL and returns the results.",
+      "icon": "",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "FirecrawlExtractApi",
+      "display_name": "Firecrawl Extract API",
+      "description": "Extracts data from a URL.",
+      "icon": "",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "FirecrawlMapApi",
+      "display_name": "Firecrawl Map API",
+      "description": "Maps a URL and returns the results.",
+      "icon": "",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "FirecrawlScrapeApi",
+      "display_name": "Firecrawl Scrape API",
+      "description": "Scrapes a URL and returns the results.",
+      "icon": "",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "flow_controls": [
+    {
+      "name": "DataConditionalRouter",
+      "display_name": "Condition",
+      "description": "Route Data object(s) based on a condition applied to a specified key, including boolean validation.",
+      "icon": "split",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "FlowTool",
+      "display_name": "Flow as Tool",
+      "description": "Construct a Tool from a function that runs the loaded Flow.",
+      "icon": "hammer",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "ConditionalRouter",
+      "display_name": "If-Else",
+      "description": "Routes an input message to a corresponding output based on text comparison.",
+      "icon": "split",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "Listen",
+      "display_name": "Listen",
+      "description": "A component to listen for a notification.",
+      "icon": "Radio",
+      "beta": true,
+      "legacy": false
+    },
+    {
+      "name": "LoopComponent",
+      "display_name": "Loop",
+      "description": "Iterates over a list of Data or Message objects, outputting one item at a time and aggregating results from loop inputs. Message objects are automatically converted to Data objects for consistent processing.",
+      "icon": "infinity",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "Notify",
+      "display_name": "Notify",
+      "description": "A component to generate a notification to Get Notified component.",
+      "icon": "Notify",
+      "beta": true,
+      "legacy": false
+    },
+    {
+      "name": "Pass",
+      "display_name": "Pass",
+      "description": "Forwards the input message, unchanged.",
+      "icon": "arrow-right",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "RunFlow",
+      "display_name": "Run Flow",
+      "description": "Executes another flow from within the same project. Can also be used as a tool for agents. \n **Select a Flow to use the tool mode**",
+      "icon": "Workflow",
+      "beta": true,
+      "legacy": false
+    },
+    {
+      "name": "SubFlow",
+      "display_name": "Sub Flow",
+      "description": "Generates a Component from a Flow, with all of its inputs, and ",
+      "icon": "Workflow",
+      "beta": false,
+      "legacy": true
+    }
+  ],
+  "git": [
+    {
+      "name": "GitLoaderComponent",
+      "display_name": "Git",
+      "description": "Load and filter documents from a local or remote Git repository. Use a local repo path or clone from a remote URL.",
+      "icon": "GitLoader",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "GitExtractorComponent",
+      "display_name": "GitExtractor",
+      "description": "Analyzes a Git repository and returns file contents and complete repository information",
+      "icon": "GitLoader",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "glean": [
+    {
+      "name": "GleanSearchAPIComponent",
+      "display_name": "Glean Search API",
+      "description": "Search using Glean's API.",
+      "icon": "Glean",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "google": [
+    {
+      "name": "BigQueryExecutor",
+      "display_name": "BigQuery",
+      "description": "Execute SQL queries on Google BigQuery.",
+      "icon": "Google",
+      "beta": true,
+      "legacy": false
+    },
+    {
+      "name": "GmailLoaderComponent",
+      "display_name": "Gmail Loader",
+      "description": "Loads emails from Gmail using provided credentials.",
+      "icon": "Google",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "GoogleDriveComponent",
+      "display_name": "Google Drive Loader",
+      "description": "Loads documents from Google Drive using provided credentials.",
+      "icon": "Google",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "GoogleDriveSearchComponent",
+      "display_name": "Google Drive Search",
+      "description": "Searches Google Drive files using provided credentials and query parameters.",
+      "icon": "Google",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "GoogleGenerativeAIModel",
+      "display_name": "Google Generative AI",
+      "description": "Generate text using Google Generative AI.",
+      "icon": "GoogleGenerativeAI",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "Google Generative AI Embeddings",
+      "display_name": "Google Generative AI Embeddings",
+      "description": "Connect to Google's generative AI embeddings service using the GoogleGenerativeAIEmbeddings class, found in the langchain-google-genai package.",
+      "icon": "GoogleGenerativeAI",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "GoogleOAuthToken",
+      "display_name": "Google OAuth Token",
+      "description": "Generates a JSON string with your Google OAuth token.",
+      "icon": "Google",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "GoogleSearchAPICore",
+      "display_name": "Google Search API",
+      "description": "Call Google Search API and return results as a DataFrame.",
+      "icon": "Google",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "GoogleSerperAPICore",
+      "display_name": "Google Serper API",
+      "description": "Call the Serper.dev Google Search API.",
+      "icon": "Serper",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "groq": [
+    {
+      "name": "GroqModel",
+      "display_name": "Groq",
+      "description": "Generate text using Groq.",
+      "icon": "Groq",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "homeassistant": [
+    {
+      "name": "HomeAssistantControl",
+      "display_name": "Home Assistant Control",
+      "description": "A very simple tool to control Home Assistant devices. Only action (turn_on, turn_off, toggle) and entity_id need to be provided.",
+      "icon": "HomeAssistant",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ListHomeAssistantStates",
+      "display_name": "List Home Assistant States",
+      "description": "Retrieve states from Home Assistant. The agent only needs to specify 'filter_domain' (optional). Token and base_url are not exposed to the agent.",
+      "icon": "HomeAssistant",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "huggingface": [
+    {
+      "name": "HuggingFaceModel",
+      "display_name": "Hugging Face",
+      "description": "Generate text using Hugging Face Inference APIs.",
+      "icon": "HuggingFace",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "HuggingFaceInferenceAPIEmbeddings",
+      "display_name": "Hugging Face Embeddings Inference",
+      "description": "Generate embeddings using Hugging Face Text Embeddings Inference (TEI)",
+      "icon": "HuggingFace",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "ibm": [
+    {
+      "name": "IBMwatsonxModel",
+      "display_name": "IBM watsonx.ai",
+      "description": "Generate text using IBM watsonx.ai foundation models.",
+      "icon": "WatsonxAI",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "WatsonxEmbeddingsComponent",
+      "display_name": "IBM watsonx.ai Embeddings",
+      "description": "Generate embeddings using IBM watsonx.ai models.",
+      "icon": "WatsonxAI",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "icosacomputing": [
+    {
+      "name": "Combinatorial Reasoner",
+      "display_name": "Combinatorial Reasoner",
+      "description": "Uses Combinatorial Optimization to construct an optimal prompt with embedded reasons. Sign up here:\nhttps://forms.gle/oWNv2NKjBNaqqvCx6",
+      "icon": "Icosa",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "input_output": [
+    {
+      "name": "ChatInput",
+      "display_name": "Chat Input",
+      "description": "Get chat inputs from the Playground.",
+      "icon": "MessagesSquare",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ChatOutput",
+      "display_name": "Chat Output",
+      "description": "Display a chat message in the Playground.",
+      "icon": "MessagesSquare",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "TextInput",
+      "display_name": "Text Input",
+      "description": "Get user text inputs.",
+      "icon": "type",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "TextOutput",
+      "display_name": "Text Output",
+      "description": "Sends text output via API.",
+      "icon": "type",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "Webhook",
+      "display_name": "Webhook",
+      "description": "",
+      "icon": "webhook",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "jigsawstack": [
+    {
+      "name": "JigsawStackAIScraper",
+      "display_name": "AI Scraper",
+      "description": "Scrape any website instantly and get consistent structured data         in seconds without writing any css selector code",
+      "icon": "JigsawStack",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "JigsawStackAISearch",
+      "display_name": "AI Web Search",
+      "description": "Effortlessly search the Web and get access to high-quality results powered with AI.",
+      "icon": "JigsawStack",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "JigsawStackFileRead",
+      "display_name": "File Read",
+      "description": "Read any previously uploaded file seamlessly from         JigsawStack File Storage and use it in your AI applications.",
+      "icon": "JigsawStack",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "JigsawStackFileUpload",
+      "display_name": "File Upload",
+      "description": "Store any file seamlessly on JigsawStack File Storage and use it in your AI applications.         Supports various file types including images, documents, and more.",
+      "icon": "JigsawStack",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "JigsawStackImageGeneration",
+      "display_name": "Image Generation",
+      "description": "Generate an image based on the given text by employing AI models like Flux,         Stable Diffusion, and other top models.",
+      "icon": "JigsawStack",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "JigsawStackNSFW",
+      "display_name": "NSFW Detection",
+      "description": "Detect if image/video contains NSFW content",
+      "icon": "JigsawStack",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "JigsawStackObjectDetection",
+      "display_name": "Object Detection",
+      "description": "Perform object detection on images using JigsawStack's Object Detection Model,         capable of image grounding, segmentation and computer use.",
+      "icon": "JigsawStack",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "JigsawStackSentiment",
+      "display_name": "Sentiment Analysis",
+      "description": "Analyze sentiment of text using JigsawStack AI",
+      "icon": "JigsawStack",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "JigsawStackTextTranslate",
+      "display_name": "Text Translate",
+      "description": "Translate text from one language to another with support for multiple text formats.",
+      "icon": "JigsawStack",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "JigsawStackTextToSQL",
+      "display_name": "Text to SQL",
+      "description": "Convert natural language to SQL queries using JigsawStack AI",
+      "icon": "JigsawStack",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "JigsawStackVOCR",
+      "display_name": "VOCR",
+      "description": "Extract data from any document type in a consistent structure with fine-tuned         vLLMs for the highest accuracy",
+      "icon": "JigsawStack",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "langchain_utilities": [
+    {
+      "name": "CSVAgent",
+      "display_name": "CSV Agent",
+      "description": "Construct a CSV agent from a CSV and tools.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "CharacterTextSplitter",
+      "display_name": "Character Text Splitter",
+      "description": "Split text by number of characters.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ConversationChain",
+      "display_name": "ConversationChain",
+      "description": "Chain to have a conversation and load context from memory.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "LangChainFakeEmbeddings",
+      "display_name": "Fake Embeddings",
+      "description": "Generate fake embeddings, useful for initial testing and connecting components.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "HtmlLinkExtractor",
+      "display_name": "HTML Link Extractor",
+      "description": "Extract hyperlinks from HTML content.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "JsonAgent",
+      "display_name": "JsonAgent",
+      "description": "Construct a json agent from an LLM and tools.",
+      "icon": "",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "LLMCheckerChain",
+      "display_name": "LLMCheckerChain",
+      "description": "Chain for question-answering with self-verification.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "LLMMathChain",
+      "display_name": "LLMMathChain",
+      "description": "Chain that interprets a prompt and executes python code to do math.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "LanguageRecursiveTextSplitter",
+      "display_name": "Language Recursive Text Splitter",
+      "description": "Split text into chunks of a specified length based on language.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NaturalLanguageTextSplitter",
+      "display_name": "Natural Language Text Splitter",
+      "description": "Split text based on natural language boundaries, optimized for a specified language.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "SQLGenerator",
+      "display_name": "Natural Language to SQL",
+      "description": "Generate SQL from natural language.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "OpenAIToolsAgent",
+      "display_name": "OpenAI Tools Agent",
+      "description": "Agent that uses tools via openai-tools.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "OpenAPIAgent",
+      "display_name": "OpenAPI Agent",
+      "description": "Agent to interact with OpenAPI API.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "LangChain Hub Prompt",
+      "display_name": "Prompt Hub",
+      "description": "Prompt Component that uses LangChain Hub prompts",
+      "icon": "LangChain",
+      "beta": true,
+      "legacy": false
+    },
+    {
+      "name": "RecursiveCharacterTextSplitter",
+      "display_name": "Recursive Character Text Splitter",
+      "description": "Split text trying to keep all related text together.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "RetrievalQA",
+      "display_name": "Retrieval QA",
+      "description": "Chain for question-answering querying sources from a retriever.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "RunnableExecutor",
+      "display_name": "Runnable Executor",
+      "description": "Execute a runnable. It will try to guess the input and output keys.",
+      "icon": "LangChain",
+      "beta": true,
+      "legacy": false
+    },
+    {
+      "name": "SQLAgent",
+      "display_name": "SQLAgent",
+      "description": "Construct an SQL agent from an LLM and tools.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "SQLDatabase",
+      "display_name": "SQLDatabase",
+      "description": "SQL Database",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "SelfQueryRetriever",
+      "display_name": "Self Query Retriever",
+      "description": "Retriever that uses a vector store and an LLM to generate the vector store queries.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "SemanticTextSplitter",
+      "display_name": "Semantic Text Splitter",
+      "description": "Split text into semantically meaningful chunks using semantic similarity.",
+      "icon": "LangChain",
+      "beta": true,
+      "legacy": false
+    },
+    {
+      "name": "SpiderTool",
+      "display_name": "Spider Web Crawler & Scraper",
+      "description": "Spider API for web crawling and scraping.",
+      "icon": "",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ToolCallingAgent",
+      "display_name": "Tool Calling Agent",
+      "description": "An agent designed to utilize various tools seamlessly within workflows.",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "VectorStoreInfo",
+      "display_name": "VectorStoreInfo",
+      "description": "Information about a VectorStore",
+      "icon": "LangChain",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "VectorStoreRouterAgent",
+      "display_name": "VectorStoreRouterAgent",
+      "description": "Construct an agent from a Vector Store Router.",
+      "icon": "",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "XMLAgent",
+      "display_name": "XML Agent",
+      "description": "Agent that uses tools formatting instructions as xml to the Language Model.",
+      "icon": "LangChain",
+      "beta": true,
+      "legacy": false
+    }
+  ],
+  "langwatch": [
+    {
+      "name": "LangWatchEvaluator",
+      "display_name": "LangWatch Evaluator",
+      "description": "Evaluates various aspects of language models using LangWatch's evaluation endpoints.",
+      "icon": "Langwatch",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "llm_operations": [
+    {
+      "name": "BatchRunComponent",
+      "display_name": "Batch Run",
+      "description": "Runs an LLM on each row of a DataFrame column. If no column is specified, all columns are used.",
+      "icon": "List",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "LLMSelectorComponent",
+      "display_name": "LLM Selector",
+      "description": "Routes the input to the most appropriate LLM based on OpenRouter model specifications",
+      "icon": "git-branch",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "SmartRouter",
+      "display_name": "Smart Router",
+      "description": "Routes an input message using LLM-based categorization.",
+      "icon": "route",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "Smart Transform",
+      "display_name": "Smart Transform",
+      "description": "Uses an LLM to generate a function for filtering or transforming structured data.",
+      "icon": "square-function",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "StructuredOutput",
+      "display_name": "Structured Output",
+      "description": "Uses an LLM to generate structured data. Ideal for extraction and consistency.",
+      "icon": "braces",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "lmstudio": [
+    {
+      "name": "LMStudioModel",
+      "display_name": "LM Studio",
+      "description": "Generate text using LM Studio Local LLMs.",
+      "icon": "LMStudio",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "LMStudioEmbeddingsComponent",
+      "display_name": "LM Studio Embeddings",
+      "description": "Generate embeddings using LM Studio.",
+      "icon": "LMStudio",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "maritalk": [
+    {
+      "name": "Maritalk",
+      "display_name": "MariTalk",
+      "description": "Generates text using MariTalk LLMs.",
+      "icon": "Maritalk",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "mem0": [
+    {
+      "name": "mem0_chat_memory",
+      "display_name": "Mem0 Chat Memory",
+      "description": "Retrieves and stores chat messages using Mem0 memory storage.",
+      "icon": "Mem0",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "milvus": [
+    {
+      "name": "Milvus",
+      "display_name": "Milvus",
+      "description": "Milvus vector store with search capabilities",
+      "icon": "Milvus",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "mistral": [
+    {
+      "name": "MistralModel",
+      "display_name": "MistralAI",
+      "description": "Generates text using MistralAI LLMs.",
+      "icon": "MistralAI",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "MistalAIEmbeddings",
+      "display_name": "MistralAI Embeddings",
+      "description": "Generate embeddings using MistralAI models.",
+      "icon": "MistralAI",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "models_and_agents": [
+    {
+      "name": "Agent",
+      "display_name": "Agent",
+      "description": "Define the agent's instructions, then enter a task to complete using tools.",
+      "icon": "bot",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "EmbeddingModel",
+      "display_name": "Embedding Model",
+      "description": "Generate embeddings using a specified provider.",
+      "icon": "binary",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "LanguageModelComponent",
+      "display_name": "Language Model",
+      "description": "Runs a language model given a specified provider.",
+      "icon": "brain-circuit",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "MCPTools",
+      "display_name": "MCP Tools",
+      "description": "Connect to an MCP server to use its tools.",
+      "icon": "Mcp",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "Memory",
+      "display_name": "Message History",
+      "description": "Stores or retrieves stored chat messages from Langflow tables or an external memory.",
+      "icon": "message-square-more",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "Prompt Template",
+      "display_name": "Prompt Template",
+      "description": "Create a prompt template with dynamic variables.",
+      "icon": "braces",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "mongodb": [
+    {
+      "name": "MongoDBAtlasVector",
+      "display_name": "MongoDB Atlas",
+      "description": "MongoDB Atlas Vector Store with search capabilities",
+      "icon": "MongoDB",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "needle": [
+    {
+      "name": "needle",
+      "display_name": "Needle Retriever",
+      "description": "A retriever that uses the Needle API to search collections.",
+      "icon": "Needle",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "notdiamond": [
+    {
+      "name": "NotDiamond",
+      "display_name": "Not Diamond Router",
+      "description": "Call the right model at the right time with the world's most powerful AI model router.",
+      "icon": "NotDiamond",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "novita": [
+    {
+      "name": "NovitaModel",
+      "display_name": "Novita AI",
+      "description": "Generates text using Novita AI LLMs (OpenAI compatible).",
+      "icon": "Novita",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "nvidia": [
+    {
+      "name": "NVIDIAModelComponent",
+      "display_name": "NVIDIA",
+      "description": "Generates text using NVIDIA LLMs.",
+      "icon": "NVIDIA",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NVIDIAEmbeddingsComponent",
+      "display_name": "NVIDIA Embeddings",
+      "description": "Generate embeddings using NVIDIA models.",
+      "icon": "NVIDIA",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NvidiaRerankComponent",
+      "display_name": "NVIDIA Rerank",
+      "description": "Rerank documents using the NVIDIA API.",
+      "icon": "NVIDIA",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "NvidiaIngestComponent",
+      "display_name": "NVIDIA Retriever Extraction",
+      "description": "Multi-modal data extraction from documents using NVIDIA's NeMo API.",
+      "icon": "NVIDIA",
+      "beta": true,
+      "legacy": false
+    },
+    {
+      "name": "NvidiaSystemAssistComponent",
+      "display_name": "NVIDIA System-Assist",
+      "description": "(Windows only) Prompts NVIDIA System-Assist to interact with the NVIDIA GPU Driver. The user may query GPU specifications, state, and ask the NV-API to perform several GPU-editing acations. The prompt must be human-readable language.",
+      "icon": "NVIDIA",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "olivya": [
+    {
+      "name": "OlivyaComponent",
+      "display_name": "Place Call",
+      "description": "A component to create an outbound call request from Olivya's platform.",
+      "icon": "Olivya",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "ollama": [
+    {
+      "name": "OllamaModel",
+      "display_name": "Ollama",
+      "description": "Generate text using Ollama Local LLMs.",
+      "icon": "Ollama",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "OllamaEmbeddings",
+      "display_name": "Ollama Embeddings",
+      "description": "Generate embeddings using Ollama models.",
+      "icon": "Ollama",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "openai": [
+    {
+      "name": "OpenAIModel",
+      "display_name": "OpenAI",
+      "description": "Generates text using OpenAI LLMs.",
+      "icon": "OpenAI",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "OpenAIEmbeddings",
+      "display_name": "OpenAI Embeddings",
+      "description": "Generate embeddings using OpenAI models.",
+      "icon": "OpenAI",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "openrouter": [
+    {
+      "name": "OpenRouterComponent",
+      "display_name": "OpenRouter",
+      "description": "OpenRouter provides unified access to multiple AI models from different providers through a single API.",
+      "icon": "OpenRouter",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "perplexity": [
+    {
+      "name": "PerplexityModel",
+      "display_name": "Perplexity",
+      "description": "Generate text using Perplexity LLMs.",
+      "icon": "Perplexity",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "pgvector": [
+    {
+      "name": "pgvector",
+      "display_name": "PGVector",
+      "description": "PGVector Vector Store with search capabilities",
+      "icon": "cpu",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "pinecone": [
+    {
+      "name": "Pinecone",
+      "display_name": "Pinecone",
+      "description": "Pinecone Vector Store with search capabilities",
+      "icon": "Pinecone",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "processing": [
+    {
+      "name": "AlterMetadata",
+      "display_name": "Alter Metadata",
+      "description": "Adds/Removes Metadata Dictionary on inputs",
+      "icon": "merge",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "MergeDataComponent",
+      "display_name": "Combine Data",
+      "description": "Combines data using different operations",
+      "icon": "merge",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "CombineText",
+      "display_name": "Combine Text",
+      "description": "Concatenate two text sources into a single text chunk using a specified delimiter.",
+      "icon": "merge",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "CreateData",
+      "display_name": "Create Data",
+      "description": "Dynamically create a Data with a specified number of fields.",
+      "icon": "ListFilter",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "CreateList",
+      "display_name": "Create List",
+      "description": "Creates a list of texts.",
+      "icon": "list",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "DataOperations",
+      "display_name": "Data Operations",
+      "description": "Perform various operations on a Data object.",
+      "icon": "file-json",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ParseData",
+      "display_name": "Data to Message",
+      "description": "Convert Data objects into Messages using any {field_name} from input data.",
+      "icon": "message-square",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "DataToDataFrame",
+      "display_name": "Data \u2192 DataFrame",
+      "description": "Converts one or multiple Data objects into a DataFrame. Each Data object corresponds to one row. Fields from `.data` become columns, and the `.text` (if present) is placed in a 'text' column.",
+      "icon": "table",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "DataFrameOperations",
+      "display_name": "DataFrame Operations",
+      "description": "Perform various operations on a DataFrame.",
+      "icon": "table",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "DynamicCreateData",
+      "display_name": "Dynamic Create Data",
+      "description": "Dynamically create a Data with a specified number of fields.",
+      "icon": "ListFilter",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ExtractaKey",
+      "display_name": "Extract Key",
+      "description": "Extract a specific key from a Data object or a list of Data objects and return the extracted value(s) as Data object(s).",
+      "icon": "key",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "FilterData",
+      "display_name": "Filter Data",
+      "description": "Filters a Data object based on a list of keys.",
+      "icon": "filter",
+      "beta": true,
+      "legacy": true
+    },
+    {
+      "name": "FilterDataValues",
+      "display_name": "Filter Values",
+      "description": "Filter a list of data items based on a specified key, filter value, and comparison operator. Check advanced options to select match comparision.",
+      "icon": "filter",
+      "beta": true,
+      "legacy": true
+    },
+    {
+      "name": "JSONCleaner",
+      "display_name": "JSON Cleaner",
+      "description": "Cleans the messy and sometimes incorrect JSON strings produced by LLMs so that they are fully compliant with the JSON spec.",
+      "icon": "braces",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "StoreMessage",
+      "display_name": "Message Store",
+      "description": "Stores a chat message or text into Langflow tables or an external memory.",
+      "icon": "message-square-text",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "MessagetoData",
+      "display_name": "Message to Data",
+      "description": "Convert a Message object to a Data object",
+      "icon": "message-square-share",
+      "beta": true,
+      "legacy": true
+    },
+    {
+      "name": "OutputParser",
+      "display_name": "Output Parser",
+      "description": "Transforms the output of an LLM into a specified format.",
+      "icon": "type",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "ParseDataFrame",
+      "display_name": "Parse DataFrame",
+      "description": "Convert a DataFrame into plain text following a specified template. Each column in the DataFrame is treated as a possible template key, e.g. {col_name}.",
+      "icon": "braces",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "ParseJSONData",
+      "display_name": "Parse JSON",
+      "description": "Convert and extract JSON fields.",
+      "icon": "braces",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "ParserComponent",
+      "display_name": "Parser",
+      "description": "Extracts text using a template.",
+      "icon": "braces",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "RegexExtractorComponent",
+      "display_name": "Regex Extractor",
+      "description": "Extract patterns from text using regular expressions.",
+      "icon": "regex",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "SelectData",
+      "display_name": "Select Data",
+      "description": "Select a single data from a list of data.",
+      "icon": "prototypes",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "SplitText",
+      "display_name": "Split Text",
+      "description": "Split text into chunks based on specified criteria.",
+      "icon": "scissors-line-dashed",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "TypeConverterComponent",
+      "display_name": "Type Convert",
+      "description": "Convert between different types (Message, Data, DataFrame)",
+      "icon": "repeat",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "UpdateData",
+      "display_name": "Update Data",
+      "description": "Dynamically update or append data with the specified fields.",
+      "icon": "FolderSync",
+      "beta": false,
+      "legacy": true
+    }
+  ],
+  "prototypes": [
+    {
+      "name": "PythonFunction",
+      "display_name": "Python Function",
+      "description": "Define and execute a Python function that returns a Data object or a Message.",
+      "icon": "Python",
+      "beta": false,
+      "legacy": true
+    }
+  ],
+  "qdrant": [
+    {
+      "name": "QdrantVectorStoreComponent",
+      "display_name": "Qdrant",
+      "description": "Qdrant Vector Store with search capabilities",
+      "icon": "Qdrant",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "redis": [
+    {
+      "name": "Redis",
+      "display_name": "Redis",
+      "description": "Implementation of Vector Store using Redis",
+      "icon": "Redis",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "RedisChatMemory",
+      "display_name": "Redis Chat Memory",
+      "description": "Retrieves and store chat messages from Redis.",
+      "icon": "Redis",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "sambanova": [
+    {
+      "name": "SambaNovaModel",
+      "display_name": "SambaNova",
+      "description": "Generate text using Sambanova LLMs.",
+      "icon": "SambaNova",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "scrapegraph": [
+    {
+      "name": "ScrapeGraphMarkdownifyApi",
+      "display_name": "ScrapeGraph Markdownify API",
+      "description": "Given a URL, it will return the markdownified content of the website.",
+      "icon": "",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ScrapeGraphSearchApi",
+      "display_name": "ScrapeGraph Search API",
+      "description": "Given a search prompt, it will return search results using ScrapeGraph's search functionality.",
+      "icon": "ScrapeGraph",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "ScrapeGraphSmartScraperApi",
+      "display_name": "ScrapeGraph Smart Scraper API",
+      "description": "Given a URL, it will return the structured data of the website.",
+      "icon": "",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "searchapi": [
+    {
+      "name": "SearchComponent",
+      "display_name": "SearchApi",
+      "description": "Calls the SearchApi API with result limiting. Supports Google, Bing and DuckDuckGo.",
+      "icon": "SearchAPI",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "serpapi": [
+    {
+      "name": "Serp",
+      "display_name": "Serp Search API",
+      "description": "Call Serp Search API with result limiting",
+      "icon": "SerpSearch",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "supabase": [
+    {
+      "name": "SupabaseVectorStore",
+      "display_name": "Supabase",
+      "description": "Supabase Vector Store with search capabilities",
+      "icon": "Supabase",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "tavily": [
+    {
+      "name": "TavilyExtractComponent",
+      "display_name": "Tavily Extract API",
+      "description": "**Tavily Extract** extract raw content from URLs.",
+      "icon": "TavilyIcon",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "TavilySearchComponent",
+      "display_name": "Tavily Search API",
+      "description": "**Tavily Search** is a search engine optimized for LLMs and RAG,         aimed at efficient, quick, and persistent search results.",
+      "icon": "TavilyIcon",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "tools": [
+    {
+      "name": "CalculatorTool",
+      "display_name": "Calculator",
+      "description": "Perform basic arithmetic operations on a given expression.",
+      "icon": "calculator",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "GoogleSearchAPI",
+      "display_name": "Google Search API [DEPRECATED]",
+      "description": "Call Google Search API.",
+      "icon": "Google",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "GoogleSerperAPI",
+      "display_name": "Google Serper API [DEPRECATED]",
+      "description": "Call the Serper.dev Google Search API.",
+      "icon": "Google",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "PythonCodeStructuredTool",
+      "display_name": "Python Code Structured",
+      "description": "structuredtool dataclass code to tool",
+      "icon": "Python",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "PythonREPLTool",
+      "display_name": "Python REPL",
+      "description": "A tool for running Python code in a REPL environment.",
+      "icon": "Python",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "SearXNGTool",
+      "display_name": "SearXNG Search",
+      "description": "A component that searches for tools using SearXNG.",
+      "icon": "",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "SearchAPI",
+      "display_name": "Search API",
+      "description": "Call the searchapi.io API with result limiting",
+      "icon": "SearchAPI",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "SerpAPI",
+      "display_name": "Serp Search API",
+      "description": "Call Serp Search API with result limiting",
+      "icon": "SerpSearch",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "TavilyAISearch",
+      "display_name": "Tavily Search API",
+      "description": "**Tavily Search API** is a search engine optimized for LLMs and RAG,         aimed at efficient, quick, and persistent search results. It can be used independently or as an agent tool.\n\nNote: Check 'Advanced' for all options.\n",
+      "icon": "TavilyIcon",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "WikidataAPI",
+      "display_name": "Wikidata API",
+      "description": "Performs a search using the Wikidata API.",
+      "icon": "Wikipedia",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "WikipediaAPI",
+      "display_name": "Wikipedia API",
+      "description": "Call Wikipedia API.",
+      "icon": "Wikipedia",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "YahooFinanceTool",
+      "display_name": "Yahoo! Finance",
+      "description": "Uses [yfinance](https://pypi.org/project/yfinance/) (unofficial package) to access financial data and market information from Yahoo! Finance.",
+      "icon": "trending-up",
+      "beta": false,
+      "legacy": true
+    }
+  ],
+  "twelvelabs": [
+    {
+      "name": "ConvertAstraToTwelveLabs",
+      "display_name": "Convert Astra DB to Pegasus Input",
+      "description": "Converts Astra DB search results to inputs compatible with TwelveLabs Pegasus.",
+      "icon": "TwelveLabs",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "SplitVideo",
+      "display_name": "Split Video",
+      "description": "Split a video into multiple clips of specified duration.",
+      "icon": "TwelveLabs",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "TwelveLabsPegasus",
+      "display_name": "TwelveLabs Pegasus",
+      "description": "Chat with videos using TwelveLabs Pegasus API.",
+      "icon": "TwelveLabs",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "TwelveLabsPegasusIndexVideo",
+      "display_name": "TwelveLabs Pegasus Index Video",
+      "description": "Index videos using TwelveLabs and add the video_id to metadata.",
+      "icon": "TwelveLabs",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "TwelveLabsTextEmbeddings",
+      "display_name": "TwelveLabs Text Embeddings",
+      "description": "Generate embeddings using TwelveLabs text embedding models.",
+      "icon": "TwelveLabs",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "TwelveLabsVideoEmbeddings",
+      "display_name": "TwelveLabs Video Embeddings",
+      "description": "Generate embeddings from videos using TwelveLabs video embedding models.",
+      "icon": "TwelveLabs",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "VideoFile",
+      "display_name": "Video File",
+      "description": "Load a video file in common video formats.",
+      "icon": "TwelveLabs",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "unstructured": [
+    {
+      "name": "Unstructured",
+      "display_name": "Unstructured API",
+      "description": "Uses Unstructured.io API to extract clean text from raw source documents. Supports a wide range of file types.",
+      "icon": "Unstructured",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "upstash": [
+    {
+      "name": "Upstash",
+      "display_name": "Upstash",
+      "description": "Upstash Vector Store with search capabilities",
+      "icon": "Upstash",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "utilities": [
+    {
+      "name": "CalculatorComponent",
+      "display_name": "Calculator",
+      "description": "Perform basic arithmetic operations on a given expression.",
+      "icon": "calculator",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "CurrentDate",
+      "display_name": "Current Date",
+      "description": "Returns the current date and time in the selected timezone.",
+      "icon": "clock",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "IDGenerator",
+      "display_name": "ID Generator",
+      "description": "Generates a unique ID.",
+      "icon": "fingerprint",
+      "beta": false,
+      "legacy": true
+    },
+    {
+      "name": "PythonREPLComponent",
+      "display_name": "Python Interpreter",
+      "description": "Run Python code with optional imports. Use print() to see the output.",
+      "icon": "square-terminal",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "vectara": [
+    {
+      "name": "Vectara",
+      "display_name": "Vectara",
+      "description": "Vectara Vector Store with search capabilities",
+      "icon": "Vectara",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "VectaraRAG",
+      "display_name": "Vectara RAG",
+      "description": "Vectara's full end to end RAG",
+      "icon": "Vectara",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "vectorstores": [
+    {
+      "name": "LocalDB",
+      "display_name": "Local DB",
+      "description": "Local Vector Store with search capabilities",
+      "icon": "database",
+      "beta": false,
+      "legacy": true
+    }
+  ],
+  "vertexai": [
+    {
+      "name": "VertexAiModel",
+      "display_name": "Vertex AI",
+      "description": "Generate text using Vertex AI LLMs.",
+      "icon": "VertexAI",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "VertexAIEmbeddings",
+      "display_name": "Vertex AI Embeddings",
+      "description": "Generate embeddings using Google Cloud Vertex AI models.",
+      "icon": "VertexAI",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "vlmrun": [
+    {
+      "name": "VLMRunTranscription",
+      "display_name": "VLM Run Transcription",
+      "description": "Extract structured data from audio and video using [VLM Run AI](https://app.vlm.run)",
+      "icon": "VLMRun",
+      "beta": true,
+      "legacy": false
+    }
+  ],
+  "weaviate": [
+    {
+      "name": "Weaviate",
+      "display_name": "Weaviate",
+      "description": "Weaviate Vector Store with search capabilities",
+      "icon": "Weaviate",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "wikipedia": [
+    {
+      "name": "WikidataComponent",
+      "display_name": "Wikidata",
+      "description": "Performs a search using the Wikidata API.",
+      "icon": "Wikipedia",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "WikipediaComponent",
+      "display_name": "Wikipedia",
+      "description": "Call Wikipedia API.",
+      "icon": "Wikipedia",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "wolframalpha": [
+    {
+      "name": "WolframAlphaAPI",
+      "display_name": "WolframAlpha API",
+      "description": "Enables queries to WolframAlpha for computational data, facts, and calculations across various topics, delivering structured responses.",
+      "icon": "WolframAlphaAPI",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "xai": [
+    {
+      "name": "xAIModel",
+      "display_name": "xAI",
+      "description": "Generates text using xAI models like Grok.",
+      "icon": "xAI",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "yahoosearch": [
+    {
+      "name": "YfinanceComponent",
+      "display_name": "Yahoo! Finance",
+      "description": "Uses [yfinance](https://pypi.org/project/yfinance/) (unofficial package) to access financial data and market information from Yahoo! Finance.",
+      "icon": "trending-up",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "youtube": [
+    {
+      "name": "YouTubeChannelComponent",
+      "display_name": "YouTube Channel",
+      "description": "Retrieves detailed information and statistics about YouTube channels as a DataFrame.",
+      "icon": "YouTube",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "YouTubeCommentsComponent",
+      "display_name": "YouTube Comments",
+      "description": "Retrieves and analyzes comments from YouTube videos.",
+      "icon": "YouTube",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "YouTubePlaylistComponent",
+      "display_name": "YouTube Playlist",
+      "description": "Extracts all video URLs from a YouTube playlist.",
+      "icon": "YouTube",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "YouTubeSearchComponent",
+      "display_name": "YouTube Search",
+      "description": "Searches YouTube videos based on query.",
+      "icon": "YouTube",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "YouTubeTranscripts",
+      "display_name": "YouTube Transcripts",
+      "description": "Extracts spoken content from YouTube videos with multiple output options.",
+      "icon": "YouTube",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "YouTubeTrendingComponent",
+      "display_name": "YouTube Trending",
+      "description": "Retrieves trending videos from YouTube with filtering options.",
+      "icon": "YouTube",
+      "beta": false,
+      "legacy": false
+    },
+    {
+      "name": "YouTubeVideoDetailsComponent",
+      "display_name": "YouTube Video Details",
+      "description": "Retrieves detailed information and statistics about YouTube videos.",
+      "icon": "YouTube",
+      "beta": false,
+      "legacy": false
+    }
+  ],
+  "zep": [
+    {
+      "name": "ZepChatMemory",
+      "display_name": "Zep Chat Memory",
+      "description": "Retrieves and store chat messages from Zep.",
+      "icon": "ZepMemory",
+      "beta": false,
+      "legacy": true
+    }
+  ]
+}

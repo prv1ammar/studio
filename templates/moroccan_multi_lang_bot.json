@@ -1,0 +1,85 @@
+{
+    "name": "Bot Multi-Langue Marocain",
+    "description": "Un flux intelligent qui route l'utilisateur vers WhatsApp (Darija) ou Email (Français).",
+    "nodes": [
+        {
+            "id": "node_input",
+            "type": "agentNode",
+            "position": {
+                "x": 50,
+                "y": 250
+            },
+            "data": {
+                "id": "ma_chat_input",
+                "label": "Clavier Marocain",
+                "category": "🇲🇦 Moroccan Automation Studio"
+            }
+        },
+        {
+            "id": "node_router",
+            "type": "agentNode",
+            "position": {
+                "x": 350,
+                "y": 250
+            },
+            "data": {
+                "id": "ma_intent_router",
+                "label": "Détecteur de Langue",
+                "category": "🇲🇦 Moroccan Automation Studio",
+                "credentials_id": "openai_main"
+            }
+        },
+        {
+            "id": "node_wa",
+            "type": "agentNode",
+            "position": {
+                "x": 700,
+                "y": 100
+            },
+            "data": {
+                "id": "ma_whatsapp_send",
+                "label": "Réponse WhatsApp (Proche)",
+                "phone_number": "212600000000",
+                "credentials_id": "wa_business_main"
+            }
+        },
+        {
+            "id": "node_email",
+            "type": "agentNode",
+            "position": {
+                "x": 700,
+                "y": 400
+            },
+            "data": {
+                "id": "ma_gmail_send",
+                "label": "Réponse Email (Formel)",
+                "recipient": "client@exemple.ma",
+                "subject": "Demande de contact",
+                "credentials_id": "gmail_oauth_main"
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "node_input",
+            "sourceHandle": "data",
+            "target": "node_router",
+            "targetHandle": "input"
+        },
+        {
+            "id": "e2",
+            "source": "node_router",
+            "sourceHandle": "darija",
+            "target": "node_wa",
+            "targetHandle": "input"
+        },
+        {
+            "id": "e3",
+            "source": "node_router",
+            "sourceHandle": "french",
+            "target": "node_email",
+            "targetHandle": "input"
+        }
+    ]
+}

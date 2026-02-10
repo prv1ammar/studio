@@ -1,0 +1,6066 @@
+{
+  "Add_content_to_page": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Create_page": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "List_database_properties": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "List_pages": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "List_users": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Page_content_viewer": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Search": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Update_page_property": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Agentql_api": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Aiml": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Aiml_embeddings": [
+    {
+      "id": "LCEmbeddingsModel",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Amazon_bedrock_converse": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Amazon_bedrock_embedding": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Amazon_bedrock_model": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "S3_bucket_uploader": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Anthropic": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Apify_actor": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Arxiv": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Assemblyai_get_subtitles": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Assemblyai_lemur": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Assemblyai_list_transcripts": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Assemblyai_poll_transcript": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Assemblyai_start_transcript": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Azure_openai": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Azure_openai_embeddings": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Baidu_qianfan_chat": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Bing_search_api": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Cassandra_chat": [
+    {
+      "id": "LCChatMemoryComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "memory",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Cleanlab_evaluator": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Cleanlab_rag_evaluator": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Cleanlab_remediator": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Cloudflare": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Cohere_embeddings": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Cohere_models": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Cometapi": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Composio_api": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Confluence": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Crewai": [
+    {
+      "id": "HierarchicalTaskComponent",
+      "label": "Hierarchical Task",
+      "description": "Each task must have a description, an expected output and an agent responsible for execution.",
+      "color": "#818cf8",
+      "icon": "CrewAI",
+      "inputs": [
+        {
+          "name": "task_description",
+          "type": "Message"
+        },
+        {
+          "name": "expected_output",
+          "type": "Message"
+        },
+        {
+          "name": "tools",
+          "type": "Tool"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "task_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Hierarchical_crew": [
+    {
+      "id": "BaseCrewComponent",
+      "label": null,
+      "description": "Represents a group of agents, defining how they should collaborate and the tasks they should perform.",
+      "color": "#818cf8",
+      "icon": "CrewAI",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Hierarchical_task": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "HierarchicalTaskComponent",
+      "label": "Hierarchical Task",
+      "description": "Each task must have a description, an expected output and an agent responsible for execution.",
+      "color": "#818cf8",
+      "icon": "CrewAI",
+      "inputs": [
+        {
+          "name": "task_description",
+          "type": "Message"
+        },
+        {
+          "name": "expected_output",
+          "type": "Message"
+        },
+        {
+          "name": "tools",
+          "type": "Tool"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "task_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Sequential_crew": [
+    {
+      "id": "BaseCrewComponent",
+      "label": null,
+      "description": "Represents a group of agents, defining how they should collaborate and the tasks they should perform.",
+      "color": "#818cf8",
+      "icon": "CrewAI",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Sequential_task": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Sequential_task_agent": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Cuga_agent": [
+    {
+      "id": "LCToolsAgentComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "agent",
+          "type": "Any"
+        },
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Custom_component": [
+    {
+      "id": "CustomComponent",
+      "label": "Custom Component",
+      "description": "Use as a template to create your own component.",
+      "color": "#818cf8",
+      "icon": "code",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "CustomComponent",
+      "label": "Custom Component",
+      "description": "Use as a template to create your own component.",
+      "color": "#818cf8",
+      "icon": "code",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Data": [
+    {
+      "id": "MockDataGeneratorComponent",
+      "label": "Mock Data",
+      "description": "Generate mock data for testing and development.",
+      "color": "#818cf8",
+      "icon": "database",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "dataframe_output",
+          "type": "Any"
+        },
+        {
+          "name": "message_output",
+          "type": "Any"
+        },
+        {
+          "name": "data_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Data_source": [
+    {
+      "id": "MockDataGeneratorComponent",
+      "label": "Mock Data",
+      "description": "Generate mock data for testing and development.",
+      "color": "#818cf8",
+      "icon": "database",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "dataframe_output",
+          "type": "Any"
+        },
+        {
+          "name": "message_output",
+          "type": "Any"
+        },
+        {
+          "name": "data_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Api_request": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Csv_to_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Json_to_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Mock_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "MockDataGeneratorComponent",
+      "label": "Mock Data",
+      "description": "Generate mock data for testing and development.",
+      "color": "#818cf8",
+      "icon": "database",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "dataframe_output",
+          "type": "Any"
+        },
+        {
+          "name": "message_output",
+          "type": "Any"
+        },
+        {
+          "name": "data_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "News_search": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Rss": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Sql_executor": [
+    {
+      "id": "ComponentWithCache",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Url": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Web_search": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Datastax": [
+    {
+      "id": "AssistantsCreateThread",
+      "label": "Create Assistant Thread",
+      "description": "Creates a thread and returns the thread id",
+      "color": "#818cf8",
+      "icon": "AstraDB",
+      "inputs": [
+        {
+          "name": "env_set",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "thread_id",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "AssistantsListAssistants",
+      "label": "List Assistants",
+      "description": "Returns a list of assistant id's",
+      "color": "#818cf8",
+      "icon": "AstraDB",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "assistants",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "AssistantsRun",
+      "label": "Run Assistant",
+      "description": "Executes an Assistant Run against a thread",
+      "color": "#818cf8",
+      "icon": "AstraDB",
+      "inputs": [
+        {
+          "name": "assistant_id",
+          "type": "Message"
+        },
+        {
+          "name": "user_message",
+          "type": "Message"
+        },
+        {
+          "name": "thread_id",
+          "type": "Message"
+        },
+        {
+          "name": "env_set",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "assistant_response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "Dotenv",
+      "label": "Dotenv",
+      "description": "Load .env file into env vars",
+      "color": "#818cf8",
+      "icon": "AstraDB",
+      "inputs": [
+        {
+          "name": "dotenv_file_content",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "env_set",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Astradb_assistant_manager": [
+    {
+      "id": "ComponentWithCache",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Astradb_chatmemory": [
+    {
+      "id": "LCChatMemoryComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "memory",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Astradb_cql": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Astradb_tool": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Astradb_vectorize": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Create_assistant": [
+    {
+      "id": "ComponentWithCache",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Create_thread": [
+    {
+      "id": "AssistantsCreateThread",
+      "label": "Create Assistant Thread",
+      "description": "Creates a thread and returns the thread id",
+      "color": "#818cf8",
+      "icon": "AstraDB",
+      "inputs": [
+        {
+          "name": "env_set",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "thread_id",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "ComponentWithCache",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Dotenv": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "Dotenv",
+      "label": "Dotenv",
+      "description": "Load .env file into env vars",
+      "color": "#818cf8",
+      "icon": "AstraDB",
+      "inputs": [
+        {
+          "name": "dotenv_file_content",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "env_set",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Get_assistant": [
+    {
+      "id": "ComponentWithCache",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Getenvvar": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "List_assistants": [
+    {
+      "id": "AssistantsListAssistants",
+      "label": "List Assistants",
+      "description": "Returns a list of assistant id's",
+      "color": "#818cf8",
+      "icon": "AstraDB",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "assistants",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "ComponentWithCache",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Run": [
+    {
+      "id": "AssistantsRun",
+      "label": "Run Assistant",
+      "description": "Executes an Assistant Run against a thread",
+      "color": "#818cf8",
+      "icon": "AstraDB",
+      "inputs": [
+        {
+          "name": "assistant_id",
+          "type": "Message"
+        },
+        {
+          "name": "user_message",
+          "type": "Message"
+        },
+        {
+          "name": "thread_id",
+          "type": "Message"
+        },
+        {
+          "name": "env_set",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "assistant_response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "ComponentWithCache",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Deactivated": [
+    {
+      "id": "ExtractKeyFromDataComponent",
+      "label": "Extract Key From Data",
+      "description": "Extracts a key from a data.",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "ListFlowsComponent",
+      "label": "List Flows",
+      "description": "A component to list all available flows.",
+      "color": "#818cf8",
+      "icon": "ListFlows",
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "MergeDataComponent",
+      "label": "Merge Data",
+      "description": "Combines multiple Data objects into a unified list, ensuring all keys are present in each Data object.",
+      "color": "#818cf8",
+      "icon": "merge",
+      "inputs": [
+        {
+          "name": "data_inputs",
+          "type": "Data"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "merged_data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "SubFlowComponent",
+      "label": "Sub Flow",
+      "description": "Dynamically Generates a Component from a Flow. The output is a list of data with keys 'result' and 'message'.",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Amazon_kendra": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Chat_litellm_model": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Code_block_extractor": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Documents_to_data": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "DocumentsToDataComponent",
+      "label": "Documents \u21e2 Data",
+      "description": "Convert LangChain Documents into Data.",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Embed": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "EmbedComponent",
+      "label": "Embed Texts",
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Extract_key_from_data": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "ExtractKeyFromDataComponent",
+      "label": "Extract Key From Data",
+      "description": "Extracts a key from a data.",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Json_document_builder": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "List_flows": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "ListFlowsComponent",
+      "label": "List Flows",
+      "description": "A component to list all available flows.",
+      "color": "#818cf8",
+      "icon": "ListFlows",
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Mcp_sse": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "MCPSse",
+      "label": "MCP Tools (SSE) [DEPRECATED]",
+      "description": "Connects to an MCP server over SSE and exposes it's tools as langflow tools to be used by an Agent.",
+      "color": "#818cf8",
+      "icon": "code",
+      "inputs": [
+        {
+          "name": "url",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "tools",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Mcp_stdio": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "MCPStdio",
+      "label": "MCP Tools (stdio) [DEPRECATED]",
+      "description": "Connects to an MCP server over stdio and exposes it's tools as langflow tools to be used by an Agent.",
+      "color": "#818cf8",
+      "icon": "code",
+      "inputs": [
+        {
+          "name": "command",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "tools",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Merge_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "MergeDataComponent",
+      "label": "Merge Data",
+      "description": "Combines multiple Data objects into a unified list, ensuring all keys are present in each Data object.",
+      "color": "#818cf8",
+      "icon": "merge",
+      "inputs": [
+        {
+          "name": "data_inputs",
+          "type": "Data"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "merged_data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Message": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "MessageComponent",
+      "label": "Message",
+      "description": "Creates a Message object given a Session ID.",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Metal": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Multi_query": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Retriever": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Selective_passthrough": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Should_run_next": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "ShouldRunNextComponent",
+      "label": "Should Run Next",
+      "description": "Determines if a vertex is runnable.",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Split_text": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Store_message": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "StoreMessageComponent",
+      "label": "Store Message",
+      "description": "Stores a chat message.",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "MessageStoreComponent",
+      "label": "Message Store",
+      "description": "Stores a chat message or text into Langflow tables or an external memory.",
+      "color": "#818cf8",
+      "icon": "message-square-text",
+      "inputs": [
+        {
+          "name": "message",
+          "type": "Message"
+        },
+        {
+          "name": "memory",
+          "type": "Memory"
+        },
+        {
+          "name": "sender",
+          "type": "Message"
+        },
+        {
+          "name": "sender_name",
+          "type": "Message"
+        },
+        {
+          "name": "session_id",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "stored_messages",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Sub_flow": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "SubFlowComponent",
+      "label": "Sub Flow",
+      "description": "Dynamically Generates a Component from a Flow. The output is a list of data with keys 'result' and 'message'.",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Vectara_self_query": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Vector_store": [
+    {
+      "id": "CustomComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "VectorStoreRetrieverComponent",
+      "label": "VectorStore Retriever",
+      "description": "A vector store retriever",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [
+        {
+          "name": "vectorstore",
+          "type": "VectorStore"
+        }
+      ],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Deepseek": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Chunk_docling_document": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Export_docling_document": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Duck_duck_go_search_run": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Embeddings": [
+    {
+      "id": "TextEmbedderComponent",
+      "label": "Text Embedder",
+      "description": "Generate embeddings for a given message using the specified embedding model.",
+      "color": "#818cf8",
+      "icon": "binary",
+      "inputs": [
+        {
+          "name": "embedding_model",
+          "type": "Embeddings"
+        },
+        {
+          "name": "message",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Similarity": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Text_embedder": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "TextEmbedderComponent",
+      "label": "Text Embedder",
+      "description": "Generate embeddings for a given message using the specified embedding model.",
+      "color": "#818cf8",
+      "icon": "binary",
+      "inputs": [
+        {
+          "name": "embedding_model",
+          "type": "Embeddings"
+        },
+        {
+          "name": "message",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Exa_search": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Directory": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Ingestion": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Retrieval": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Save_file": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Firecrawl_crawl_api": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Firecrawl_extract_api": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Firecrawl_map_api": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Firecrawl_scrape_api": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Flow_controls": [
+    {
+      "id": "ListenComponent",
+      "label": "Listen",
+      "description": "A component to listen for a notification.",
+      "color": "#818cf8",
+      "icon": "Radio",
+      "inputs": [
+        {
+          "name": "context_key",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "LoopComponent",
+      "label": "Loop",
+      "description": "Iterates over a list of Data or Message objects, outputting one item at a time and aggregating results from loop inputs. Message objects are automatically converted to Data objects for consistent processing.",
+      "color": "#818cf8",
+      "icon": "infinity",
+      "inputs": [
+        {
+          "name": "data",
+          "type": "DataFrame"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "item",
+          "type": "Any"
+        },
+        {
+          "name": "done",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "PassMessageComponent",
+      "label": "Pass",
+      "description": "Forwards the input message, unchanged.",
+      "color": "#818cf8",
+      "icon": "arrow-right",
+      "inputs": [
+        {
+          "name": "input_message",
+          "type": "Message"
+        },
+        {
+          "name": "ignored_message",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output_message",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Conditional_router": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Data_conditional_router": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Flow_tool": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Listen": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "ListenComponent",
+      "label": "Listen",
+      "description": "A component to listen for a notification.",
+      "color": "#818cf8",
+      "icon": "Radio",
+      "inputs": [
+        {
+          "name": "context_key",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Loop": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "LoopComponent",
+      "label": "Loop",
+      "description": "Iterates over a list of Data or Message objects, outputting one item at a time and aggregating results from loop inputs. Message objects are automatically converted to Data objects for consistent processing.",
+      "color": "#818cf8",
+      "icon": "infinity",
+      "inputs": [
+        {
+          "name": "data",
+          "type": "DataFrame"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "item",
+          "type": "Any"
+        },
+        {
+          "name": "done",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Notify": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Pass_message": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "PassMessageComponent",
+      "label": "Pass",
+      "description": "Forwards the input message, unchanged.",
+      "color": "#818cf8",
+      "icon": "arrow-right",
+      "inputs": [
+        {
+          "name": "input_message",
+          "type": "Message"
+        },
+        {
+          "name": "ignored_message",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output_message",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Run_flow": [
+    {
+      "id": "RunFlowBaseComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Git": [
+    {
+      "id": "GitExtractorComponent",
+      "label": "GitExtractor",
+      "description": "Analyzes a Git repository and returns file contents and complete repository information",
+      "color": "#818cf8",
+      "icon": "GitLoader",
+      "inputs": [
+        {
+          "name": "repository_url",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text_based_file_contents",
+          "type": "Any"
+        },
+        {
+          "name": "directory_structure",
+          "type": "Any"
+        },
+        {
+          "name": "repository_info",
+          "type": "Any"
+        },
+        {
+          "name": "statistics",
+          "type": "Any"
+        },
+        {
+          "name": "files_content",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Gitextractor": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "GitExtractorComponent",
+      "label": "GitExtractor",
+      "description": "Analyzes a Git repository and returns file contents and complete repository information",
+      "color": "#818cf8",
+      "icon": "GitLoader",
+      "inputs": [
+        {
+          "name": "repository_url",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text_based_file_contents",
+          "type": "Any"
+        },
+        {
+          "name": "directory_structure",
+          "type": "Any"
+        },
+        {
+          "name": "repository_info",
+          "type": "Any"
+        },
+        {
+          "name": "statistics",
+          "type": "Any"
+        },
+        {
+          "name": "files_content",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Glean_search_api": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Gmail": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Google_bq_sql_executor": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Google_drive": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Google_drive_search": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Google_generative_ai": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Google_generative_ai_embeddings": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Google_oauth_token": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Google_search_api_core": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Google_serper_api_core": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Groq": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Helpers": [
+    {
+      "id": "CalculatorComponent",
+      "label": "Calculator",
+      "description": "Perform basic arithmetic operations on a given expression.",
+      "color": "#818cf8",
+      "icon": "calculator",
+      "inputs": [
+        {
+          "name": "expression",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "IDGeneratorComponent",
+      "label": "ID Generator",
+      "description": "Generates a unique ID.",
+      "color": "#818cf8",
+      "icon": "fingerprint",
+      "inputs": [
+        {
+          "name": "unique_id",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "id",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "MessageStoreComponent",
+      "label": "Message Store",
+      "description": "Stores a chat message or text into Langflow tables or an external memory.",
+      "color": "#818cf8",
+      "icon": "message-square-text",
+      "inputs": [
+        {
+          "name": "message",
+          "type": "Message"
+        },
+        {
+          "name": "memory",
+          "type": "Memory"
+        },
+        {
+          "name": "sender",
+          "type": "Message"
+        },
+        {
+          "name": "sender_name",
+          "type": "Message"
+        },
+        {
+          "name": "session_id",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "stored_messages",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Home_assistant_control": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "List_home_assistant_states": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Huggingface": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Huggingface_inference_api": [
+    {
+      "id": "LCEmbeddingsModel",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Watsonx": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Watsonx_embeddings": [
+    {
+      "id": "LCEmbeddingsModel",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Combinatorial_reasoner": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Input_output": [
+    {
+      "id": "TextInputComponent",
+      "label": "Text Input",
+      "description": "Get user text inputs.",
+      "color": "#818cf8",
+      "icon": "type",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "TextOutputComponent",
+      "label": "Text Output",
+      "description": "Sends text output via API.",
+      "color": "#818cf8",
+      "icon": "type",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Chat": [
+    {
+      "id": "ChatComponent",
+      "label": "Chat Component",
+      "description": "Use as base for chat components.",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Chat_output": [
+    {
+      "id": "ChatComponent",
+      "label": "Chat Component",
+      "description": "Use as base for chat components.",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Text": [
+    {
+      "id": "TextComponent",
+      "label": "Text Component",
+      "description": "Used to pass text to the next component.",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "TextInputComponent",
+      "label": "Text Input",
+      "description": "Get user text inputs.",
+      "color": "#818cf8",
+      "icon": "type",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Text_output": [
+    {
+      "id": "TextComponent",
+      "label": "Text Component",
+      "description": "Used to pass text to the next component.",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "TextOutputComponent",
+      "label": "Text Output",
+      "description": "Sends text output via API.",
+      "color": "#818cf8",
+      "icon": "type",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Webhook": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Ai_scrape": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Ai_web_search": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "File_read": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "File_upload": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Image_generation": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Nsfw": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Object_detection": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Sentiment": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Text_to_sql": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Text_translate": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Vocr": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Langchain_utilities": [
+    {
+      "id": "ConversationChainComponent",
+      "label": "ConversationChain",
+      "description": "Chain to have a conversation and load context from memory.",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        },
+        {
+          "name": "llm",
+          "type": "LanguageModel"
+        },
+        {
+          "name": "memory",
+          "type": "BaseChatMemory"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "LLMCheckerChainComponent",
+      "label": "LLMCheckerChain",
+      "description": "Chain for question-answering with self-verification.",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        },
+        {
+          "name": "llm",
+          "type": "LanguageModel"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "LLMMathChainComponent",
+      "label": "LLMMathChain",
+      "description": "Chain that interprets a prompt and executes python code to do math.",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        },
+        {
+          "name": "llm",
+          "type": "LanguageModel"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "SelfQueryRetrieverComponent",
+      "label": "Self Query Retriever",
+      "description": "Retriever that uses a vector store and an LLM to generate the vector store queries.",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [
+        {
+          "name": "query",
+          "type": "Message"
+        },
+        {
+          "name": "vectorstore",
+          "type": "VectorStore"
+        },
+        {
+          "name": "attribute_infos",
+          "type": "Data"
+        },
+        {
+          "name": "document_content_description",
+          "type": "Message"
+        },
+        {
+          "name": "llm",
+          "type": "LanguageModel"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "documents",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "VectorStoreInfoComponent",
+      "label": "VectorStoreInfo",
+      "description": "Information about a VectorStore",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [
+        {
+          "name": "vectorstore_name",
+          "type": "Message"
+        },
+        {
+          "name": "vectorstore_description",
+          "type": "Message"
+        },
+        {
+          "name": "input_vectorstore",
+          "type": "VectorStore"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "info",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Character": [
+    {
+      "id": "LCTextSplitterComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Conversation": [
+    {
+      "id": "ConversationChainComponent",
+      "label": "ConversationChain",
+      "description": "Chain to have a conversation and load context from memory.",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        },
+        {
+          "name": "llm",
+          "type": "LanguageModel"
+        },
+        {
+          "name": "memory",
+          "type": "BaseChatMemory"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Csv_agent": [
+    {
+      "id": "LCAgentComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "agent",
+          "type": "Any"
+        },
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Fake_embeddings": [
+    {
+      "id": "LCEmbeddingsModel",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Html_link_extractor": [
+    {
+      "id": "LCDocumentTransformerComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Json_agent": [
+    {
+      "id": "LCAgentComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "agent",
+          "type": "Any"
+        },
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Langchain_hub": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Language_recursive": [
+    {
+      "id": "LCTextSplitterComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Language_semantic": [
+    {
+      "id": "LCTextSplitterComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Llm_checker": [
+    {
+      "id": "LLMCheckerChainComponent",
+      "label": "LLMCheckerChain",
+      "description": "Chain for question-answering with self-verification.",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        },
+        {
+          "name": "llm",
+          "type": "LanguageModel"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Llm_math": [
+    {
+      "id": "LLMMathChainComponent",
+      "label": "LLMMathChain",
+      "description": "Chain that interprets a prompt and executes python code to do math.",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        },
+        {
+          "name": "llm",
+          "type": "LanguageModel"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Natural_language": [
+    {
+      "id": "LCTextSplitterComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Openai_tools": [
+    {
+      "id": "LCToolsAgentComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "agent",
+          "type": "Any"
+        },
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Openapi": [
+    {
+      "id": "LCAgentComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "agent",
+          "type": "Any"
+        },
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Recursive_character": [
+    {
+      "id": "LCTextSplitterComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Runnable_executor": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Self_query": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "SelfQueryRetrieverComponent",
+      "label": "Self Query Retriever",
+      "description": "Retriever that uses a vector store and an LLM to generate the vector store queries.",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [
+        {
+          "name": "query",
+          "type": "Message"
+        },
+        {
+          "name": "vectorstore",
+          "type": "VectorStore"
+        },
+        {
+          "name": "attribute_infos",
+          "type": "Data"
+        },
+        {
+          "name": "document_content_description",
+          "type": "Message"
+        },
+        {
+          "name": "llm",
+          "type": "LanguageModel"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "documents",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Spider": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Sql": [
+    {
+      "id": "LCAgentComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "agent",
+          "type": "Any"
+        },
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Sql_database": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Tool_calling": [
+    {
+      "id": "LCToolsAgentComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "agent",
+          "type": "Any"
+        },
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Vector_store_info": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "VectorStoreInfoComponent",
+      "label": "VectorStoreInfo",
+      "description": "Information about a VectorStore",
+      "color": "#818cf8",
+      "icon": "LangChain",
+      "inputs": [
+        {
+          "name": "vectorstore_name",
+          "type": "Message"
+        },
+        {
+          "name": "vectorstore_description",
+          "type": "Message"
+        },
+        {
+          "name": "input_vectorstore",
+          "type": "VectorStore"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "info",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Vector_store_router": [
+    {
+      "id": "LCAgentComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "agent",
+          "type": "Any"
+        },
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Xml_agent": [
+    {
+      "id": "LCToolsAgentComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "agent",
+          "type": "Any"
+        },
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Langwatch": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Batch_run": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Lambda_filter": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Llm_conditional_router": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Llm_selector": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Structured_output": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Lmstudioembeddings": [
+    {
+      "id": "LCEmbeddingsModel",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Lmstudiomodel": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Logic": [
+    {
+      "id": "LoopComponent",
+      "label": "Loop",
+      "description": "Iterates over a list of Data or Message objects, outputting one item at a time and aggregating results from loop inputs. Message objects are automatically converted to Data objects for consistent processing.",
+      "color": "#818cf8",
+      "icon": "infinity",
+      "inputs": [
+        {
+          "name": "data",
+          "type": "DataFrame"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "item",
+          "type": "Any"
+        },
+        {
+          "name": "done",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "PassMessageComponent",
+      "label": "Pass",
+      "description": "Forwards the input message, unchanged.",
+      "color": "#818cf8",
+      "icon": "arrow-right",
+      "inputs": [
+        {
+          "name": "input_message",
+          "type": "Message"
+        },
+        {
+          "name": "ignored_message",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output_message",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Maritalk": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Mem0_chat_memory": [
+    {
+      "id": "LCChatMemoryComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "memory",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Mistral": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Mistral_embeddings": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Agent": [
+    {
+      "id": "LCToolsAgentComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "agent",
+          "type": "Any"
+        },
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Embedding_model": [
+    {
+      "id": "LCEmbeddingsModel",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Language_model": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Mcp_component": [
+    {
+      "id": "ComponentWithCache",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Memory": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Prompt": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Needle": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Notdiamond": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Novita": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Nvidia": [
+    {
+      "id": "NvidiaSystemAssistComponent",
+      "label": "NVIDIA System-Assist",
+      "description": "(Windows only) Prompts NVIDIA System-Assist to interact with the NVIDIA GPU Driver. The user may query GPU specifications, state, and ask the NV-API to perform several GPU-editing acations. The prompt must be human-readable language.",
+      "color": "#818cf8",
+      "icon": "NVIDIA",
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Nvidia_embedding": [
+    {
+      "id": "LCEmbeddingsModel",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "System_assist": [
+    {
+      "id": "ComponentWithCache",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "NvidiaSystemAssistComponent",
+      "label": "NVIDIA System-Assist",
+      "description": "(Windows only) Prompts NVIDIA System-Assist to interact with the NVIDIA GPU Driver. The user may query GPU specifications, state, and ask the NV-API to perform several GPU-editing acations. The prompt must be human-readable language.",
+      "color": "#818cf8",
+      "icon": "NVIDIA",
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "response",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Olivya": [
+    {
+      "id": "OlivyaComponent",
+      "label": "Place Call",
+      "description": "A component to create an outbound call request from Olivya's platform.",
+      "color": "#818cf8",
+      "icon": "Olivya",
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "Message"
+        },
+        {
+          "name": "from_number",
+          "type": "Message"
+        },
+        {
+          "name": "to_number",
+          "type": "Message"
+        },
+        {
+          "name": "first_message",
+          "type": "Message"
+        },
+        {
+          "name": "system_prompt",
+          "type": "Message"
+        },
+        {
+          "name": "conversation_history",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "OlivyaComponent",
+      "label": "Place Call",
+      "description": "A component to create an outbound call request from Olivya's platform.",
+      "color": "#818cf8",
+      "icon": "Olivya",
+      "inputs": [
+        {
+          "name": "api_key",
+          "type": "Message"
+        },
+        {
+          "name": "from_number",
+          "type": "Message"
+        },
+        {
+          "name": "to_number",
+          "type": "Message"
+        },
+        {
+          "name": "first_message",
+          "type": "Message"
+        },
+        {
+          "name": "system_prompt",
+          "type": "Message"
+        },
+        {
+          "name": "conversation_history",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Ollama": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Ollama_embeddings": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Openai": [
+    {
+      "id": "LCEmbeddingsModel",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Openai_chat_model": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Openrouter": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Perplexity": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Processing": [
+    {
+      "id": "CombineTextComponent",
+      "label": "Combine Text",
+      "description": "Concatenate two text sources into a single text chunk using a specified delimiter.",
+      "color": "#818cf8",
+      "icon": "merge",
+      "inputs": [
+        {
+          "name": "text1",
+          "type": "Message"
+        },
+        {
+          "name": "text2",
+          "type": "Message"
+        },
+        {
+          "name": "delimiter",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "combined_text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "MessageStoreComponent",
+      "label": "Message Store",
+      "description": "Stores a chat message or text into Langflow tables or an external memory.",
+      "color": "#818cf8",
+      "icon": "message-square-text",
+      "inputs": [
+        {
+          "name": "message",
+          "type": "Message"
+        },
+        {
+          "name": "memory",
+          "type": "Memory"
+        },
+        {
+          "name": "sender",
+          "type": "Message"
+        },
+        {
+          "name": "sender_name",
+          "type": "Message"
+        },
+        {
+          "name": "session_id",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "stored_messages",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "RegexExtractorComponent",
+      "label": "Regex Extractor",
+      "description": "Extract patterns from text using regular expressions.",
+      "color": "#818cf8",
+      "icon": "regex",
+      "inputs": [
+        {
+          "name": "input_text",
+          "type": "Message"
+        },
+        {
+          "name": "pattern",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "data",
+          "type": "Any"
+        },
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Alter_metadata": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Combine_text": [
+    {
+      "id": "CombineTextComponent",
+      "label": "Combine Text",
+      "description": "Concatenate two text sources into a single text chunk using a specified delimiter.",
+      "color": "#818cf8",
+      "icon": "merge",
+      "inputs": [
+        {
+          "name": "text1",
+          "type": "Message"
+        },
+        {
+          "name": "text2",
+          "type": "Message"
+        },
+        {
+          "name": "delimiter",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "combined_text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Converter": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Create_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Create_list": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Data_operations": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Data_to_dataframe": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "DataToDataFrameComponent",
+      "label": "Data \u2192 DataFrame",
+      "description": "Converts one or multiple Data objects into a DataFrame. Each Data object corresponds to one row. Fields from `.data` become columns, and the `.text` (if present) is placed in a 'text' column.",
+      "color": "#818cf8",
+      "icon": "table",
+      "inputs": [
+        {
+          "name": "data_list",
+          "type": "Data"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "dataframe",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Dataframe_operations": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Dynamic_create_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Extract_key": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Filter_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "FilterDataComponent",
+      "label": "Filter Data",
+      "description": "Filters a Data object based on a list of keys.",
+      "color": "#818cf8",
+      "icon": "filter",
+      "inputs": [
+        {
+          "name": "data",
+          "type": "Data"
+        },
+        {
+          "name": "filter_criteria",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "filtered_data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Filter_data_values": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Json_cleaner": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Message_to_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "MessageToDataComponent",
+      "label": "Message to Data",
+      "description": "Convert a Message object to a Data object",
+      "color": "#818cf8",
+      "icon": "message-square-share",
+      "inputs": [
+        {
+          "name": "message",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Output_parser": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Parse_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Parse_dataframe": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Parse_json_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "ParseJSONDataComponent",
+      "label": "Parse JSON",
+      "description": "Convert and extract JSON fields.",
+      "color": "#818cf8",
+      "icon": "braces",
+      "inputs": [
+        {
+          "name": "input_value",
+          "type": "Message"
+        },
+        {
+          "name": "query",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "filtered_data",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Parser": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Regex": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "RegexExtractorComponent",
+      "label": "Regex Extractor",
+      "description": "Extract patterns from text using regular expressions.",
+      "color": "#818cf8",
+      "icon": "regex",
+      "inputs": [
+        {
+          "name": "input_text",
+          "type": "Message"
+        },
+        {
+          "name": "pattern",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "data",
+          "type": "Any"
+        },
+        {
+          "name": "text",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Select_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Update_data": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Python_function": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Redis_chat": [
+    {
+      "id": "LCChatMemoryComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "memory",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Sambanova": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Scrapegraph_markdownify_api": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Scrapegraph_search_api": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Scrapegraph_smart_scraper_api": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Serp": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Tavily_extract": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Tavily_search": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Tools": [
+    {
+      "id": "CalculatorToolComponent",
+      "label": "Calculator",
+      "description": "Perform basic arithmetic operations on a given expression.",
+      "color": "#818cf8",
+      "icon": "calculator",
+      "inputs": [
+        {
+          "name": "expression",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "WikidataAPIComponent",
+      "label": "Wikidata API",
+      "description": "Performs a search using the Wikidata API.",
+      "color": "#818cf8",
+      "icon": "Wikipedia",
+      "inputs": [
+        {
+          "name": "query",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Calculator": [
+    {
+      "id": "CalculatorToolComponent",
+      "label": "Calculator",
+      "description": "Perform basic arithmetic operations on a given expression.",
+      "color": "#818cf8",
+      "icon": "calculator",
+      "inputs": [
+        {
+          "name": "expression",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Google_search_api": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Google_serper_api": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Python_code_structured_tool": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Python_repl": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Search_api": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Searxng": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Serp_api": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Tavily_search_tool": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Wikidata_api": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "WikidataAPIComponent",
+      "label": "Wikidata API",
+      "description": "Performs a search using the Wikidata API.",
+      "color": "#818cf8",
+      "icon": "Wikipedia",
+      "inputs": [
+        {
+          "name": "query",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Wikipedia_api": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Yahoo_finance": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Twelvelabs": [
+    {
+      "id": "ConvertAstraToTwelveLabs",
+      "label": "Convert Astra DB to Pegasus Input",
+      "description": "Converts Astra DB search results to inputs compatible with TwelveLabs Pegasus.",
+      "color": "#818cf8",
+      "icon": "TwelveLabs",
+      "inputs": [
+        {
+          "name": "astra_results",
+          "type": "Data"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "index_id",
+          "type": "Any"
+        },
+        {
+          "name": "video_id",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Convert_astra_results": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "ConvertAstraToTwelveLabs",
+      "label": "Convert Astra DB to Pegasus Input",
+      "description": "Converts Astra DB search results to inputs compatible with TwelveLabs Pegasus.",
+      "color": "#818cf8",
+      "icon": "TwelveLabs",
+      "inputs": [
+        {
+          "name": "astra_results",
+          "type": "Data"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "index_id",
+          "type": "Any"
+        },
+        {
+          "name": "video_id",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Pegasus_index": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Split_video": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Text_embeddings": [
+    {
+      "id": "LCEmbeddingsModel",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Twelvelabs_pegasus": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Video_embeddings": [
+    {
+      "id": "LCEmbeddingsModel",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "embeddings",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Utilities": [
+    {
+      "id": "CalculatorComponent",
+      "label": "Calculator",
+      "description": "Perform basic arithmetic operations on a given expression.",
+      "color": "#818cf8",
+      "icon": "calculator",
+      "inputs": [
+        {
+          "name": "expression",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "IDGeneratorComponent",
+      "label": "ID Generator",
+      "description": "Generates a unique ID.",
+      "color": "#818cf8",
+      "icon": "fingerprint",
+      "inputs": [
+        {
+          "name": "unique_id",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "id",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Calculator_core": [
+    {
+      "id": "CalculatorComponent",
+      "label": "Calculator",
+      "description": "Perform basic arithmetic operations on a given expression.",
+      "color": "#818cf8",
+      "icon": "calculator",
+      "inputs": [
+        {
+          "name": "expression",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Current_date": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Id_generator": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "IDGeneratorComponent",
+      "label": "ID Generator",
+      "description": "Generates a unique ID.",
+      "color": "#818cf8",
+      "icon": "fingerprint",
+      "inputs": [
+        {
+          "name": "unique_id",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "id",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Python_repl_core": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Vectara_rag": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Vertexai": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Vertexai_embeddings": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Vlmrun_transcription": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Wikipedia": [
+    {
+      "id": "WikidataComponent",
+      "label": "Wikidata",
+      "description": "Performs a search using the Wikidata API.",
+      "color": "#818cf8",
+      "icon": "Wikipedia",
+      "inputs": [
+        {
+          "name": "query",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "dataframe",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Wikidata": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "WikidataComponent",
+      "label": "Wikidata",
+      "description": "Performs a search using the Wikidata API.",
+      "color": "#818cf8",
+      "icon": "Wikipedia",
+      "inputs": [
+        {
+          "name": "query",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "dataframe",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Wolfram_alpha_api": [
+    {
+      "id": "LCToolComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "api_run_model",
+          "type": "Any"
+        },
+        {
+          "name": "api_build_tool",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Xai": [
+    {
+      "id": "LCModelComponent",
+      "label": "Model Name",
+      "description": "Model Description",
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "Any"
+        },
+        {
+          "name": "model_output",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Yahoo": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Youtube": [
+    {
+      "id": "YouTubePlaylistComponent",
+      "label": "YouTube Playlist",
+      "description": "Extracts all video URLs from a YouTube playlist.",
+      "color": "#818cf8",
+      "icon": "YouTube",
+      "inputs": [
+        {
+          "name": "playlist_url",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video_urls",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Channel": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Comments": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Playlist": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    },
+    {
+      "id": "YouTubePlaylistComponent",
+      "label": "YouTube Playlist",
+      "description": "Extracts all video URLs from a YouTube playlist.",
+      "color": "#818cf8",
+      "icon": "YouTube",
+      "inputs": [
+        {
+          "name": "playlist_url",
+          "type": "Message"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video_urls",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ],
+  "Trending": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Video_details": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Youtube_transcripts": [
+    {
+      "id": "Component",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [],
+      "fields": []
+    }
+  ],
+  "Zep": [
+    {
+      "id": "LCChatMemoryComponent",
+      "label": null,
+      "description": null,
+      "color": "#818cf8",
+      "icon": null,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "memory",
+          "type": "Any"
+        }
+      ],
+      "fields": []
+    }
+  ]
+}

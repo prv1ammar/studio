@@ -1,0 +1,64 @@
+{
+    "name": "Auto-Répondeur WhatsApp (Moroccan Studio)",
+    "description": "Un flux simple qui répond aux messages WhatsApp avec une confirmation.",
+    "nodes": [
+        {
+            "id": "trigger_1",
+            "type": "agentNode",
+            "position": {
+                "x": 100,
+                "y": 200
+            },
+            "data": {
+                "id": "ma_chat_input",
+                "label": "Clavier (Simulation)",
+                "category": "🇲🇦 Moroccan Automation Studio"
+            }
+        },
+        {
+            "id": "logic_1",
+            "type": "agentNode",
+            "position": {
+                "x": 400,
+                "y": 200
+            },
+            "data": {
+                "id": "liteLLM",
+                "label": "IA (Détéction d'Intention)",
+                "system_prompt": "Tu es un assistant marocain. Si l'utilisateur dit Salam, réponds 'Wa Alaykom Salam'. Sinon, dis 'Comment puis-je vous aider ?'",
+                "model_name": "gpt-4o-mini"
+            }
+        },
+        {
+            "id": "action_1",
+            "type": "agentNode",
+            "position": {
+                "x": 700,
+                "y": 200
+            },
+            "data": {
+                "id": "ma_whatsapp_send",
+                "label": "Envoyer WhatsApp",
+                "phone_number": "212600000000",
+                "credentials_id": "wa_business_main",
+                "retry_count": 2
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "trigger_1",
+            "sourceHandle": "data",
+            "target": "logic_1",
+            "targetHandle": "input_data"
+        },
+        {
+            "id": "e2",
+            "source": "logic_1",
+            "sourceHandle": "response",
+            "target": "action_1",
+            "targetHandle": "input"
+        }
+    ]
+}

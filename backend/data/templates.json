@@ -1,0 +1,258 @@
+[
+    {
+        "id": "template_simple_chat",
+        "name": "Simple Chatbot",
+        "description": "A basic conversational agent using OpenAI.",
+        "icon": "MessageSquare",
+        "nodes": [
+            {
+                "id": "1",
+                "type": "chatInput",
+                "position": {
+                    "x": 100,
+                    "y": 200
+                },
+                "data": {
+                    "label": "User Input",
+                    "id": "chatInput"
+                }
+            },
+            {
+                "id": "2",
+                "type": "promptTemplate",
+                "position": {
+                    "x": 400,
+                    "y": 200
+                },
+                "data": {
+                    "label": "Prompt",
+                    "id": "promptTemplate",
+                    "template": "You are a helpful assistant. User says: {input}"
+                }
+            },
+            {
+                "id": "3",
+                "type": "openaiModel",
+                "position": {
+                    "x": 700,
+                    "y": 200
+                },
+                "data": {
+                    "label": "GPT-4o",
+                    "id": "openaiModel",
+                    "model_name": "gpt-4o"
+                }
+            },
+            {
+                "id": "4",
+                "type": "chatOutput",
+                "position": {
+                    "x": 1000,
+                    "y": 200
+                },
+                "data": {
+                    "label": "Response",
+                    "id": "chatOutput"
+                }
+            }
+        ],
+        "edges": [
+            {
+                "id": "e1-2",
+                "source": "1",
+                "target": "2"
+            },
+            {
+                "id": "e2-3",
+                "source": "2",
+                "target": "3"
+            },
+            {
+                "id": "e3-4",
+                "source": "3",
+                "target": "4"
+            }
+        ]
+    },
+    {
+        "id": "template_rag_notion",
+        "name": "Notion RAG Q&A",
+        "description": "Ask questions to your Notion Knowledge Base.",
+        "icon": "BookOpen",
+        "nodes": [
+            {
+                "id": "1",
+                "type": "chatInput",
+                "position": {
+                    "x": 50,
+                    "y": 300
+                },
+                "data": {
+                    "label": "Question",
+                    "id": "chatInput"
+                }
+            },
+            {
+                "id": "2",
+                "type": "NotionPageContent",
+                "position": {
+                    "x": 50,
+                    "y": 100
+                },
+                "data": {
+                    "label": "Notion Source",
+                    "id": "NotionPageContent"
+                }
+            },
+            {
+                "id": "3",
+                "type": "SplitText",
+                "position": {
+                    "x": 350,
+                    "y": 100
+                },
+                "data": {
+                    "label": "Chunker",
+                    "id": "SplitText"
+                }
+            },
+            {
+                "id": "4",
+                "type": "supabaseStore",
+                "position": {
+                    "x": 650,
+                    "y": 100
+                },
+                "data": {
+                    "label": "Vector DB",
+                    "id": "supabaseStore"
+                }
+            },
+            {
+                "id": "5",
+                "type": "openaiModel",
+                "position": {
+                    "x": 650,
+                    "y": 300
+                },
+                "data": {
+                    "label": "RAG Generator",
+                    "id": "openaiModel"
+                }
+            },
+            {
+                "id": "6",
+                "type": "chatOutput",
+                "position": {
+                    "x": 950,
+                    "y": 300
+                },
+                "data": {
+                    "label": "Answer",
+                    "id": "chatOutput"
+                }
+            }
+        ],
+        "edges": [
+            {
+                "id": "e2-3",
+                "source": "2",
+                "target": "3"
+            },
+            {
+                "id": "e3-4",
+                "source": "3",
+                "target": "4"
+            },
+            {
+                "id": "e1-5",
+                "source": "1",
+                "target": "5"
+            },
+            {
+                "id": "e4-5",
+                "source": "4",
+                "target": "5"
+            },
+            {
+                "id": "e5-6",
+                "source": "5",
+                "target": "6"
+            }
+        ]
+    },
+    {
+        "id": "template_web_researcher",
+        "name": "Web Researcher",
+        "description": "Search the web and summarize findings.",
+        "icon": "Globe",
+        "nodes": [
+            {
+                "id": "1",
+                "type": "chatInput",
+                "position": {
+                    "x": 100,
+                    "y": 200
+                },
+                "data": {
+                    "label": "Topic",
+                    "id": "chatInput"
+                }
+            },
+            {
+                "id": "2",
+                "type": "WebSearch",
+                "position": {
+                    "x": 400,
+                    "y": 200
+                },
+                "data": {
+                    "label": "Google Search",
+                    "id": "WebSearch"
+                }
+            },
+            {
+                "id": "3",
+                "type": "openaiModel",
+                "position": {
+                    "x": 700,
+                    "y": 200
+                },
+                "data": {
+                    "label": "Summarizer",
+                    "id": "openaiModel",
+                    "system_prompt": "Summarize the following search results related to the user topic."
+                }
+            },
+            {
+                "id": "4",
+                "type": "chatOutput",
+                "position": {
+                    "x": 1000,
+                    "y": 200
+                },
+                "data": {
+                    "label": "Summary",
+                    "id": "chatOutput"
+                }
+            }
+        ],
+        "edges": [
+            {
+                "id": "e1-2",
+                "source": "1",
+                "target": "2"
+            },
+            {
+                "id": "e2-3",
+                "source": "2",
+                "target": "3"
+            },
+            {
+                "id": "e3-4",
+                "source": "3",
+                "target": "4"
+            }
+        ]
+    }
+]

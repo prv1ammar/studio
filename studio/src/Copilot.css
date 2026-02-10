@@ -1,0 +1,102 @@
+/* Copilot Bar - Clean Modern Design */
+.copilot-container {
+    position: absolute;
+    top: 72px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 500;
+    width: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.copilot-input-wrapper {
+    width: 100%;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-lg);
+}
+
+.copilot-input-wrapper:focus-within {
+    border-color: var(--accent);
+}
+
+.sparkle-icon {
+    margin-left: 8px;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.copilot_input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 8px;
+    outline: none;
+}
+
+.copilot_input::placeholder {
+    color: var(--text-tertiary);
+}
+
+.copilot-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s ease;
+}
+
+.copilot-btn:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+.copilot-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.copilot-suggestion {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.chip-suggestion {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.chip-suggestion:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent);
+    color: var(--text-primary);
+}

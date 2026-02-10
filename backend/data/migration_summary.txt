@@ -1,0 +1,418 @@
+======================================================================
+NODE MIGRATION SUMMARY
+======================================================================
+
+Total Nodes: 351
+Categories: 94
+
+Breakdown by Category:
+----------------------------------------------------------------------
+
+Agentql: 1 nodes
+  • Extract Web Data
+
+Aiml: 2 nodes
+  • AI/ML API Embeddings
+  • AI/ML API
+
+Altk: 1 nodes
+  • ALTK Agent
+
+Amazon: 4 nodes
+  • Amazon Bedrock Converse
+  • Amazon Bedrock Embeddings
+  • Amazon Bedrock
+  • S3 Bucket Uploader
+
+Anthropic: 1 nodes
+  • Anthropic
+
+Apify: 1 nodes
+  • Apify Actors
+
+Arxiv: 1 nodes
+  • arXiv
+
+Assemblyai: 5 nodes
+  • AssemblyAI Get Subtitles
+  • AssemblyAI LeMUR
+  • AssemblyAI List Transcripts
+  • AssemblyAI Start Transcript
+  • AssemblyAI Poll Transcript
+
+Azure: 2 nodes
+  • Azure OpenAI Embeddings
+  • Azure OpenAI
+
+Baidu: 1 nodes
+  • Qianfan
+
+Bing: 1 nodes
+  • Bing Search API
+
+Cassandra: 3 nodes
+  • Cassandra
+  • Cassandra Chat Memory
+  • Cassandra Graph
+
+Chroma: 1 nodes
+  • Chroma DB
+
+Cleanlab: 3 nodes
+  • Cleanlab Evaluator
+  • Cleanlab RAG Evaluator
+  • Cleanlab Remediator
+
+Clickhouse: 1 nodes
+  • ClickHouse
+
+Cloudflare: 1 nodes
+  • Cloudflare Workers AI Embeddings
+
+Cohere: 3 nodes
+  • Cohere Embeddings
+  • Cohere Language Models
+  • Cohere Rerank
+
+Cometapi: 1 nodes
+  • CometAPI
+
+Composio: 63 nodes
+  • Composio Tools
+  • AgentQL
+  • Agiled
+  • Airtable
+  • Apollo
+  ... and 58 more
+
+Confluence: 1 nodes
+  • Confluence
+
+Couchbase: 1 nodes
+  • Couchbase
+
+Crewai: 6 nodes
+  • CrewAI Agent
+  • Hierarchical Crew
+  • Hierarchical Task
+  • Sequential Crew
+  • Sequential Task Agent
+  ... and 1 more
+
+Cuga: 1 nodes
+  • Cuga
+
+Custom Component: 1 nodes
+  • Custom Component
+
+Data Source: 9 nodes
+  • API Request
+  • Load CSV
+  • Load JSON
+  • Mock Data
+  • News Search
+  ... and 4 more
+
+Datastax: 16 nodes
+  • Create Assistant
+  • Create Assistant Thread
+  • Get Assistant name
+  • List Assistants
+  • Run Assistant
+  ... and 11 more
+
+Deepseek: 1 nodes
+  • DeepSeek
+
+Docling: 4 nodes
+  • Chunk DoclingDocument
+  • Docling
+  • Docling Serve
+  • Export DoclingDocument
+
+Duckduckgo: 1 nodes
+  • DuckDuckGo Search
+
+Elastic: 2 nodes
+  • Elasticsearch
+  • OpenSearch
+
+Embeddings: 2 nodes
+  • Embedding Similarity
+  • Text Embedder
+
+Exa: 1 nodes
+  • Exa Search
+
+Faiss: 1 nodes
+  • FAISS
+
+Files And Knowledge: 5 nodes
+  • Directory
+  • Read File
+  • Knowledge Ingestion
+  • Knowledge Retrieval
+  • Write File
+
+Firecrawl: 4 nodes
+  • Firecrawl Crawl API
+  • Firecrawl Extract API
+  • Firecrawl Map API
+  • Firecrawl Scrape API
+
+Flow Controls: 9 nodes
+  • If-Else
+  • Condition
+  • Flow as Tool
+  • Listen
+  • Loop
+  ... and 4 more
+
+Git: 2 nodes
+  • GitExtractor
+  • Git
+
+Glean: 1 nodes
+  • Glean Search API
+
+Google: 9 nodes
+  • BigQuery
+  • Gmail Loader
+  • Google Generative AI Embeddings
+  • Google Drive Loader
+  • Google Drive Search
+  ... and 4 more
+
+Groq: 1 nodes
+  • Groq
+
+Homeassistant: 2 nodes
+  • Home Assistant Control
+  • List Home Assistant States
+
+Huggingface: 2 nodes
+  • Hugging Face Embeddings Inference
+  • Hugging Face
+
+Ibm: 2 nodes
+  • IBM watsonx.ai
+  • IBM watsonx.ai Embeddings
+
+Icosacomputing: 1 nodes
+  • Combinatorial Reasoner
+
+Input Output: 5 nodes
+  • Chat Input
+  • Chat Output
+  • Text Input
+  • Text Output
+  • Webhook
+
+Jigsawstack: 11 nodes
+  • AI Scraper
+  • AI Web Search
+  • File Read
+  • File Upload
+  • Image Generation
+  ... and 6 more
+
+Langchain Utilities: 26 nodes
+  • CSV Agent
+  • Character Text Splitter
+  • ConversationChain
+  • HTML Link Extractor
+  • JsonAgent
+  ... and 21 more
+
+Langwatch: 1 nodes
+  • LangWatch Evaluator
+
+Llm Operations: 5 nodes
+  • Batch Run
+  • LLM Selector
+  • Smart Transform
+  • Smart Router
+  • Structured Output
+
+Lmstudio: 2 nodes
+  • LM Studio Embeddings
+  • LM Studio
+
+Maritalk: 1 nodes
+  • MariTalk
+
+Mem0: 1 nodes
+  • Mem0 Chat Memory
+
+Milvus: 1 nodes
+  • Milvus
+
+Mistral: 2 nodes
+  • MistralAI Embeddings
+  • MistralAI
+
+Models And Agents: 6 nodes
+  • Agent
+  • Embedding Model
+  • Language Model
+  • MCP Tools
+  • Message History
+  ... and 1 more
+
+Mongodb: 1 nodes
+  • MongoDB Atlas
+
+Needle: 1 nodes
+  • Needle Retriever
+
+Notdiamond: 1 nodes
+  • Not Diamond Router
+
+Notion: 8 nodes
+  • Add Content to Page 
+  • List Database Properties 
+  • List Pages 
+  • Page Content Viewer 
+  • Create Page 
+  ... and 3 more
+
+Novita: 1 nodes
+  • Novita AI
+
+Nvidia: 5 nodes
+  • NVIDIA Embeddings
+  • NVIDIA
+  • NVIDIA Retriever Extraction
+  • NVIDIA Rerank
+  • NVIDIA System-Assist
+
+Olivya: 1 nodes
+  • Place Call
+
+Ollama: 2 nodes
+  • Ollama Embeddings
+  • Ollama
+
+Openai: 2 nodes
+  • OpenAI Embeddings
+  • OpenAI
+
+Openrouter: 1 nodes
+  • OpenRouter
+
+Perplexity: 1 nodes
+  • Perplexity
+
+Pgvector: 1 nodes
+  • PGVector
+
+Pinecone: 1 nodes
+  • Pinecone
+
+Processing: 25 nodes
+  • Alter Metadata
+  • Combine Text
+  • Create Data
+  • Create List
+  • DataFrame Operations
+  ... and 20 more
+
+Prototypes: 1 nodes
+  • Python Function
+
+Qdrant: 1 nodes
+  • Qdrant
+
+Redis: 2 nodes
+  • Redis
+  • Redis Chat Memory
+
+Sambanova: 1 nodes
+  • SambaNova
+
+Scrapegraph: 3 nodes
+  • ScrapeGraph Markdownify API
+  • ScrapeGraph Search API
+  • ScrapeGraph Smart Scraper API
+
+Searchapi: 1 nodes
+  • SearchApi
+
+Serpapi: 1 nodes
+  • Serp Search API
+
+Supabase: 1 nodes
+  • Supabase
+
+Tavily: 2 nodes
+  • Tavily Extract API
+  • Tavily Search API
+
+Tools: 12 nodes
+  • Calculator
+  • Google Search API [DEPRECATED]
+  • Google Serper API [DEPRECATED]
+  • Python Code Structured
+  • Python REPL
+  ... and 7 more
+
+Twelvelabs: 7 nodes
+  • Convert Astra DB to Pegasus Input
+  • Split Video
+  • TwelveLabs Pegasus
+  • TwelveLabs Pegasus Index Video
+  • TwelveLabs Text Embeddings
+  ... and 2 more
+
+Unstructured: 1 nodes
+  • Unstructured API
+
+Upstash: 1 nodes
+  • Upstash
+
+Utilities: 4 nodes
+  • Calculator
+  • Current Date
+  • ID Generator
+  • Python Interpreter
+
+Vectara: 2 nodes
+  • Vectara
+  • Vectara RAG
+
+Vectorstores: 1 nodes
+  • Local DB
+
+Vertexai: 2 nodes
+  • Vertex AI Embeddings
+  • Vertex AI
+
+Vlmrun: 1 nodes
+  • VLM Run Transcription
+
+Weaviate: 1 nodes
+  • Weaviate
+
+Wikipedia: 2 nodes
+  • Wikidata
+  • Wikipedia
+
+Wolframalpha: 1 nodes
+  • WolframAlpha API
+
+Xai: 1 nodes
+  • xAI
+
+Yahoosearch: 1 nodes
+  • Yahoo! Finance
+
+Youtube: 7 nodes
+  • YouTube Channel
+  • YouTube Comments
+  • YouTube Playlist
+  • YouTube Search
+  • YouTube Transcripts
+  ... and 2 more
+
+Zep: 1 nodes
+  • Zep Chat Memory
