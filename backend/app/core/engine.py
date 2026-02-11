@@ -2,6 +2,8 @@ import sys
 import os
 from typing import Dict, Any, List, Optional
 import traceback
+import orjson
+import time
 from app.nodes.factory import NodeFactory
 
 # Root path setup
@@ -23,6 +25,9 @@ if agents_dir not in sys.path:
 from app.nodes.factory import NodeFactory
 from app.core.validator import validator
 from app.core.credentials import cred_manager
+from app.core.storage import storage_manager
+from app.core.dlq import dlq
+import uuid
 
 class AgentEngine:
     """
@@ -50,7 +55,7 @@ class AgentEngine:
                 # Add current attempt to context
                 if context: context["attempt"] = attempt
                 
-                result = await node.execute(input_text, context)
+                result = await node.run(input_text, context)
                 
                 # If result is a dict with an 'error' key, we might want to retry
                 if isinstance(result, dict) and "error" in result and attempt < max_retries:
@@ -68,10 +73,15 @@ class AgentEngine:
                 print(f"❌ Node Execution Failed ({node_type}) after {attempt+1} attempts: {last_error}")
                 return {"error": last_error}
 
-    async def process_workflow(self, graph_data: Dict[str, Any], message: str, broadcaster=None) -> str:
+    async def process_workflow(self, graph_data: Dict[str, Any], message: str, broadcaster=None, execution_id: str = None, start_node_id: str = None, initial_outputs: Dict[str, Any] = None) -> str:
         """
         Core workflow execution engine with Validation and Structured Context.
+        Supports resuming from a specific node.
         """
+        execution_id = execution_id or str(uuid.uuid4())
+        
+        # Performance Tracking (OpenTelemetry Ready)
+        start_time = time.time()
         # 1. GRAPH VALIDATION
         is_valid, errors = validator.validate(graph_data)
         if not is_valid:
@@ -83,17 +93,32 @@ class AgentEngine:
         edges = graph_data.get("edges", [])
         
         # 2. SEED EXECUTION CONTEXT
+        user_id = context.get("user_id") if context else None
         execution_context = {
             "variables": {"initial_query": message},
-            "node_outputs": {},
+            "node_outputs": initial_outputs or {},
             "graph_metadata": {"node_count": len(nodes)},
+            "execution_id": execution_id,
+            "user_id": user_id,
             "engine": self
         }
 
-        # 3. Identify Entry Point (Support 'chatInput')
-        current_node = next((n for n in nodes if n.get('data', {}).get('id') == 'chatInput'), nodes[0])
-        
-        current_input = message
+        # Auditing
+        from app.core.audit import audit_logger
+        await audit_logger.log(
+            action="workflow_start",
+            user_id=user_id,
+            details={"execution_id": execution_id, "node_count": len(nodes)}
+        )
+
+        # 3. Identify Entry Point (Support 'chatInput' or resume node)
+        if start_node_id:
+            current_node = next((n for n in nodes if n['id'] == start_node_id), None)
+            if not current_node: return f"Resume Failed: Node {start_node_id} not found."
+            current_input = execution_context["node_outputs"].get(start_node_id, message)
+        else:
+            current_node = next((n for n in nodes if n.get('data', {}).get('id') == 'chatInput'), nodes[0])
+            current_input = message
         visited = set()
         
         # Safety: Path limit
@@ -126,7 +151,17 @@ class AgentEngine:
             # Handle Critical Failures (unless 'continue_on_fail' is set)
             if isinstance(result, dict) and "error" in result:
                 if not node_data.get("continue_on_fail"):
-                    return f"Stopped at {node_data.get('label')}: {result['error']}"
+                    error_msg = f"Stopped at {node_data.get('label')}: {result['error']}"
+                    dlq.capture(execution_id, graph_data, error_msg, execution_context)
+                    
+                    # Log Failure
+                    from app.core.audit import audit_logger
+                    await audit_logger.log(
+                        action="workflow_fail",
+                        user_id=user_id,
+                        details={"execution_id": execution_id, "error": error_msg}
+                    )
+                    return error_msg
 
             # --- TRAVERSAL ---
             # Determine next node based on handle matching or sequential edge
@@ -154,11 +189,28 @@ class AgentEngine:
             else:
                 current_input = result
 
+            # Threshold for storage by reference (e.g., 50KB)
+            if isinstance(current_input, str) and len(current_input) > 50000:
+                print(f"📦 Storing large output from {node_id} by reference.")
+                current_input = storage_manager.store(current_input)
+
+            # Resolve reference if input is a pointer
+            if storage_manager.is_reference(current_input):
+                 current_input = storage_manager.retrieve(current_input)
+
             current_node = next((n for n in nodes if n['id'] == next_node_id), None)
             if not current_node: break
             
-        return str(result)
-            
+        # Log Success
+        from app.core.audit import audit_logger
+        await audit_logger.log(
+            action="workflow_success",
+            user_id=user_id,
+            details={
+                "execution_id": execution_id, 
+                "duration": f"{time.time() - start_time:.2f}s"
+            }
+        )
         return str(result)
 
 # Instantiate and export the engine

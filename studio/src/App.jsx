@@ -20,8 +20,14 @@ import {
   ChevronRight, ChevronDown, FileText, Globe, Code, Mail, BookOpen,
   X, User, CheckCircle, Zap, Bot, Brain, Layers, Terminal,
   Download, Upload, Loader2, Layout, Activity, Trash2, Copy,
-  Eye, EyeOff, Maximize2, Minimize2, Scissors, Box, Link, Wrench
+  Eye, EyeOff, Maximize2, Minimize2, Scissors, Box, Link, Wrench, Shield, Key,
+  LogIn, UserPlus, Camera, History
 } from 'lucide-react';
+
+import CredentialModal from './components/CredentialModal';
+import LogViewer from './components/LogViewer';
+import VersionModal from './components/VersionModal';
+import AuthModal from './components/AuthModal';
 
 import AgentNode from './components/AgentNode';
 import CopilotBar from './components/CopilotBar';
@@ -83,6 +89,116 @@ const App = () => {
   const [showChat, setShowChat] = useState(true);
   const [showMinimap, setShowMinimap] = useState(true);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [activeJobId, setActiveJobId] = useState(null);
+  const [systemStats, setSystemStats] = useState(null);
+  const [isCredModalOpen, setIsCredModalOpen] = useState(false);
+  const [isLogOpen, setIsLogOpen] = useState(false);
+  const [isVersionOpen, setIsVersionOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('studio_token'));
+  const [userProfile, setUserProfile] = useState(null);
+  const [userEmail, setUserEmail] = useState(localStorage.getItem('user_email') || '');
+  const socketRef = useRef(null);
+
+  // Fetch user profile on mount or auth change
+  useEffect(() => {
+    if (isAuthenticated) {
+      const fetchProfile = async () => {
+        try {
+          const resp = await axios.get(`${API_BASE_URL}/auth/me`);
+          setUserProfile(resp.data);
+          if (resp.data.email) setUserEmail(resp.data.email);
+        } catch (e) {
+          console.error("Failed to fetch user profile", e);
+        }
+      };
+      fetchProfile();
+    } else {
+      setUserProfile(null);
+    }
+  }, [isAuthenticated]);
+
+  // Fetch stats periodically
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/stats`);
+        setSystemStats(res.data);
+      } catch (e) { console.error("Stats Fetch Error", e); }
+    };
+    fetchStats();
+    const interval = setInterval(fetchStats, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // WebSocket initialization
+  useEffect(() => {
+    const wsUrl = API_BASE_URL.replace('http', 'ws') + '/ws';
+    const socket = new WebSocket(wsUrl);
+    socketRef.current = socket;
+
+    socket.onopen = () => console.log('🔌 WebSocket Connected');
+    socket.onmessage = (event) => {
+      const msg = JSON.parse(event.data);
+      handleWebSocketMessage(msg);
+    };
+    socket.onclose = () => {
+      console.log('🔌 WebSocket Disconnected, retrying...');
+      setTimeout(() => {
+        // Simple reconnection logic
+        socketRef.current = new WebSocket(wsUrl);
+      }, 3000);
+    };
+
+    return () => socket.close();
+  }, [isAuthenticated]);
+
+  // Configure axios on mount
+  useEffect(() => {
+    const token = localStorage.getItem('studio_token');
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('studio_token');
+    localStorage.removeItem('user_email');
+    setIsAuthenticated(false);
+    setUserEmail('');
+    delete axios.defaults.headers.common['Authorization'];
+  };
+
+  const handleWebSocketMessage = (msg) => {
+    // We update nodes regardless of jobId to show multi-user activity if desired,
+    // but typically we'd check if msg.jobId === activeJobId
+
+    switch (msg.type) {
+      case 'node_start':
+        updateNodeExecutionState(msg.nodeId, true);
+        break;
+      case 'node_end':
+        updateNodeExecutionState(msg.nodeId, false);
+        break;
+      case 'workflow_completed':
+        setIsRunning(false);
+        setActiveJobId(null);
+        setMessages((prev) => [...prev, { role: 'bot', text: `✅ Workflow Complete: ${msg.result}` }]);
+        break;
+      case 'workflow_failed':
+        setIsRunning(false);
+        setActiveJobId(null);
+        setMessages((prev) => [...prev, { role: 'bot', text: `❌ Workflow Failed: ${msg.error}` }]);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const updateNodeExecutionState = (nodeId, isExecuting) => {
+    setNodes((nds) => nds.map((n) =>
+      n.id === nodeId ? { ...n, data: { ...n.data, isExecuting } } : n
+    ));
+  };
 
   // Fetch library on mount
   useEffect(() => {
@@ -351,17 +467,21 @@ const App = () => {
     setIsRunning(true);
 
     try {
-      const res = await axios.post(`${API_BASE_URL}/run`, {
+      // Use Async execution
+      const res = await axios.post(`${API_BASE_URL}/run/async`, {
         message: msg,
         graph: reactFlowInstance.toObject()
       });
-      setMessages((prev) => [...prev, { role: 'bot', text: res.data.response }]);
+
+      if (res.data.job_id) {
+        setActiveJobId(res.data.job_id);
+        setMessages((prev) => [...prev, { role: 'bot', text: `🚀 Workflow queued (Job: ${res.data.job_id.slice(0, 8)}...). Waiting for updates...` }]);
+      }
     } catch (e) {
       setMessages((prev) => [...prev, {
         role: 'bot',
         text: `Error: ${e.response?.data?.detail || e.message}`
       }]);
-    } finally {
       setIsRunning(false);
     }
   };
@@ -419,6 +539,22 @@ const App = () => {
     setSelectedNode(null);
   };
 
+  const handleSnapshot = async () => {
+    try {
+      const flow = { nodes, edges, name: workflowName };
+      await axios.post(`${API_BASE_URL}/workflow/snapshot`, flow);
+      alert("Snapshot saved successfully!");
+    } catch (e) {
+      console.error("Snapshot failed", e);
+    }
+  };
+
+  const handleLoadVersion = (data) => {
+    if (data.nodes) setNodes(data.nodes);
+    if (data.edges) setEdges(data.edges);
+    if (data.name) setWorkflowName(data.name);
+  };
+
   // Duplicate selected node
   const handleDuplicateNode = () => {
     if (!selectedNode) return;
@@ -438,13 +574,30 @@ const App = () => {
       {/* Header */}
       <header className="studio-header">
         <div className="logo-container" onClick={() => window.location.reload()}>
-          <div className="prime-icon-box">
-            <Zap size={18} fill="white" stroke="none" />
-          </div>
+          <img src="/logo.png" alt="Zap Logo" className="h-8 object-contain mr-2" />
           <span className="title-text">Tyboo Studio</span>
         </div>
 
-        <div className="header-action-group">
+        <div className="prime-header-right">
+          <div className="user-profile flex items-center gap-3 px-3 py-1 bg-white/5 rounded-full border border-white/10 mr-4 cursor-default">
+            <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-[10px] font-bold shadow-lg shadow-blue-500/20">
+              {(userProfile?.full_name?.[0] || userEmail?.[0] || 'U').toUpperCase()}
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xs font-bold text-white leading-tight">
+                {userProfile?.full_name || userEmail?.split('@')[0]}
+              </span>
+              {userProfile?.company_name && (
+                <span className="text-[10px] text-gray-500 leading-tight">
+                  {userProfile.company_name}
+                </span>
+              )}
+            </div>
+            <button onClick={handleLogout} className="p-1 ml-2 hover:text-red-400 transition-colors border-l border-white/10 pl-2" title="Logout">
+              <LogIn size={14} className="rotate-180" />
+            </button>
+          </div>
+
           <button className="prime-btn" onClick={() => setShowTemplates(true)}>
             <Layout size={16} /> Templates
           </button>
@@ -468,6 +621,22 @@ const App = () => {
             <Trash2 size={16} /> Clear
           </button>
 
+          <button className="prime-btn" onClick={() => setIsCredModalOpen(true)}>
+            <Shield size={16} /> Security
+          </button>
+
+          <button className="prime-btn" onClick={() => setIsLogOpen(!isLogOpen)}>
+            <Terminal size={16} /> Logs
+          </button>
+
+          <button className="prime-btn" onClick={() => setIsVersionOpen(true)}>
+            <History size={16} /> History
+          </button>
+
+          <button className="prime-btn" onClick={handleSnapshot}>
+            <Camera size={16} /> Snapshot
+          </button>
+
 
 
           <button className="prime-btn accent" onClick={handleSend} disabled={isRunning}>
@@ -475,6 +644,30 @@ const App = () => {
             Run
           </button>
         </div>
+
+        {/* System Health Stats In Header */}
+        {systemStats && (
+          <div className="system-health-strip">
+            <div className="stat-item">
+              <Activity size={12} />
+              <span>{systemStats.status}</span>
+            </div>
+            <div className="stat-item">
+              <Layers size={12} />
+              <span>{systemStats.total_nodes} Nodes</span>
+            </div>
+            {systemStats.failed_workflows > 0 && (
+              <div className="stat-item error">
+                <X size={12} />
+                <span>{systemStats.failed_workflows} Failed</span>
+              </div>
+            )}
+            <div className="stat-item success">
+              <CheckCircle size={12} />
+              <span>{systemStats.worker_status}</span>
+            </div>
+          </div>
+        )}
       </header>
 
       <div className="studio-workspace">
@@ -791,6 +984,22 @@ const App = () => {
           onClose={() => setPublishData(null)}
         />
       )}
+
+      <CredentialModal isOpen={isCredModalOpen} onClose={() => setIsCredModalOpen(false)} />
+      <LogViewer isOpen={isLogOpen} onClose={() => setIsLogOpen(false)} />
+      <VersionModal
+        isOpen={isVersionOpen}
+        onClose={() => setIsVersionOpen(false)}
+        onLoadVersion={handleLoadVersion}
+      />
+
+      <AuthModal
+        isOpen={!isAuthenticated}
+        onAuthSuccess={() => {
+          setIsAuthenticated(true);
+          setUserEmail(localStorage.getItem('user_email'));
+        }}
+      />
     </div>
   );
 };

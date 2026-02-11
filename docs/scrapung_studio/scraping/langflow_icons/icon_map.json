@@ -1,0 +1,541 @@
+{
+  "FAISS": {
+    "FAISS": "FAISS"
+  },
+  "Notion": {
+    "AddContentToPage": "NotionDirectoryLoader",
+    "NotionPageCreator": "NotionDirectoryLoader",
+    "NotionDatabaseProperties": "NotionDirectoryLoader",
+    "NotionListPages": "NotionDirectoryLoader",
+    "NotionUserList": "NotionDirectoryLoader",
+    "NotionPageContent": "NotionDirectoryLoader",
+    "NotionSearch": "NotionDirectoryLoader",
+    "NotionPageUpdate": "NotionDirectoryLoader"
+  },
+  "agentql": {
+    "AgentQL": "AgentQL"
+  },
+  "aiml": {
+    "AIMLModel": "AIML",
+    "AIMLEmbeddings": "AIML"
+  },
+  "altk": {
+    "ALTK Agent": "zap"
+  },
+  "amazon": {
+    "AmazonBedrockModel": "Amazon",
+    "AmazonBedrockConverseModel": "Amazon",
+    "AmazonBedrockEmbeddings": "Amazon",
+    "s3bucketuploader": "Amazon"
+  },
+  "anthropic": {
+    "AnthropicModel": "Anthropic"
+  },
+  "apify": {
+    "ApifyActors": "Apify"
+  },
+  "arxiv": {
+    "ArXivComponent": "arXiv"
+  },
+  "assemblyai": {
+    "AssemblyAIGetSubtitles": "AssemblyAI",
+    "AssemblyAILeMUR": "AssemblyAI",
+    "AssemblyAIListTranscripts": "AssemblyAI",
+    "AssemblyAITranscriptionJobPoller": "AssemblyAI",
+    "AssemblyAITranscriptionJobCreator": "AssemblyAI"
+  },
+  "azure": {
+    "AzureOpenAIModel": "Azure",
+    "AzureOpenAIEmbeddings": "Azure"
+  },
+  "baidu": {
+    "BaiduQianfanChatModel": "BaiduQianfan"
+  },
+  "bing": {
+    "BingSearchAPI": "Bing"
+  },
+  "cassandra": {
+    "Cassandra": "Cassandra",
+    "CassandraChatMemory": "Cassandra",
+    "CassandraGraph": "Cassandra"
+  },
+  "chroma": {
+    "Chroma": "Chroma"
+  },
+  "cleanlab": {
+    "CleanlabEvaluator": "Cleanlab",
+    "CleanlabRAGEvaluator": "Cleanlab",
+    "CleanlabRemediator": "Cleanlab"
+  },
+  "clickhouse": {
+    "Clickhouse": "Clickhouse"
+  },
+  "cloudflare": {
+    "CloudflareWorkersAIEmbeddings": "Cloudflare"
+  },
+  "cohere": {
+    "CohereEmbeddings": "Cohere",
+    "CohereModel": "Cohere",
+    "CohereRerank": "Cohere"
+  },
+  "cometapi": {
+    "CometAPIModel": "CometAPI"
+  },
+  "composio": {
+    "ComposioAgentQLAPIComponent": "AgentQL",
+    "ComposioAgiledAPIComponent": "Agiled",
+    "ComposioAirtableAPIComponent": "Airtable",
+    "ComposioApolloAPIComponent": "Apollo",
+    "ComposioAsanaAPIComponent": "Asana",
+    "ComposioAttioAPIComponent": "Attio",
+    "ComposioBitbucketAPIComponent": "Bitbucket",
+    "ComposioBolnaAPIComponent": "Bolna",
+    "ComposioBrightdataAPIComponent": "Brightdata",
+    "ComposioCalendlyAPIComponent": "Calendly",
+    "ComposioCanvaAPIComponent": "Canva",
+    "ComposioCanvasAPIComponent": "Canvas",
+    "ComposioCodaAPIComponent": "Coda",
+    "ComposioAPI": "Composio",
+    "ComposioContentfulAPIComponent": "Contentful",
+    "ComposioDigicertAPIComponent": "Digicert",
+    "ComposioDiscordAPIComponent": "discord",
+    "ComposioDropboxAPIComponent": "Dropbox",
+    "ComposioElevenLabsAPIComponent": "Elevenlabs",
+    "ComposioExaAPIComponent": "ExaComposio",
+    "ComposioFigmaAPIComponent": "Figma",
+    "ComposioFinageAPIComponent": "Finage",
+    "ComposioFirecrawlAPIComponent": "Firecrawl",
+    "ComposioFirefliesAPIComponent": "Fireflies",
+    "ComposioFixerAPIComponent": "Fixer",
+    "ComposioFlexisignAPIComponent": "Flexisign",
+    "ComposioFreshdeskAPIComponent": "Freshdesk",
+    "ComposioGitHubAPIComponent": "Github",
+    "ComposioGmailAPIComponent": "Gmail",
+    "ComposioGoogleclassroomAPIComponent": "Classroom",
+    "ComposioGoogleBigQueryAPIComponent": "Googlebigquery",
+    "ComposioGoogleCalendarAPIComponent": "Googlecalendar",
+    "ComposioGoogleDocsAPIComponent": "Googledocs",
+    "ComposioGooglemeetAPIComponent": "Googlemeet",
+    "ComposioGoogleSheetsAPIComponent": "Googlesheets",
+    "ComposioGoogleTasksAPIComponent": "GoogleTasks",
+    "ComposioHeygenAPIComponent": "Heygen",
+    "ComposioInstagramAPIComponent": "Instagram",
+    "ComposioJiraAPIComponent": "Jira",
+    "ComposioJotformAPIComponent": "Jotform",
+    "ComposioKlaviyoAPIComponent": "Klaviyo",
+    "ComposioLinearAPIComponent": "Linear",
+    "ComposioListennotesAPIComponent": "Listennotes",
+    "ComposioMem0APIComponent": "Mem0Composio",
+    "ComposioMiroAPIComponent": "Miro",
+    "ComposioMissiveAPIComponent": "Missive",
+    "ComposioNotionAPIComponent": "Notion",
+    "ComposioOneDriveAPIComponent": "One_Drive",
+    "ComposioOutlookAPIComponent": "Outlook",
+    "ComposioPandadocAPIComponent": "Pandadoc",
+    "ComposioPeopleDataLabsAPIComponent": "Peopledatalabs",
+    "ComposioPerplexityAIAPIComponent": "PerplexityComposio",
+    "ComposioRedditAPIComponent": "Reddit",
+    "ComposioSerpAPIComponent": "SerpSearchComposio",
+    "ComposioSlackAPIComponent": "SlackComposio",
+    "ComposioSlackbotAPIComponent": "SlackComposio",
+    "ComposioSnowflakeAPIComponent": "Snowflake",
+    "ComposioSupabaseAPIComponent": "Supabase",
+    "ComposioTavilyAPIComponent": "Tavily",
+    "ComposioTimelinesAIAPIComponent": "Timelinesai",
+    "ComposioTodoistAPIComponent": "Todoist",
+    "ComposioWrikeAPIComponent": "Wrike",
+    "ComposioYoutubeAPIComponent": "YouTube"
+  },
+  "confluence": {
+    "Confluence": "Confluence"
+  },
+  "couchbase": {
+    "Couchbase": "Couchbase"
+  },
+  "crewai": {
+    "CrewAIAgentComponent": "CrewAI",
+    "HierarchicalCrewComponent": "CrewAI",
+    "HierarchicalTaskComponent": "CrewAI",
+    "SequentialCrewComponent": "CrewAI",
+    "SequentialTaskComponent": "CrewAI",
+    "SequentialTaskAgentComponent": "CrewAI"
+  },
+  "cuga": {
+    "Cuga": "bot"
+  },
+  "custom_component": {
+    "CustomComponent": "code"
+  },
+  "data_source": {
+    "APIRequest": "Globe",
+    "CSVtoData": "file-spreadsheet",
+    "JSONtoData": "braces",
+    "MockDataGenerator": "database",
+    "NewsSearch": "newspaper",
+    "RSSReaderSimple": "rss",
+    "SQLComponent": "database",
+    "URLComponent": "layout-template",
+    "UnifiedWebSearch": "search"
+  },
+  "datastax": {
+    "Astra Assistant Agent": "AstraDB",
+    "AstraDB": "AstraDB",
+    "AstraDBCQLToolComponent": "AstraDB",
+    "AstraDBChatMemory": "AstraDB",
+    "AstraDBGraph": "AstraDB",
+    "AstraDBTool": "AstraDB",
+    "AstraVectorize": "AstraDB",
+    "AssistantsCreateAssistant": "AstraDB",
+    "AssistantsCreateThread": "AstraDB",
+    "Dotenv": "AstraDB",
+    "AssistantsGetAssistantName": "AstraDB",
+    "GetEnvVar": "AstraDB",
+    "GraphRAG": "AstraDB",
+    "HCD": "HCD",
+    "AssistantsListAssistants": "AstraDB",
+    "AssistantsRun": "AstraDB"
+  },
+  "deepseek": {
+    "DeepSeekModelComponent": "DeepSeek"
+  },
+  "docling": {
+    "ChunkDoclingDocument": "Docling",
+    "DoclingInline": "Docling",
+    "DoclingRemote": "Docling",
+    "ExportDoclingDocument": "Docling"
+  },
+  "duckduckgo": {
+    "DuckDuckGoSearchComponent": "DuckDuckGo"
+  },
+  "elastic": {
+    "Elasticsearch": "ElasticsearchStore",
+    "OpenSearchVectorStoreComponent": "OpenSearch"
+  },
+  "embeddings": {
+    "EmbeddingSimilarityComponent": "equal",
+    "TextEmbedderComponent": "binary"
+  },
+  "exa": {
+    "ExaSearch": "ExaSearch"
+  },
+  "files_and_knowledge": {
+    "Directory": "folder",
+    "KnowledgeIngestion": "upload",
+    "KnowledgeRetrieval": "download",
+    "File": "file-text",
+    "SaveToFile": "file-text"
+  },
+  "firecrawl": {
+    "FirecrawlCrawlApi": "",
+    "FirecrawlExtractApi": "",
+    "FirecrawlMapApi": "",
+    "FirecrawlScrapeApi": ""
+  },
+  "flow_controls": {
+    "DataConditionalRouter": "split",
+    "FlowTool": "hammer",
+    "ConditionalRouter": "split",
+    "Listen": "Radio",
+    "LoopComponent": "infinity",
+    "Notify": "Notify",
+    "Pass": "arrow-right",
+    "RunFlow": "Workflow",
+    "SubFlow": "Workflow"
+  },
+  "git": {
+    "GitLoaderComponent": "GitLoader",
+    "GitExtractorComponent": "GitLoader"
+  },
+  "glean": {
+    "GleanSearchAPIComponent": "Glean"
+  },
+  "google": {
+    "BigQueryExecutor": "Google",
+    "GmailLoaderComponent": "Google",
+    "GoogleDriveComponent": "Google",
+    "GoogleDriveSearchComponent": "Google",
+    "GoogleGenerativeAIModel": "GoogleGenerativeAI",
+    "Google Generative AI Embeddings": "GoogleGenerativeAI",
+    "GoogleOAuthToken": "Google",
+    "GoogleSearchAPICore": "Google",
+    "GoogleSerperAPICore": "Serper"
+  },
+  "groq": {
+    "GroqModel": "Groq"
+  },
+  "homeassistant": {
+    "HomeAssistantControl": "HomeAssistant",
+    "ListHomeAssistantStates": "HomeAssistant"
+  },
+  "huggingface": {
+    "HuggingFaceModel": "HuggingFace",
+    "HuggingFaceInferenceAPIEmbeddings": "HuggingFace"
+  },
+  "ibm": {
+    "IBMwatsonxModel": "WatsonxAI",
+    "WatsonxEmbeddingsComponent": "WatsonxAI"
+  },
+  "icosacomputing": {
+    "Combinatorial Reasoner": "Icosa"
+  },
+  "input_output": {
+    "ChatInput": "MessagesSquare",
+    "ChatOutput": "MessagesSquare",
+    "TextInput": "type",
+    "TextOutput": "type",
+    "Webhook": "webhook"
+  },
+  "jigsawstack": {
+    "JigsawStackAIScraper": "JigsawStack",
+    "JigsawStackAISearch": "JigsawStack",
+    "JigsawStackFileRead": "JigsawStack",
+    "JigsawStackFileUpload": "JigsawStack",
+    "JigsawStackImageGeneration": "JigsawStack",
+    "JigsawStackNSFW": "JigsawStack",
+    "JigsawStackObjectDetection": "JigsawStack",
+    "JigsawStackSentiment": "JigsawStack",
+    "JigsawStackTextTranslate": "JigsawStack",
+    "JigsawStackTextToSQL": "JigsawStack",
+    "JigsawStackVOCR": "JigsawStack"
+  },
+  "langchain_utilities": {
+    "CSVAgent": "LangChain",
+    "CharacterTextSplitter": "LangChain",
+    "ConversationChain": "LangChain",
+    "LangChainFakeEmbeddings": "LangChain",
+    "HtmlLinkExtractor": "LangChain",
+    "JsonAgent": "",
+    "LLMCheckerChain": "LangChain",
+    "LLMMathChain": "LangChain",
+    "LanguageRecursiveTextSplitter": "LangChain",
+    "NaturalLanguageTextSplitter": "LangChain",
+    "SQLGenerator": "LangChain",
+    "OpenAIToolsAgent": "LangChain",
+    "OpenAPIAgent": "LangChain",
+    "LangChain Hub Prompt": "LangChain",
+    "RecursiveCharacterTextSplitter": "LangChain",
+    "RetrievalQA": "LangChain",
+    "RunnableExecutor": "LangChain",
+    "SQLAgent": "LangChain",
+    "SQLDatabase": "LangChain",
+    "SelfQueryRetriever": "LangChain",
+    "SemanticTextSplitter": "LangChain",
+    "SpiderTool": "",
+    "ToolCallingAgent": "LangChain",
+    "VectorStoreInfo": "LangChain",
+    "VectorStoreRouterAgent": "",
+    "XMLAgent": "LangChain"
+  },
+  "langwatch": {
+    "LangWatchEvaluator": "Langwatch"
+  },
+  "llm_operations": {
+    "BatchRunComponent": "List",
+    "LLMSelectorComponent": "git-branch",
+    "SmartRouter": "route",
+    "Smart Transform": "square-function",
+    "StructuredOutput": "braces"
+  },
+  "lmstudio": {
+    "LMStudioModel": "LMStudio",
+    "LMStudioEmbeddingsComponent": "LMStudio"
+  },
+  "maritalk": {
+    "Maritalk": "Maritalk"
+  },
+  "mem0": {
+    "mem0_chat_memory": "Mem0"
+  },
+  "milvus": {
+    "Milvus": "Milvus"
+  },
+  "mistral": {
+    "MistralModel": "MistralAI",
+    "MistalAIEmbeddings": "MistralAI"
+  },
+  "models_and_agents": {
+    "Agent": "bot",
+    "EmbeddingModel": "binary",
+    "LanguageModelComponent": "brain-circuit",
+    "MCPTools": "Mcp",
+    "Memory": "message-square-more",
+    "Prompt Template": "braces"
+  },
+  "mongodb": {
+    "MongoDBAtlasVector": "MongoDB"
+  },
+  "needle": {
+    "needle": "Needle"
+  },
+  "notdiamond": {
+    "NotDiamond": "NotDiamond"
+  },
+  "novita": {
+    "NovitaModel": "Novita"
+  },
+  "nvidia": {
+    "NVIDIAModelComponent": "NVIDIA",
+    "NVIDIAEmbeddingsComponent": "NVIDIA",
+    "NvidiaRerankComponent": "NVIDIA",
+    "NvidiaIngestComponent": "NVIDIA",
+    "NvidiaSystemAssistComponent": "NVIDIA"
+  },
+  "olivya": {
+    "OlivyaComponent": "Olivya"
+  },
+  "ollama": {
+    "OllamaModel": "Ollama",
+    "OllamaEmbeddings": "Ollama"
+  },
+  "openai": {
+    "OpenAIModel": "OpenAI",
+    "OpenAIEmbeddings": "OpenAI"
+  },
+  "openrouter": {
+    "OpenRouterComponent": "OpenRouter"
+  },
+  "perplexity": {
+    "PerplexityModel": "Perplexity"
+  },
+  "pgvector": {
+    "pgvector": "cpu"
+  },
+  "pinecone": {
+    "Pinecone": "Pinecone"
+  },
+  "processing": {
+    "AlterMetadata": "merge",
+    "MergeDataComponent": "merge",
+    "CombineText": "merge",
+    "CreateData": "ListFilter",
+    "CreateList": "list",
+    "DataOperations": "file-json",
+    "ParseData": "message-square",
+    "DataToDataFrame": "table",
+    "DataFrameOperations": "table",
+    "DynamicCreateData": "ListFilter",
+    "ExtractaKey": "key",
+    "FilterData": "filter",
+    "FilterDataValues": "filter",
+    "JSONCleaner": "braces",
+    "StoreMessage": "message-square-text",
+    "MessagetoData": "message-square-share",
+    "OutputParser": "type",
+    "ParseDataFrame": "braces",
+    "ParseJSONData": "braces",
+    "ParserComponent": "braces",
+    "RegexExtractorComponent": "regex",
+    "SelectData": "prototypes",
+    "SplitText": "scissors-line-dashed",
+    "TypeConverterComponent": "repeat",
+    "UpdateData": "FolderSync"
+  },
+  "prototypes": {
+    "PythonFunction": "Python"
+  },
+  "qdrant": {
+    "QdrantVectorStoreComponent": "Qdrant"
+  },
+  "redis": {
+    "Redis": "Redis",
+    "RedisChatMemory": "Redis"
+  },
+  "sambanova": {
+    "SambaNovaModel": "SambaNova"
+  },
+  "scrapegraph": {
+    "ScrapeGraphMarkdownifyApi": "",
+    "ScrapeGraphSearchApi": "ScrapeGraph",
+    "ScrapeGraphSmartScraperApi": ""
+  },
+  "searchapi": {
+    "SearchComponent": "SearchAPI"
+  },
+  "serpapi": {
+    "Serp": "SerpSearch"
+  },
+  "supabase": {
+    "SupabaseVectorStore": "Supabase"
+  },
+  "tavily": {
+    "TavilyExtractComponent": "TavilyIcon",
+    "TavilySearchComponent": "TavilyIcon"
+  },
+  "tools": {
+    "CalculatorTool": "calculator",
+    "GoogleSearchAPI": "Google",
+    "GoogleSerperAPI": "Google",
+    "PythonCodeStructuredTool": "Python",
+    "PythonREPLTool": "Python",
+    "SearXNGTool": "",
+    "SearchAPI": "SearchAPI",
+    "SerpAPI": "SerpSearch",
+    "TavilyAISearch": "TavilyIcon",
+    "WikidataAPI": "Wikipedia",
+    "WikipediaAPI": "Wikipedia",
+    "YahooFinanceTool": "trending-up"
+  },
+  "twelvelabs": {
+    "ConvertAstraToTwelveLabs": "TwelveLabs",
+    "SplitVideo": "TwelveLabs",
+    "TwelveLabsPegasus": "TwelveLabs",
+    "TwelveLabsPegasusIndexVideo": "TwelveLabs",
+    "TwelveLabsTextEmbeddings": "TwelveLabs",
+    "TwelveLabsVideoEmbeddings": "TwelveLabs",
+    "VideoFile": "TwelveLabs"
+  },
+  "unstructured": {
+    "Unstructured": "Unstructured"
+  },
+  "upstash": {
+    "Upstash": "Upstash"
+  },
+  "utilities": {
+    "CalculatorComponent": "calculator",
+    "CurrentDate": "clock",
+    "IDGenerator": "fingerprint",
+    "PythonREPLComponent": "square-terminal"
+  },
+  "vectara": {
+    "Vectara": "Vectara",
+    "VectaraRAG": "Vectara"
+  },
+  "vectorstores": {
+    "LocalDB": "database"
+  },
+  "vertexai": {
+    "VertexAiModel": "VertexAI",
+    "VertexAIEmbeddings": "VertexAI"
+  },
+  "vlmrun": {
+    "VLMRunTranscription": "VLMRun"
+  },
+  "weaviate": {
+    "Weaviate": "Weaviate"
+  },
+  "wikipedia": {
+    "WikidataComponent": "Wikipedia",
+    "WikipediaComponent": "Wikipedia"
+  },
+  "wolframalpha": {
+    "WolframAlphaAPI": "WolframAlphaAPI"
+  },
+  "xai": {
+    "xAIModel": "xAI"
+  },
+  "yahoosearch": {
+    "YfinanceComponent": "trending-up"
+  },
+  "youtube": {
+    "YouTubeChannelComponent": "YouTube",
+    "YouTubeCommentsComponent": "YouTube",
+    "YouTubePlaylistComponent": "YouTube",
+    "YouTubeSearchComponent": "YouTube",
+    "YouTubeTranscripts": "YouTube",
+    "YouTubeTrendingComponent": "YouTube",
+    "YouTubeVideoDetailsComponent": "YouTube"
+  },
+  "zep": {
+    "ZepChatMemory": "ZepMemory"
+  }
+}

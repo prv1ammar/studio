@@ -1,78 +1,109 @@
 import json
 import os
+import base64
 from typing import Dict, Any, Optional, List
 from pathlib import Path
+from datetime import datetime
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from app.core.config import settings
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlmodel import select
+from app.db.models import Credential
+from app.db.session import async_session
 
 class CredentialStore:
     """
-    Centralized store for managing service credentials.
-    In production, this should use encryption (e.g., Cryptography.fernet).
+    Centralized store for managing service credentials with AES-256 GCM encryption.
+    Transitioned to PostgreSQL-backed storage for Phase 3.
     """
     
-    def __init__(self, storage_path: str = None):
-        if storage_path is None:
-            # Default to a hidden file in the project root or backend/data
-            self.storage_path = Path("backend/data/credentials.json").absolute()
-        else:
-            self.storage_path = Path(storage_path)
-            
-        self.storage_path.parent.mkdir(parents=True, exist_ok=True)
-        self._ensure_file()
+    def __init__(self):
+        # Initialize AES-256 GCM
+        key_bytes = base64.urlsafe_b64decode(settings.ENCRYPTION_KEY)
+        self.aesgcm = AESGCM(key_bytes)
 
-    def _ensure_file(self):
-        if not self.storage_path.exists():
-            with open(self.storage_path, 'w') as f:
-                json.dump({}, f)
+    def _encrypt(self, data: str) -> str:
+        nonce = os.urandom(12)
+        ct = self.aesgcm.encrypt(nonce, data.encode(), None)
+        return base64.b64encode(nonce + ct).decode()
 
-    def _load(self) -> Dict[str, Any]:
-        with open(self.storage_path, 'r') as f:
-            return json.load(f)
+    def _decrypt(self, encrypted_data: str) -> str:
+        decoded = base64.b64decode(encrypted_data)
+        nonce = decoded[:12]
+        ct = decoded[12:]
+        return self.aesgcm.decrypt(nonce, ct, None).decode()
 
-    def _save(self, data: Dict[str, Any]):
-        with open(self.storage_path, 'w') as f:
-            json.dump(data, f, indent=4)
-
-    def add_credential(self, cred_id: str, cred_type: str, data: Dict[str, Any], name: str = ""):
-        """
-        Adds or updates a credential.
-        :param cred_id: Unique identifier (e.g., 'google_main')
-        :param cred_type: Category (e.g., 'google_oauth', 'openai_api_key')
-        :param data: The actual sensitive data dictionary
-        :param name: Friendly name for the UI
-        """
-        store = self._load()
-        store[cred_id] = {
-            "id": cred_id,
-            "type": cred_type,
-            "name": name or cred_id,
-            "data": data,
-            "created_at": str(os.path.getmtime(self.storage_path)) if self.storage_path.exists() else ""
-        }
-        self._save(store)
-        return cred_id
-
-    def get_credential(self, cred_id: str) -> Optional[Dict[str, Any]]:
-        """Retrieves the full credential object."""
-        store = self._load()
-        return store.get(cred_id)
-
-    def list_credentials(self, cred_type: str = None) -> List[Dict[str, Any]]:
-        """Lists metadata for all credentials (excluding data for security if requested)."""
-        store = self._load()
-        creds = list(store.values())
-        if cred_type:
-            creds = [c for c in creds if c["type"] == cred_type]
+    async def add_credential(self, user_id: str, cred_type: str, data: Dict[str, Any], name: str = "", cred_id: str = None):
+        """Adds a new encrypted credential to the database."""
+        encrypted_payload = self._encrypt(json.dumps(data))
         
-        # Strip the 'data' for listing if needed, but for runtime injection we need it.
-        return creds
+        async with async_session() as db:
+            new_cred = Credential(
+                id=cred_id,  # Use provided ID if available
+                user_id=user_id,
+                type=cred_type,
+                name=name or f"{cred_type}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+                encrypted_data=encrypted_payload
+            )
+            db.add(new_cred)
+            await db.commit()
+            await db.refresh(new_cred)
+            return new_cred.id
 
-    def remove_credential(self, cred_id: str):
-        store = self._load()
-        if cred_id in store:
-            del store[cred_id]
-            self._save(store)
-            return True
-        return False
+    async def get_credential(self, cred_id: str, user_id: Optional[str] = None) -> Optional[Dict[str, Any]]:
+        """Retrieves and decrypts the full credential object."""
+        async with async_session() as db:
+            query = select(Credential).where(Credential.id == cred_id)
+            if user_id:
+                query = query.where(Credential.user_id == user_id)
+            
+            result = await db.execute(query)
+            cred = result.scalar_one_or_none()
+            
+            if not cred:
+                return None
+            
+            try:
+                decrypted_json = self._decrypt(cred.encrypted_data)
+                return {
+                    "id": cred.id,
+                    "type": cred.type,
+                    "name": cred.name,
+                    "data": json.loads(decrypted_json)
+                }
+            except Exception as e:
+                print(f"❌ Failed to decrypt credential {cred_id}: {e}")
+                return None
 
-# Singleton instance
+    async def list_credentials(self, user_id: str, cred_type: str = None) -> List[Dict[str, Any]]:
+        """Lists metadata for all credentials for a specific user."""
+        async with async_session() as db:
+            query = select(Credential).where(Credential.user_id == user_id)
+            if cred_type:
+                query = query.where(Credential.type == cred_type)
+            
+            result = await db.execute(query)
+            creds = result.scalars().all()
+            
+            return [
+                {
+                    "id": c.id,
+                    "type": c.type,
+                    "name": c.name
+                } for c in creds
+            ]
+
+    async def remove_credential(self, cred_id: str, user_id: str):
+        """Removes a credential belonging to a specific user."""
+        async with async_session() as db:
+            query = select(Credential).where(Credential.id == cred_id, Credential.user_id == user_id)
+            result = await db.execute(query)
+            cred = result.scalar_one_or_none()
+            
+            if cred:
+                await db.delete(cred)
+                await db.commit()
+                return True
+            return False
+
 cred_manager = CredentialStore()

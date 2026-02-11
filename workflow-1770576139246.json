@@ -1,0 +1,2767 @@
+{
+  "nodes": [
+    {
+      "id": "chatInput-1770559772187",
+      "type": "agentNode",
+      "position": {
+        "x": -1935.3238049770766,
+        "y": -863.5634887829417
+      },
+      "data": {
+        "id": "chatInput",
+        "name": "ChatInput",
+        "label": "Chat Input",
+        "description": "Starting point for user messages.",
+        "category": "AI Services & Agents",
+        "icon": "MessageSquare",
+        "color": "#4f46e5",
+        "inputs": [],
+        "outputs": [
+          {
+            "name": "message",
+            "display_name": "User Message",
+            "types": [
+              "Text"
+            ]
+          }
+        ]
+      },
+      "measured": {
+        "width": 260,
+        "height": 104
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "transcriptionNode-1770560320173",
+      "type": "agentNode",
+      "position": {
+        "x": -1561.0709715347361,
+        "y": -921.4997980292765
+      },
+      "data": {
+        "id": "transcriptionNode",
+        "name": "Transcription",
+        "label": "Audio Transcription",
+        "description": "Convert voice notes to text using Whisper.",
+        "category": "AI Services & Agents",
+        "icon": "/assets/icons/integrations/transcription.svg",
+        "color": "#34d399",
+        "inputs": [
+          {
+            "name": "audio_url",
+            "display_name": "Audio/Message Input",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Text"
+            ]
+          },
+          {
+            "name": "api_key",
+            "display_name": "LiteLLM Key",
+            "type": "password",
+            "default": "sk-siaV4eN9B0W-2X6PLMV4Vw",
+            "required": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "text",
+            "display_name": "Transcribed Text",
+            "types": [
+              "Text",
+              "Tool"
+            ]
+          }
+        ]
+      },
+      "measured": {
+        "width": 260,
+        "height": 136
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "langchainAgent-IntentClassifier",
+      "type": "agentNode",
+      "position": {
+        "x": -1095.480416772546,
+        "y": -909.5525549285986
+      },
+      "data": {
+        "id": "langchainAgent",
+        "name": "LangChainAgent",
+        "label": "Intent Classifier",
+        "description": "Dynamic LangChain agent for intent classification.",
+        "category": "Tyboo",
+        "icon": "Zap",
+        "color": "#f59e0b",
+        "inputs": [
+          {
+            "name": "input_data",
+            "display_name": "User Input",
+            "type": "handle",
+            "required": true,
+            "description": "The user's message or query",
+            "types": [
+              "Text",
+              "Message"
+            ]
+          },
+          {
+            "name": "llm",
+            "display_name": "LLM",
+            "type": "handle",
+            "required": false,
+            "description": "Connect an LLM node (LiteLLM, OpenAI, etc.)",
+            "types": [
+              "LLM"
+            ]
+          },
+          {
+            "name": "tools",
+            "display_name": "Tools",
+            "type": "handle",
+            "required": false,
+            "description": "Connect tool nodes (SmartDB, Supabase, etc.)",
+            "types": [
+              "Tool"
+            ]
+          },
+          {
+            "name": "memory",
+            "display_name": "Memory",
+            "type": "handle",
+            "required": false,
+            "description": "Connect a memory node for conversation history",
+            "types": [
+              "Memory"
+            ]
+          },
+          {
+            "name": "system_prompt",
+            "display_name": "System Prompt",
+            "type": "textarea",
+            "required": false,
+            "description": "Custom instructions for the agent",
+            "default": "You are a helpful AI assistant.",
+            "advanced": true
+          },
+          {
+            "name": "agent_pattern",
+            "display_name": "Agent Pattern",
+            "type": "dropdown",
+            "required": false,
+            "description": "Choose the orchestration pattern",
+            "default": "standard",
+            "options": [
+              "simple",
+              "standard",
+              "planner"
+            ],
+            "advanced": true
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "display_name": "Agent Response",
+            "types": [
+              "Text",
+              "Message"
+            ]
+          }
+        ],
+        "agent_pattern": "simple",
+        "system_prompt": "You are an Intent Classification Agent.\nYour task is to analyze the user's message and return exactly one intent label.\n\nAvailable intents:\n- PARTNER_COLLAB\n- RENT_SEARCH\n- PROPERTY_LISTING\n- GENERAL_SUPPORT\n\nRules:\n- Return only the intent label\n- No explanations\n- No additional text"
+      },
+      "measured": {
+        "width": 260,
+        "height": 232
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "flow_controls_ConditionalRouter-1770561674452",
+      "type": "agentNode",
+      "position": {
+        "x": 57.90465505762907,
+        "y": -456.2054659025847
+      },
+      "data": {
+        "id": "flow_controls_ConditionalRouter",
+        "name": "ConditionalRouter",
+        "label": "If-Else",
+        "description": "Routes an input message to a corresponding output based on text comparison.",
+        "category": "Logic & Flow",
+        "icon": "/assets/icons/imported/flow_controls/condition.svg",
+        "color": "#6b7280",
+        "inputs": [
+          {
+            "name": "case_sensitive",
+            "display_name": "Case Sensitive",
+            "type": "boolean",
+            "required": false,
+            "description": "If true, the comparison will be case sensitive.",
+            "default": true,
+            "options": null,
+            "advanced": true
+          },
+          {
+            "name": "default_route",
+            "display_name": "Default Route",
+            "type": "dropdown",
+            "required": false,
+            "description": "The default route to take when max iterations are reached.",
+            "default": "false_result",
+            "options": [
+              "true_result",
+              "false_result"
+            ],
+            "advanced": true
+          },
+          {
+            "name": "false_case_message",
+            "display_name": "Case False",
+            "type": "text",
+            "required": false,
+            "description": "The message to pass if the condition is False.",
+            "default": "",
+            "options": null,
+            "advanced": true
+          },
+          {
+            "name": "input_text",
+            "display_name": "IN: Value to Check",
+            "type": "handle",
+            "required": true,
+            "description": "The primary text input for the operation.",
+            "default": "",
+            "options": null,
+            "advanced": false
+          },
+          {
+            "name": "match_text",
+            "display_name": "Match Text",
+            "type": "text",
+            "required": true,
+            "description": "The text input to compare against.",
+            "default": "",
+            "options": null,
+            "advanced": false
+          },
+          {
+            "name": "max_iterations",
+            "display_name": "Max Iterations",
+            "type": "number",
+            "required": false,
+            "description": "The maximum number of iterations for the conditional router.",
+            "default": 10,
+            "options": null,
+            "advanced": true
+          },
+          {
+            "name": "operator",
+            "display_name": "Operator",
+            "type": "dropdown",
+            "required": false,
+            "description": "The operator to apply for comparing the texts.",
+            "default": "equals",
+            "options": [
+              "equals",
+              "not equals",
+              "contains",
+              "starts with",
+              "ends with",
+              "regex",
+              "less than",
+              "less than or equal",
+              "greater than",
+              "greater than or equal"
+            ],
+            "advanced": false
+          },
+          {
+            "name": "true_case_message",
+            "display_name": "Case True",
+            "type": "text",
+            "required": false,
+            "description": "The message to pass if the condition is True.",
+            "default": "",
+            "options": null,
+            "advanced": true
+          }
+        ],
+        "outputs": [
+          {
+            "name": "true_result",
+            "display_name": "True",
+            "types": [
+              "Message"
+            ]
+          },
+          {
+            "name": "false_result",
+            "display_name": "False",
+            "types": [
+              "Message"
+            ]
+          }
+        ],
+        "base_classes": [
+          "Message"
+        ],
+        "beta": false,
+        "documentation": "https://docs.langflow.org/if-else",
+        "match_text": "LIST_PROPERTY",
+        "default_route": ""
+      },
+      "measured": {
+        "width": 260,
+        "height": 168
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "flow_controls_ConditionalRouter-1770561860718",
+      "type": "agentNode",
+      "position": {
+        "x": -434.2470265540478,
+        "y": -936.2246251941414
+      },
+      "data": {
+        "id": "flow_controls_ConditionalRouter",
+        "name": "ConditionalRouter",
+        "label": "If-Else",
+        "description": "Routes an input message to a corresponding output based on text comparison.",
+        "category": "Logic & Flow",
+        "icon": "/assets/icons/imported/flow_controls/condition.svg",
+        "color": "#6b7280",
+        "inputs": [
+          {
+            "name": "case_sensitive",
+            "display_name": "Case Sensitive",
+            "type": "boolean",
+            "required": false,
+            "description": "If true, the comparison will be case sensitive.",
+            "default": true,
+            "options": null,
+            "advanced": true
+          },
+          {
+            "name": "default_route",
+            "display_name": "Default Route",
+            "type": "dropdown",
+            "required": false,
+            "description": "The default route to take when max iterations are reached.",
+            "default": "false_result",
+            "options": [
+              "true_result",
+              "false_result"
+            ],
+            "advanced": true
+          },
+          {
+            "name": "false_case_message",
+            "display_name": "Case False",
+            "type": "text",
+            "required": false,
+            "description": "The message to pass if the condition is False.",
+            "default": "",
+            "options": null,
+            "advanced": true
+          },
+          {
+            "name": "input_text",
+            "display_name": "IN: Value to Check",
+            "type": "handle",
+            "required": true,
+            "description": "The primary text input for the operation.",
+            "default": "",
+            "options": null,
+            "advanced": false
+          },
+          {
+            "name": "match_text",
+            "display_name": "Match Text",
+            "type": "text",
+            "required": true,
+            "description": "The text input to compare against.",
+            "default": "",
+            "options": null,
+            "advanced": false
+          },
+          {
+            "name": "max_iterations",
+            "display_name": "Max Iterations",
+            "type": "number",
+            "required": false,
+            "description": "The maximum number of iterations for the conditional router.",
+            "default": 10,
+            "options": null,
+            "advanced": true
+          },
+          {
+            "name": "operator",
+            "display_name": "Operator",
+            "type": "dropdown",
+            "required": false,
+            "description": "The operator to apply for comparing the texts.",
+            "default": "equals",
+            "options": [
+              "equals",
+              "not equals",
+              "contains",
+              "starts with",
+              "ends with",
+              "regex",
+              "less than",
+              "less than or equal",
+              "greater than",
+              "greater than or equal"
+            ],
+            "advanced": false
+          },
+          {
+            "name": "true_case_message",
+            "display_name": "Case True",
+            "type": "text",
+            "required": false,
+            "description": "The message to pass if the condition is True.",
+            "default": "",
+            "options": null,
+            "advanced": true
+          }
+        ],
+        "outputs": [
+          {
+            "name": "true_result",
+            "display_name": "True",
+            "types": [
+              "Message"
+            ]
+          },
+          {
+            "name": "false_result",
+            "display_name": "False",
+            "types": [
+              "Message"
+            ]
+          }
+        ],
+        "base_classes": [
+          "Message"
+        ],
+        "beta": false,
+        "documentation": "https://docs.langflow.org/if-else",
+        "match_text": "SEARCH_RENTAL",
+        "default_route": ""
+      },
+      "measured": {
+        "width": 260,
+        "height": 168
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "langchainAgent-1770562011651",
+      "type": "agentNode",
+      "position": {
+        "x": 1212.8516935146683,
+        "y": -1546.1544638921935
+      },
+      "data": {
+        "id": "langchainAgent",
+        "name": "LangChainAgent",
+        "label": "Universal Agent",
+        "description": "Dynamic LangChain agent with three orchestration tiers: Simple (LCEL), Standard (Tool-Calling), and Planner (ReAct). Automatically discovers LLM, Tools, Memory, and Prompts from connected nodes.",
+        "category": "Tyboo",
+        "icon": "Zap",
+        "color": "#f59e0b",
+        "inputs": [
+          {
+            "name": "input_data",
+            "display_name": "User Input",
+            "type": "handle",
+            "required": true,
+            "description": "The user's message or query",
+            "types": [
+              "Text",
+              "Message"
+            ]
+          },
+          {
+            "name": "llm",
+            "display_name": "LLM",
+            "type": "handle",
+            "required": false,
+            "description": "Connect an LLM node (LiteLLM, OpenAI, etc.)",
+            "types": [
+              "LLM"
+            ]
+          },
+          {
+            "name": "tools",
+            "display_name": "Tools",
+            "type": "handle",
+            "required": false,
+            "description": "Connect tool nodes (SmartDB, Supabase, etc.)",
+            "types": [
+              "Tool"
+            ]
+          },
+          {
+            "name": "memory",
+            "display_name": "Memory",
+            "type": "handle",
+            "required": false,
+            "description": "Connect a memory node for conversation history",
+            "types": [
+              "Memory"
+            ]
+          },
+          {
+            "name": "system_prompt",
+            "display_name": "System Prompt",
+            "type": "textarea",
+            "required": false,
+            "description": "Custom instructions for the agent",
+            "default": "You are a helpful AI assistant.",
+            "advanced": true
+          },
+          {
+            "name": "agent_pattern",
+            "display_name": "Agent Pattern",
+            "type": "dropdown",
+            "required": false,
+            "description": "Choose the orchestration pattern",
+            "default": "standard",
+            "options": [
+              "simple",
+              "standard",
+              "planner"
+            ],
+            "advanced": true
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "display_name": "Agent Response",
+            "types": [
+              "Text",
+              "Message"
+            ]
+          }
+        ],
+        "agent_pattern": "planner",
+        "system_prompt": "You are an expert Real Estate Agent assistant for Tyboo.         Your goal is to help users find properties to rent (Tenant search).                  TOOLS AVAILABLE:         1. 'supabase_search': Use this to find properties by description (e.g., \"2 bedroom in Maarif\").         2. 'smartdb_query': Use this to check specific details if needed.                  INSTRUCTIONS:         - ALWAYS use the search tools when a user asks for properties.         - If you find multiple matches, summarize the top 3.         - Be helpful, professional, and concise.         - If no properties are found, apologize and ask for different criteria."
+      },
+      "measured": {
+        "width": 260,
+        "height": 232
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "liteLLM-1770562371819",
+      "type": "agentNode",
+      "position": {
+        "x": 781.6470580498608,
+        "y": -1170.516987263631
+      },
+      "data": {
+        "id": "liteLLM",
+        "name": "LiteLLM",
+        "label": "Lite LLM (Tybot)",
+        "description": "High-performance company-specific LLM router.",
+        "category": "Tyboo",
+        "icon": "Cpu",
+        "color": "#ec4899",
+        "inputs": [
+          {
+            "name": "input_data",
+            "display_name": "Input Text",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Text",
+              "Message",
+              "Data"
+            ]
+          },
+          {
+            "name": "api_key",
+            "display_name": "API Key",
+            "type": "password",
+            "required": true,
+            "default": "sk-RVApjtnPznKZ4UXosZYEOQ"
+          },
+          {
+            "name": "base_url",
+            "display_name": "Base URL",
+            "type": "text",
+            "default": "https://toknroutertybot.tybotflow.com/",
+            "required": false
+          },
+          {
+            "name": "model_name",
+            "display_name": "Model Name",
+            "type": "text",
+            "default": "gpt-4.1-mini",
+            "required": false
+          },
+          {
+            "name": "temperature",
+            "display_name": "Temperature",
+            "type": "number",
+            "default": 0.1,
+            "required": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "response",
+            "display_name": "Assistant Response",
+            "types": [
+              "Text"
+            ]
+          }
+        ]
+      },
+      "measured": {
+        "width": 260,
+        "height": 136
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "supabase_SupabaseVectorStore-1770562418804",
+      "type": "agentNode",
+      "position": {
+        "x": 780.4891153559171,
+        "y": -1015.812363924947
+      },
+      "data": {
+        "id": "supabase_SupabaseVectorStore",
+        "name": "SupabaseVectorStore",
+        "label": "Supabase",
+        "description": "Supabase Vector Store with search capabilities",
+        "category": "Vector Stores & Databases",
+        "icon": "/assets/icons/imported/supabase/supabase.svg",
+        "color": "#6b7280",
+        "inputs": [
+          {
+            "name": "embedding",
+            "display_name": "Embedding",
+            "type": "handle",
+            "required": false,
+            "description": "",
+            "default": "",
+            "options": null,
+            "advanced": false,
+            "types": [
+              "Embeddings"
+            ]
+          },
+          {
+            "name": "ingest_data",
+            "display_name": "Ingest Data",
+            "type": "handle",
+            "required": false,
+            "description": "",
+            "default": "",
+            "options": null,
+            "advanced": false,
+            "types": [
+              "Data"
+            ]
+          },
+          {
+            "name": "number_of_results",
+            "display_name": "Number of Results",
+            "type": "number",
+            "required": false,
+            "description": "Number of results to return.",
+            "default": 4,
+            "options": null,
+            "advanced": true
+          },
+          {
+            "name": "query_name",
+            "display_name": "Query Name",
+            "type": "text",
+            "required": false,
+            "description": "",
+            "default": "",
+            "options": null,
+            "advanced": false
+          },
+          {
+            "name": "search_query",
+            "display_name": "Search Query",
+            "type": "text",
+            "required": false,
+            "description": "Enter a query to run a similarity search.",
+            "default": "",
+            "options": null,
+            "advanced": false
+          },
+          {
+            "name": "should_cache_vector_store",
+            "display_name": "Cache Vector Store",
+            "type": "boolean",
+            "required": false,
+            "description": "If True, the vector store will be cached for the current build of the component. This is useful for components that have multiple output methods and want to share the same vector store.",
+            "default": true,
+            "options": null,
+            "advanced": true
+          },
+          {
+            "name": "supabase_service_key",
+            "display_name": "Supabase Service Key",
+            "type": "password",
+            "required": true,
+            "description": "",
+            "default": "",
+            "options": null,
+            "advanced": false
+          },
+          {
+            "name": "supabase_url",
+            "display_name": "Supabase URL",
+            "type": "text",
+            "required": true,
+            "description": "",
+            "default": "",
+            "options": null,
+            "advanced": false
+          },
+          {
+            "name": "table_name",
+            "display_name": "Table Name(s)",
+            "type": "multiselect",
+            "required": false,
+            "description": "Select one or more tables for vector storage/search. Hold Ctrl/Cmd to select multiple. Tables are loaded automatically from your Supabase instance.",
+            "default": [],
+            "options": [
+              {
+                "label": "🌐 All Tables",
+                "value": "all"
+              },
+              {
+                "label": "properties",
+                "value": "properties"
+              },
+              {
+                "label": "partners",
+                "value": "partners"
+              },
+              {
+                "label": "leads",
+                "value": "leads"
+              },
+              {
+                "label": "chatbot_env_configs",
+                "value": "chatbot_env_configs"
+              },
+              {
+                "label": "property_embeddings",
+                "value": "property_embeddings"
+              }
+            ],
+            "advanced": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "search_results",
+            "display_name": "Search Results",
+            "types": [
+              "Data"
+            ]
+          },
+          {
+            "name": "dataframe",
+            "display_name": "DataFrame",
+            "types": [
+              "DataFrame"
+            ]
+          }
+        ],
+        "base_classes": [
+          "Data",
+          "DataFrame"
+        ],
+        "beta": false,
+        "documentation": "",
+        "supabase_service_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2cWJ0aW1rdXN2YnVqdW9jZ2JnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODMwMTk1MCwiZXhwIjoyMDgzODc3OTUwfQ.EmiTItlzYA0eHBFFAWy8_5zAu37notDOtkee6h0w8Jk",
+        "supabase_url": "https://vvqbtimkusvbujuocgbg.supabase.co",
+        "table_name": [
+          "all"
+        ],
+        "query_name": "match_documents"
+      },
+      "measured": {
+        "width": 260,
+        "height": 200
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "liteEmbedding-1770562524237",
+      "type": "agentNode",
+      "position": {
+        "x": 415.0605979127117,
+        "y": -853.7466592946987
+      },
+      "data": {
+        "id": "liteEmbedding",
+        "name": "LiteEmbedding",
+        "label": "Tyboo Embedding",
+        "description": "Proprietary vector embedding model for semantic search.",
+        "category": "Tyboo",
+        "icon": "Layers",
+        "color": "#8b5cf6",
+        "inputs": [
+          {
+            "name": "input_data",
+            "display_name": "Text to Embed",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Text",
+              "Message",
+              "Data"
+            ]
+          },
+          {
+            "name": "api_key",
+            "display_name": "API Key",
+            "type": "password",
+            "required": true,
+            "default": "sk-RVApjtnPznKZ4UXosZYEOQ"
+          },
+          {
+            "name": "base_url",
+            "display_name": "Base URL",
+            "type": "text",
+            "default": "https://toknroutertybot.tybotflow.com/",
+            "required": false
+          },
+          {
+            "name": "model_name",
+            "display_name": "Embedding Model",
+            "type": "text",
+            "default": "text-embedding-3-small",
+            "required": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "embeddings",
+            "display_name": "Vector Embeddings",
+            "types": [
+              "Vector"
+            ]
+          }
+        ]
+      },
+      "measured": {
+        "width": 260,
+        "height": 136
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "carouselBuilderNode-1770562551899",
+      "type": "agentNode",
+      "position": {
+        "x": 1495.0944688448658,
+        "y": -967.2905866439263
+      },
+      "data": {
+        "id": "carouselBuilderNode",
+        "name": "Carousel Builder",
+        "label": "Carousel Builder",
+        "description": "Builds WhatsApp/Web carousel from property matches",
+        "category": "AI Services & Agents",
+        "icon": "LayoutGrid",
+        "color": "#8b5cf6",
+        "inputs": [
+          {
+            "name": "matches",
+            "display_name": "Property Matches",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Data",
+              "Text"
+            ]
+          },
+          {
+            "name": "format",
+            "display_name": "Output Format",
+            "type": "select",
+            "options": [
+              {
+                "label": "WhatsApp",
+                "value": "whatsapp"
+              },
+              {
+                "label": "Web",
+                "value": "web"
+              }
+            ],
+            "default": "whatsapp",
+            "required": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "carousel_json",
+            "display_name": "Carousel JSON",
+            "types": [
+              "Object",
+              "Tool"
+            ]
+          },
+          {
+            "name": "summary_message",
+            "display_name": "Summary Message",
+            "types": [
+              "Text"
+            ]
+          }
+        ]
+      },
+      "measured": {
+        "width": 260,
+        "height": 168
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "chatOutput-1770562569862",
+      "type": "agentNode",
+      "position": {
+        "x": 1886.0462316026067,
+        "y": -910.3675565063953
+      },
+      "data": {
+        "id": "chatOutput",
+        "name": "ChatOutput",
+        "label": "Chat Output",
+        "description": "Final response display.",
+        "category": "AI Services & Agents",
+        "icon": "LogOut",
+        "color": "#4f46e5",
+        "inputs": [
+          {
+            "name": "message",
+            "display_name": "Response Text",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Message",
+              "Text"
+            ]
+          }
+        ],
+        "outputs": []
+      },
+      "measured": {
+        "width": 260,
+        "height": 104
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "langchainAgent-1770563172910",
+      "type": "agentNode",
+      "position": {
+        "x": 930.6287749167817,
+        "y": -418.14992446730264
+      },
+      "data": {
+        "id": "langchainAgent",
+        "name": "LangChainAgent",
+        "label": "Universal Agent",
+        "description": "Dynamic LangChain agent with three orchestration tiers: Simple (LCEL), Standard (Tool-Calling), and Planner (ReAct). Automatically discovers LLM, Tools, Memory, and Prompts from connected nodes.",
+        "category": "Tyboo",
+        "icon": "Zap",
+        "color": "#f59e0b",
+        "inputs": [
+          {
+            "name": "input_data",
+            "display_name": "User Input",
+            "type": "handle",
+            "required": true,
+            "description": "The user's message or query",
+            "types": [
+              "Text",
+              "Message"
+            ]
+          },
+          {
+            "name": "llm",
+            "display_name": "LLM",
+            "type": "handle",
+            "required": false,
+            "description": "Connect an LLM node (LiteLLM, OpenAI, etc.)",
+            "types": [
+              "LLM"
+            ]
+          },
+          {
+            "name": "tools",
+            "display_name": "Tools",
+            "type": "handle",
+            "required": false,
+            "description": "Connect tool nodes (SmartDB, Supabase, etc.)",
+            "types": [
+              "Tool"
+            ]
+          },
+          {
+            "name": "memory",
+            "display_name": "Memory",
+            "type": "handle",
+            "required": false,
+            "description": "Connect a memory node for conversation history",
+            "types": [
+              "Memory"
+            ]
+          },
+          {
+            "name": "system_prompt",
+            "display_name": "System Prompt",
+            "type": "textarea",
+            "required": false,
+            "description": "Custom instructions for the agent",
+            "default": "You are a helpful AI assistant.",
+            "advanced": true
+          },
+          {
+            "name": "agent_pattern",
+            "display_name": "Agent Pattern",
+            "type": "dropdown",
+            "required": false,
+            "description": "Choose the orchestration pattern",
+            "default": "standard",
+            "options": [
+              "simple",
+              "standard",
+              "planner"
+            ],
+            "advanced": true
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "display_name": "Agent Response",
+            "types": [
+              "Text",
+              "Message"
+            ]
+          }
+        ],
+        "agent_pattern": "simple",
+        "system_prompt": "Your ONLY task is to extract the URL from the user's message.                  output format:         Return ONLY the URL string. Do not add any text like \"Here is the URL\".                  Example:         User: \"I want to list this house https://avito.ma/house123\"         Output: \"https://avito.ma/house123\""
+      },
+      "measured": {
+        "width": 260,
+        "height": 232
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "liteLLM-1770563330275",
+      "type": "agentNode",
+      "position": {
+        "x": 630.3509244567447,
+        "y": -164.72284097817334
+      },
+      "data": {
+        "id": "liteLLM",
+        "name": "LiteLLM",
+        "label": "Lite LLM (Tybot)",
+        "description": "High-performance company-specific LLM router.",
+        "category": "Tyboo",
+        "icon": "Cpu",
+        "color": "#ec4899",
+        "inputs": [
+          {
+            "name": "input_data",
+            "display_name": "Input Text",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Text",
+              "Message",
+              "Data"
+            ]
+          },
+          {
+            "name": "api_key",
+            "display_name": "API Key",
+            "type": "password",
+            "required": true,
+            "default": "sk-RVApjtnPznKZ4UXosZYEOQ"
+          },
+          {
+            "name": "base_url",
+            "display_name": "Base URL",
+            "type": "text",
+            "default": "https://toknroutertybot.tybotflow.com/",
+            "required": false
+          },
+          {
+            "name": "model_name",
+            "display_name": "Model Name",
+            "type": "text",
+            "default": "gpt-4.1-mini",
+            "required": false
+          },
+          {
+            "name": "temperature",
+            "display_name": "Temperature",
+            "type": "number",
+            "default": 0.1,
+            "required": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "response",
+            "display_name": "Assistant Response",
+            "types": [
+              "Text"
+            ]
+          }
+        ]
+      },
+      "measured": {
+        "width": 260,
+        "height": 136
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "realEstateScraperNode-1770563555936",
+      "type": "agentNode",
+      "position": {
+        "x": 1231.4527748802338,
+        "y": -394.2740761512075
+      },
+      "data": {
+        "id": "realEstateScraperNode",
+        "name": "Web Content Scraper",
+        "label": "Web Scraper",
+        "description": "Extract structured data from URLs.",
+        "category": "AI Services & Agents",
+        "icon": "/assets/icons/integrations/re_scraper.svg",
+        "color": "#60a5fa",
+        "inputs": [
+          {
+            "name": "url",
+            "display_name": "IN: URL to Scrape",
+            "type": "handle",
+            "placeholder": "https://www.avito.ma/vi/...",
+            "required": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "markdown",
+            "display_name": "Extracted Content",
+            "types": [
+              "Text"
+            ]
+          },
+          {
+            "name": "property_id",
+            "display_name": "Property ID",
+            "types": [
+              "Text"
+            ]
+          }
+        ]
+      },
+      "measured": {
+        "width": 260,
+        "height": 168
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "leadFormatterNode-1770563620571",
+      "type": "agentNode",
+      "position": {
+        "x": 1527.0094850984085,
+        "y": -448.12958800956676
+      },
+      "data": {
+        "id": "leadFormatterNode",
+        "name": "Lead Formatter",
+        "label": "Lead Formatter",
+        "description": "Formats scraped data for Smart DB insertion",
+        "category": "AI Services & Agents",
+        "icon": "FileText",
+        "color": "#3b82f6",
+        "inputs": [
+          {
+            "name": "markdown",
+            "display_name": "Scraped Markdown",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Text"
+            ]
+          },
+          {
+            "name": "url",
+            "display_name": "Property URL",
+            "type": "text",
+            "required": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "formatted_lead",
+            "display_name": "Formatted Lead",
+            "types": [
+              "Object",
+              "Tool"
+            ]
+          }
+        ]
+      },
+      "measured": {
+        "width": 260,
+        "height": 136
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "leadIngestorNode-1770564057425",
+      "type": "agentNode",
+      "position": {
+        "x": 1880.2205393272238,
+        "y": -435.6243034595185
+      },
+      "data": {
+        "id": "leadIngestorNode",
+        "name": "Data Ingestor",
+        "label": "Sync & Store (Dual)",
+        "description": "Unified tool to Embed, Vectorize, and Store data into multiple destinations in one step.",
+        "category": "AI Services & Agents",
+        "icon": "Workflow",
+        "color": "#fbbf24",
+        "inputs": [
+          {
+            "name": "input_data",
+            "display_name": "Formatted Lead",
+            "type": "handle",
+            "required": false,
+            "types": [
+              "Object",
+              "Data",
+              "Text"
+            ]
+          },
+          {
+            "name": "embedding",
+            "display_name": "Embedding Model",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Vector",
+              "Embeddings"
+            ]
+          },
+          {
+            "name": "nocodb_url",
+            "display_name": "NocoDB URL",
+            "type": "text",
+            "default": "https://nocodb.tybot.ma",
+            "required": false
+          },
+          {
+            "name": "nocodb_api_key",
+            "display_name": "NocoDB API Key",
+            "type": "password",
+            "default": "s-m7Ue3MzAsf7AuNrzYyhL0Oz5NQoyEuT18vcI7X",
+            "required": false
+          },
+          {
+            "name": "nocodb_project_id",
+            "display_name": "NocoDB Project ID",
+            "type": "text",
+            "default": "pwmt3n4wh4uubxd",
+            "required": false
+          },
+          {
+            "name": "nocodb_table_id",
+            "display_name": "NocoDB Table ID",
+            "type": "text",
+            "default": "memyqo3xlmmlx4o",
+            "required": false
+          },
+          {
+            "name": "supabase_url",
+            "display_name": "Supabase URL",
+            "type": "text",
+            "default": "https://vvqbtimkusvbujuocgbg.supabase.co",
+            "required": false
+          },
+          {
+            "name": "supabase_service_key",
+            "display_name": "Supabase Service Key",
+            "type": "password",
+            "required": false
+          },
+          {
+            "name": "supabase_table_name",
+            "display_name": "Supabase Table Name",
+            "type": "text",
+            "default": "leads",
+            "required": false
+          },
+          {
+            "name": "supabase_query_name",
+            "display_name": "Supabase RPC Query",
+            "type": "text",
+            "default": "match_documents",
+            "required": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "status",
+            "display_name": "Ingestion Status",
+            "types": [
+              "Text",
+              "Tool"
+            ]
+          },
+          {
+            "name": "data",
+            "display_name": "Ingested Data",
+            "types": [
+              "Object",
+              "Data",
+              "Text"
+            ]
+          }
+        ],
+        "supabase_url": "https://vvqbtimkusvbujuocgbg.supabase.co",
+        "supabase_service_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2cWJ0aW1rdXN2YnVqdW9jZ2JnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODMwMTk1MCwiZXhwIjoyMDgzODc3OTUwfQ.EmiTItlzYA0eHBFFAWy8_5zAu37notDOtkee6h0w8Jk"
+      },
+      "measured": {
+        "width": 260,
+        "height": 200
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "liteEmbedding-1770564175116",
+      "type": "agentNode",
+      "position": {
+        "x": 1549.6030340540385,
+        "y": -232.55925969309982
+      },
+      "data": {
+        "id": "liteEmbedding",
+        "name": "LiteEmbedding",
+        "label": "Tyboo Embedding",
+        "description": "Proprietary vector embedding model for semantic search.",
+        "category": "Tyboo",
+        "icon": "Layers",
+        "color": "#8b5cf6",
+        "inputs": [
+          {
+            "name": "input_data",
+            "display_name": "Text to Embed",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Text",
+              "Message",
+              "Data"
+            ]
+          },
+          {
+            "name": "api_key",
+            "display_name": "API Key",
+            "type": "password",
+            "required": true,
+            "default": "sk-RVApjtnPznKZ4UXosZYEOQ"
+          },
+          {
+            "name": "base_url",
+            "display_name": "Base URL",
+            "type": "text",
+            "default": "https://toknroutertybot.tybotflow.com/",
+            "required": false
+          },
+          {
+            "name": "model_name",
+            "display_name": "Embedding Model",
+            "type": "text",
+            "default": "text-embedding-3-small",
+            "required": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "embeddings",
+            "display_name": "Vector Embeddings",
+            "types": [
+              "Vector"
+            ]
+          }
+        ]
+      },
+      "measured": {
+        "width": 260,
+        "height": 136
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "notificationNode-1770564442644",
+      "type": "agentNode",
+      "position": {
+        "x": 2220.5034554463787,
+        "y": -416.2850793706569
+      },
+      "data": {
+        "id": "gmailNode",
+        "name": "Gmail",
+        "label": "Send Gmail Notification",
+        "description": "Send emails via Google Gmail API using OAuth credentials.",
+        "category": "Google",
+        "icon": "Mail",
+        "color": "#EA4335",
+        "inputs": [
+          {
+            "name": "recipient",
+            "display_name": "Recipient Email",
+            "type": "text",
+            "required": true,
+            "placeholder": "admin@tyboo.com"
+          },
+          {
+            "name": "message",
+            "display_name": "IN: Message to Send",
+            "type": "handle",
+            "required": true
+          },
+          {
+            "name": "json_string",
+            "display_name": "OAuth Token (JSON)",
+            "type": "password",
+            "info": "JSON string containing Refresh Token and Client IDs",
+            "required": true
+          },
+          {
+            "name": "subject",
+            "display_name": "Email Subject",
+            "type": "text",
+            "default": "Tyboo Real Estate Notification"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "status",
+            "display_name": "Status",
+            "types": [
+              "Text"
+            ]
+          }
+        ],
+        "recipient": "admin@tyboo.com",
+        "isExecuting": false
+      },
+      "measured": {
+        "width": 260,
+        "height": 136
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "chatOutput-1770564467907",
+      "type": "agentNode",
+      "position": {
+        "x": 2603.6316923025456,
+        "y": -325.34347236935105
+      },
+      "data": {
+        "id": "chatOutput",
+        "name": "ChatOutput",
+        "label": "Chat Output",
+        "description": "Final response display.",
+        "category": "AI Services & Agents",
+        "icon": "LogOut",
+        "color": "#4f46e5",
+        "inputs": [
+          {
+            "name": "message",
+            "display_name": "Response Text",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Message",
+              "Text"
+            ]
+          }
+        ],
+        "outputs": []
+      },
+      "measured": {
+        "width": 260,
+        "height": 104
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "langchainAgent-1770564530252",
+      "type": "agentNode",
+      "position": {
+        "x": 608.3002364943444,
+        "y": 133.70303520987306
+      },
+      "data": {
+        "id": "langchainAgent",
+        "name": "LangChainAgent",
+        "label": "Universal Agent",
+        "description": "Dynamic LangChain agent with three orchestration tiers: Simple (LCEL), Standard (Tool-Calling), and Planner (ReAct). Automatically discovers LLM, Tools, Memory, and Prompts from connected nodes.",
+        "category": "Tyboo",
+        "icon": "Zap",
+        "color": "#f59e0b",
+        "inputs": [
+          {
+            "name": "input_data",
+            "display_name": "User Input",
+            "type": "handle",
+            "required": true,
+            "description": "The user's message or query",
+            "types": [
+              "Text",
+              "Message"
+            ]
+          },
+          {
+            "name": "llm",
+            "display_name": "LLM",
+            "type": "handle",
+            "required": false,
+            "description": "Connect an LLM node (LiteLLM, OpenAI, etc.)",
+            "types": [
+              "LLM"
+            ]
+          },
+          {
+            "name": "tools",
+            "display_name": "Tools",
+            "type": "handle",
+            "required": false,
+            "description": "Connect tool nodes (SmartDB, Supabase, etc.)",
+            "types": [
+              "Tool"
+            ]
+          },
+          {
+            "name": "memory",
+            "display_name": "Memory",
+            "type": "handle",
+            "required": false,
+            "description": "Connect a memory node for conversation history",
+            "types": [
+              "Memory"
+            ]
+          },
+          {
+            "name": "system_prompt",
+            "display_name": "System Prompt",
+            "type": "textarea",
+            "required": false,
+            "description": "Custom instructions for the agent",
+            "default": "You are a helpful AI assistant.",
+            "advanced": true
+          },
+          {
+            "name": "agent_pattern",
+            "display_name": "Agent Pattern",
+            "type": "dropdown",
+            "required": false,
+            "description": "Choose the orchestration pattern",
+            "default": "standard",
+            "options": [
+              "simple",
+              "standard",
+              "planner"
+            ],
+            "advanced": true
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "display_name": "Agent Response",
+            "types": [
+              "Text",
+              "Message"
+            ]
+          }
+        ],
+        "agent_pattern": "simple",
+        "system_prompt": " You are the friendly customer support AI for Tyboo.         We help people buy, rent, and list properties in Morocco.                  - Be polite and helpful.         - If you don't know an answer, direct them to support@tyboo.com.         - Do NOT invent property listings. Only answer general questions here."
+      },
+      "measured": {
+        "width": 260,
+        "height": 232
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "liteLLM-1770564721956",
+      "type": "agentNode",
+      "position": {
+        "x": 262.65551818045253,
+        "y": 392.40676254960414
+      },
+      "data": {
+        "id": "liteLLM",
+        "name": "LiteLLM",
+        "label": "Lite LLM (Tybot)",
+        "description": "High-performance company-specific LLM router.",
+        "category": "Tyboo",
+        "icon": "Cpu",
+        "color": "#ec4899",
+        "inputs": [
+          {
+            "name": "input_data",
+            "display_name": "Input Text",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Text",
+              "Message",
+              "Data"
+            ]
+          },
+          {
+            "name": "api_key",
+            "display_name": "API Key",
+            "type": "password",
+            "required": true,
+            "default": "sk-RVApjtnPznKZ4UXosZYEOQ"
+          },
+          {
+            "name": "base_url",
+            "display_name": "Base URL",
+            "type": "text",
+            "default": "https://toknroutertybot.tybotflow.com/",
+            "required": false
+          },
+          {
+            "name": "model_name",
+            "display_name": "Model Name",
+            "type": "text",
+            "default": "gpt-4.1-mini",
+            "required": false
+          },
+          {
+            "name": "temperature",
+            "display_name": "Temperature",
+            "type": "number",
+            "default": 0.1,
+            "required": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "response",
+            "display_name": "Assistant Response",
+            "types": [
+              "Text"
+            ]
+          }
+        ]
+      },
+      "measured": {
+        "width": 260,
+        "height": 136
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "redis_RedisChatMemory-1770564774969",
+      "type": "agentNode",
+      "position": {
+        "x": -891.0002470180539,
+        "y": -319.29942200423477
+      },
+      "data": {
+        "id": "redis_RedisChatMemory",
+        "name": "RedisChatMemory",
+        "label": "Redis Chat Memory",
+        "description": "Retrieves and store chat messages from Redis.",
+        "category": "Vector Stores & Databases",
+        "icon": "/assets/icons/imported/redis/redis_chat_memory.svg",
+        "color": "#6b7280",
+        "inputs": [
+          {
+            "name": "database",
+            "display_name": "database",
+            "type": "text",
+            "required": true,
+            "description": "Redis database.",
+            "default": "0",
+            "options": null,
+            "advanced": false
+          },
+          {
+            "name": "host",
+            "display_name": "hostname",
+            "type": "text",
+            "required": true,
+            "description": "IP address or hostname.",
+            "default": "localhost",
+            "options": null,
+            "advanced": false
+          },
+          {
+            "name": "key_prefix",
+            "display_name": "Key prefix",
+            "type": "text",
+            "required": false,
+            "description": "Key prefix.",
+            "default": "",
+            "options": null,
+            "advanced": true
+          },
+          {
+            "name": "password",
+            "display_name": "Redis Password",
+            "type": "password",
+            "required": false,
+            "description": "The password for username.",
+            "default": "",
+            "options": null,
+            "advanced": true
+          },
+          {
+            "name": "port",
+            "display_name": "port",
+            "type": "number",
+            "required": true,
+            "description": "Redis Port Number.",
+            "default": 6379,
+            "options": null,
+            "advanced": false
+          },
+          {
+            "name": "session_id",
+            "display_name": "Session ID",
+            "type": "text",
+            "required": false,
+            "description": "Session ID for the message.",
+            "default": "",
+            "options": null,
+            "advanced": true
+          },
+          {
+            "name": "username",
+            "display_name": "Username",
+            "type": "text",
+            "required": false,
+            "description": "The Redis user name.",
+            "default": "",
+            "options": null,
+            "advanced": true
+          }
+        ],
+        "outputs": [
+          {
+            "name": "memory",
+            "display_name": "Memory",
+            "types": [
+              "Memory"
+            ]
+          }
+        ],
+        "base_classes": [
+          "Memory"
+        ],
+        "beta": false,
+        "documentation": "",
+        "host": "redis://localhost:6379/0",
+        "session_id": "user_id",
+        "isExecuting": false
+      },
+      "measured": {
+        "width": 260,
+        "height": 104
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "chatOutput-1770564872775",
+      "type": "agentNode",
+      "position": {
+        "x": 1297.0373351147437,
+        "y": 241.6837783985383
+      },
+      "data": {
+        "id": "chatOutput",
+        "name": "ChatOutput",
+        "label": "Chat Output",
+        "description": "Final response display.",
+        "category": "AI Services & Agents",
+        "icon": "LogOut",
+        "color": "#4f46e5",
+        "inputs": [
+          {
+            "name": "message",
+            "display_name": "Response Text",
+            "type": "handle",
+            "required": true,
+            "types": [
+              "Message",
+              "Text"
+            ]
+          }
+        ],
+        "outputs": []
+      },
+      "measured": {
+        "width": 260,
+        "height": 104
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "smartDB-1770575389426",
+      "type": "agentNode",
+      "position": {
+        "x": 777.1539436627345,
+        "y": -761.8738506712946
+      },
+      "data": {
+        "id": "smartDB",
+        "name": "SmartDB",
+        "label": "SmartDB (NocoDB)",
+        "description": "Connect to your NocoDB instance with automated schema discovery.",
+        "category": "Tyboo",
+        "icon": "Database",
+        "color": "#10b981",
+        "inputs": [
+          {
+            "name": "input_data",
+            "display_name": "Operation Data",
+            "type": "handle",
+            "required": false,
+            "types": [
+              "Text",
+              "Message",
+              "Data"
+            ]
+          },
+          {
+            "name": "base_url",
+            "display_name": "NocoDB URL",
+            "type": "text",
+            "placeholder": "https://nocodb.yourcompany.com",
+            "required": false
+          },
+          {
+            "name": "api_key",
+            "display_name": "API Key",
+            "type": "password",
+            "required": false
+          },
+          {
+            "name": "project_id",
+            "display_name": "Select Database",
+            "type": "dropdown",
+            "options": [
+              "Getting Started",
+              "mie-groups",
+              "tython",
+              "Base-v3",
+              "Base",
+              "Base-2030",
+              "abounain",
+              "My New Base",
+              "tyx01",
+              "allo allo foreign",
+              "nizar",
+              "imad",
+              "imad",
+              "imad",
+              "hhhhhhh",
+              "hmmmm",
+              "ArtsClinique",
+              "bni_morocco",
+              "bni_morocco",
+              "bni_morocco",
+              "bni_morocco",
+              "db2",
+              "najm",
+              "yahya",
+              "auditec",
+              "tybott",
+              "new new",
+              "new new",
+              "Nv base",
+              "Nv base",
+              "data",
+              "tybot ai",
+              "data",
+              "new one",
+              "hello",
+              "doga_base",
+              "Task Management",
+              "Task Management",
+              "data enging",
+              "Tybot Marketing",
+              "Tybot Marketing",
+              "Assurisma-Data",
+              "Devis_epargne",
+              "Catalog",
+              "Assurisma_database",
+              "Tython CRM",
+              "TTT",
+              "tython crm",
+              "tython crm",
+              "Tython CRM",
+              "orpheon",
+              "MOOVWIN",
+              "Cardiologue",
+              "assurance",
+              "Clinique",
+              "Rockspace_DB",
+              "lead-generation",
+              "Voyageur",
+              "Smart Service Blog Demo",
+              "Smart Service Newsletter Demo",
+              "Smart SMM",
+              "1 Jadara Soutien",
+              "1 Jadara Bénéficiaire",
+              "TEST",
+              "EasySpace",
+              "test",
+              "Easyspace",
+              "test",
+              "test",
+              "test",
+              "test",
+              "Easy Space Base",
+              "QA testing",
+              "QA testing",
+              "QA testing",
+              "Tythont",
+              "tython",
+              "GESTION CLIENTS & BIENS",
+              "recrutement",
+              "Gestion Salarié",
+              "Hlb",
+              "SMM demo",
+              "Blog SMM",
+              "News SMM",
+              "Arts Clinique",
+              "CRM test",
+              "EZZAL-DB",
+              "newBaseEasy",
+              "CRM",
+              "GameEvents1",
+              "Auditec Agent",
+              "AuditecAgent",
+              "Auditec Agent",
+              "Labo",
+              "studio tyboo"
+            ],
+            "required": false
+          },
+          {
+            "name": "table_id",
+            "display_name": "Select Table(s)",
+            "type": "multiselect",
+            "options": [
+              "properties",
+              "leads",
+              "partners"
+            ],
+            "description": "Select specific tables to expose as tools. Leave empty to expose ALL tables.",
+            "required": false
+          },
+          {
+            "name": "operations",
+            "display_name": "Operations",
+            "type": "dropdown",
+            "options": [
+              "Create",
+              "Read",
+              "Update",
+              "Delete",
+              "All"
+            ],
+            "required": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "result",
+            "display_name": "Query Result",
+            "types": [
+              "Any"
+            ]
+          }
+        ],
+        "base_url": "https://nocodb.tybot.ma",
+        "api_key": "s-m7Ue3MzAsf7AuNrzYyhL0Oz5NQoyEuT18vcI7X",
+        "isExecuting": false,
+        "_project_mapping": [
+          {
+            "label": "Getting Started",
+            "value": "p3fl0s5l2rbymq7"
+          },
+          {
+            "label": "mie-groups",
+            "value": "p0p1wteq6ui8pkb"
+          },
+          {
+            "label": "tython",
+            "value": "phkvv6trxly798d"
+          },
+          {
+            "label": "Base-v3",
+            "value": "ppxlva2s82dk177"
+          },
+          {
+            "label": "Base",
+            "value": "py9ef73062b6x6v"
+          },
+          {
+            "label": "Base-2030",
+            "value": "p9bp2xrdfw0psjr"
+          },
+          {
+            "label": "abounain",
+            "value": "pru5sfzh4j36px7"
+          },
+          {
+            "label": "My New Base",
+            "value": "pk14pndh7wr6uxo"
+          },
+          {
+            "label": "tyx01",
+            "value": "pbuci5ro6cuqmof"
+          },
+          {
+            "label": "allo allo foreign",
+            "value": "p1fegif7iighl5e"
+          },
+          {
+            "label": "nizar",
+            "value": "py8faipsk55pu5e"
+          },
+          {
+            "label": "imad",
+            "value": "pnozihk0l5nba7r"
+          },
+          {
+            "label": "imad",
+            "value": "pejsqnnctvszbpi"
+          },
+          {
+            "label": "imad",
+            "value": "pxr70dgjt84ham0"
+          },
+          {
+            "label": "hhhhhhh",
+            "value": "pupjawdwhp0fjfk"
+          },
+          {
+            "label": "hmmmm",
+            "value": "p8d7xt7gmgyta8c"
+          },
+          {
+            "label": "ArtsClinique",
+            "value": "poyfyq60yqepokb"
+          },
+          {
+            "label": "bni_morocco",
+            "value": "pj71bd76cfi72lw"
+          },
+          {
+            "label": "bni_morocco",
+            "value": "pj5ezj07okmy7mv"
+          },
+          {
+            "label": "bni_morocco",
+            "value": "pgjyaevpo3siu04"
+          },
+          {
+            "label": "bni_morocco",
+            "value": "pea392e3uq34rya"
+          },
+          {
+            "label": "db2",
+            "value": "puuzu2ygqwsmhk9"
+          },
+          {
+            "label": "najm",
+            "value": "p4uz845mc7petn0"
+          },
+          {
+            "label": "yahya",
+            "value": "pqnvr49ml1wfuvm"
+          },
+          {
+            "label": "auditec",
+            "value": "pss1u63nvsafa3n"
+          },
+          {
+            "label": "tybott",
+            "value": "pt4aq62udxj2qy5"
+          },
+          {
+            "label": "new new",
+            "value": "pcc1tx28dbcxeff"
+          },
+          {
+            "label": "new new",
+            "value": "pmxqw9h2r9iazir"
+          },
+          {
+            "label": "Nv base",
+            "value": "phxvs5tcwwsfom0"
+          },
+          {
+            "label": "Nv base",
+            "value": "p6u64clqcqvpnxi"
+          },
+          {
+            "label": "data",
+            "value": "ptya25n96inbm2k"
+          },
+          {
+            "label": "tybot ai",
+            "value": "pue824j30zyvua7"
+          },
+          {
+            "label": "data",
+            "value": "pmc1qm92lsdnqxj"
+          },
+          {
+            "label": "new one",
+            "value": "psb105syxtg1tt3"
+          },
+          {
+            "label": "hello",
+            "value": "p4kr2silnv268kx"
+          },
+          {
+            "label": "doga_base",
+            "value": "p8aoe97hnv57yp2"
+          },
+          {
+            "label": "Task Management",
+            "value": "pdkxcv4ix03sosy"
+          },
+          {
+            "label": "Task Management",
+            "value": "pjecrt388oc7jil"
+          },
+          {
+            "label": "data enging",
+            "value": "pbeq9if76noy8zu"
+          },
+          {
+            "label": "Tybot Marketing",
+            "value": "pl2xav0f546m14y"
+          },
+          {
+            "label": "Tybot Marketing",
+            "value": "pj9747e89gz0q0w"
+          },
+          {
+            "label": "Assurisma-Data",
+            "value": "pdwhh0uqrh5zgva"
+          },
+          {
+            "label": "Devis_epargne",
+            "value": "pmwid9efkrn2kzw"
+          },
+          {
+            "label": "Catalog",
+            "value": "pysndf4j8i0h1qp"
+          },
+          {
+            "label": "Assurisma_database",
+            "value": "pz9r2sxpiqyzk8i"
+          },
+          {
+            "label": "Tython CRM",
+            "value": "p92kw6uncjgqg8z"
+          },
+          {
+            "label": "TTT",
+            "value": "p03h371qmdouc9q"
+          },
+          {
+            "label": "tython crm",
+            "value": "psyqtfx73ctcope"
+          },
+          {
+            "label": "tython crm",
+            "value": "pfxmdgn1nbl22ss"
+          },
+          {
+            "label": "Tython CRM",
+            "value": "p6tq3dukqlx6vap"
+          },
+          {
+            "label": "orpheon",
+            "value": "pzztoviy2psg6q0"
+          },
+          {
+            "label": "MOOVWIN",
+            "value": "prd6w1jt4faaysm"
+          },
+          {
+            "label": "Cardiologue",
+            "value": "pgrfuh6o6qmo4xv"
+          },
+          {
+            "label": "assurance",
+            "value": "psuq4vn0lvncqhu"
+          },
+          {
+            "label": "Clinique",
+            "value": "p3cdnuntkgkyw4m"
+          },
+          {
+            "label": "Rockspace_DB",
+            "value": "ph1g8vp2ssj4ye2"
+          },
+          {
+            "label": "lead-generation",
+            "value": "p2y56pior0dh6r4"
+          },
+          {
+            "label": "Voyageur",
+            "value": "p2x8daokps3x2m7"
+          },
+          {
+            "label": "Smart Service Blog Demo",
+            "value": "p59nsxmwm73d2mk"
+          },
+          {
+            "label": "Smart Service Newsletter Demo",
+            "value": "pk8osd88xjzjjgq"
+          },
+          {
+            "label": "Smart SMM",
+            "value": "p0nf7o5u2sqy5v2"
+          },
+          {
+            "label": "1 Jadara Soutien",
+            "value": "pxa5mirueztiift"
+          },
+          {
+            "label": "1 Jadara Bénéficiaire",
+            "value": "p8qap076tapw1pn"
+          },
+          {
+            "label": "TEST",
+            "value": "puyc5h7var5w8yx"
+          },
+          {
+            "label": "EasySpace",
+            "value": "pdfc9hga66q88g4"
+          },
+          {
+            "label": "test",
+            "value": "pqsnuiix2whhnzu"
+          },
+          {
+            "label": "Easyspace",
+            "value": "px1noylb1igl93q"
+          },
+          {
+            "label": "test",
+            "value": "pnylbaxozfyspr9"
+          },
+          {
+            "label": "test",
+            "value": "phit0ssliqarldm"
+          },
+          {
+            "label": "test",
+            "value": "p50p8bgp0t5at47"
+          },
+          {
+            "label": "test",
+            "value": "p4nntb2xvrkb8xx"
+          },
+          {
+            "label": "Easy Space Base",
+            "value": "pgei79faevtfhbq"
+          },
+          {
+            "label": "QA testing",
+            "value": "psppnbv6dkjh016"
+          },
+          {
+            "label": "QA testing",
+            "value": "p0dbre2f3wypjcu"
+          },
+          {
+            "label": "QA testing",
+            "value": "p82iplpwqmp6cr1"
+          },
+          {
+            "label": "Tythont",
+            "value": "p4i02v059pxiryo"
+          },
+          {
+            "label": "tython",
+            "value": "pvzplut4d8jkp3r"
+          },
+          {
+            "label": "GESTION CLIENTS & BIENS",
+            "value": "pua15tlsanbmvtc"
+          },
+          {
+            "label": "recrutement",
+            "value": "pmzb42abg8c4i0u"
+          },
+          {
+            "label": "Gestion Salarié",
+            "value": "pk568gq5q8ai0hc"
+          },
+          {
+            "label": "Hlb",
+            "value": "p9h2e5z2sfkerqc"
+          },
+          {
+            "label": "SMM demo",
+            "value": "p30wzutmzn2vzo7"
+          },
+          {
+            "label": "Blog SMM",
+            "value": "pu1ryh10kj5ybsd"
+          },
+          {
+            "label": "News SMM",
+            "value": "p1lj68jzyd5nx1p"
+          },
+          {
+            "label": "Arts Clinique",
+            "value": "p7wycjuch6qidmu"
+          },
+          {
+            "label": "CRM test",
+            "value": "pnvm8ge08od6o3n"
+          },
+          {
+            "label": "EZZAL-DB",
+            "value": "pqr4h9kry75kk9m"
+          },
+          {
+            "label": "newBaseEasy",
+            "value": "px3pgqtibet7hbj"
+          },
+          {
+            "label": "CRM",
+            "value": "pwatc2w5jr3ijc5"
+          },
+          {
+            "label": "GameEvents1",
+            "value": "ppvvhtbuzaahxyp"
+          },
+          {
+            "label": "Auditec Agent",
+            "value": "p3t34t9hveq1kch"
+          },
+          {
+            "label": "AuditecAgent",
+            "value": "pk0dl6g2esebbj0"
+          },
+          {
+            "label": "Auditec Agent",
+            "value": "plrar63x7k2addy"
+          },
+          {
+            "label": "Labo",
+            "value": "pbl0xqwhz68i2og"
+          },
+          {
+            "label": "studio tyboo",
+            "value": "pwmt3n4wh4uubxd"
+          }
+        ],
+        "_projects_loaded_for": "https://nocodb.tybot.ma-s-m7Ue3MzAsf7AuNrzYyhL0Oz5NQoyEuT18vcI7X",
+        "project_id": "pua15tlsanbmvtc",
+        "_table_mapping": [],
+        "_tables_loaded_for": "",
+        "operations": "All"
+      },
+      "measured": {
+        "width": 260,
+        "height": 136
+      },
+      "selected": false,
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "chatInput-1770559772187",
+      "sourceHandle": "message",
+      "target": "transcriptionNode-1770560320173",
+      "targetHandle": "audio_url",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__chatInput-1770559772187message-transcriptionNode-1770560320173audio_url"
+    },
+    {
+      "source": "transcriptionNode-1770560320173",
+      "sourceHandle": "text",
+      "target": "langchainAgent-IntentClassifier",
+      "targetHandle": "input_data",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__transcriptionNode-1770560320173text-langchainAgent-IntentClassifierinput_data"
+    },
+    {
+      "source": "langchainAgent-IntentClassifier",
+      "sourceHandle": "output",
+      "target": "flow_controls_ConditionalRouter-1770561860718",
+      "targetHandle": "input_text",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__langchainAgent-IntentClassifieroutput-flow_controls_ConditionalRouter-1770561860718input_text"
+    },
+    {
+      "source": "flow_controls_ConditionalRouter-1770561860718",
+      "sourceHandle": "false_result",
+      "target": "flow_controls_ConditionalRouter-1770561674452",
+      "targetHandle": "input_text",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__flow_controls_ConditionalRouter-1770561860718false_result-flow_controls_ConditionalRouter-1770561674452input_text"
+    },
+    {
+      "source": "flow_controls_ConditionalRouter-1770561860718",
+      "sourceHandle": "true_result",
+      "target": "langchainAgent-1770562011651",
+      "targetHandle": "input_data",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__flow_controls_ConditionalRouter-1770561860718true_result-langchainAgent-1770562011651input_data"
+    },
+    {
+      "source": "liteLLM-1770562371819",
+      "sourceHandle": "response",
+      "target": "langchainAgent-1770562011651",
+      "targetHandle": "llm",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__liteLLM-1770562371819response-langchainAgent-1770562011651llm"
+    },
+    {
+      "source": "supabase_SupabaseVectorStore-1770562418804",
+      "sourceHandle": "search_results",
+      "target": "langchainAgent-1770562011651",
+      "targetHandle": "tools",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__supabase_SupabaseVectorStore-1770562418804search_results-langchainAgent-1770562011651tools"
+    },
+    {
+      "source": "liteEmbedding-1770562524237",
+      "sourceHandle": "embeddings",
+      "target": "supabase_SupabaseVectorStore-1770562418804",
+      "targetHandle": "embedding",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__liteEmbedding-1770562524237embeddings-supabase_SupabaseVectorStore-1770562418804embedding"
+    },
+    {
+      "source": "langchainAgent-1770562011651",
+      "sourceHandle": "output",
+      "target": "carouselBuilderNode-1770562551899",
+      "targetHandle": "matches",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__langchainAgent-1770562011651output-carouselBuilderNode-1770562551899matches"
+    },
+    {
+      "source": "carouselBuilderNode-1770562551899",
+      "sourceHandle": "carousel_json",
+      "target": "chatOutput-1770562569862",
+      "targetHandle": "message",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__carouselBuilderNode-1770562551899carousel_json-chatOutput-1770562569862message"
+    },
+    {
+      "source": "flow_controls_ConditionalRouter-1770561674452",
+      "sourceHandle": "true_result",
+      "target": "langchainAgent-1770563172910",
+      "targetHandle": "input_data",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__flow_controls_ConditionalRouter-1770561674452true_result-langchainAgent-1770563172910input_data"
+    },
+    {
+      "source": "liteLLM-1770563330275",
+      "sourceHandle": "response",
+      "target": "langchainAgent-1770563172910",
+      "targetHandle": "llm",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__liteLLM-1770563330275response-langchainAgent-1770563172910llm"
+    },
+    {
+      "source": "langchainAgent-1770563172910",
+      "sourceHandle": "output",
+      "target": "realEstateScraperNode-1770563555936",
+      "targetHandle": "url",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__langchainAgent-1770563172910output-realEstateScraperNode-1770563555936url"
+    },
+    {
+      "source": "realEstateScraperNode-1770563555936",
+      "sourceHandle": "markdown",
+      "target": "leadFormatterNode-1770563620571",
+      "targetHandle": "markdown",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__realEstateScraperNode-1770563555936markdown-leadFormatterNode-1770563620571markdown"
+    },
+    {
+      "source": "leadFormatterNode-1770563620571",
+      "sourceHandle": "formatted_lead",
+      "target": "leadIngestorNode-1770564057425",
+      "targetHandle": "input_data",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__leadFormatterNode-1770563620571formatted_lead-leadIngestorNode-1770564057425input_data"
+    },
+    {
+      "source": "liteEmbedding-1770564175116",
+      "sourceHandle": "embeddings",
+      "target": "leadIngestorNode-1770564057425",
+      "targetHandle": "embedding",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__liteEmbedding-1770564175116embeddings-leadIngestorNode-1770564057425embedding"
+    },
+    {
+      "source": "leadIngestorNode-1770564057425",
+      "sourceHandle": "status",
+      "target": "notificationNode-1770564442644",
+      "targetHandle": "message",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__leadIngestorNode-1770564057425status-notificationNode-1770564442644message"
+    },
+    {
+      "source": "notificationNode-1770564442644",
+      "sourceHandle": "status",
+      "target": "chatOutput-1770564467907",
+      "targetHandle": "message",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__notificationNode-1770564442644status-chatOutput-1770564467907message"
+    },
+    {
+      "source": "flow_controls_ConditionalRouter-1770561674452",
+      "sourceHandle": "false_result",
+      "target": "langchainAgent-1770564530252",
+      "targetHandle": "input_data",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__flow_controls_ConditionalRouter-1770561674452false_result-langchainAgent-1770564530252input_data"
+    },
+    {
+      "source": "liteLLM-1770564721956",
+      "sourceHandle": "response",
+      "target": "langchainAgent-1770564530252",
+      "targetHandle": "llm",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__liteLLM-1770564721956response-langchainAgent-1770564530252llm"
+    },
+    {
+      "source": "redis_RedisChatMemory-1770564774969",
+      "sourceHandle": "memory",
+      "target": "langchainAgent-1770564530252",
+      "targetHandle": "memory",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__redis_RedisChatMemory-1770564774969memory-langchainAgent-1770564530252memory"
+    },
+    {
+      "source": "langchainAgent-1770564530252",
+      "sourceHandle": "output",
+      "target": "chatOutput-1770564872775",
+      "targetHandle": "message",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__langchainAgent-1770564530252output-chatOutput-1770564872775message"
+    },
+    {
+      "source": "redis_RedisChatMemory-1770564774969",
+      "sourceHandle": "memory",
+      "target": "langchainAgent-1770563172910",
+      "targetHandle": "memory",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__redis_RedisChatMemory-1770564774969memory-langchainAgent-1770563172910memory"
+    },
+    {
+      "source": "redis_RedisChatMemory-1770564774969",
+      "sourceHandle": "memory",
+      "target": "langchainAgent-1770562011651",
+      "targetHandle": "memory",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__redis_RedisChatMemory-1770564774969memory-langchainAgent-1770562011651memory"
+    },
+    {
+      "source": "smartDB-1770575389426",
+      "sourceHandle": "result",
+      "target": "langchainAgent-1770562011651",
+      "targetHandle": "tools",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__smartDB-1770575389426result-langchainAgent-1770562011651tools"
+    },
+    {
+      "source": "liteLLM-1770562371819",
+      "sourceHandle": "response",
+      "target": "langchainAgent-IntentClassifier",
+      "targetHandle": "llm",
+      "animated": true,
+      "style": {
+        "stroke": "#3b82f6",
+        "strokeWidth": 2
+      },
+      "id": "xy-edge__liteLLM-1770562371819response-langchainAgent-IntentClassifierllm"
+    }
+  ],
+  "viewport": {
+    "x": 146.42302816863275,
+    "y": 950.9369253356473,
+    "zoom": 0.5
+  }
+}

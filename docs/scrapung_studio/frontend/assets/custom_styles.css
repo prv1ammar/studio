@@ -1,0 +1,121 @@
+:root {
+    /* Brand Colors - HSL */
+    --navy-blue: 220 50% 15%;
+    --light-blue: 210 100% 55%;
+    --neutral-gray: 240 5% 65%;
+    --dark-black: 0 0% 5%;
+
+    /* Override Langflow Variables (Light Mode) */
+    --background: 0 0% 100% !important;
+    --foreground: 220 50% 15% !important;
+    --primary: 210 100% 55% !important;
+    --primary-foreground: 0 0% 100% !important;
+    --secondary: 240 5% 96% !important;
+    --muted: 240 5% 90% !important;
+    --muted-foreground: 240 5% 65% !important;
+    --accent: 210 100% 55% !important;
+    --accent-foreground: 0 0% 100% !important;
+    --border: 240 6% 90% !important;
+    --input: 240 6% 90% !important;
+    --ring: 220 50% 15% !important;
+
+    /* Specific overrides for Navbar/Sidebar */
+    --sidebar-background: 220 50% 15% !important;
+    --sidebar-foreground: 0 0% 100% !important;
+}
+
+.dark {
+    --background: 220 50% 5% !important;
+    --foreground: 210 20% 98% !important;
+    --muted: 220 50% 10% !important;
+    --border: 220 50% 15% !important;
+    --card: 220 50% 8% !important;
+}
+
+/* Navbar and Header - Clean Branded Feel */
+nav,
+[role="navigation"],
+header,
+.bg-background\/80 {
+    background-color: hsl(var(--navy-blue)) !important;
+    color: white !important;
+}
+
+/* Header Branding - Clean and Simple */
+.logo-container,
+.header-logo,
+[data-testid="header-logo"] {
+    height: 38px !important;
+    width: auto !important;
+}
+
+/* Hide default branding text near the logo */
+header span.text-xl,
+header span.font-bold,
+[data-testid="main-nav-logo"] span,
+header a[href="/"] span {
+    display: none !important;
+}
+
+/* 🎯 CUSTOM LOGO REPLACEMENT - Bigger Size */
+[data-testid="icon-ChevronLeft"],
+.header-logo {
+    width: 60px !important;
+    height: 60px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+}
+
+[data-testid="icon-ChevronLeft"] svg,
+.header-logo svg {
+    background-image: url('./1234567.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
+}
+
+[data-testid="icon-ChevronLeft"] svg *,
+.header-logo svg *,
+[data-testid="icon-ChevronLeft"] path {
+    display: none !important;
+}
+
+/* Node Styling */
+.react-flow__node {
+    border-radius: 12px !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
+    border: 1px solid hsl(var(--border)) !important;
+    background-color: white !important;
+}
+
+/* Premium Primary Buttons */
+button.bg-primary,
+.bg-primary,
+[data-variant="default"] {
+    background-color: hsl(var(--light-blue)) !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+}
+
+/* Sidebar Styling */
+.sidebar-item-header {
+    color: hsl(var(--light-blue)) !important;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+/* Workspace Colors */
+.react-flow__pane {
+    background-color: #f8fafc !important;
+}
+
+.dark .react-flow__pane {
+    background-color: #020617 !important;
+}

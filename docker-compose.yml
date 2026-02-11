@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: studio-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: studio
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: studio-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: studio-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://user:password@postgres:5432/studio
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - postgres
+      - redis
+
+  worker:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: studio-worker
+    command: python -m app.core.worker
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://user:password@postgres:5432/studio
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - postgres
+      - redis
+
+volumes:
+  postgres_data:
+  redis_data:

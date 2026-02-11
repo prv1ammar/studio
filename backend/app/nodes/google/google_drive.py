@@ -1,92 +1,53 @@
-import json
-from json.decoder import JSONDecodeError
-
-from google.auth.exceptions import RefreshError
+from typing import Any, Dict, Optional, List
+from pydantic import Field
+from app.nodes.base import BaseNode, NodeConfig
+from app.nodes.registry import register_node
 from google.oauth2.credentials import Credentials
-from langchain_google_community import GoogleDriveLoader
+from googleapiclient.discovery import build
+import io
+from googleapiclient.http import MediaIoBaseDownload
 
-from lfx.custom.custom_component.component import Component
-from lfx.helpers.data import docs_to_data
-from lfx.inputs.inputs import MessageTextInput
-from lfx.io import SecretStrInput
-from lfx.schema.data import Data
-from lfx.template.field.base import Output
+class GoogleDriveConfig(NodeConfig):
+    document_id: Optional[str] = Field(None, description="The ID of the Google Drive document")
+    credentials_id: Optional[str] = Field(None, description="Google OAuth Token Credentials ID")
 
+@register_node("google_drive_loader")
+class GoogleDriveLoaderNode(BaseNode):
+    node_id = "google_drive_loader"
+    config_model = GoogleDriveConfig
 
-class GoogleDriveComponent(Component):
-    display_name = "Google Drive Loader"
-    description = "Loads documents from Google Drive using provided credentials."
-    icon = "Google"
-    legacy: bool = True
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
+        doc_id = self.get_config("document_id") or (input_data if isinstance(input_data, str) else None)
+        creds_data = await self.get_credential("credentials_id")
+        
+        if not creds_data or not doc_id:
+            return {"error": "Google Credentials and Document ID are required."}
 
-    inputs = [
-        SecretStrInput(
-            name="json_string",
-            display_name="JSON String of the Service Account Token",
-            info="JSON string containing OAuth 2.0 access token information for service account access",
-            required=True,
-        ),
-        MessageTextInput(
-            name="document_id", display_name="Document ID", info="Single Google Drive document ID", required=True
-        ),
-    ]
-
-    outputs = [
-        Output(display_name="Loaded Documents", name="docs", method="load_documents"),
-    ]
-
-    def load_documents(self) -> Data:
-        class CustomGoogleDriveLoader(GoogleDriveLoader):
-            creds: Credentials | None = None
-            """Credentials object to be passed directly."""
-
-            def _load_credentials(self):
-                """Load credentials from the provided creds attribute or fallback to the original method."""
-                if self.creds:
-                    return self.creds
-                msg = "No credentials provided."
-                raise ValueError(msg)
-
-            class Config:
-                arbitrary_types_allowed = True
-
-        json_string = self.json_string
-
-        document_ids = [self.document_id]
-        if len(document_ids) != 1:
-            msg = "Expected a single document ID"
-            raise ValueError(msg)
-
-        # TODO: Add validation to check if the document ID is valid
-
-        # Load the token information from the JSON string
         try:
-            token_info = json.loads(json_string)
-        except JSONDecodeError as e:
-            msg = "Invalid JSON string"
-            raise ValueError(msg) from e
+            creds = Credentials.from_authorized_user_info(creds_data)
+            service = build('drive', 'v3', credentials=creds)
 
-        # Initialize the custom loader with the provided credentials and document IDs
-        loader = CustomGoogleDriveLoader(
-            creds=Credentials.from_authorized_user_info(token_info), document_ids=document_ids
-        )
+            # Get file metadata
+            file_metadata = service.files().get(fileId=doc_id).execute()
+            mime_type = file_metadata.get('mimeType')
 
-        # Load the documents
-        try:
-            docs = loader.load()
-        # catch google.auth.exceptions.RefreshError
-        except RefreshError as e:
-            msg = "Authentication error: Unable to refresh authentication token. Please try to reauthenticate."
-            raise ValueError(msg) from e
+            # If it's a Google Doc, export it as text
+            if mime_type == 'application/vnd.google-apps.document':
+                request = service.files().export_media(fileId=doc_id, mimeType='text/plain')
+            else:
+                request = service.files().get_media(fileId=doc_id)
+
+            fh = io.BytesIO()
+            downloader = MediaIoBaseDownload(fh, request)
+            done = False
+            while done is False:
+                status, done = downloader.next_chunk()
+            
+            content = fh.getvalue().decode('utf-8')
+            return {
+                "name": file_metadata.get('name'),
+                "content": content,
+                "mime_type": mime_type
+            }
         except Exception as e:
-            msg = f"Error loading documents: {e}"
-            raise ValueError(msg) from e
-
-        if len(docs) != 1:
-            msg = "Expected a single document to be loaded."
-            raise ValueError(msg)
-
-        data = docs_to_data(docs)
-        # Return the loaded documents
-        self.status = data
-        return Data(data={"text": data})
+            return {"error": f"Google Drive Load Failed: {str(e)}"}

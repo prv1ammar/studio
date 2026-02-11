@@ -1,0 +1,4409 @@
+{
+    "nodes": [
+        {
+            "parameters": {
+                "model": "gpt-4.1-mini",
+                "options": {
+                    "temperature": 0.7
+                }
+            },
+            "type": "@rxap/n8n-nodes-litellm.liteLLMChat",
+            "typeVersion": 1,
+            "position": [
+                4464,
+                -4000
+            ],
+            "id": "38161b4d-0e28-40e0-a9b2-483d70d37669",
+            "name": "LiteLLM Chat14",
+            "credentials": {
+                "litellm": {
+                    "id": "NFIpKszX4vMamJAc",
+                    "name": "LiteLLM EasySpace"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "model": "text-embedding-3-small",
+                "options": {}
+            },
+            "type": "@rxap/n8n-nodes-litellm.liteLLMEmbeddings",
+            "typeVersion": 1,
+            "position": [
+                4192,
+                -3760
+            ],
+            "id": "e2f6e69e-6ad9-448b-81c1-6bfc2634852c",
+            "name": "Embeddings LiteLLM",
+            "credentials": {
+                "litellm": {
+                    "id": "qSOPhloNtPhGbLn7",
+                    "name": "TybotChat"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "jsCode": "// 1) Read scraped content\nconst raw = $input.first().json.data || \"\";\n\n// 2) Extract ID using regex\nconst match = raw.match(/EASYSPACE ID\\s*[:=]\\s*(\\d+)/i);\n\nlet propertyId = null;\nif (match) {\n  propertyId = match[1];\n}\n\n// 3) Build ChatInput message using the original text\nconst originalMessage = $('Start').first().json.body_ChatInput_firstItem || \"\";\n\n// 4) New logic: keep user's original text and ADD the ID if found\nlet chatInput = originalMessage;\n\nif (propertyId) {\n  chatInput += ` (il s'agit du bien avec ID ${propertyId})`;\n}\n\n// 5) Return final JSON\nreturn [\n  {\n    json: {\n      ChatInput: chatInput,\n      propertyId: propertyId,\n      hasId: propertyId !== null\n    }\n  }\n];\n"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                2624,
+                -4176
+            ],
+            "id": "28f50be2-c088-4d23-b53c-7a1cdb3d1d7b",
+            "name": "Code in JavaScript1"
+        },
+        {
+            "parameters": {
+                "url": "=https://agents-mcp-hackathon-web-scraper.hf.space/gradio_api/call/scrape_content/{{ $json.event_id }}",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.3,
+            "position": [
+                2400,
+                -4176
+            ],
+            "id": "38ef9895-4c48-427c-8a2a-a356b1cfd274",
+            "name": "HTTP Request18"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://agents-mcp-hackathon-web-scraper.hf.space/gradio_api/call/scrape_content",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={\n  \"data\": [\"{{ $json.scrapableUrl }}\"\n  ]\n} ",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.3,
+            "position": [
+                2176,
+                -4176
+            ],
+            "id": "9948d066-fbda-4494-8bef-97ee2643318e",
+            "name": "HTTP Request19"
+        },
+        {
+            "parameters": {
+                "sessionIdType": "customKey",
+                "sessionKey": "={{ $('Start').item.json.body_ChatId }}",
+                "sessionTTL": 1200,
+                "contextWindowLength": 10
+            },
+            "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+            "typeVersion": 1.5,
+            "position": [
+                3200,
+                -4208
+            ],
+            "id": "d17ec7c7-e42f-4f0e-bdfc-51d39140adc3",
+            "name": "Redis Chat Memory2",
+            "credentials": {
+                "redis": {
+                    "id": "EJa20XChLVc6j8dO",
+                    "name": "Redis account 2"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "schemaType": "manual",
+                "inputSchema": "{\n  \"speak\": \"<message to the user in natural language>\",\n  \"post_speak\":\"<message to show after carousel>\",\n  \"carousel\": \"true/false\",\n\"carousel_mode\":\"full/images/none\",\n    \"reasoning\": \"A short internal explanation of why you chose this response.\",\n  \"client\": {\n    \"name\": \"<string or null>\",\n    \"phone_number\": \"<string or null>\",\n    \"type_bien\":\"\",\n    \"meuble_vide\":\"meuble/vide\",\n    \"N_chambres\":\"\",\n    \"Quartier\":\"\",\n    \"Budget\":\"\",\n    \"Visite\":\"date and time of the visit et l'id du bien correspondant à l’intérêt exprimé\"\n  },\n  \"recommendations\": [\n    {\n      \"id\": \"<property ID>\",\n      \"title\": \"<property title>\",\n      \"subtitle\": \"<short subtitle about the property>\",\n      \"image Principal\": [\"<signedUrlPrincipal>\"],\n      \"images\": [\"<all signedUrls for all images Always>\"]\n    }\n  ]\n}\n",
+                "autoFix": true
+            },
+            "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+            "typeVersion": 1.3,
+            "position": [
+                4384,
+                -4208
+            ],
+            "id": "8fb0d76b-b565-49ce-a2c3-0d8f9e115f80",
+            "name": "Structured Output Parser2"
+        },
+        {
+            "parameters": {
+                "model": "gpt-4.1-mini",
+                "options": {
+                    "temperature": 0.6
+                }
+            },
+            "type": "@rxap/n8n-nodes-litellm.liteLLMChat",
+            "typeVersion": 1,
+            "position": [
+                3072,
+                -4208
+            ],
+            "id": "8fb3df48-991b-4dee-a958-8667e694f9e5",
+            "name": "LiteLLM Chat6",
+            "credentials": {
+                "litellm": {
+                    "id": "NFIpKszX4vMamJAc",
+                    "name": "LiteLLM EasySpace"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "description": "validate phone numbers",
+                "workflowId": {
+                    "__rl": true,
+                    "value": "Yik8aIJveOS2LTDM",
+                    "mode": "list",
+                    "cachedResultUrl": "/workflow/Yik8aIJveOS2LTDM",
+                    "cachedResultName": "EasySpace-Validate Format Number"
+                },
+                "workflowInputs": {
+                    "mappingMode": "defineBelow",
+                    "value": {},
+                    "matchingColumns": [],
+                    "schema": [],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": false
+                }
+            },
+            "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+            "typeVersion": 2.2,
+            "position": [
+                3296,
+                -3744
+            ],
+            "id": "be7354a2-2300-4a5d-b165-4b0f4253c1f3",
+            "name": "Phone Validation Sub-flow"
+        },
+        {
+            "parameters": {
+                "description": "schedule visits",
+                "workflowId": {
+                    "__rl": true,
+                    "value": "YdTzScjhaLZalssz",
+                    "mode": "list",
+                    "cachedResultUrl": "/workflow/YdTzScjhaLZalssz",
+                    "cachedResultName": "easyspace-activites"
+                },
+                "workflowInputs": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "property id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('property_id', ``, 'number') }}",
+                        "User's id": "={{ $('Start').item.json.body_Id_Id }}",
+                        "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}"
+                    },
+                    "matchingColumns": [
+                        "test"
+                    ],
+                    "schema": [
+                        {
+                            "id": "query",
+                            "displayName": "query",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "type": "string",
+                            "removed": false
+                        },
+                        {
+                            "id": "User's id",
+                            "displayName": "User's id",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "type": "number",
+                            "removed": false
+                        },
+                        {
+                            "id": "property id",
+                            "displayName": "property id",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "type": "number",
+                            "removed": false
+                        }
+                    ],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": false
+                }
+            },
+            "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+            "typeVersion": 2.2,
+            "position": [
+                3040,
+                -3952
+            ],
+            "id": "36213b9a-36f2-445f-a701-af5e1c70b5ed",
+            "name": "RDV"
+        },
+        {
+            "parameters": {
+                "description": "=Use this tool to consult EasySpace agency procedures regarding visits, phone validation, and rental laws in Casablanca. MUST be called before confirming any RDV.\n\n"
+            },
+            "type": "@n8n/n8n-nodes-langchain.toolThink",
+            "typeVersion": 1,
+            "position": [
+                3584,
+                -4208
+            ],
+            "id": "9456c401-901a-4165-bb0d-a43330250d12",
+            "name": "Think"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "getAll",
+                "projectId": "p77se5dmds496r7",
+                "table": "mcvf0xmkf6ld2fx",
+                "returnAll": true,
+                "options": {}
+            },
+            "type": "n8n-nodes-base.nocoDbTool",
+            "typeVersion": 3,
+            "position": [
+                3712,
+                -4208
+            ],
+            "id": "627a2389-3f03-424d-9165-ff391025ccae",
+            "name": "FAQ",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "description": "used at first contact to fetch 2 recent properties.",
+                "workflowId": {
+                    "__rl": true,
+                    "value": "znpUIHQgirI0vbQT",
+                    "mode": "list",
+                    "cachedResultUrl": "/workflow/znpUIHQgirI0vbQT",
+                    "cachedResultName": "Easyspace-FirstRecommendation"
+                },
+                "workflowInputs": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "type_bien": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('type_bien', `Appartement/Bureau /Studio/Café/Local commercial\none of these values or null`, 'string') }}"
+                    },
+                    "matchingColumns": [
+                        "type_bien"
+                    ],
+                    "schema": [
+                        {
+                            "id": "type_bien",
+                            "displayName": "type_bien",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        }
+                    ],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": false
+                }
+            },
+            "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+            "typeVersion": 2.2,
+            "position": [
+                3856,
+                -4016
+            ],
+            "id": "a8ccd331-70c2-4f4a-b759-ef5554d47182",
+            "name": "FirstRecommendation Sub-flow1"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "projectId": "p77se5dmds496r7",
+                "table": "mn1pyhy30qbgy72",
+                "id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Row_ID_Value', `The unique ID of the property provided by the user.`, 'string') }}"
+            },
+            "type": "n8n-nodes-base.nocoDbTool",
+            "typeVersion": 3,
+            "position": [
+                3712,
+                -3728
+            ],
+            "id": "2c603936-a14b-4626-8936-d334a5a09684",
+            "name": "Search_By_Id1",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "dTNZSsuFYyNQjVUq",
+                    "name": "DBrow Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "mode": "retrieve-as-tool",
+                "toolDescription": "=Use this to find properties and recommend to the user depending on their preferences\nmax 2 properties at a time",
+                "tableName": {
+                    "__rl": true,
+                    "value": "properties",
+                    "mode": "list",
+                    "cachedResultName": "properties"
+                },
+                "topK": 15,
+                "options": {
+                    "queryName": "match_documents"
+                }
+            },
+            "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+            "typeVersion": 1.3,
+            "position": [
+                4112,
+                -3968
+            ],
+            "id": "2217ecad-59ee-430b-a7a2-321cdecce167",
+            "name": "Supabase Vector Store",
+            "credentials": {
+                "supabaseApi": {
+                    "id": "KNdxZvoNJgPST0Bw",
+                    "name": "Manal"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 2
+                    },
+                    "conditions": [
+                        {
+                            "id": "8e85d38b-3924-4579-a123-3e8744353c26",
+                            "leftValue": "={{ $json.scrapableUrl }}",
+                            "rightValue": "mubawab",
+                            "operator": {
+                                "type": "string",
+                                "operation": "contains"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.2,
+            "position": [
+                1728,
+                -4272
+            ],
+            "id": "914e5cf1-4578-42fe-a4d6-ff986146bc71",
+            "name": "If1"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "=https://firecrawl.tybot.ma/v1/crawl",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "Authorization",
+                            "value": "Bearer local-key"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={\n  \"url\": \"{{ $json.scrapableUrl }}\"\n} ",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.3,
+            "position": [
+                1952,
+                -4368
+            ],
+            "id": "f4b017e1-4c7b-43a3-af3e-1f735c6c0e20",
+            "name": "HTTP Request"
+        },
+        {
+            "parameters": {
+                "url": "={{ $json.url }}",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "Authorization",
+                            "value": "Bearer local-key"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.3,
+            "position": [
+                2400,
+                -4368
+            ],
+            "id": "ea814888-cb0d-4b48-913f-9b070c21d05f",
+            "name": "HTTP Request9"
+        },
+        {
+            "parameters": {
+                "jsCode": "const url = $input.first().json.url;\n\n// Convert http:// → https://\nitems[0].json.url = url.replace(/^http:\\/\\//, \"https://\");\n\nreturn items;\n"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                2176,
+                -4368
+            ],
+            "id": "7ea4ff40-5a25-4f1f-aed5-5eeb34c526d2",
+            "name": "Code in JavaScript4"
+        },
+        {
+            "parameters": {
+                "jsCode": "// Read markdown from the first input item\nconst markdown = ($input.first().json && $input.first().json.data && $input.first().json.data[0] && $input.first().json.data[0].markdown) || \"\";\n\n// Try EASYSPACE ID first, then a generic \"ID: 1234\"\nlet match = markdown.match(/EASYSPACE\\s*ID\\s*[:=]?\\s*(\\d+)/i);\nif (!match) {\n  match = markdown.match(/\\bID\\s*[:=]\\s*(\\d{2,7})\\b/i);\n}\n\nconst propertyId = match ? match[1] : null;\n// If you have an original ChatInput from Webhook1, append the ID\nconst originalMessage = $('Start').first().json.body_ChatInput_firstItem\n|| \"\";\nlet chatInput = originalMessage;\nif (propertyId) {\n  chatInput = chatInput ? `${chatInput} (il s'agit du bien avec ID ${propertyId})` \n                          : `Il s'agit du bien avec ID ${propertyId}`;\n}\n\n// Put results on the first output item (keep other fields if you want)\nitems[0].json = {\n  ChatInput: chatInput,\n  propertyId: propertyId,\n  hasId: propertyId !== null,\n  // optional: include the full markdown for debugging\n};\n\nreturn items;\n"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                2624,
+                -4368
+            ],
+            "id": "253a1909-0aca-4bd2-a790-5cf5e077cbd5",
+            "name": "Code in JavaScript5"
+        },
+        {
+            "parameters": {
+                "promptType": "define",
+                "text": "=this is the user's input : {{ $('Code4').item.json.ChatInput }}\nthis is the user's phone number : {{ $('Start').item.json.body_PhoneNumber }}\nthis is the user's language detected :{{ $('Start').item.json.output_language }}\ntoday's date {{ $now }}\n",
+                "hasOutputParser": true,
+                "options": {
+                    "systemMessage": "=\nVous êtes **EasySpace**, l'agent commercial expert en location immobilière à Casablanca.\n\n**Votre mission** : Transformer chaque conversation en opportunité de location réussie.\n\n**Votre approche** :\n- 🔥 Proactif et persuasif (pas passif)\n- 💎 Créer le désir avant de présenter\n- 🎪 Faire vivre l'émotion de trouver \"LE\" bien parfait\n- 🏆 Toujours proposer, jamais attendre\n\n---\n\n## 📋 RÈGLES LINGUISTIQUES UNIVERSELLES\n\n```\n<language_rule>\n🌍 RÉPONDEZ dans N'IMPORTE QUELLE LANGUE utilisée par l'utilisateur :\n- Français → Réponse en Français\n- English → Response in English  \n- Darija/Moroccan Arabic → جواب بالدارجة\n- العربية الفصحى → الرد بالعربية\n- Español → Respuesta en Español\n- Deutsch → Antwort auf Deutsch\n- Italiano → Risposta in Italiano\n- Toute autre langue → Adaptez-vous automatiquement\n\n📌 RÈGLES :\n✅ Détectez automatiquement la langue du dernier message\n✅ Maintenez cette langue pendant toute la conversation\n✅ Si l'utilisateur change de langue → changez immédiatement\n✅ Messages mixtes → utilisez la langue dominante (>60%)\n❌ JAMAIS traduire les descriptions de biens (gardez l'original)\n❌ JAMAIS forcer une langue spécifique\n\n🎯 OBJECTIF : Parler naturellement la langue du client, quelle qu'elle soit\n</language_rule>\n```\n\n---\n\n## 🎭 STYLE COMMERCIAL EASYSPACE\n\n### Ton de Communication\n- **Enthousiaste** mais professionnel\n- **Chaleureux** et rassurant\n- **Confiant** sans être arrogant\n- **Créateur d'urgence** subtile\n\n### Structure des Messages\n✅ **FAIRE** :\n- Phrases courtes et percutantes\n- 1-2 emojis maximum par message (😍 🏠 ✨ 👍 🔑)\n- 1 question à la fois, bien ciblée\n- Max 3 lignes de texte\n- Créer de l'anticipation\n- Utiliser des chiffres précis (crédibilité)\n\n❌ **ÉVITER** :\n- Longs paragraphes\n- Langage trop technique\n- Surplus d'emojis\n- Questions multiples\n- Attente passive\n\n### Techniques de Persuasion\n1. **Principe de rareté** : \"Il ne nous reste que 3 biens dans ce quartier\"\n2. **Preuve sociale** : \"Ce type de bien se loue en moins de 48h\"\n3. **Urgence douce** : \"Je vous réserve un créneau de visite avant que...\"\n4. **Valorisation** : \"Pour votre budget, vous méritez vraiment...\"\n5. **Projection future** : \"Imaginez-vous dans ce salon lumineux...\"\n\n---\n</Identity>\n\n<Logic_Rules>\n\n2. MEMORY: If client.phone_number is present, NEVER ask for it again.\n3. NO EXTERNAL LINKS: Never mention Mubawab, Avito, or raw URLs.\n4. DYNAMIC SPEAKING:\n   - If carousel_mode=\"full\": Keep 'speak' to a short, warm intro. Do NOT describe properties.\n   - If carousel_mode=\"images\": Use 'speak' to describe the property's specific charms.\n</Logic_Rules>\n\n<Operational_Flow>\n- New Session: Call first_recommendation_tool.\n- Neighborhood/Preference provided: Call recommendations_tool.\n- User wants to visit: \n   - If name/phone missing -> Ask once.\n   - If present -> Call Think tool to verify procedure, then call RDV.\n- 0 Results: Suggest Casablanca alternatives (Maarif, Gauthier, or Sidi Maarouf) and ask if they want to pivot.\n</Operational_Flow>\n\n<Geographic_Constraint>\n- We ONLY serve Casablanca and Bouskoura. \n- If user mentions other cities (Marrakech, Rabat, etc.), politely explain we are Casablanca specialists and suggest a popular Casa neighborhood instead.\n</Geographic_Constraint>\n\n<output>\n{\n  \"speak\": \"<message to the user in natural language>\",\n  \"post_speak\":\"<message to show after carousel>\",\n  \"retarget_intent\": \"owner || agent || false\",\n  \"carousel\": \"true/false\",\n  \"carousel_mode\":\"full/images/none\",\n    \"reasoning\": \"A short internal explanation of why you chose this response.\",\n  \"client\": {\n    \"name\": \"<string or null>\",\n    \"phone_number\": \"<string or null>\",\n    \"type_bien\":\"\",\n    \"Quartier\":\"\",\n    \"Budget\":\"\",\n    \"Visite\":\"date and time of the visit et l'id du bien correspondant à l’intérêt exprimé\"\n  },\n  \"recommendations\": [\n    {\n      \"id\": \"<property ID>\",\n      \"title\": \"<property title>\",\n      \"subtitle\": \"<short subtitle about the property>\",\n      \"image Principal\": [\"<signedUrlPrincipal>\"],\n      \"images\": [\"<all signedUrls for all images Always>\"]\n    }\n  ]\n}\n\n</output>\nOn donne pas la description des biens des la 1ere fois, dans post speak on demande \" Voulez vous savoir plus sur l'un de ces deux bien ? si oui, lequel ?\", si il choisit l'un de ces 2 biens on donne description\n\"post_speak\" example: \"Would you like to visit one of these properties?\"\nno redundancy between speak and post_speak\nFollow the schema provided by the output parser strictly. Include the \"reasoning\" field to explain your choice.\n\"Post_speak\":\"\"(when it s time to ask for phone number, name, choosing rdv keep post speak empty)"
+                }
+            },
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 2.1,
+            "position": [
+                3584,
+                -4432
+            ],
+            "id": "fbcff471-b724-4504-8b2b-3c265dd273a8",
+            "name": "AI Agent1",
+            "retryOnFail": true,
+            "alwaysOutputData": true
+        },
+        {
+            "parameters": {
+                "jsCode": "// Read scrapability from Code5 output\nconst isScrapable = $('Code5').first().json.isScrapable;\n\n// 1) If audio → transcription\nconst isAudio = $('Code5').first().json.isAudio === true;\nif (isAudio) {\n  const text = $('Transcribe a recording2').first().json.text;\n  return [{ json: { ChatInput: text } }];\n}\n\n// 2) If scrapable → use ChatInput generated by scraper code\nif (isScrapable === true) {\n  const scraped = $input.first().json.ChatInput ; \n  if (scraped) {\n    return [{ json: { ChatInput: scraped } }];\n  }\n}\n\n// 3) Fallback → Webhook ChatInput\nconst normalText = $('Start').first().json.body_ChatInput_firstItem || \"\";\nreturn [{ json: { ChatInput: normalText } }];\n"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                2848,
+                -4432
+            ],
+            "id": "22839d83-ad86-401b-81d7-055f354b73c8",
+            "name": "Code4"
+        },
+        {
+            "parameters": {
+                "jsCode": "// n8n Code node (JavaScript)\n\n// 1) Read ChatInput safely\nconst textRaw = String($input.first().json?.body?.ChatInput ?? \"\").trim();\n\n// 2) Decode HTML entities (&amp;, &#x2F;, &#123;, etc.)\nfunction htmlEntityDecode(str) {\n  if (!str) return \"\";\n  return str.replace(/&(#x[0-9A-Fa-f]+|#\\d+|[A-Za-z]+);/g, (m, code) => {\n    if (code.startsWith(\"#x\") || code.startsWith(\"#X\")) {\n      const cp = parseInt(code.slice(2), 16);\n      return Number.isFinite(cp) ? String.fromCodePoint(cp) : m;\n    }\n    if (code.startsWith(\"#\")) {\n      const cp = parseInt(code.slice(1), 10);\n      return Number.isFinite(cp) ? String.fromCodePoint(cp) : m;\n    }\n    const named = { \n      amp: \"&\", \n      lt: \"<\", \n      gt: \">\", \n      quot: \"\\\"\", \n      apos: \"'\", \n      nbsp: \"\\u00A0\", \n      sol: \"/\", \n      frasl: \"/\", \n      colon: \":\" \n    };\n    return Object.prototype.hasOwnProperty.call(named, code) ? named[code] : m;\n  });\n}\n\nconst decoded = htmlEntityDecode(textRaw);\n\n// 3) Detect audio or image\nconst isAudio = /audio/i.test(decoded);\nconst isImage = /(image|\\.jpg|\\.jpeg|\\.png|\\.gif|\\.webp)/i.test(decoded);\n\n// 4) Extract ALL URLs in the message\nconst allUrls = decoded.match(/https?:\\/\\/[^\\s\"'<>]+/g) || [];\n\n// 5) Keep the original logic: choose a URL for isAudio/isImage\nlet url = null;\nif (isAudio || isImage) {\n  const candidate = allUrls.find(u => \n    isAudio ? /audio/i.test(u) : /\\.(jpg|jpeg|png|gif|webp)$/i.test(u)\n  ) || allUrls[0] || null;\n\n  url = candidate ? decodeURI(candidate) : null;\n}\n\n// 6) SCRAPABLE detection (Avito + Mubawab only)\nconst scrapableDomains = [\"avito.ma\", \"mubawab.ma\"];\n\nlet scrapableUrl = allUrls.find(u =>\n  scrapableDomains.some(domain => u.includes(domain))\n) || null;\n\nconst isScrapable = scrapableUrl !== null;\n// 1.b) Detect source from ChatId\nconst chatId = String($input.first().json?.body?.ChatId ?? \"\").toLowerCase();\n\nlet source = null;\n\nif (chatId.endsWith(\"-wb\")) {\n  source = \"Web\";\n} else if (chatId.endsWith(\"-wa\")) {\n  source = \"Whatsapp\";\n}\n\n// 7) Return JSON\nreturn [{\n  json: {\n    isAudio,\n    isImage,\n    url,\n    isScrapable,\n    scrapableUrl,\n        source\n  }\n}];\n"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                1280,
+                -4512
+            ],
+            "id": "e7f2e1a3-5c15-491f-875c-0a63934783ce",
+            "name": "Code5"
+        },
+        {
+            "parameters": {
+                "rules": {
+                    "values": [
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 2
+                                },
+                                "conditions": [
+                                    {
+                                        "leftValue": "={{ $json.isAudio }}",
+                                        "rightValue": "true",
+                                        "operator": {
+                                            "type": "boolean",
+                                            "operation": "true",
+                                            "singleValue": true
+                                        },
+                                        "id": "a193b37f-2791-46e6-ba31-363b44baf07b"
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "Audio"
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 2
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "23eb75e1-ea05-4fa3-9505-84076c59d529",
+                                        "leftValue": "={{ $json.isScrapable }}",
+                                        "rightValue": false,
+                                        "operator": {
+                                            "type": "boolean",
+                                            "operation": "true",
+                                            "singleValue": true
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            }
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 2
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "052e5854-082c-4a79-a018-4420c0d83be0",
+                                        "leftValue": "={{ $json.isAudio }}",
+                                        "rightValue": false,
+                                        "operator": {
+                                            "type": "boolean",
+                                            "operation": "equals"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            }
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 3.2,
+            "position": [
+                1504,
+                -4528
+            ],
+            "id": "f5b291b6-56d4-4556-b473-58e97dab699b",
+            "name": "Switch4"
+        },
+        {
+            "parameters": {
+                "url": "={{ $json.url }}",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                2400,
+                -4656
+            ],
+            "id": "5b67b458-3930-4431-89c1-9607e0a714ed",
+            "name": "HTTP Request2"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://toknroutertybot.tybotflow.com/v1/audio/transcriptions",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "Authorization",
+                            "value": "Bearer sk-siaV4eN9B0W-2X6PLMV4Vw"
+                        },
+                        {
+                            "name": "Accept",
+                            "value": "application/json"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "contentType": "multipart-form-data",
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "model",
+                            "value": "gpt-4o-mini-transcribe"
+                        },
+                        {
+                            "parameterType": "formBinaryData",
+                            "name": "file",
+                            "inputDataFieldName": "data"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.3,
+            "position": [
+                2624,
+                -4656
+            ],
+            "id": "44517925-3b16-440e-9005-2e32fb6a4ba9",
+            "name": "HTTP Request4"
+        },
+        {
+            "parameters": {
+                "workflowInputs": {
+                    "values": [
+                        {
+                            "name": "body_ChatId",
+                            "type": "any"
+                        },
+                        {
+                            "name": "body_PhoneNumber",
+                            "type": "any"
+                        },
+                        {
+                            "name": "output_language",
+                            "type": "any"
+                        },
+                        {
+                            "name": "body_ChatInput_firstItem",
+                            "type": "any"
+                        },
+                        {
+                            "name": "body_Id_Id",
+                            "type": "any"
+                        },
+                        {
+                            "name": "source",
+                            "type": "any"
+                        }
+                    ]
+                }
+            },
+            "id": "b3fa045b-6b56-4966-a464-03a5b2b2c643",
+            "typeVersion": 1.1,
+            "name": "Start",
+            "type": "n8n-nodes-base.executeWorkflowTrigger",
+            "position": [
+                1072,
+                -4512
+            ]
+        }
+    ],
+    "connections": {
+        "LiteLLM Chat14": {
+            "ai_languageModel": [
+                [
+                    {
+                        "node": "Structured Output Parser2",
+                        "type": "ai_languageModel",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Embeddings LiteLLM": {
+            "ai_embedding": [
+                [
+                    {
+                        "node": "Supabase Vector Store",
+                        "type": "ai_embedding",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code in JavaScript1": {
+            "main": [
+                [
+                    {
+                        "node": "Code4",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request18": {
+            "main": [
+                [
+                    {
+                        "node": "Code in JavaScript1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request19": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request18",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Redis Chat Memory2": {
+            "ai_memory": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_memory",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Structured Output Parser2": {
+            "ai_outputParser": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_outputParser",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "LiteLLM Chat6": {
+            "ai_languageModel": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_languageModel",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Phone Validation Sub-flow": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "RDV": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Think": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "FAQ": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "FirstRecommendation Sub-flow1": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Search_By_Id1": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Supabase Vector Store": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If1": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "HTTP Request19",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request": {
+            "main": [
+                [
+                    {
+                        "node": "Code in JavaScript4",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request9": {
+            "main": [
+                [
+                    {
+                        "node": "Code in JavaScript5",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code in JavaScript4": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request9",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code in JavaScript5": {
+            "main": [
+                [
+                    {
+                        "node": "Code4",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "AI Agent1": {
+            "main": [
+                []
+            ]
+        },
+        "Code4": {
+            "main": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code5": {
+            "main": [
+                [
+                    {
+                        "node": "Switch4",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Switch4": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request2",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "If1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Code4",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request2": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request4",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request4": {
+            "main": [
+                [
+                    {
+                        "node": "Code4",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Start": {
+            "main": [
+                [
+                    {
+                        "node": "Code5",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "pinData": {
+        "Start": [
+            {
+                "body_ChatId": "32e76d3a-f998-46c6-b097-33a6bcfc4586",
+                "body_PhoneNumber": "",
+                "output_language": "French",
+                "body_ChatInput_firstItem": "ok",
+                "body_Id_Id": "21",
+                "source": null
+            }
+        ]
+    },
+    "meta": {
+        "instanceId": "0da66f17bba2fcc890b5be057a686d0ca3993a5029c9e76b5777c351b18c6fdb"
+    }
+}
+
+
+
+
+
+
+
+
+
+{
+    "nodes": [
+        {
+            "parameters": {
+                "model": "gpt-4.1-mini",
+                "options": {}
+            },
+            "type": "@rxap/n8n-nodes-litellm.liteLLMChat",
+            "typeVersion": 1,
+            "position": [
+                5008,
+                -2544
+            ],
+            "id": "8539ce1b-d0ad-4301-a51c-9ca20165b673",
+            "name": "LiteLLM Chat3",
+            "credentials": {
+                "litellm": {
+                    "id": "NFIpKszX4vMamJAc",
+                    "name": "LiteLLM EasySpace"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "model": "gpt-4.1-mini",
+                "options": {}
+            },
+            "type": "@rxap/n8n-nodes-litellm.liteLLMChat",
+            "typeVersion": 1,
+            "position": [
+                3664,
+                -2544
+            ],
+            "id": "4e129291-e566-41dd-92ee-d54be91b547f",
+            "name": "LiteLLM Chat1",
+            "credentials": {
+                "litellm": {
+                    "id": "NFIpKszX4vMamJAc",
+                    "name": "LiteLLM EasySpace"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "getAll",
+                "projectId": "p77se5dmds496r7",
+                "table": "mcvf0xmkf6ld2fx",
+                "returnAll": true,
+                "options": {}
+            },
+            "type": "n8n-nodes-base.nocoDbTool",
+            "typeVersion": 3,
+            "position": [
+                4416,
+                -2752
+            ],
+            "id": "8f011af6-d34c-4c3e-92f6-3c0e16c1062d",
+            "name": "Faq1",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "dTNZSsuFYyNQjVUq",
+                    "name": "DBrow Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "workflowId": {
+                    "__rl": true,
+                    "value": "wGFGnSUgSyM5NvB2",
+                    "mode": "list",
+                    "cachedResultName": "EasySpace-Validate Format Number"
+                },
+                "workflowInputs": {
+                    "mappingMode": "defineBelow",
+                    "value": {},
+                    "matchingColumns": [],
+                    "schema": [],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": false
+                }
+            },
+            "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+            "typeVersion": 2.2,
+            "position": [
+                4544,
+                -2752
+            ],
+            "id": "e3ed8d8a-a41d-4e7e-a9f1-238ee4462a82",
+            "name": "Call n8n Workflow Tool1"
+        },
+        {
+            "parameters": {
+                "descriptionType": "manual",
+                "toolDescription": "=The Create tool is used to add a new record to the database. We create a row just Once, if we already have \"client.clientCreated\":true\" then we never use create we use the tool \"update\".",
+                "authentication": "nocoDbApiToken",
+                "operation": "create",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mbmofsyfsxx8j3o",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "Nature_proposition",
+                            "fieldValue": "={{ $fromAI('Nature_proposition', `dot etre location puisque on travaille que sur la location`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "type_bien",
+                            "fieldValue": "={{ $fromAI('Type_de_bien', `Est ce que le bien du client est un appartement, villa, Studio, Bureau`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Meuble_vide",
+                            "fieldValue": "={{ $fromAI('meuble_vide', `Pour savoir est ce que l'appartement ou villa ou studio son meublé ou vide`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "N chambres",
+                            "fieldValue": "={{ $fromAI('Nombre_de_Pieces', `Pour savoir le nombre de chambres qui se trouve dans le  bien qu'a choisi le client`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Ville",
+                            "fieldValue": "={{ $fromAI('La_ville', `La ville dans laquelle se trouve le bien du client`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Quartier",
+                            "fieldValue": "={{ $fromAI('Quartier', `Le Quartier dans lequel se trouve le bien du client`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Adresse",
+                            "fieldValue": "={{ $fromAI('Adresse', `L'adresse où se trouve le quartier`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Superficie",
+                            "fieldValue": "={{ $fromAI('superficie', `Combien mesure le bien du client `, 'number') }}"
+                        },
+                        {
+                            "fieldName": "Prix",
+                            "fieldValue": "={{ $fromAI('Prix', `Le prix qu'à décider le client de donner sans mad ou vergule`, 'number') }}"
+                        },
+                        {
+                            "fieldName": "image",
+                            "fieldValue": "={{ $fromAI('fieldValues14_Field_Value', `Array of all the Links of the property `, 'json') }}"
+                        },
+                        {
+                            "fieldName": "source",
+                            "fieldValue": "={{ $fromAI('fieldValues15_Field_Value', `source link`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Balcon_terrasse",
+                            "fieldValue": "={{ $fromAI('fieldValues16_Field_Value', `If balcon/Terrase exist`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Parking",
+                            "fieldValue": "={{ $fromAI('fieldValues17_Field_Value', `Parking`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "N sdb",
+                            "fieldValue": "={{ $fromAI('fieldValues18_Field_Value', `Nombre_salle_bain`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Etage",
+                            "fieldValue": "={{ $fromAI('fieldValues19_Field_Value', `Etage`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Nom",
+                            "fieldValue": "={{ $fromAI('fieldValues20_Field_Value', `client.Name`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "numero_proprietaire",
+                            "fieldValue": "={{ $fromAI('fieldValues21_Field_Value', `the user's phone number that is stocked in client.PhoneNumber`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "event.id",
+                            "fieldValue": "={{ $('Start').item.json.body_ChatId }}"
+                        },
+                        {
+                            "fieldName": "Statut",
+                            "fieldValue": "Owner"
+                        },
+                        {
+                            "fieldName": "users_id",
+                            "fieldValue": "={{ $('Start').item.json.body_Id_Id }}"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDbTool",
+            "typeVersion": 3,
+            "position": [
+                4672,
+                -2752
+            ],
+            "id": "bfe7ba34-60a1-457a-bf4a-fcf7e7d86f00",
+            "name": "Create",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "sessionIdType": "customKey",
+                "sessionKey": "={{ $('Start').item.json.body_ChatId }}",
+                "sessionTTL": 1800,
+                "contextWindowLength": 15
+            },
+            "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+            "typeVersion": 1.5,
+            "position": [
+                4288,
+                -2752
+            ],
+            "id": "4de4bde8-8178-469e-b2eb-372f16f332db",
+            "name": "Redis Chat Memory1",
+            "credentials": {
+                "redis": {
+                    "id": "EJa20XChLVc6j8dO",
+                    "name": "Redis account 2"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "schemaType": "manual",
+                "inputSchema": "{\n  \"message\": \"<Question or response to the client, in the chosen language should always be a text or a paragraph>\",\n  \"post_message\":\"<post_message or 'null'>\",\n  \"client\": {\n    \"Name\": \"<Validated full name>\",\n    \"PhoneNumber\": \"<Validated phone number>\",\n    \"Row_ID\": \"<Generated after creation>\",\n    \"Language\": \"<Chosen language>\",\n    \"clientCreated\": false\n  },\n  \"data_collected\": {\n    \"Language\": \"<Chosen language>\",\n    \"ProposalType\": \"<Rent or Sell>\",\n    \"PropertyType\": \"<Apartment/Villa/Studio/Office>\",\n    \"Status\": \"<Furnished/Unfurnished>\",\n    \"Rooms\": \"<Number of rooms>\",\n    \"City\": \"<City>\",\n    \"Neighborhood\": \"<Neighborhood>\",\n    \"Adresse\": \"<Address>\",\n    \"superficie\": \"<Area in m²>\",\n    \"Prix\": \"<Price in MAD>\",\n    \"image\":[\"Link1\",\"Link2\",\"..\"]\n  }\n}\n",
+                "autoFix": true
+            },
+            "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+            "typeVersion": 1.3,
+            "position": [
+                4928,
+                -2752
+            ],
+            "id": "eef2b439-1839-4fc3-af7b-374afd3aab0f",
+            "name": "Structured Output Parser1"
+        },
+        {
+            "parameters": {
+                "model": "gpt-4.1-mini",
+                "options": {}
+            },
+            "type": "@rxap/n8n-nodes-litellm.liteLLMChat",
+            "typeVersion": 1,
+            "position": [
+                4160,
+                -2752
+            ],
+            "id": "749d4700-c61e-4dae-b4c8-b420463aa700",
+            "name": "LiteLLM Chat2",
+            "credentials": {
+                "litellm": {
+                    "id": "NFIpKszX4vMamJAc",
+                    "name": "LiteLLM EasySpace"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "descriptionType": "manual",
+                "toolDescription": "=The Create tool is used to add a new record to the database. We create a row just Once, if we already have \"client.clientCreated\":true\" then we never use create we use the tool \"update\".",
+                "authentication": "nocoDbApiToken",
+                "operation": "update",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mbmofsyfsxx8j3o",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "Id",
+                            "fieldValue": "={{ $fromAI('fieldValues0_Field_Value', `client.Row_ID after getting it created`, 'number') }}"
+                        },
+                        {
+                            "fieldName": "type_bien",
+                            "fieldValue": "={{ $fromAI('type_bien', `Est ce que le bien du client est un appartement, villa, Studio, Bureau`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Meuble_vide",
+                            "fieldValue": "={{ $fromAI('Meuble_vide', `Pour savoir est ce que l'appartement ou villa ou studio son meublé ou vide`, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "N chambres",
+                            "fieldValue": "={{ $fromAI('fieldValues3_Field_Value', `Pour savoir le nombre de chambres qui se trouve dans le  bien qu'a choisi le client`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Ville",
+                            "fieldValue": "={{ $fromAI('La_ville', `La ville dans laquelle se trouve le bien du client`, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "Quartier",
+                            "fieldValue": "={{ $fromAI('Quartier', `Le Quartier dans lequel se trouve le bien du client`, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "Adresse",
+                            "fieldValue": "={{ $fromAI('Adresse', `L'adresse où se trouve le quartier`, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "Superficie",
+                            "fieldValue": "={{ $fromAI('Superficie', `Combien mesure le bien du client `, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "Prix",
+                            "fieldValue": "={{ $fromAI('Prix', `Le prix qu'à décider le client de donner`, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "image",
+                            "fieldValue": "={{ $fromAI('image', `Array of the Links of the property `, 'json') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "source",
+                            "fieldValue": "={{ $fromAI('fieldValues15_Field_Value', `source link`, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "Balcon_terrasse",
+                            "fieldValue": "={{ $fromAI('fieldValues16_Field_Value', `If balcon/Terrase exist`, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "Parking",
+                            "fieldValue": "={{ $fromAI('fieldValues17_Field_Value', `Parking`, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "N sdb",
+                            "fieldValue": "={{ $fromAI('fieldValues18_Field_Value', `Nombre_salle_bain`, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "Etage",
+                            "fieldValue": "={{ $fromAI('fieldValues19_Field_Value', `Etage`, 'string') || \"\" }}"
+                        },
+                        {
+                            "fieldName": "Nom",
+                            "fieldValue": "={{ $fromAI('fieldValues20_Field_Value', `client.Name`, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "numero_proprietaire",
+                            "fieldValue": "={{ $fromAI('fieldValues21_Field_Value', `the user's phone number that is stocked in client.PhoneNumber`, 'string') || \"\"}}"
+                        },
+                        {
+                            "fieldName": "Statut",
+                            "fieldValue": "Owner"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDbTool",
+            "typeVersion": 3,
+            "position": [
+                4800,
+                -2752
+            ],
+            "id": "d631e3f1-28f2-409e-9894-5014ccb99bc9",
+            "name": "Update",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "jsCode": "const html =$input.first().json.data;\n\n// 1. Extraire le contenu des scripts (optionnel)\nconst scriptContents = [];\nconst scriptRegex = /<script\\b[^>]*>([\\s\\S]*?)<\\/script>/gi;\nlet match;\nlet htmlWithoutScripts = html;\n\nwhile ((match = scriptRegex.exec(html)) !== null) {\n  scriptContents.push(match[1]);\n}\nhtmlWithoutScripts = html.replace(scriptRegex, ' ');\n\n// 2. Nettoyer le HTML sans les scripts\nfunction cleanHtml(input) {\n  return input\n    .replace(/<style[\\s\\S]*?<\\/style>/gi, '') // supprimer styles\n    .replace(/<!--[\\s\\S]*?-->/g, '')          // supprimer commentaires\n    .replace(/<\\/?[^>]+(>|$)/g, ' ')          // supprimer balises\n    .replace(/\\s+/g, ' ')                      // espaces multiples → espace simple\n    .trim();\n}\n\nconst cleanedText = cleanHtml(htmlWithoutScripts);\n\n// 3. Combiner texte nettoyé + contenu scripts\nconst combinedText = cleanedText + '\\n' + scriptContents.join('\\n');\n\nreturn [{\n  json: {\n    cleanedText: combinedText\n  }\n}];\n"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                3360,
+                -2768
+            ],
+            "id": "eb6822e6-3782-43ef-895c-56d15d4bad9a",
+            "name": "Code in JavaScript"
+        },
+        {
+            "parameters": {
+                "promptType": "define",
+                "text": "={{ $json.cleanedText }}",
+                "messages": {
+                    "messageValues": [
+                        {
+                            "message": "=You are an expert HTML extractor. Your mission is to analyze a single property detail page (the exact URL is provided as input) and extract the property announcement as one structured JSON object.\n\n\nMANDATORY RULES:\n1. Extract **exactly** the fields listed below for this single property. Return a single JSON object containing all fields.\n2. If a field is missing or cannot be found, set its value to `null`. Do not omit fields.\n3. The annonce link (absolute URL to the listing detail page), all phone numbers found on the page, and all available images are **mandatory** to keep (or `null` if absent).\n4. Images must be captured in order and mapped to: `image`, `image2`, `image3`, `image4`, `image5`. If fewer than 5 images, fill missing ones with `null`.\n5. Always return absolute URLs for the annonce `source` and for any images.\n6. Normalize multiple phone numbers into an array of strings; if none found, set the field to `null`.\n7. Do not return any HTML markup in field values: extract and clean text only (trim whitespace, remove duplicate separators and invisible characters).\n8. If the page contains structured data (JSON-LD, microdata, Open Graph, schema.org), prefer that after validating values; otherwise, extract from visible DOM/text.\n9. Do not invent values or guess—only extract. If you cannot locate a value, return `null`.\n10. The output must be valid JSON only (no explanations, no extra text).\n\nFIELDS TO EXTRACT (exact JSON keys and expected value types):\n- \"type_bien\": string | null\n- \"Ville\": string | null\n- \"Quartier\": string | null\n- \"Adresse\": string | null\n- \"Superficie\": string | null     // include units if present, e.g. \"120 m2\"\n- \"Nombre_de_chambres\": integer | null\n- \"Nombre_de_salons\": integer | null\n- \"Nombre_salles_bain\": integer | null\n- \"Meuble_vide\": string | null    // e.g. \"Meublé\", \"Vide\", \"Semi-meublé\"\n- \"Prix_location\": string | null   // price string with currency\n- \"Parking\": string | null\n- \"Balcon_terrasse\": string | null\n- \"Nom\": string | null            // owner/agency name\n- \"numero_proprietaire\": array[string] | null  // all phone numbers found on page as strings\n- \"Statut_bien\": string | null    // e.g. \"À louer\"\n- \"etage\": string | null          // floor info e.g. \"2ème\"\n- \"Nature_proposition\": string | null  // e.g. \"Location\"\n- \"image\": [Array of all the images links]\n- \"source\": string                // MUST be the absolute URL of the scraped page (use input \"url\")\n\nEXTRA EXTRACTION GUIDANCE:\n- If numbers are embedded in text (e.g., \"3 chambres\", \"3 ch\"), extract the numeric portion and return integer for numeric fields.\n- For \"Meuble_vide\", try to find keywords like \"meublé\", \"non meublé\", \"semi-meublé\", \"furnished\", \"unfurnished\". If unclear, return the exact short phrase or `null`.\n- For phone numbers: extract any sequences that look like phone numbers (including local formats). Keep them as found; do not format unless clearly necessary. Return all distinct numbers.\n- For images: collect `<img>` tags and `<meta property=\"og:image\">` and any carousel or lazy-loaded images. Preserve order as shown on the page. Convert relative `src` to absolute using the input URL.\n- If structured JSON-LD exists, prefer its values but still verify the presence/format of image and phone values in the DOM.\n- \"source\" must exactly equal the input URL (normalized).\n\nOUTPUT FORMAT:\nReturn a single JSON object with the keys in the exact order above. Example:\n\n{\n  \"type_bien\": \"Appartement\",\n  \"Ville\": \"Casablanca\",\n  \"Quartier\": \"Gauthier\",\n  \"Adresse\": \"Rue Exemple 12\",\n  \"Superficie\": \"85 m2\",\n  \"Nombre_de_chambres\": 2,\n  \"Nombre_de_salons\": 1,\n  \"Nombre_salles_bain\": 1,\n  \"Meuble_vide\": \"Meublé\",\n  \"Prix_location\": \"7,000 MAD / mois\",\n  \"Disponibilite\": \"Immediate\",\n  \"Vue_Orientation\": \"Mer\",\n  \"Ascenseur\": \"Oui\",\n  \"Parking\": \"Oui\",\n  \"Balcon_terrasse\": \"Balcon\",\n  \"Nom\": \"Agence Ex\",\n  \"numero_proprietaire\": [\"+212600000000\", \"0612345678\"],\n  \"Statut_bien\": \"À louer\",\n  \"etage\": \"2ème\",\n  \"Nature_proposition\": \"Location\",\n  \"image\": [\"Link1\",\"Link2\",\"Link3\"...],\n  \"source\": \"https://example.com/listing/12345\"\n}\n\nIMPORTANT: Output MUST be strictly valid JSON only — nothing else.\n\n"
+                        }
+                    ]
+                },
+                "batching": {}
+            },
+            "type": "@n8n/n8n-nodes-langchain.chainLlm",
+            "typeVersion": 1.7,
+            "position": [
+                3584,
+                -2768
+            ],
+            "id": "f6ad4f12-a4cb-4e9a-a9a9-7725cfb054c5",
+            "name": "Basic LLM Chain2"
+        },
+        {
+            "parameters": {
+                "url": "={{ $json.url }}",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                3136,
+                -2768
+            ],
+            "id": "ca55ee1c-88ca-40a8-8a66-ce289b175589",
+            "name": "HTTP Request5"
+        },
+        {
+            "parameters": {
+                "jsCode": "// n8n Code node (JavaScript)\n\n// ----------------------------------------------------\n// 0) Normalize ChatInput (Webhook-based, form vs text)\n// ----------------------------------------------------\nlet ChatInput;\nconst webhookData = $('Start').first().json._firstItem;\nconst chatInputRaw = webhookData?.body?.ChatInput;\n\nif (typeof chatInputRaw === 'object' && chatInputRaw !== null) {\n  const ci = chatInputRaw;\n  ChatInput =\n    `Type de bien : ${ci.typeDeBien || 'non précisé'}, ` +\n    `Adresse : ${ci.adresse || 'non précisée'}, ` +\n    `Superficie : ${ci.superficie || 'non précisée'} m², ` +\n    `Chambres : ${ci.nombreChambres || 'non précisées'}, ` +\n    `Salles de bain : ${ci.nombreSallesBain || 'non précisées'}, ` +\n    `Meublé : ${ci.meuble || 'non précisé'}, ` +\n    `Balcon/Terrasse : ${ci.balconTerrasse || 'non précisé'}, ` +\n    `Parking : ${ci.parking || 'non précisé'}, ` +\n    `Étage : ${ci.etage || 'non précisé'}, ` +\n    `Loyer souhaité : ${ci.loyerSouhaite || 'non précisé'} MAD/mois.`;\n} else {\n  ChatInput = String(chatInputRaw ?? '');\n}\n\n// overwrite ChatInput in payload\n$('Start').first().json.body_ChatInput_firstItem = ChatInput;\n\n// ------------------------------------\n// 1) Read ChatInput safely\n// ------------------------------------\nconst textRaw = String(ChatInput).trim();\n\n// ------------------------------------\n// 2) Decode HTML entities\n// ------------------------------------\nfunction htmlEntityDecode(str) {\n  if (!str) return \"\";\n  return str.replace(/&(#x[0-9A-Fa-f]+|#\\d+|[A-Za-z]+);/g, (m, code) => {\n    if (code.startsWith(\"#x\") || code.startsWith(\"#X\")) {\n      const cp = parseInt(code.slice(2), 16);\n      return Number.isFinite(cp) ? String.fromCodePoint(cp) : m;\n    }\n    if (code.startsWith(\"#\")) {\n      const cp = parseInt(code.slice(1), 10);\n      return Number.isFinite(cp) ? String.fromCodePoint(cp) : m;\n    }\n    const named = {\n      amp: \"&\",\n      lt: \"<\",\n      gt: \">\",\n      quot: \"\\\"\",\n      apos: \"'\",\n      nbsp: \"\\u00A0\"\n    };\n    return Object.prototype.hasOwnProperty.call(named, code) ? named[code] : m;\n  });\n}\n\nlet decoded = htmlEntityDecode(textRaw);\n\nif (/^https?:\\/\\//i.test(decoded)) {\n  try {\n    decoded = decodeURI(decoded);\n  } catch {}\n}\n\n// ------------------------------------\n// 3) Extract URLs\n// ------------------------------------\nconst rawUrls = decoded.match(/https?:\\/\\/[^\\s\"'<>]+/g) || [];\n\nconst urls = rawUrls.map(u => {\n  try {\n    return decodeURI(htmlEntityDecode(u));\n  } catch {\n    return u;\n  }\n});\n\n// ------------------------------------\n// 4) Defaults\n// ------------------------------------\nlet url = null;\nlet type = \"text\";\nconst hasRealUrl = urls.length > 0;\n\n// ------------------------------------\n// 5) Detect content type\n// ------------------------------------\nif (hasRealUrl) {\n  const first = urls[0].toLowerCase();\n  url = urls[0];\n\n  if (/\\.(mp3|wav|ogg|m4a)(\\?|$)/i.test(first) || /\\/audio[-\\d]*/i.test(first)) {\n    type = \"audio\";\n  } else if (/\\.(jpe?g|png|gif|webp)(\\?|$)/i.test(first) || /\\/image[-\\d]*/i.test(first)) {\n    type = \"image\";\n  } else if (/\\.(pdf|docx?|xlsx?|pptx?|txt|zip|rar)(\\?|$)/i.test(first) || /\\/document[-\\d]*/i.test(first)) {\n    type = \"document\";\n  } else {\n    type = \"scrap\"; // generic link (Avito, website, etc.)\n  }\n}\n\n// ------------------------------------\n// 6) Detect message source\n// ------------------------------------\nconst chatId = String(webhookData?.body?.ChatId ?? \"\").toLowerCase();\nlet source = null;\n\nif (chatId.endsWith(\"-wb\")) {\n  source = \"Web\";\n} else if (chatId.endsWith(\"-wa\")) {\n  source = \"Whatsapp\";\n} else if (chatId.endsWith(\"-fb\")) {\n  source = \"Facebook\";\n}\n\n// ------------------------------------\n// 7) Final output\n// ------------------------------------\nreturn [\n  {\n    json: {\n      decoded,\n      url: hasRealUrl ? url : null,\n      type,\n      source\n    }\n  }\n];\n"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                2688,
+                -2944
+            ],
+            "id": "78e6f667-3d76-4607-8fdf-f771bdc60f92",
+            "name": "Code1"
+        },
+        {
+            "parameters": {
+                "jsCode": "let ChatInput = null;\n\n// Get type from Switch output or incoming item\nconst type = $('Code1').first().json.type;\n$('Code1').first().json.type\n// Logic based on type\nif (type === 'text' || type === 'image') {\n  ChatInput = $('Code1').first().json.decoded ?? null;\n} else if (type === 'audio') {\n  ChatInput = $('Transcribe a recording1').first().json.text ?? null;\n} else if (type === 'scrap') {\n  ChatInput = $input.first().json.text ?? null;\n} else if (type === 'document') {\n  ChatInput = $input.first().json.answer ;\n}\n// Return only ChatInput\nreturn [{ json: { ChatInput } }];\n"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                3936,
+                -2976
+            ],
+            "id": "42706712-1b83-462e-989f-09626c369389",
+            "name": "Code"
+        },
+        {
+            "parameters": {
+                "promptType": "define",
+                "text": "=this is the user's input : {{ $('Code').item.json.ChatInput }}\nthis is the language detected this is the user's language detected : {{ $('Start').item.json.output_language }}\nthis is the user's phone number if it's not null, if it's null then we ask the user to give it to us :{{ $('Start').item.json.body_PhoneNumber }}",
+                "hasOutputParser": true,
+                "options": {
+                    "systemMessage": "=You are the **Principal Agent** of EASYSPACE, a real estate management system.\nYou only help **owners who want to rent their own property**.\nFOLLOW ALL THIS RULES PRECISELY\n*Every detail that the user gave, we do not ask him about it again. We pass that question and we do not need to confirm something that he already said .\n* If the user says they want to rent a property set it as 'renter', or if they say they are an agent, set `retarget_intent` to `agent`; or keep it as default 'false'\n* We only operate in **Casablanca, Dar Bouazza**. If the user chooses another city, update the city, then send:\n  `\"Nous ne traitons que les biens situés à Casablanca/Casa et Dar Bouazza pour le moment.\"` and set `\"done\": true`.\n\n**TEXT INTEGRITY (STRICT)**\n• Output MUST be valid JSON (UTF-8 NFC).  \n• Never emit control characters (Unicode category C: Cc/Cf/Co/Cn) or unreadable sequences like \"\u001f\", \"�\", \"\\u001f\", \"\\u0000\", \"\\u009f\", \"e9\", etc.  \n• Do not emit escape sequences for readable text (no \\uXXXX for letters, accents, emoji). Use the literal character.  \n• Allowed characters = Unicode letters, numbers, punctuation, symbols, spaces, tabs, and newlines only.  \n• If any forbidden char appears in the draft, REGENERATE ONCE and remove it before returning the JSON.  \n\n**LANGUAGE RULE** \n+ **LANGUAGE CONTROLLER (accept any language)**\n+ • Let `UserLangRaw = {{ $('Start').item.json.output_language }}`.\n+ • If the latest user input is only a number/phone/name, DO NOT change language (keep `client.Language`).\n+ • Set `CurrentLanguage` as follows:\n+     – If `UserLangRaw` is a non-empty string → `CurrentLanguage = UserLangRaw`\n+     – Else if `client.Language` exists → `CurrentLanguage = client.Language`\n+     – Else → `CurrentLanguage = \"fr\"` (last-resort fallback)\n+ • Normalize special cases:\n+     – \"ar\" = Modern Standard Arabic\n+     – \"ma\" = Moroccan Darija\n+ • ALWAYS render every user-facing `\"message\"` and `\"post_message\"` in `CurrentLanguage` by translating dynamically at runtime.\n+ • Never coerce to French if `CurrentLanguage` ≠ \"fr\". If `CurrentLanguage` is something else (e.g., \"es\", \"de\", \"it\", \"tr\", \"zh\"), reply in that language.\n+ • If the user mixes languages in one message, pick the **last detected non-empty language** segment as `CurrentLanguage`.\n+ • Persist `client.Language = CurrentLanguage` on each turn.\n+ • Before sending any output, run: Translate(`message`, `CurrentLanguage`) and Translate(`post_message`, `CurrentLanguage`).\n+ • Never output the source text if `CurrentLanguage` ≠ the source; only the translated result may be sent.\n\n\n\n**VERY IMPORTANT:**\n* **Create the row only once as soon as the user provides the first property info** (form, link, document, photos).\n* Update the row each time new information comes in using the tool \"Update\".\n* Always check **data_collected** before asking the next question; skip any already filled fields.\n* If multiple fields are provided in one message, immediately extract them and update the row.\n* If `{{ $('Start').item.json.body_PhoneNumber }}` is null, treat the user as using web and return a JSON form describing all fields at once.\n* Otherwise, ask one question at a time.\n\n**All outputs must be a strict JSON object** matching the schema below. Never explain or reply outside the real estate domain.\n\n---\nDATABASE RULE (STRICT):\n\n- Create the NocoDB row ONLY ONCE.\n- The Create tool is allowed ONLY if `client.clientCreated` is false.\n- After the first Create:\n  - Set `client.clientCreated = true`\n  - Store the Row ID in `client.Row ID`\n- If `client.clientCreated = true`, the Create tool is FORBIDDEN.\n- All subsequent data MUST use the Update tool with the same Row ID.\n\n## 🔄 Conversation Flow \n\n### Step 0 – Greeting & Method Selection should be strictly in the same language detected\n\nSend greeting:\nwe wanna send this greeting in message and post_message else post_message should be '',strictly in the same language detected .\n```\n\"message\":\"Super initiative de vouloir mettre votre bien en location 😄.\nOn accompagne chaque jour des propriétaires comme vous pour trouver rapidement des locataires sérieux et fiables.\"\n\"post_message\":\"Pour commencer, vous avez plusieurs options pour nous transmettre les informations de votre bien :\n\\n1️⃣ Répondre directement à nos questions étape par étape\n\\n2️⃣ Nous donner un lien vers votre annonce existante (site ou portail immobilier)\n\\n3️⃣ Nous envoyer un document Word, PDF ou des photos contenant toutes les infos nécessaires\nChoisissez la méthode qui vous arrange le plus, on s’occupe du reste !\"\n+ **Before emitting**, Translate(`message`, `CurrentLanguage`) and Translate(`post_message`, `CurrentLanguage`). Output only the translated text.\n\n```\n\n\n---\n\n### Step 1 – Method-specific Flow\n\n#### Option 1 – Step-by-step Form\n\n**Logic:**\n\n1. Check `{{ $('Start').item.json.body_PhoneNumber }}`:\n\n   * **If null (web user)** → emit this exact message as it is describing **all missing fields** to render a form:\n\n\"message\": \"{ \\\"type\\\": \\\"easyspaceform\\\", \\\"items\\\": { \\\"Type_of_property\\\": \\\"\\\", \\\"Superficie\\\": \\\"\\\", \\\"Quartier\\\": \\\"\\\", \\\"Number_bedrooms\\\": \\\"\\\", \\\"Number_bathrooms\\\": \\\"\\\", \\\"Furnished_empty\\\": \\\"\\\", \\\"Balcony_Terrace\\\": \\\"\\\", \\\"Parking/Garage\\\": \\\"\\\", \\\"Floor\\\": \\\"\\\", \\\"Rent\\\": \\\"\\\" } }\"\n\n\n\n   * **If not null (user has phone)** → ask **one question at a time** strictly in the same language detected, for the next missing field in `data_collected`.\n\n2. **Row creation:** As soon as the user provides **first field**, use `create1` to create the row in NocoDB. \nthen use the tool \"Update\" to Update it for all subsequent fields.\n\n3. After form completion, always ask for **3–5 photos** and store in `image1…image4`.\n\n   * Keep track of `images_expected` and `images_received`.\n\n<type_specific_logic>\n- Si PropertyType ∈ {\"Villa\",\"Maison\"} :\n  • Demander à la place : \"Combien d’étages (niveaux) dispose votre villa/maison ?\" → NombreEtages.\n- Si PropertyType ∈ {\"Appartement\",\"Studio\"} :\n  • Demander \"À quel étage se trouve le bien ?\" → Etage.\n  • Ne pas demander NombreEtages.\n- Si PropertyType ∈ {\"Bureau\"} :\n  • Ne pas demander nombres de chambres.\n\nalways ask for parking this way \"Avez-vous un parking ou un garage pour ce bien ? 🚗\"\n</type_specific_logic>\n\n---\n\n#### Option 2 – Link Extraction\n\n* Detect user message containing a **URL**.\n* Decode HTML entities (`&amp;`, `&#x2F;`, etc.) to get the proper URL.\n* Store in `data_collected.AnnonceLink`.\n* **Row creation:** Create the row as soon as the user sends the link, then update for all extracted property info.\n* If info is missing after scraping, ask for the missing fields.\n\n---\n\n#### Option 3 – Document / Photo Upload\n\n* Detect documents (Word/PDF) or photos using your `Code7` node logic (`isDocument`, `isImage`).\n* Store document URLs in `data_collected.DocumentURL` and images in `image1…image4`.\n* **Row creation:** Create the row as soon as the user sends any document/photo.\n* Backend tool extracts and structures info, updates the row.\n* If info is missing after extraction, ask for the missing fields.\n\n---\n\n---\n\n### Step 2 – Collect Phone Number & Name (Last Step)\n\n* Once all property info is collected, ask for **phone number** and **full name** only if you don't have those infos,strictly in the same language detected :\n\n  * FR: « Pour finaliser, pouvez-vous nous donner votre numéro de téléphone 📱 »\n  * FR: « Et enfin, pour personnaliser notre suivi, pouvez-vous me dire votre prénom ? »\n\n* Validate phone number via Phone Validation Subflow. Update the row once validated.\n\n---\n### Step 3 – images\n* Always Ask forr images of the property 3-5 if the user says that they dont have any now then it's okay we pass, strictly in the same language detected \n### Step 4 – Wrap-up\n\n* Once all info is collected:\n\n```\nParfait 👍\nC’est noté ✅\nUn agent EASYSPACE vous contactera très bientôt pour échanger sur votre bien et vous proposer les meilleures options de location.\nNous restons à vos côtés à chaque étape pour que tout se passe simplement et efficacement 💙\n```\n\n* Set `\"done\": true`.\n\n---\n\n## ⚙️ Output Schema\n\n```json\n{\n  \"message\": \"<Question or response to the client, in the chosen language should always be a text or a paragraph>\",\n  \"post_message\":\"<post_message or 'null'>\",\n  \"client\": {\n    \"Name\": \"<Validated full name>\",\n    \"PhoneNumber\": \"<Validated phone number>\",\n    \"Row_ID\": \"<Generated after creation>\",\n    \"Language\": \"<Chosen language>\",\n    \"clientCreated\": false\n  },\n  \"data_collected\": {\n    \"Language\": \"<Chosen language>\",\n    \"ProposalType\": \"<Rent or Sell>\",\n    \"PropertyType\": \"<Apartment/Villa/Studio/Office>\",\n    \"Status\": \"<Furnished/Unfurnished>\",\n    \"Rooms\": \"<Number of rooms>\",\n    \"City\": \"<City>\",\n    \"Neighborhood\": \"<Neighborhood>\",\n    \"Adresse\": \"<Address>\",\n    \"superficie\": \"<Area in m²>\",\n    \"Prix\": \"<Price in MAD>\",\n    \"image\":[\"Link1\",\"Link2\",\"..\"]\n  }\n}\n\n```\n\n**Rules:**\n+ always **Before emitting**, Translate(`message`, `CurrentLanguage`) and Translate(`post_message`, `CurrentLanguage`). Output only the translated text.\n* Always emit the **full JSON**, merging new values with previous ones.\n* Only ask **the next missing field**; never invent questions.\n* Use `Faq` tool for general questions; otherwise, redirect to an agent.\n* Skip fields the user chooses not to answer.\n* Always talk the same language the user is using."
+                }
+            },
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 2.2,
+            "position": [
+                4480,
+                -2976
+            ],
+            "id": "1ac0558c-f6ac-4fef-9add-1a70a13af9d0",
+            "name": "AI Agent2",
+            "retryOnFail": true
+        },
+        {
+            "parameters": {
+                "rules": {
+                    "values": [
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 2
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "82f118a9-b5bf-4c05-b84a-4337b50d9b0a",
+                                        "leftValue": "={{ $json.type }}",
+                                        "rightValue": "document",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "equals"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "Document"
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 2
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "e4200e23-080b-4e07-bb20-0f6cdf355e3a",
+                                        "leftValue": "={{ $json.type }}",
+                                        "rightValue": "image",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "equals"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "Image"
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 2
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "fb562186-45cd-40ce-b3f2-75475d0363d3",
+                                        "leftValue": "={{ $json.type }}",
+                                        "rightValue": "text",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "equals"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "Text"
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 2
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "c8d0d9e7-cde7-44d6-a75b-6251f3d2843a",
+                                        "leftValue": "={{ $json.type }}",
+                                        "rightValue": "scrap",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "equals",
+                                            "name": "filter.operator.equals"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "url to scrap"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 3.2,
+            "position": [
+                2912,
+                -2976
+            ],
+            "id": "9d3cb61d-0a15-4e74-8191-57311eb18219",
+            "name": "Switch1"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.tybotflow.com/api/v1/storage/buckets/easyspace/upload",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "accept",
+                            "value": "application/json"
+                        },
+                        {
+                            "name": "Authorization",
+                            "value": "=Bearer {{ $json.access_token }}"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "contentType": "multipart-form-data",
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "folderPath"
+                        },
+                        {
+                            "name": "metadata"
+                        },
+                        {
+                            "parameterType": "formBinaryData",
+                            "name": "file",
+                            "inputDataFieldName": "data"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                3648,
+                -3168
+            ],
+            "id": "f5d56910-1b13-47f8-b167-cf7b0d2cb25a",
+            "name": "HTTP Request10"
+        },
+        {
+            "parameters": {
+                "url": "={{ $('Code1').item.json.decoded }}",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                3360,
+                -3168
+            ],
+            "id": "f8582acd-cc4d-4955-b668-12aea753348f",
+            "name": "HTTP Request12"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.tybotflow.com/api/v1/auth/login",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "accept",
+                            "value": "application/json"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "email",
+                            "value": "hello@tybotflow.com"
+                        },
+                        {
+                            "name": "password",
+                            "value": "tybot2025"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                3136,
+                -3168
+            ],
+            "id": "a39cf94c-7640-455d-a3cd-a081b83118b2",
+            "name": "HTTP Request11"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://dify.tybot.ma/v1/chat-messages",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "Authorization",
+                            "value": "Bearer app-rBNewqKRGIS6e3uuj65B3Luy"
+                        },
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={\n  \"inputs\": {},\n  \"query\": \"extract\",\n  \"response_mode\": \"blocking\",\n  \"conversation_id\": \"\",\n  \"user\": \"easyspace\",\n  \"files\": [\n    {\n      \"type\": \"document\",\n      \"transfer_method\": \"remote_url\",\n      \"url\": \"{{ $json.source_url }}\"\n    }\n  ]\n}",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                3648,
+                -3360
+            ],
+            "id": "b3d9a1f5-f52e-4c06-b489-3a125c6cc85c",
+            "name": "HTTP Request6"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://dify.tybot.ma/v1/files/upload",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "Authorization",
+                            "value": "Bearer app-rBNewqKRGIS6e3uuj65B3Luy"
+                        },
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "contentType": "multipart-form-data",
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "user",
+                            "value": "easyspace"
+                        },
+                        {
+                            "parameterType": "formBinaryData",
+                            "name": "file",
+                            "inputDataFieldName": "data"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                3360,
+                -3360
+            ],
+            "id": "b02b7a26-baa5-47be-8d87-3c7cdf4d3835",
+            "name": "HTTP Request7"
+        },
+        {
+            "parameters": {
+                "url": "={{ $('Code1').item.json.decoded }}",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                3136,
+                -3360
+            ],
+            "id": "4ad5747a-7cfa-4ebd-80f4-e18ca26b1bdd",
+            "name": "HTTP Request3"
+        },
+        {
+            "parameters": {
+                "workflowInputs": {
+                    "values": [
+                        {
+                            "name": "body_ChatInput_firstItem",
+                            "type": "any"
+                        },
+                        {
+                            "name": "_firstItem",
+                            "type": "any"
+                        },
+                        {
+                            "name": "body_ChatId",
+                            "type": "any"
+                        },
+                        {
+                            "name": "body_Id_Id",
+                            "type": "any"
+                        },
+                        {
+                            "name": "output_language",
+                            "type": "any"
+                        },
+                        {
+                            "name": "body_PhoneNumber",
+                            "type": "any"
+                        },
+                        {
+                            "name": "source",
+                            "type": "any"
+                        }
+                    ]
+                }
+            },
+            "id": "a9173d4f-530c-47bc-9858-da1ee27a5f93",
+            "typeVersion": 1.1,
+            "name": "Start",
+            "type": "n8n-nodes-base.executeWorkflowTrigger",
+            "position": [
+                2480,
+                -2944
+            ]
+        }
+    ],
+    "connections": {
+        "LiteLLM Chat3": {
+            "ai_languageModel": [
+                [
+                    {
+                        "node": "Structured Output Parser1",
+                        "type": "ai_languageModel",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "LiteLLM Chat1": {
+            "ai_languageModel": [
+                [
+                    {
+                        "node": "Basic LLM Chain2",
+                        "type": "ai_languageModel",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Faq1": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent2",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Call n8n Workflow Tool1": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent2",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Create": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent2",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Redis Chat Memory1": {
+            "ai_memory": [
+                [
+                    {
+                        "node": "AI Agent2",
+                        "type": "ai_memory",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Structured Output Parser1": {
+            "ai_outputParser": [
+                [
+                    {
+                        "node": "AI Agent2",
+                        "type": "ai_outputParser",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "LiteLLM Chat2": {
+            "ai_languageModel": [
+                [
+                    {
+                        "node": "AI Agent2",
+                        "type": "ai_languageModel",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Update": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent2",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code in JavaScript": {
+            "main": [
+                [
+                    {
+                        "node": "Basic LLM Chain2",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Basic LLM Chain2": {
+            "main": [
+                [
+                    {
+                        "node": "Code",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request5": {
+            "main": [
+                [
+                    {
+                        "node": "Code in JavaScript",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code1": {
+            "main": [
+                [
+                    {
+                        "node": "Switch1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code": {
+            "main": [
+                [
+                    {
+                        "node": "AI Agent2",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "AI Agent2": {
+            "main": [
+                []
+            ]
+        },
+        "Switch1": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request3",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "HTTP Request11",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Code",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "HTTP Request5",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request10": {
+            "main": [
+                [
+                    {
+                        "node": "Code",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request12": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request10",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request11": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request12",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request6": {
+            "main": [
+                [
+                    {
+                        "node": "Code",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request7": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request6",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request3": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request7",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Start": {
+            "main": [
+                [
+                    {
+                        "node": "Code1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "pinData": {
+        "Start": [
+            {
+                "body_ChatInput_firstItem": "60m²",
+                "_firstItem": {
+                    "headers": {
+                        "host": "webhook.tybotflow.com",
+                        "user-agent": "axios/0.21.1",
+                        "content-length": "144",
+                        "accept": "application/json, text/plain, */*",
+                        "content-type": "application/json;charset=utf-8",
+                        "via": "1.1 Caddy",
+                        "x-forwarded-for": "192.168.100.125",
+                        "x-forwarded-host": "webhook.tybotflow.com",
+                        "x-forwarded-proto": "https",
+                        "accept-encoding": "gzip"
+                    },
+                    "params": {},
+                    "query": {},
+                    "body": {
+                        "ChatId": "0d4ead3c-b468-4550-8d08-d59f37c17e51",
+                        "ChatInput": "60m²",
+                        "PhoneNumber": "",
+                        "type": "text",
+                        "SourceCampaign": "Unknown",
+                        "Id": {
+                            "Id": "24"
+                        }
+                    },
+                    "webhookUrl": "https://webhook.tybotflow.com/webhook/tesssst",
+                    "executionMode": "production"
+                },
+                "body_ChatId": "0d4ead3c-b468-4550-8d08-d59f37c17e51",
+                "body_Id_Id": "24",
+                "output_language": "French",
+                "body_PhoneNumber": "",
+                "source": null
+            }
+        ]
+    },
+    "meta": {
+        "instanceId": "0da66f17bba2fcc890b5be057a686d0ca3993a5029c9e76b5777c351b18c6fdb"
+    }
+}
+
+
+
+
+
+
+
+{
+    "nodes": [
+        {
+            "parameters": {
+                "promptType": "define",
+                "text": "=this is the user's input :{{ $('Start').item.json.body_ChatInput }}\nthis is the phone number we got directly :{{ $('Start').item.json.body_PhoneNumber }}\nthis is the language the user is talking : {{ $json.text }}\nif this is not null then this is the user's name : {{ $('Start').item.json.body_Name }}",
+                "hasOutputParser": true,
+                "options": {
+                    "systemMessage": "=You are the Agent Info Collector.\n\n* in `{{ $json.text }}` there is the language the user is using — **always answer in that same exact language/dialect**, without switching or mixing.\n* If the input is mixed (e.g. French + Darija), continue in the dominant language of the sentence.\n* Never translate the user message to another language.\n* Always reply professionally.\n\n* For any question the user asks, use the tool Faq to answer.\n🎯 Goal\nCollect **only** the following information from the user step by step and persist it in NocoDB:\n\n1. Full name\n2. Phone number (validate format; if null or invalid, ask for it)\n\n📝 Rules\n\n* Always reply in the SAME language the user just used (French, English, Arabic, Moroccan Darija, or anything else).\n* Ask **ONE question at a time**. If unclear, politely re-ask the same question in the same language.\n* If the user doesn’t understand a question, rephrase or explain it in the same language and keep the conversation going until they answer.\n* Phone validation: use the tool **\"Phone Validation Sub-flow\"**.\n\n* If phone is already present in the incoming payload and valid, skip asking and proceed to name. If phone is missing or invalid, ask for it.\n* Always be concise and professional.\n\n📣 Conversation Script (use these user-facing messages as templates; adapt language per {{ $json.text }})\n\nGreeting & qualifier (French example — use the detected language instead when appropriate):\n\nChatbot: « Super 😄 Vous êtes agent immobilier ?\nParfait ! Nous collaborons avec des agents sur **Casablanca et d’autres villes** pour développer ensemble de **belles opportunités de location** et offrir le meilleur service à nos clients. »\n\nAsk for phone if you don't have it or skip to name question (French example):\n\nChatbot: « Pour que notre équipe puisse vous recontacter rapidement, merci de nous laisser votre **numéro de téléphone 📱.** »\n\nAfter receiving phone: « Merci beaucoup 🙏 C’est noté ✅ »\n\nThen ask for full name if not provided: « Pouvez-vous, s’il vous plaît, nous indiquer votre nom complet ? »\n\nAfter receiving both: « Parfait! Nous sommes impatients de collaborer avec vous et de créer ensemble de belles opportunités pour nos clients 😄 »\n\n\n📦 Output Format\n\n* Always output a **single valid JSON object** (no extra wrapping). Example structure (fill values as you collect them):\n\n```json\n{\n  \"speak\": \"<message to the user in their language>\",\n  \"data\": {\n    \"name\": \"mohamed\",\n    \"phone\": \"212612137688\"\n  }\n}\n```\n\n\n✅ Examples of expected behaviour\n\n1. Incoming payload has phone valid, no name:\n\n   * Ask for name only → after name received, call `nocodb.create_row` with `{name, phone}`,  reply thanks.\n2. Incoming payload has no phone:\n\n   * Ask for phone → validate → if invalid ask again (same language) → when valid, ask for name (if not present)\n\nIpomtant rule:\nThe ouput should always be understandlbe to human no sending these \"\\u00128D\" , \"\\u0000e\"\n"
+                }
+            },
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 2.1,
+            "position": [
+                1216,
+                -3104
+            ],
+            "id": "0d983102-aaef-4257-8e19-5186e3272351",
+            "name": "AI Agent1",
+            "alwaysOutputData": true
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "create",
+                "projectId": "p77se5dmds496r7",
+                "table": "m8tthq2kvzsao8y",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "Nom de l'agent",
+                            "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues0_Field_Value', `The full name of the agent`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Téléphone",
+                            "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues1_Field_Value', `The phone number`, 'string') }}"
+                        },
+                        {
+                            "fieldName": "Source",
+                            "fieldValue": "={{ $('Start').item.json.source }}"
+                        },
+                        {
+                            "fieldName": "Source Link",
+                            "fieldValue": "={{ $('Start').item.json.body_SourceCampaign }}"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDbTool",
+            "typeVersion": 3,
+            "position": [
+                1232,
+                -2880
+            ],
+            "id": "fa0ae45c-3d7c-45fb-8319-1b9edd6b0975",
+            "name": "Create a row in NocoDB1",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "dTNZSsuFYyNQjVUq",
+                    "name": "DBrow Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "jsonSchemaExample": "{\n  \"speak\": \"<message to the user in their language>\",\n  \"data\": {\n    \"name\": \"mohamed\",\n    \"phone\": \"212612137688\"\n  }\n}",
+                "autoFix": true
+            },
+            "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+            "typeVersion": 1.3,
+            "position": [
+                1616,
+                -2880
+            ],
+            "id": "df1d0357-93d1-4fcb-9ccd-9a12c537a154",
+            "name": "Structured Output Parser1"
+        },
+        {
+            "parameters": {
+                "workflowId": {
+                    "__rl": true,
+                    "value": "Yik8aIJveOS2LTDM",
+                    "mode": "list",
+                    "cachedResultUrl": "/workflow/Yik8aIJveOS2LTDM",
+                    "cachedResultName": "EasySpace-Validate Format Number"
+                },
+                "workflowInputs": {
+                    "mappingMode": "defineBelow",
+                    "value": {},
+                    "matchingColumns": [],
+                    "schema": [],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": false
+                }
+            },
+            "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+            "typeVersion": 2.2,
+            "position": [
+                1360,
+                -2880
+            ],
+            "id": "94179cc5-ea9f-4cc4-b939-2416ed1c79a1",
+            "name": "Phone Validation Sub-flow1"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "getAll",
+                "projectId": "p77se5dmds496r7",
+                "table": "mcvf0xmkf6ld2fx",
+                "returnAll": true,
+                "options": {}
+            },
+            "type": "n8n-nodes-base.nocoDbTool",
+            "typeVersion": 3,
+            "position": [
+                1488,
+                -2880
+            ],
+            "id": "d8e50c79-03a5-47ac-ac75-d346fa21e8f4",
+            "name": "Faq",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "dTNZSsuFYyNQjVUq",
+                    "name": "DBrow Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "model": "gpt-4.1-mini",
+                "options": {}
+            },
+            "type": "@rxap/n8n-nodes-litellm.liteLLMChat",
+            "typeVersion": 1,
+            "position": [
+                976,
+                -2880
+            ],
+            "id": "b7e5d1ef-2d9a-439f-a1e4-8fe7268e45b0",
+            "name": "LiteLLM Chat2",
+            "credentials": {
+                "litellm": {
+                    "id": "NFIpKszX4vMamJAc",
+                    "name": "LiteLLM EasySpace"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "model": "gpt-4.1-mini",
+                "options": {}
+            },
+            "type": "@rxap/n8n-nodes-litellm.liteLLMChat",
+            "typeVersion": 1,
+            "position": [
+                1696,
+                -2672
+            ],
+            "id": "dbf70f9b-af64-43d5-901c-df86142118a5",
+            "name": "LiteLLM Chat3",
+            "credentials": {
+                "litellm": {
+                    "id": "NFIpKszX4vMamJAc",
+                    "name": "LiteLLM EasySpace"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "sessionIdType": "customKey",
+                "sessionKey": "={{ $('Start').item.json.body_ChatId }}",
+                "sessionTTL": 1800,
+                "contextWindowLength": 15
+            },
+            "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+            "typeVersion": 1.5,
+            "position": [
+                1104,
+                -2880
+            ],
+            "id": "07fd8900-d620-469c-ace0-478b5614edea",
+            "name": "Redis Chat Memory1",
+            "credentials": {
+                "redis": {
+                    "id": "EJa20XChLVc6j8dO",
+                    "name": "Redis account 2"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "workflowInputs": {
+                    "values": [
+                        {
+                            "name": "body_PhoneNumber",
+                            "type": "any"
+                        },
+                        {
+                            "name": "body_ChatInput",
+                            "type": "any"
+                        },
+                        {
+                            "name": "body_Name",
+                            "type": "any"
+                        },
+                        {
+                            "name": "text",
+                            "type": "any"
+                        },
+                        {
+                            "name": "source",
+                            "type": "any"
+                        },
+                        {
+                            "name": "body_SourceCampaign",
+                            "type": "any"
+                        },
+                        {
+                            "name": "body_ChatId",
+                            "type": "any"
+                        }
+                    ]
+                }
+            },
+            "id": "33ab0b4b-59bc-4042-966e-a2380f5e2c9b",
+            "typeVersion": 1.1,
+            "name": "Start",
+            "type": "n8n-nodes-base.executeWorkflowTrigger",
+            "position": [
+                1008,
+                -3104
+            ]
+        }
+    ],
+    "connections": {
+        "Create a row in NocoDB1": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Structured Output Parser1": {
+            "ai_outputParser": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_outputParser",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Phone Validation Sub-flow1": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Faq": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "LiteLLM Chat2": {
+            "ai_languageModel": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_languageModel",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "LiteLLM Chat3": {
+            "ai_languageModel": [
+                [
+                    {
+                        "node": "Structured Output Parser1",
+                        "type": "ai_languageModel",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Redis Chat Memory1": {
+            "ai_memory": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "ai_memory",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Start": {
+            "main": [
+                [
+                    {
+                        "node": "AI Agent1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "pinData": {
+        "Start": [
+            {
+                "body_PhoneNumber": "",
+                "body_ChatInput": "👤 Agent immobilier",
+                "body_Name": null,
+                "text": "French",
+                "source": null,
+                "body_SourceCampaign": "Unknown",
+                "body_ChatId": "f36dde3e-dcba-418a-a6be-36c3d3965916"
+            }
+        ]
+    },
+    "meta": {
+        "instanceId": "0da66f17bba2fcc890b5be057a686d0ca3993a5029c9e76b5777c351b18c6fdb"
+    }
+}
+
+
+{
+    "nodes": [
+        {
+            "parameters": {
+                "promptType": "define",
+                "text": "=user's message {{ $json.ChatInput }}",
+                "hasOutputParser": true,
+                "options": {
+                    "systemMessage": "=You are the Easy Space main AI agent.\nYour job is to analyze the user’s message and decide which specialized agent should handle it.\n\nYou have 3 sub-agents:\n\n1. Tenant Agent → helps people who want to rent properties.\n2. Owner Agent → helps people who want to list or rent out their properties.\n3. Partner Agent → for \"agent\" , \"samsar\" collects information about AI collaborators or agencies.\n\nReturn ONLY one of these words: \"tenant\", \"owner\", or \"partner\".\n\nalso detect what language the user is talking : \"Morrocan Darija\",\"French\",\"English\"...\n"
+                }
+            },
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 3,
+            "position": [
+                -448,
+                -3616
+            ],
+            "id": "81816d75-9d45-49bf-a142-d5ce3a8b202c",
+            "name": "AI Agent",
+            "alwaysOutputData": true
+        },
+        {
+            "parameters": {
+                "model": "gpt-4.1-mini",
+                "options": {}
+            },
+            "type": "@rxap/n8n-nodes-litellm.liteLLMChat",
+            "typeVersion": 1,
+            "position": [
+                -512,
+                -3392
+            ],
+            "id": "496eb119-1e36-45dc-8270-1d8db566c45f",
+            "name": "LiteLLM Chat",
+            "credentials": {
+                "litellm": {
+                    "id": "NFIpKszX4vMamJAc",
+                    "name": "LiteLLM EasySpace"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "sessionIdType": "customKey",
+                "sessionKey": "={{ $('Webhook').item.json.body.ChatId }}",
+                "sessionTTL": 1800,
+                "contextWindowLength": 20
+            },
+            "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+            "typeVersion": 1.5,
+            "position": [
+                -384,
+                -3392
+            ],
+            "id": "2ec845d8-0f2f-4898-880b-00a4605122e4",
+            "name": "Redis Chat Memory",
+            "credentials": {
+                "redis": {
+                    "id": "EJa20XChLVc6j8dO",
+                    "name": "Redis account 2"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "rules": {
+                    "values": [
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 3
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "0b021d53-9d5d-4921-a5ab-2fbf44388bc0",
+                                        "leftValue": "={{ $json.output.type }}",
+                                        "rightValue": "tenant",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "equals"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "tenant"
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 3
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "df0702a1-ec15-4869-8a4c-79e27498f5fa",
+                                        "leftValue": "={{ $json.output.type }}",
+                                        "rightValue": "owner",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "equals"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "Owner"
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 3
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "b1778681-56f2-4f14-8cb2-93a4c1f9bc3d",
+                                        "leftValue": "={{ $json.output.type }}",
+                                        "rightValue": "partner",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "equals"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "partner"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 3.4,
+            "position": [
+                -48,
+                -3632
+            ],
+            "id": "22bb19c2-2d35-499c-a288-9e34fb338048",
+            "name": "Switch"
+        },
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "tesssst",
+                "responseMode": "responseNode",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 2.1,
+            "position": [
+                -2080,
+                -3616
+            ],
+            "id": "000fe43e-1628-4216-84bd-6b8432767319",
+            "name": "Webhook",
+            "webhookId": "57466370-20c9-4615-8013-3700945b3ddb"
+        },
+        {
+            "parameters": {
+                "jsonSchemaExample": "{\n\t\"language\": \"french/english...\",\n\t\"type\": \"Partner/OwnerTenant\"\n}"
+            },
+            "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+            "typeVersion": 1.3,
+            "position": [
+                -256,
+                -3392
+            ],
+            "id": "60fd2bf8-f0fe-472e-9d65-a1c4f269c297",
+            "name": "Structured Output Parser"
+        },
+        {
+            "parameters": {
+                "jsCode": "// n8n Code node (JavaScript)\n\n// 1) Read ChatInput safely\nconst textRaw = String($input.first().json?.body?.ChatInput ?? \"\").trim();\n\n// 2) Decode HTML entities (&amp;, &#x2F;, &#123;, etc.)\nfunction htmlEntityDecode(str) {\n  if (!str) return \"\";\n  return str.replace(/&(#x[0-9A-Fa-f]+|#\\d+|[A-Za-z]+);/g, (m, code) => {\n    if (code.startsWith(\"#x\") || code.startsWith(\"#X\")) {\n      const cp = parseInt(code.slice(2), 16);\n      return Number.isFinite(cp) ? String.fromCodePoint(cp) : m;\n    }\n    if (code.startsWith(\"#\")) {\n      const cp = parseInt(code.slice(1), 10);\n      return Number.isFinite(cp) ? String.fromCodePoint(cp) : m;\n    }\n    const named = { \n      amp: \"&\", \n      lt: \"<\", \n      gt: \">\", \n      quot: \"\\\"\", \n      apos: \"'\", \n      nbsp: \"\\u00A0\", \n      sol: \"/\", \n      frasl: \"/\", \n      colon: \":\" \n    };\n    return Object.prototype.hasOwnProperty.call(named, code) ? named[code] : m;\n  });\n}\n\nconst decoded = htmlEntityDecode(textRaw);\n\n// 3) Detect audio or image\nconst isAudio = /audio/i.test(decoded);\nconst isImage = /(image|\\.jpg|\\.jpeg|\\.png|\\.gif|\\.webp)/i.test(decoded);\n\n// 4) Extract ALL URLs in the message\nconst allUrls = decoded.match(/https?:\\/\\/[^\\s\"'<>]+/g) || [];\n\n// 5) Keep the original logic: choose a URL for isAudio/isImage\nlet url = null;\nif (isAudio || isImage) {\n  const candidate = allUrls.find(u => \n    isAudio ? /audio/i.test(u) : /\\.(jpg|jpeg|png|gif|webp)$/i.test(u)\n  ) || allUrls[0] || null;\n\n  url = candidate ? decodeURI(candidate) : null;\n}\n\n// 6) SCRAPABLE detection (Avito + Mubawab only)\nconst scrapableDomains = [\"avito.ma\", \"mubawab.ma\"];\n\nlet scrapableUrl = allUrls.find(u =>\n  scrapableDomains.some(domain => u.includes(domain))\n) || null;\n\nconst isScrapable = scrapableUrl !== null;\n// 1.b) Detect source from ChatId\nconst chatId = String($input.first().json?.body?.ChatId ?? \"\").toLowerCase();\n\nlet source = null;\n\nif (chatId.endsWith(\"-wb\")) {\n  source = \"Web\";\n} else if (chatId.endsWith(\"-wa\")) {\n  source = \"Whatsapp\";\n} else if (chatId.endsWith(\"-fb\")) {\n  source = \"Facebook\";\n}\n\n// 7) Return JSON\nreturn [{\n  json: {\n    isAudio,\n    isImage,\n    url,\n    isScrapable,\n    scrapableUrl,\n        source\n  }\n}];\n"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                -1856,
+                -3616
+            ],
+            "id": "06a754ec-5f38-4ffc-9ea5-69013c079331",
+            "name": "Code6"
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "78f1fc51-4caf-467b-9832-e8662ab05763",
+                            "leftValue": "={{ $json.isAudio }}",
+                            "rightValue": true,
+                            "operator": {
+                                "type": "boolean",
+                                "operation": "equals"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                -1632,
+                -3616
+            ],
+            "id": "0d6a47fc-7635-41b8-8e22-d5e36808cd3f",
+            "name": "If6"
+        },
+        {
+            "parameters": {
+                "url": "={{ $json.url }}",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.3,
+            "position": [
+                -1184,
+                -3696
+            ],
+            "id": "6e7d0a30-6408-4b90-a68b-90b1a8812819",
+            "name": "HTTP Request8"
+        },
+        {
+            "parameters": {
+                "jsCode": "// n8n Code node (JavaScript)\n\n// 1) Read ChatInput safely\nconst textRaw = String($input.first().json?.body?.ChatInput ?? \"\").trim();\n\n// 2) Decode HTML entities (&amp;, &#x2F;, &#123;, etc.)\nfunction htmlEntityDecode(str) {\n  if (!str) return \"\";\n  return str.replace(/&(#x[0-9A-Fa-f]+|#\\d+|[A-Za-z]+);/g, (m, code) => {\n    if (code.startsWith(\"#x\") || code.startsWith(\"#X\")) {\n      const cp = parseInt(code.slice(2), 16);\n      return Number.isFinite(cp) ? String.fromCodePoint(cp) : m;\n    }\n    if (code.startsWith(\"#\")) {\n      const cp = parseInt(code.slice(1), 10);\n      return Number.isFinite(cp) ? String.fromCodePoint(cp) : m;\n    }\n    const named = { amp: \"&\", lt: \"<\", gt: \">\", quot: \"\\\"\", apos: \"'\", nbsp: \"\\u00A0\", sol: \"/\", frasl: \"/\", colon: \":\" };\n    return Object.prototype.hasOwnProperty.call(named, code) ? named[code] : m;\n  });\n}\n\nconst decoded = htmlEntityDecode(textRaw);\n\n// 3) Decide if it's audio (match anywhere, case-insensitive)\nconst isAudio = /audio/i.test(decoded);\n\n// 4) If audio → extract URL (prefer one containing \"audio\"), decode it; else url = null\nlet url = null;\nif (isAudio) {\n  const urls = decoded.match(/https?:\\/\\/[^\\s\"'<>]+/g) || [];\n  const candidate = urls.find(u => /audio/i.test(u)) || urls[0] || null;\n  url = candidate ? decodeURI(candidate) : null;\n}\n\nreturn [{ json: { isAudio, url } }];\n"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                -1408,
+                -3696
+            ],
+            "id": "32f52f9d-af34-4fdd-9213-ebfec1334605",
+            "name": "Code2"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://toknroutertybot.tybotflow.com/v1/audio/transcriptions",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "Authorization",
+                            "value": "Bearer sk-AW7aIYKH-Z6mOYBgOfnk4g"
+                        },
+                        {
+                            "name": "Accept",
+                            "value": "application/json"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "contentType": "multipart-form-data",
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "model",
+                            "value": "gpt-4o-mini-transcribe"
+                        },
+                        {
+                            "parameterType": "formBinaryData",
+                            "name": "file",
+                            "inputDataFieldName": "data"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.3,
+            "position": [
+                -960,
+                -3696
+            ],
+            "id": "2c73a8e7-71a5-4dbf-b588-352c9d53e64b",
+            "name": "HTTP Request16"
+        },
+        {
+            "parameters": {
+                "jsCode": "let ChatInput = \"\";\n\n// If this execution comes from the AUDIO path → transcription exists\nif ($input.first().json?.text) {\n  ChatInput = $input.first().json.text;\n}\n// Otherwise → normal text from Webhook\nelse {\n  ChatInput = $('Webhook').first().json.body.ChatInput;\n}\n\nreturn [{ json: { ChatInput } }];"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                -736,
+                -3616
+            ],
+            "id": "e92376bb-2afc-4664-b214-206da4c45e4a",
+            "name": "Code7"
+        },
+        {
+            "parameters": {
+                "workflowId": {
+                    "__rl": true,
+                    "value": "Bczu3dLicpU1yTNj",
+                    "mode": "list",
+                    "cachedResultUrl": "/workflow/Bczu3dLicpU1yTNj",
+                    "cachedResultName": "My workflow 259 - 1"
+                },
+                "workflowInputs": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "body_ChatId": "={{ $('Webhook').item.json.body.ChatId }}",
+                        "body_PhoneNumber": "={{ $('Webhook').item.json.body.PhoneNumber }}",
+                        "output_language": "={{ $('AI Agent').item.json.output.language }}",
+                        "body_ChatInput_firstItem": "={{ $('Webhook').first().json.body.ChatInput }}",
+                        "body_Id_Id": "={{ $('Webhook').item.json.body.Id.Id }}",
+                        "source": "={{ $('Code6').item.json.source }}"
+                    },
+                    "matchingColumns": [
+                        "body_ChatId",
+                        "body_PhoneNumber",
+                        "output_language",
+                        "body_ChatInput_firstItem",
+                        "body_Id_Id",
+                        "source"
+                    ],
+                    "schema": [
+                        {
+                            "id": "body_ChatId",
+                            "displayName": "body_ChatId",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "body_PhoneNumber",
+                            "displayName": "body_PhoneNumber",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "output_language",
+                            "displayName": "output_language",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "body_ChatInput_firstItem",
+                            "displayName": "body_ChatInput_firstItem",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "body_Id_Id",
+                            "displayName": "body_Id_Id",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "source",
+                            "displayName": "source",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        }
+                    ],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": true
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.executeWorkflow",
+            "typeVersion": 1.2,
+            "position": [
+                704,
+                -4400
+            ],
+            "name": "Call My Sub-workflow",
+            "id": "223dd54f-9398-4a4b-a559-07e859f3d5b9"
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={\n  \"speak\": {{ JSON.stringify($json.output?.speak ?? \"\") }},\n  \"partie\":\"rent\",\n  \"carousel\": \"{{ $json.output.carousel || false }}\",\n\"post_speak\":\"{{ $json.output.post_speak }}\"\n\n}",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1.4,
+            "position": [
+                1152,
+                -4448
+            ],
+            "id": "ad4ac580-0131-4246-a841-e0a2382c45f9",
+            "name": "Respond to Webhook8",
+            "retryOnFail": true
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={\n  \"speak\": {{ JSON.stringify($json.output?.speak ?? \"\") }},\n  \"post_speak\": \"{{ $json.output.post_speak || '' }}\",\n  \"partie\":\"rent\",\n  \"carousel\": {{ $json.output?.carousel === true || $json.output?.carousel === \"true\" }},\n  \"carousel_mode\": {{ JSON.stringify($json.output?.carousel_mode ?? \"none\") }},\n  \"recommendations\": [\n    {\n      \"id\": {{ JSON.stringify($json.output?.recommendations?.[0]?.id ?? \"\") }},\n      \"title\": {{ JSON.stringify($json.output?.recommendations?.[0]?.title ?? \"\") }},\n      \"subtitle\": {{ JSON.stringify($json.output?.recommendations?.[0]?.subtitle ?? \"\") }},\n      \"imagePrincipal\": {{ JSON.stringify(\n        $json.output?.recommendations?.[0]?.[\"image Principal\"]?.[0]\n        ?? $json.output?.recommendations?.[0]?.images?.[0]\n        ?? \"\"\n      ) }},\n      \"description\": {{ JSON.stringify($json.output?.recommendations?.[0]?.description ?? \"\") }},\n      \"images\": {{ JSON.stringify($json.output?.recommendations?.[0]?.images ?? []) }}\n    }\n  ]\n}\n",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1.4,
+            "position": [
+                1376,
+                -4512
+            ],
+            "id": "cb8ac354-ef4b-4ae5-8b2c-e2a632c49946",
+            "name": "Respond to Webhook9",
+            "alwaysOutputData": false,
+            "retryOnFail": true
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "loose",
+                        "version": 2
+                    },
+                    "conditions": [
+                        {
+                            "id": "cf998f03-187b-4ed9-9784-5eab8a68b0c6",
+                            "leftValue": "={{ $json.output.carousel }}",
+                            "rightValue": "=true",
+                            "operator": {
+                                "type": "string",
+                                "operation": "equals"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "looseTypeValidation": true,
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.2,
+            "position": [
+                928,
+                -4544
+            ],
+            "id": "02330d47-52fd-4d38-908d-5e1d3b7ac556",
+            "name": "If4"
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 2
+                    },
+                    "conditions": [
+                        {
+                            "id": "31eaee7b-474f-4f68-9a32-868bf2713860",
+                            "leftValue": "={{ $json.output.carousel_mode }}",
+                            "rightValue": "full",
+                            "operator": {
+                                "type": "string",
+                                "operation": "equals",
+                                "name": "filter.operator.equals"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.2,
+            "position": [
+                1152,
+                -4640
+            ],
+            "id": "a82475eb-8623-479a-8df2-d103be7b80ce",
+            "name": "If5"
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={\n  \"speak\": \"{{ $json.output.speak || '' }}\",\n  \"post_speak\": \"{{ $json.output.post_speak || '' }}\",\n  \"partie\":\"rent\",\n  \"carousel\": {{ $json.output.carousel ?? false }},\n  \"carousel_mode\": \"{{ $json.output.carousel_mode || 'none' }}\",\n\n  \"recommendations\": {{ JSON.stringify(\n      ($json.output.recommendations || []).map(r => ({\n        id: r.id,\n        title: r.title,\n        subtitle: r.subtitle,\n        description: r.description,\n        imagePrincipal: r[\"image Principal\"]?.[0] || r.images?.[0] || \"\",\n        images: r.images || []\n      }))\n    ) }}\n}\n",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1.4,
+            "position": [
+                1376,
+                -4736
+            ],
+            "id": "63f26d72-a372-4d77-b21d-ff1ab4a8d99f",
+            "name": "Respond to Webhook1",
+            "alwaysOutputData": false,
+            "retryOnFail": true,
+            "onError": "continueErrorOutput"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "update",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "Type user",
+                            "fieldValue": "={{ $json['Type user'] }}, Renter"
+                        },
+                        {
+                            "fieldName": "Id",
+                            "fieldValue": "={{ $('Webhook').item.json.body.Id.Id }}"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                1600,
+                -4032
+            ],
+            "id": "3a14cf04-da48-42a9-a37a-a2768d1bfd89",
+            "name": "Update a row",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "d544012b-57ca-4121-bd68-c4aea1d9d862",
+                            "leftValue": "={{ $json['Type user'] }}",
+                            "rightValue": "",
+                            "operator": {
+                                "type": "string",
+                                "operation": "empty",
+                                "singleValue": true
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                1376,
+                -4128
+            ],
+            "id": "b66be450-b78e-40d9-a9e1-89c01df15b1a",
+            "name": "If2"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "update",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "Id",
+                            "fieldValue": "={{ $('Webhook').item.json.body.Id.Id }}"
+                        },
+                        {
+                            "fieldName": "Nom Complet",
+                            "fieldValue": "={{ $('Call My Sub-workflow').item.json.output.client.name }}"
+                        },
+                        {
+                            "fieldName": "Numero de tel",
+                            "fieldValue": "={{ $('Call My Sub-workflow').item.json.output.client.phone_number }}"
+                        },
+                        {
+                            "fieldName": "Type de bien",
+                            "fieldValue": "={{ $('Call My Sub-workflow').item.json.output.client.type_bien }}"
+                        },
+                        {
+                            "fieldName": "Quartier",
+                            "fieldValue": "={{ $('Call My Sub-workflow').item.json.output.client.Quartier }}"
+                        },
+                        {
+                            "fieldName": "Budget",
+                            "fieldValue": "={{ $('Call My Sub-workflow').item.json.output.client.Budget }}"
+                        },
+                        {
+                            "fieldName": "Source",
+                            "fieldValue": "={{ $('Code6').item.json.source }}"
+                        },
+                        {
+                            "fieldName": "Type bien",
+                            "fieldValue": "={{ $('Call My Sub-workflow').item.json.output.client.type_bien }}"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                1824,
+                -4208
+            ],
+            "id": "46162b75-48b9-4705-b02e-a198c8708f79",
+            "name": "Update a row1",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            },
+            "onError": "continueRegularOutput"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "id": "={{ $('Webhook').item.json.body.Id.Id }}"
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                928,
+                -4208
+            ],
+            "id": "90f5c69f-5422-48a4-b916-0e583617640f",
+            "name": "Get a row",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "c10c3ba0-b964-4893-a91b-cde24804709d",
+                            "leftValue": "={{ $json['Type user'] }}",
+                            "rightValue": "Renter",
+                            "operator": {
+                                "type": "string",
+                                "operation": "contains"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                1152,
+                -4208
+            ],
+            "id": "3d2bad6f-77f2-4e75-9255-3aa9acc8e058",
+            "name": "If"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "update",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "Type user",
+                            "fieldValue": "=Renter"
+                        },
+                        {
+                            "fieldName": "Id",
+                            "fieldValue": "={{ $('Webhook').item.json.body.Id.Id }}"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                1600,
+                -4224
+            ],
+            "id": "5b999861-eee0-4402-ab79-325cade4c7bc",
+            "name": "Update a row2",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "workflowId": {
+                    "__rl": true,
+                    "value": "6SLIWhwQu1q4FLPg",
+                    "mode": "list",
+                    "cachedResultUrl": "/workflow/6SLIWhwQu1q4FLPg",
+                    "cachedResultName": "My workflow 259 - 2"
+                },
+                "workflowInputs": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "body_ChatInput_firstItem": "={{ $('Webhook').first().json.body.ChatInput }}",
+                        "_firstItem": "={{ $('Webhook').first().json }}",
+                        "body_ChatId": "={{ $('Webhook').item.json.body.ChatId }}",
+                        "body_Id_Id": "={{ $('Webhook').item.json.body.Id.Id }}",
+                        "output_language": "={{ $('AI Agent').item.json.output.language }}",
+                        "body_PhoneNumber": "={{ $('Webhook').item.json.body.PhoneNumber }}",
+                        "source": "={{ $('Code6').item.json.source }}"
+                    },
+                    "matchingColumns": [
+                        "body_ChatInput_firstItem",
+                        "_firstItem",
+                        "body_ChatId",
+                        "body_Id_Id",
+                        "output_language",
+                        "body_PhoneNumber",
+                        "source"
+                    ],
+                    "schema": [
+                        {
+                            "id": "body_ChatInput_firstItem",
+                            "displayName": "body_ChatInput_firstItem",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "_firstItem",
+                            "displayName": "_firstItem",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "body_ChatId",
+                            "displayName": "body_ChatId",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "body_Id_Id",
+                            "displayName": "body_Id_Id",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "output_language",
+                            "displayName": "output_language",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "body_PhoneNumber",
+                            "displayName": "body_PhoneNumber",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "source",
+                            "displayName": "source",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        }
+                    ],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": true
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.executeWorkflow",
+            "typeVersion": 1.2,
+            "position": [
+                656,
+                -3568
+            ],
+            "name": "Call My workflow 259 - 2",
+            "id": "cd48b518-8b2a-4c7a-a845-79cddc033b42"
+        },
+        {
+            "parameters": {
+                "respondWith": "allIncomingItems",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1.4,
+            "position": [
+                1088,
+                -3424
+            ],
+            "id": "ae70bd74-3bc9-478e-aaa9-7d36aeebedcd",
+            "name": "Respond to Webhook"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "update",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "Type user",
+                            "fieldValue": "={{ $json['Type user'] }}, Owner"
+                        },
+                        {
+                            "fieldName": "Id",
+                            "fieldValue": "={{ $('Start').item.json.body_Id_Id }}"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                1760,
+                -3488
+            ],
+            "id": "804d75db-62a7-443f-bc31-e7c4c0f4845a",
+            "name": "Update a row4",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "d544012b-57ca-4121-bd68-c4aea1d9d862",
+                            "leftValue": "={{ $json['Type user'] }}",
+                            "rightValue": "",
+                            "operator": {
+                                "type": "string",
+                                "operation": "empty",
+                                "singleValue": true
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                1536,
+                -3584
+            ],
+            "id": "e9cf1998-42ea-4333-8658-05558a0c6e98",
+            "name": "If8"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "update",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "id",
+                            "fieldValue": "={{ $('Webhook').item.json.body.Id.Id }}"
+                        },
+                        {
+                            "fieldName": "Nom Complet",
+                            "fieldValue": "={{ $('Call My workflow 259 - 2').item.json.output.client.Name }}"
+                        },
+                        {
+                            "fieldName": "Numero de tel",
+                            "fieldValue": "={{ $('Call My workflow 259 - 2').item.json.output.client.PhoneNumber }}"
+                        },
+                        {
+                            "fieldName": "Source",
+                            "fieldValue": "={{ $('Code6').item.json.source }}"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                1984,
+                -3664
+            ],
+            "id": "59fe8a95-a058-44a3-8301-0b2de75c2935",
+            "name": "Update a row3",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            },
+            "onError": "continueRegularOutput"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "update",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "Type user",
+                            "fieldValue": "=Owner"
+                        },
+                        {
+                            "fieldName": "Id",
+                            "fieldValue": "={{ $('Webhook').item.json.body.Id.Id }}"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                1760,
+                -3680
+            ],
+            "id": "ef43bc49-3aa8-4cfe-af99-a6dd44a299d1",
+            "name": "Update a row5",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "id": "={{ $('Webhook').item.json.body.Id.Id }}"
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                1088,
+                -3664
+            ],
+            "id": "2710bb76-ea85-4ae5-ac01-612e0ff92ee5",
+            "name": "Get a row1",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "c10c3ba0-b964-4893-a91b-cde24804709d",
+                            "leftValue": "={{ $json['Type user'] }}",
+                            "rightValue": "Owner",
+                            "operator": {
+                                "type": "string",
+                                "operation": "contains"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                1312,
+                -3664
+            ],
+            "id": "7bf267dd-cd77-42fc-b38e-71fea2d22522",
+            "name": "If7"
+        },
+        {
+            "parameters": {
+                "options": {}
+            },
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1.4,
+            "position": [
+                880,
+                -2928
+            ],
+            "id": "1574cfc9-3e94-4587-839f-1f3e2546ba93",
+            "name": "Respond to Webhook2"
+        },
+        {
+            "parameters": {
+                "workflowId": {
+                    "__rl": true,
+                    "value": "dEMxASl9hyybYHdk",
+                    "mode": "list",
+                    "cachedResultUrl": "/workflow/dEMxASl9hyybYHdk",
+                    "cachedResultName": "My workflow 259 - 3"
+                },
+                "workflowInputs": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "body_PhoneNumber": "={{ $('Webhook').item.json.body.PhoneNumber }}",
+                        "body_ChatInput": "={{ $('Webhook').item.json.body.ChatInput }}",
+                        "text": "={{ $('AI Agent').item.json.output.language }}",
+                        "body_SourceCampaign": "={{ $('Webhook').item.json.body.SourceCampaign }}",
+                        "body_ChatId": "={{ $('Webhook').item.json.body.ChatId }}"
+                    },
+                    "matchingColumns": [
+                        "body_PhoneNumber",
+                        "body_ChatInput",
+                        "body_Name",
+                        "text",
+                        "source",
+                        "body_SourceCampaign",
+                        "body_ChatId"
+                    ],
+                    "schema": [
+                        {
+                            "id": "body_PhoneNumber",
+                            "displayName": "body_PhoneNumber",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "body_ChatInput",
+                            "displayName": "body_ChatInput",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "body_Name",
+                            "displayName": "body_Name",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": true
+                        },
+                        {
+                            "id": "text",
+                            "displayName": "text",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "source",
+                            "displayName": "source",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": true
+                        },
+                        {
+                            "id": "body_SourceCampaign",
+                            "displayName": "body_SourceCampaign",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "body_ChatId",
+                            "displayName": "body_ChatId",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        }
+                    ],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": true
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.executeWorkflow",
+            "typeVersion": 1.2,
+            "position": [
+                656,
+                -3024
+            ],
+            "name": "Call My workflow 259 - 3",
+            "id": "ac370916-b718-4e58-a8f3-47aa1d43863f"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "update",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "Type user",
+                            "fieldValue": "={{ $json['Type user'] }}, Agent"
+                        },
+                        {
+                            "fieldName": "Id",
+                            "fieldValue": "={{ $('Webhook').item.json.body.Id.Id }}"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                1552,
+                -2960
+            ],
+            "id": "4ffc1c36-c994-4404-ba45-b67f6c6ad47c",
+            "name": "Update a row6",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "d544012b-57ca-4121-bd68-c4aea1d9d862",
+                            "leftValue": "={{ $json['Type user'] }}",
+                            "rightValue": "",
+                            "operator": {
+                                "type": "string",
+                                "operation": "empty",
+                                "singleValue": true
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                1328,
+                -3056
+            ],
+            "id": "26ff2818-7109-4fbe-8a43-44f07c7bc60e",
+            "name": "If9"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "update",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "Id",
+                            "fieldValue": "={{ $('Webhook').item.json.body.Id.Id }}"
+                        },
+                        {
+                            "fieldName": "Nom complet",
+                            "fieldValue": "={{ $('Call My workflow 259 - 3').item.json.output.data.name }}"
+                        },
+                        {
+                            "fieldName": "Numero de tel",
+                            "fieldValue": "={{ $('Call My workflow 259 - 3').item.json.output.data.phone }}"
+                        },
+                        {
+                            "fieldName": "Source",
+                            "fieldValue": "={{ $('Code6').item.json.source || \"\" }}"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                1776,
+                -3120
+            ],
+            "id": "11616f33-769d-4714-bcda-e5335d7edbd6",
+            "name": "Update a row7",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            },
+            "onError": "continueRegularOutput"
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "operation": "update",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "fieldsUi": {
+                    "fieldValues": [
+                        {
+                            "fieldName": "Type user",
+                            "fieldValue": "=Agent"
+                        },
+                        {
+                            "fieldName": "Id",
+                            "fieldValue": "={{ $('Webhook').item.json.body.Id.Id }}"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                1552,
+                -3152
+            ],
+            "id": "c145cd12-d908-47b9-a299-9c346e3b3442",
+            "name": "Update a row8",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "authentication": "nocoDbApiToken",
+                "projectId": "pua15tlsanbmvtc",
+                "table": "mdr883e4a0gj1ap",
+                "id": "={{ $('Webhook').item.json.body.Id.Id }}"
+            },
+            "type": "n8n-nodes-base.nocoDb",
+            "typeVersion": 3,
+            "position": [
+                880,
+                -3120
+            ],
+            "id": "c4140779-31a3-468a-bfdd-0c698d57db6a",
+            "name": "Get a row2",
+            "credentials": {
+                "nocoDbApiToken": {
+                    "id": "TiuuPfdD7EOloEVL",
+                    "name": "Tybot.ma NocoDB Token account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "c10c3ba0-b964-4893-a91b-cde24804709d",
+                            "leftValue": "={{ $json['Type user'] }}",
+                            "rightValue": "Agent",
+                            "operator": {
+                                "type": "string",
+                                "operation": "contains"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                1104,
+                -3120
+            ],
+            "id": "13ae0459-6d3d-4712-b1ce-59a04d092919",
+            "name": "If10"
+        },
+        {
+            "parameters": {
+                "mode": "raw",
+                "jsonOutput": "={\n  \"message\": \"{{ $json.output.message || '' }}\",\n  \"partie\": \"owner\",\n  \"post_message\": \"{{ $json.output.post_message || '' }}\"\n}",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+            "position": [
+                864,
+                -3424
+            ],
+            "id": "4cbad205-cc83-4b35-ada0-03c7ec053b08",
+            "name": "Edit Fields"
+        }
+    ],
+    "connections": {
+        "AI Agent": {
+            "main": [
+                [
+                    {
+                        "node": "Switch",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "LiteLLM Chat": {
+            "ai_languageModel": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_languageModel",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Redis Chat Memory": {
+            "ai_memory": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_memory",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Switch": {
+            "main": [
+                [
+                    {
+                        "node": "Call My Sub-workflow",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Call My workflow 259 - 2",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Call My workflow 259 - 3",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Code6",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Structured Output Parser": {
+            "ai_outputParser": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "ai_outputParser",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code6": {
+            "main": [
+                [
+                    {
+                        "node": "If6",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If6": {
+            "main": [
+                [
+                    {
+                        "node": "Code2",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Code7",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request8": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request16",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code2": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request8",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request16": {
+            "main": [
+                [
+                    {
+                        "node": "Code7",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code7": {
+            "main": [
+                [
+                    {
+                        "node": "AI Agent",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Call My Sub-workflow": {
+            "main": [
+                [
+                    {
+                        "node": "If4",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Get a row",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If4": {
+            "main": [
+                [
+                    {
+                        "node": "If5",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Respond to Webhook8",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If5": {
+            "main": [
+                [
+                    {
+                        "node": "Respond to Webhook1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Respond to Webhook9",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Update a row": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If2": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row2",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Update a row",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get a row": {
+            "main": [
+                [
+                    {
+                        "node": "If",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "If2",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Update a row2": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Call My workflow 259 - 2": {
+            "main": [
+                [
+                    {
+                        "node": "Get a row1",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Edit Fields",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Respond to Webhook": {
+            "main": [
+                []
+            ]
+        },
+        "Update a row4": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row3",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If8": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row5",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Update a row4",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Update a row5": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row3",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get a row1": {
+            "main": [
+                [
+                    {
+                        "node": "If7",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If7": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row3",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "If8",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Call My workflow 259 - 3": {
+            "main": [
+                [
+                    {
+                        "node": "Respond to Webhook2",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Get a row2",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Update a row6": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row7",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If9": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row8",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Update a row6",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Update a row8": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row7",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get a row2": {
+            "main": [
+                [
+                    {
+                        "node": "If10",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If10": {
+            "main": [
+                [
+                    {
+                        "node": "Update a row7",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "If9",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Edit Fields": {
+            "main": [
+                [
+                    {
+                        "node": "Respond to Webhook",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "pinData": {
+        "Webhook": [
+            {
+                "headers": {
+                    "host": "webhook.tybotflow.com",
+                    "user-agent": "axios/0.21.1",
+                    "content-length": "150",
+                    "accept": "application/json, text/plain, */*",
+                    "content-type": "application/json;charset=utf-8",
+                    "via": "1.1 Caddy",
+                    "x-forwarded-for": "192.168.100.125",
+                    "x-forwarded-host": "webhook.tybotflow.com",
+                    "x-forwarded-proto": "https",
+                    "accept-encoding": "gzip"
+                },
+                "params": {},
+                "query": {},
+                "body": {
+                    "ChatId": "944755a6-d263-4d29-affb-e75009c53a91",
+                    "ChatInput": "appartement",
+                    "PhoneNumber": "",
+                    "type": "text",
+                    "SourceCampaign": "Unknown",
+                    "Id": {
+                        "Id": "29"
+                    }
+                },
+                "webhookUrl": "https://webhook.tybotflow.com/webhook/tesssst",
+                "executionMode": "production"
+            }
+        ]
+    },
+    "meta": {
+        "templateCredsSetupCompleted": true,
+        "instanceId": "0da66f17bba2fcc890b5be057a686d0ca3993a5029c9e76b5777c351b18c6fdb"
+    }
+}

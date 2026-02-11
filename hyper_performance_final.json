@@ -1,0 +1,620 @@
+{
+    "nodes": [
+        {
+            "id": "node_chat_input",
+            "type": "agentNode",
+            "position": {
+                "x": 0,
+                "y": 300
+            },
+            "data": {
+                "id": "chatInput",
+                "label": "Chat Input",
+                "category": "AI Services & Agents",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "name": "message",
+                        "display_name": "User Message",
+                        "types": [
+                            "Text"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_transcription",
+            "type": "agentNode",
+            "position": {
+                "x": 300,
+                "y": 300
+            },
+            "data": {
+                "id": "transcriptionNode",
+                "label": "Audio Transcription",
+                "category": "AI Services & Agents",
+                "inputs": [
+                    {
+                        "name": "audio_url",
+                        "display_name": "Audio/Message Input",
+                        "type": "handle",
+                        "types": [
+                            "Text"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "text",
+                        "display_name": "Transcribed Text",
+                        "types": [
+                            "Text"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_python_scrubber",
+            "type": "agentNode",
+            "position": {
+                "x": 600,
+                "y": 300
+            },
+            "data": {
+                "id": "utilities_PythonREPLComponent",
+                "label": "Python Gate",
+                "category": "Tools & Utilities",
+                "inputs": [
+                    {
+                        "name": "global_imports",
+                        "display_name": "Global Imports",
+                        "type": "text",
+                        "default": "re,json"
+                    },
+                    {
+                        "name": "input_value",
+                        "display_name": "Input Data",
+                        "type": "handle",
+                        "types": [
+                            "Text"
+                        ]
+                    },
+                    {
+                        "name": "python_code",
+                        "display_name": "Python Code",
+                        "type": "textarea",
+                        "default": "import re, json\n# 'inputs' is the transcribed text\ntext = str(inputs)\nhas_id = bool(re.search(r'ID:\\s*(\\d+)', text, re.I))\nhas_url = 'http' in text.lower()\nprint(json.dumps({'text': text, 'has_id': has_id, 'has_url': has_url}))"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "results",
+                        "display_name": "Results",
+                        "types": [
+                            "Data"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_intent_classifier",
+            "type": "agentNode",
+            "position": {
+                "x": 900,
+                "y": 300
+            },
+            "data": {
+                "id": "liteLLM",
+                "label": "Intent Router",
+                "category": "Tyboo",
+                "inputs": [
+                    {
+                        "name": "input_data",
+                        "display_name": "Input Text",
+                        "type": "handle",
+                        "types": [
+                            "Text"
+                        ]
+                    },
+                    {
+                        "name": "model_name",
+                        "display_name": "Model Name",
+                        "type": "text",
+                        "default": "gpt-4o-mini"
+                    },
+                    {
+                        "name": "temperature",
+                        "display_name": "Temperature",
+                        "type": "number",
+                        "default": 0
+                    }
+                ],
+                "system_prompt": "Analyze the user input and return exactly one word: RENTER, LISTER, or PARTNER.",
+                "outputs": [
+                    {
+                        "name": "response",
+                        "display_name": "Assistant Response",
+                        "types": [
+                            "Text"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_router_renter",
+            "type": "agentNode",
+            "position": {
+                "x": 1200,
+                "y": 300
+            },
+            "data": {
+                "id": "flow_controls_ConditionalRouter",
+                "label": "is Renter?",
+                "category": "Logic & Flow",
+                "inputs": [
+                    {
+                        "name": "input_text",
+                        "display_name": "In",
+                        "type": "handle",
+                        "types": [
+                            "Text",
+                            "Message"
+                        ]
+                    },
+                    {
+                        "name": "match_text",
+                        "display_name": "Match",
+                        "type": "text",
+                        "default": "RENTER"
+                    },
+                    {
+                        "name": "operator",
+                        "display_name": "Op",
+                        "type": "dropdown",
+                        "default": "equals"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "true_result",
+                        "display_name": "True (Renter)",
+                        "types": [
+                            "Message"
+                        ]
+                    },
+                    {
+                        "name": "false_result",
+                        "display_name": "False (Next)",
+                        "types": [
+                            "Message"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_router_lister",
+            "type": "agentNode",
+            "position": {
+                "x": 1200,
+                "y": 600
+            },
+            "data": {
+                "id": "flow_controls_ConditionalRouter",
+                "label": "is Lister?",
+                "category": "Logic & Flow",
+                "inputs": [
+                    {
+                        "name": "input_text",
+                        "display_name": "In",
+                        "type": "handle",
+                        "types": [
+                            "Text",
+                            "Message"
+                        ]
+                    },
+                    {
+                        "name": "match_text",
+                        "display_name": "Match",
+                        "type": "text",
+                        "default": "LISTER"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "true_result",
+                        "display_name": "True (Lister)",
+                        "types": [
+                            "Message"
+                        ]
+                    },
+                    {
+                        "name": "false_result",
+                        "display_name": "False (Partner)",
+                        "types": [
+                            "Message"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_smartdb",
+            "type": "agentNode",
+            "position": {
+                "x": 1500,
+                "y": 100
+            },
+            "data": {
+                "id": "storage_SmartDB",
+                "label": "SmartDB (Facts)",
+                "category": "Storage",
+                "inputs": [
+                    {
+                        "name": "query",
+                        "display_name": "Query",
+                        "type": "handle",
+                        "types": [
+                            "Text"
+                        ]
+                    },
+                    {
+                        "name": "project_id",
+                        "display_name": "Project ID",
+                        "type": "text",
+                        "default": "pua15tlsanbmvtc"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "data",
+                        "display_name": "Data",
+                        "types": [
+                            "Tool"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_supabase",
+            "type": "agentNode",
+            "position": {
+                "x": 1500,
+                "y": 300
+            },
+            "data": {
+                "id": "supabase_SupabaseVectorStore",
+                "label": "Supabase (Vibes)",
+                "category": "Vector Stores & Databases",
+                "inputs": [
+                    {
+                        "name": "search_query",
+                        "display_name": "Query",
+                        "type": "handle",
+                        "types": [
+                            "Text"
+                        ]
+                    },
+                    {
+                        "name": "table_name",
+                        "display_name": "Table",
+                        "type": "text",
+                        "default": "property_vectors"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "search_results",
+                        "display_name": "Results",
+                        "types": [
+                            "Tool"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_universal_agent",
+            "type": "agentNode",
+            "position": {
+                "x": 1800,
+                "y": 300
+            },
+            "data": {
+                "id": "langchainAgent",
+                "label": "Universal Agent",
+                "category": "Agents",
+                "inputs": [
+                    {
+                        "name": "input_data",
+                        "display_name": "Input",
+                        "type": "handle",
+                        "types": [
+                            "Text"
+                        ]
+                    },
+                    {
+                        "name": "llm",
+                        "display_name": "LLM",
+                        "type": "handle",
+                        "types": [
+                            "LLM"
+                        ]
+                    },
+                    {
+                        "name": "tools",
+                        "display_name": "Tools",
+                        "type": "handle",
+                        "types": [
+                            "Tool"
+                        ]
+                    }
+                ],
+                "agent_pattern": "planner",
+                "system_prompt": "You are Tyboo's lead real estate agent. Help the user find their dream home.",
+                "outputs": [
+                    {
+                        "name": "output",
+                        "display_name": "Response",
+                        "types": [
+                            "Text"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_llm_power",
+            "type": "agentNode",
+            "position": {
+                "x": 1800,
+                "y": 50
+            },
+            "data": {
+                "id": "liteLLM",
+                "label": "LLM Provider",
+                "category": "Models",
+                "inputs": [
+                    {
+                        "name": "model_name",
+                        "display_name": "Model",
+                        "type": "text",
+                        "default": "gpt-4o"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "response",
+                        "display_name": "LLM",
+                        "types": [
+                            "LLM"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_chat_output",
+            "type": "agentNode",
+            "position": {
+                "x": 2100,
+                "y": 300
+            },
+            "data": {
+                "id": "chatOutput",
+                "label": "Chat Output",
+                "category": "AI Services & Agents",
+                "inputs": [
+                    {
+                        "name": "output_message",
+                        "display_name": "Message",
+                        "type": "handle",
+                        "types": [
+                            "Text"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_scraper",
+            "type": "agentNode",
+            "position": {
+                "x": 1500,
+                "y": 600
+            },
+            "data": {
+                "id": "scrapegraph_ScrapeGraphSmartScraperApi",
+                "label": "ScrapeGraph",
+                "category": "Search & Scraping",
+                "inputs": [
+                    {
+                        "name": "url",
+                        "display_name": "URL",
+                        "type": "handle",
+                        "types": [
+                            "Text",
+                            "Message"
+                        ]
+                    },
+                    {
+                        "name": "prompt",
+                        "display_name": "Task",
+                        "type": "text",
+                        "default": "Extract listing price and features."
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "data",
+                        "display_name": "Results",
+                        "types": [
+                            "Data"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_partner_alert",
+            "type": "agentNode",
+            "position": {
+                "x": 1500,
+                "y": 900
+            },
+            "data": {
+                "id": "gmailNode",
+                "label": "Partner Alert (Gmail)",
+                "category": "Google",
+                "inputs": [
+                    {
+                        "name": "json_string",
+                        "display_name": "OAuth JSON",
+                        "type": "password",
+                        "default": "not used"
+                    },
+                    {
+                        "name": "recipient",
+                        "display_name": "To",
+                        "type": "text",
+                        "default": "partners@tyboo.com"
+                    },
+                    {
+                        "name": "subject",
+                        "display_name": "Subject",
+                        "type": "text",
+                        "default": "New Partner Inquiry"
+                    },
+                    {
+                        "name": "message",
+                        "display_name": "Message",
+                        "type": "textarea",
+                        "default": "A new partner has contacted us."
+                    },
+                    {
+                        "name": "input_data",
+                        "display_name": "Data Source",
+                        "type": "handle",
+                        "types": [
+                            "Message"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "output",
+                        "display_name": "Status",
+                        "types": [
+                            "Text"
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "node_chat_input",
+            "sourceHandle": "message",
+            "target": "node_transcription",
+            "targetHandle": "audio_url"
+        },
+        {
+            "id": "e2",
+            "source": "node_transcription",
+            "sourceHandle": "text",
+            "target": "node_python_scrubber",
+            "targetHandle": "input_value"
+        },
+        {
+            "id": "e3",
+            "source": "node_python_scrubber",
+            "sourceHandle": "results",
+            "target": "node_intent_classifier",
+            "targetHandle": "input_data"
+        },
+        {
+            "id": "e4",
+            "source": "node_intent_classifier",
+            "sourceHandle": "response",
+            "target": "node_router_renter",
+            "targetHandle": "input_text"
+        },
+        {
+            "id": "e5",
+            "source": "node_router_renter",
+            "sourceHandle": "true_result",
+            "target": "node_smartdb",
+            "targetHandle": "query"
+        },
+        {
+            "id": "e6",
+            "source": "node_router_renter",
+            "sourceHandle": "true_result",
+            "target": "node_supabase",
+            "targetHandle": "search_query"
+        },
+        {
+            "id": "e7",
+            "source": "node_router_renter",
+            "sourceHandle": "true_result",
+            "target": "node_universal_agent",
+            "targetHandle": "input_data"
+        },
+        {
+            "id": "e8",
+            "source": "node_router_renter",
+            "sourceHandle": "false_result",
+            "target": "node_router_lister",
+            "targetHandle": "input_text"
+        },
+        {
+            "id": "e9",
+            "source": "node_router_lister",
+            "sourceHandle": "true_result",
+            "target": "node_scraper",
+            "targetHandle": "url"
+        },
+        {
+            "id": "e10",
+            "source": "node_router_lister",
+            "sourceHandle": "false_result",
+            "target": "node_partner_alert",
+            "targetHandle": "input_data"
+        },
+        {
+            "id": "e11",
+            "source": "node_llm_power",
+            "sourceHandle": "response",
+            "target": "node_universal_agent",
+            "targetHandle": "llm"
+        },
+        {
+            "id": "e12",
+            "source": "node_smartdb",
+            "sourceHandle": "data",
+            "target": "node_universal_agent",
+            "targetHandle": "tools"
+        },
+        {
+            "id": "e13",
+            "source": "node_supabase",
+            "sourceHandle": "search_results",
+            "target": "node_universal_agent",
+            "targetHandle": "tools"
+        },
+        {
+            "id": "e14",
+            "source": "node_universal_agent",
+            "sourceHandle": "output",
+            "target": "node_chat_output",
+            "targetHandle": "output_message"
+        }
+    ]
+}
