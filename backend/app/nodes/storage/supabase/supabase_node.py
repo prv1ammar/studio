@@ -8,9 +8,12 @@ from supabase import create_client
 class SupabaseStoreNode(BaseNode):
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> str:
         try:
-            url = self.config.get("supabase_url")
-            key = self.config.get("supabase_service_key") or self.config.get("api_key")
-            table_name = self.config.get("table_name", "test")
+            # 1. Try Secrets Manager
+            creds = await self.get_credential("credentials_id")
+            url = creds.get("supabase_url") if creds else self.get_config("supabase_url")
+            key = creds.get("supabase_service_key") if creds else (self.get_config("supabase_service_key") or self.get_config("api_key"))
+            
+            table_name = self.get_config("table_name", "test")
             
             if not url or not key:
                 return "Supabase Status: ⚠️ URL or Key missing in configuration."
@@ -114,10 +117,13 @@ class SupabaseStoreNode(BaseNode):
         from langchain_community.vectorstores import SupabaseVectorStore
         from langchain_classic.tools import Tool
         
-        url = self.config.get("supabase_url")
-        key = self.config.get("supabase_service_key") or self.config.get("api_key")
-        table_name = self.config.get("table_name", "test")
-        query_name = self.config.get("query_name", "match_documents")
+        # 1. Try Secrets Manager
+        creds = await self.get_credential("credentials_id")
+        url = creds.get("supabase_url") if creds else self.get_config("supabase_url")
+        key = creds.get("supabase_service_key") if creds else (self.get_config("supabase_service_key") or self.get_config("api_key"))
+        
+        table_name = self.get_config("table_name", "test")
+        query_name = self.get_config("query_name", "match_documents")
         
         if not url or not key: return None
 

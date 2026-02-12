@@ -33,14 +33,15 @@ class CredentialStore:
         ct = decoded[12:]
         return self.aesgcm.decrypt(nonce, ct, None).decode()
 
-    async def add_credential(self, user_id: str, cred_type: str, data: Dict[str, Any], name: str = "", cred_id: str = None):
+    async def add_credential(self, user_id: str, cred_type: str, data: Dict[str, Any], name: str = "", cred_id: str = None, workspace_id: Optional[str] = None):
         """Adds a new encrypted credential to the database."""
         encrypted_payload = self._encrypt(json.dumps(data))
         
         async with async_session() as db:
             new_cred = Credential(
-                id=cred_id,  # Use provided ID if available
+                id=cred_id,
                 user_id=user_id,
+                workspace_id=workspace_id,
                 type=cred_type,
                 name=name or f"{cred_type}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
                 encrypted_data=encrypted_payload
@@ -50,11 +51,15 @@ class CredentialStore:
             await db.refresh(new_cred)
             return new_cred.id
 
-    async def get_credential(self, cred_id: str, user_id: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    async def get_credential(self, cred_id: str, user_id: Optional[str] = None, workspace_id: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """Retrieves and decrypts the full credential object."""
         async with async_session() as db:
             query = select(Credential).where(Credential.id == cred_id)
-            if user_id:
+            if workspace_id:
+                # If workspace is provided, anyone in workspace can use it
+                # For simplicity, we just filter by workspace_id
+                query = query.where(Credential.workspace_id == workspace_id)
+            elif user_id:
                 query = query.where(Credential.user_id == user_id)
             
             result = await db.execute(query)
@@ -75,10 +80,17 @@ class CredentialStore:
                 print(f"❌ Failed to decrypt credential {cred_id}: {e}")
                 return None
 
-    async def list_credentials(self, user_id: str, cred_type: str = None) -> List[Dict[str, Any]]:
-        """Lists metadata for all credentials for a specific user."""
+    async def list_credentials(self, user_id: str, cred_type: str = None, workspace_id: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Lists metadata for all credentials for a specific user or workspace."""
         async with async_session() as db:
-            query = select(Credential).where(Credential.user_id == user_id)
+            from app.db.models import WorkspaceMember
+            if workspace_id:
+                # Get all credentials for this workspace
+                query = select(Credential).where(Credential.workspace_id == workspace_id)
+            else:
+                # Get user's personal/global credentials
+                query = select(Credential).where(Credential.user_id == user_id)
+                
             if cred_type:
                 query = query.where(Credential.type == cred_type)
             
@@ -93,10 +105,15 @@ class CredentialStore:
                 } for c in creds
             ]
 
-    async def remove_credential(self, cred_id: str, user_id: str):
-        """Removes a credential belonging to a specific user."""
+    async def remove_credential(self, cred_id: str, user_id: str, workspace_id: Optional[str] = None):
+        """Removes a credential belonging to a specific user or workspace."""
         async with async_session() as db:
-            query = select(Credential).where(Credential.id == cred_id, Credential.user_id == user_id)
+            query = select(Credential).where(Credential.id == cred_id)
+            if workspace_id:
+                query = query.where(Credential.workspace_id == workspace_id)
+            else:
+                query = query.where(Credential.user_id == user_id)
+
             result = await db.execute(query)
             cred = result.scalar_one_or_none()
             

@@ -139,11 +139,14 @@ class SmartDBNode(BaseNode):
 
     async def get_langchain_object(self, context: Optional[Dict[str, Any]] = None) -> Any:
         try:
-            base_url = self.config.get("base_url", "").strip()
-            api_key = self.config.get("api_key", "").strip()
-            project_id = self.config.get("project_id", "")
-            table_id = self.config.get("table_id", "")
-            operation = self.config.get("operations", "Read")
+            # 1. Try Secrets Manager
+            creds = await self.get_credential("credentials_id")
+            base_url = creds.get("base_url") if creds else self.get_config("base_url")
+            api_key = creds.get("api_key") if creds else self.get_config("api_key")
+            
+            project_id = self.get_config("project_id", "")
+            table_id = self.get_config("table_id", "")
+            operation = self.get_config("operations", "Read")
 
             if not base_url or not api_key:
                 return "Error: URL and API Key are required."

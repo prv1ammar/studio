@@ -14,6 +14,7 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import './index.css';
+import './collaboration.css';
 import axios from 'axios';
 import {
   Cpu, Send, Play, Settings, MessageSquare, Search, Database,
@@ -21,11 +22,11 @@ import {
   X, User, CheckCircle, Zap, Bot, Brain, Layers, Terminal,
   Download, Upload, Loader2, Layout, Activity, Trash2, Copy,
   Eye, EyeOff, Maximize2, Minimize2, Scissors, Box, Link, Wrench, Shield, Key,
-  LogIn, UserPlus, Camera, History
+  LogIn, UserPlus, Camera, History, Users
 } from 'lucide-react';
 
 import CredentialModal from './components/CredentialModal';
-import LogViewer from './components/LogViewer';
+import Dashboard from './components/Dashboard';
 import VersionModal from './components/VersionModal';
 import AuthModal from './components/AuthModal';
 
@@ -33,6 +34,9 @@ import AgentNode from './components/AgentNode';
 import CopilotBar from './components/CopilotBar';
 import TemplateGallery from './components/TemplateGallery';
 import PublishModal from './components/PublishModal';
+import WorkspaceModal from './components/WorkspaceModal';
+import CollaborationOverlay from './components/CollaborationOverlay';
+import CommentSidebar from './components/CommentSidebar';
 import { API_BASE_URL } from './config';
 
 const nodeTypes = { agentNode: AgentNode };
@@ -45,7 +49,7 @@ const getSidebarIcon = (iconName) => {
     MessageSquare, Cpu, BookOpen, User, Search, Database,
     FileText, Globe, Code, Mail, Settings, Zap, Bot, Brain,
     Layers, Terminal, CheckCircle, Activity, Scissors, Box, Link, Wrench,
-    Layout, Upload, Download, Trash2, Play, Loader2
+    Layout, Upload, Download, Trash2, Play, Loader2, Shield
   };
   return iconMap[iconName] || Activity;
 };
@@ -95,8 +99,14 @@ const App = () => {
   const [isLogOpen, setIsLogOpen] = useState(false);
   const [isVersionOpen, setIsVersionOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('studio_token'));
-  const [userProfile, setUserProfile] = useState(null);
   const [userEmail, setUserEmail] = useState(localStorage.getItem('user_email') || '');
+  const [userProfile, setUserProfile] = useState(null);
+  const [currentWorkspaceId, setCurrentWorkspaceId] = useState(localStorage.getItem('active_workspace_id') || null);
+  const [isWorkspaceOpen, setIsWorkspaceOpen] = useState(false);
+  const [collaborators, setCollaborators] = useState({}); // {userId: {name, cursor}}
+  const [workflowId, setWorkflowId] = useState(null);
+  const [workflowName, setWorkflowName] = useState('New Workflow');
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
   const socketRef = useRef(null);
 
   // Fetch user profile on mount or auth change
@@ -132,25 +142,58 @@ const App = () => {
 
   // WebSocket initialization
   useEffect(() => {
-    const wsUrl = API_BASE_URL.replace('http', 'ws') + '/ws';
+    if (!isAuthenticated) return;
+
+    // Use the name or a generated ID as the room name for now
+    // In production, this would be a real workflow UUID from the DB
+    const roomId = workflowId || 'default-room';
+    const wsUrl = API_BASE_URL.replace('http', 'ws') + '/ws/' + roomId;
     const socket = new WebSocket(wsUrl);
     socketRef.current = socket;
 
-    socket.onopen = () => console.log('🔌 WebSocket Connected');
+    socket.onopen = () => console.log(`🔌 WebSocket Connected to room: ${roomId}`);
     socket.onmessage = (event) => {
       const msg = JSON.parse(event.data);
-      handleWebSocketMessage(msg);
+      if (msg.type?.startsWith('collaboration_')) {
+        handleCollaborationMessage(msg);
+      } else {
+        handleWebSocketMessage(msg);
+      }
     };
     socket.onclose = () => {
-      console.log('🔌 WebSocket Disconnected, retrying...');
-      setTimeout(() => {
-        // Simple reconnection logic
-        socketRef.current = new WebSocket(wsUrl);
-      }, 3000);
+      console.log('🔌 WebSocket Disconnected');
     };
 
     return () => socket.close();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, workflowId]);
+
+  const handleCollaborationMessage = (msg) => {
+    const { user_id, type, data } = msg;
+    if (type === 'collaboration_cursor') {
+      setCollaborators(prev => ({
+        ...prev,
+        [user_id]: { ...prev[user_id], cursor: data }
+      }));
+    }
+  };
+
+  const onMouseMove = useCallback((event) => {
+    if (socketRef.current?.readyState === WebSocket.OPEN && isAuthenticated) {
+      socketRef.current.send(JSON.stringify({
+        type: 'cursor',
+        user_id: userEmail,
+        data: { x: event.clientX, y: event.clientY }
+      }));
+    }
+  }, [isAuthenticated, userEmail]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      window.addEventListener('mousemove', onMouseMove);
+      return () => window.removeEventListener('mousemove', onMouseMove);
+    }
+  }, [isAuthenticated, onMouseMove]);
+
 
   // Configure axios on mount
   useEffect(() => {
@@ -541,11 +584,22 @@ const App = () => {
 
   const handleSnapshot = async () => {
     try {
-      const flow = { nodes, edges, name: workflowName };
-      await axios.post(`${API_BASE_URL}/workflow/snapshot`, flow);
-      alert("Snapshot saved successfully!");
+      const flow = {
+        nodes,
+        edges,
+        name: workflowName
+      };
+
+      const res = await axios.post(`${API_BASE_URL}/workflow/snapshot`, flow, {
+        params: { workspace_id: currentWorkspaceId }
+      });
+
+      if (res.data.version_id) {
+        alert("Immutable snapshot created successfully!");
+      }
     } catch (e) {
       console.error("Snapshot failed", e);
+      alert("Failed to create snapshot. Please ensure you are logged in.");
     }
   };
 
@@ -571,6 +625,7 @@ const App = () => {
 
   return (
     <div className="app-container">
+      <CollaborationOverlay collaborators={collaborators} />
       {/* Header */}
       <header className="studio-header">
         <div className="logo-container" onClick={() => window.location.reload()}>
@@ -579,6 +634,15 @@ const App = () => {
         </div>
 
         <div className="prime-header-right">
+          {/* Team Presence */}
+          <div className="team-presence">
+            {Object.entries(collaborators).map(([id, data]) => (
+              <div key={id} className="presence-avatar" title={data.name || id}>
+                {(data.name?.[0] || id[0]).toUpperCase()}
+              </div>
+            ))}
+          </div>
+
           <div className="user-profile flex items-center gap-3 px-3 py-1 bg-white/5 rounded-full border border-white/10 mr-4 cursor-default">
             <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-[10px] font-bold shadow-lg shadow-blue-500/20">
               {(userProfile?.full_name?.[0] || userEmail?.[0] || 'U').toUpperCase()}
@@ -625,8 +689,8 @@ const App = () => {
             <Shield size={16} /> Security
           </button>
 
-          <button className="prime-btn" onClick={() => setIsLogOpen(!isLogOpen)}>
-            <Terminal size={16} /> Logs
+          <button className="prime-btn" onClick={() => setIsLogOpen(true)}>
+            <Activity size={16} /> Monitor
           </button>
 
           <button className="prime-btn" onClick={() => setIsVersionOpen(true)}>
@@ -770,6 +834,21 @@ const App = () => {
                   title={showMinimap ? 'Hide minimap' : 'Show minimap'}
                 >
                   {showMinimap ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+                <div className="v-divider"></div>
+                <button
+                  className="prime-btn collabs-btn"
+                  onClick={() => setIsWorkspaceOpen(true)}
+                  title="Collaboration & Workspaces"
+                >
+                  <Users size={16} /> Collaborate
+                </button>
+                <button
+                  className={`prime-btn ${isCommentOpen ? 'accent' : ''}`}
+                  onClick={() => setIsCommentOpen(!isCommentOpen)}
+                  title="Workflow Comments"
+                >
+                  <MessageSquare size={16} /> Feedback
                 </button>
               </div>
             </Panel>
@@ -986,7 +1065,7 @@ const App = () => {
       )}
 
       <CredentialModal isOpen={isCredModalOpen} onClose={() => setIsCredModalOpen(false)} />
-      <LogViewer isOpen={isLogOpen} onClose={() => setIsLogOpen(false)} />
+      <Dashboard isOpen={isLogOpen} onClose={() => setIsLogOpen(false)} />
       <VersionModal
         isOpen={isVersionOpen}
         onClose={() => setIsVersionOpen(false)}
@@ -999,6 +1078,23 @@ const App = () => {
           setIsAuthenticated(true);
           setUserEmail(localStorage.getItem('user_email'));
         }}
+      />
+
+      <WorkspaceModal
+        isOpen={isWorkspaceOpen}
+        onClose={() => setIsWorkspaceOpen(false)}
+        currentWorkspaceId={currentWorkspaceId}
+        onWorkspaceSwitch={(wsId) => {
+          setCurrentWorkspaceId(wsId);
+          localStorage.setItem('active_workspace_id', wsId);
+        }}
+      />
+
+      <CommentSidebar
+        isOpen={isCommentOpen}
+        onClose={() => setIsCommentOpen(false)}
+        workflowId={workflowId}
+        selectedNodeId={selectedNode?.id}
       />
     </div>
   );

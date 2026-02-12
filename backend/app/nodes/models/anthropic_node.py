@@ -18,15 +18,21 @@ class AnthropicNode(BaseNode):
         try:
             from anthropic import AsyncAnthropic
             
-            # Extract config
-            api_key = self.config.get("api_key") or os.getenv("ANTHROPIC_API_KEY")
+            # 1. Try Secrets Manager
+            creds = await self.get_credential("credentials_id")
+            api_key = creds.get("api_key") if creds else None
+            
+            # 2. Fallback to config or ENV
+            if not api_key:
+                api_key = self.get_config("api_key") or os.getenv("ANTHROPIC_API_KEY")
+                
             if not api_key:
                 return "Error: API Key is required for Anthropic Node"
                 
-            model = self.config.get("model", "claude-3-sonnet-20240229")
-            temperature = float(self.config.get("temperature", 0.7))
-            max_tokens = int(self.config.get("max_tokens", 1000))
-            system_message = self.config.get("system_message", "You are a helpful AI assistant.")
+            model = self.get_config("model", "claude-3-sonnet-20240229")
+            temperature = float(self.get_config("temperature", 0.7))
+            max_tokens = int(self.get_config("max_tokens", 1000))
+            system_message = self.get_config("system_message", "You are a helpful AI assistant.")
             
             # Helper to handle input being passed directly or config
             user_input = input_data if input_data else self.config.get("input", "")

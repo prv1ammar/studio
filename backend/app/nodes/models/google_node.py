@@ -18,16 +18,22 @@ class GoogleNode(BaseNode):
         try:
             import google.generativeai as genai
             
-            # Extract config
-            api_key = self.config.get("api_key") or os.getenv("GOOGLE_API_KEY")
+            # 1. Try Secrets Manager
+            creds = await self.get_credential("credentials_id")
+            api_key = creds.get("api_key") if creds else None
+            
+            # 2. Fallback to config or ENV
+            if not api_key:
+                api_key = self.get_config("api_key") or os.getenv("GOOGLE_API_KEY")
+                
             if not api_key:
                 return "Error: API Key is required for Google Node"
                 
-            model_name = self.config.get("model", "gemini-pro")
-            temperature = float(self.config.get("temperature", 0.7))
+            model_name = self.get_config("model", "gemini-pro")
+            temperature = float(self.get_config("temperature", 0.7))
             
             # Helper to handle input being passed directly or config
-            user_input = input_data if input_data else self.config.get("input", "")
+            user_input = input_data if input_data else self.get_config("input", "")
             if not user_input:
                 return "Error: No input provided to Google Node"
 

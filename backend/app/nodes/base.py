@@ -87,3 +87,55 @@ class BaseNode(ABC):
 
     async def get_langchain_object(self, context: Optional[Dict[str, Any]] = None) -> Any:
         return None
+
+class LangflowComponentAdapter(BaseNode):
+    """
+    Adapter to run legacy Langflow/LFX Component classes within the Studio ecosystem.
+    """
+    def __init__(self, component_class: Type[Any], config: Optional[Dict[str, Any]] = None):
+        super().__init__(config)
+        self.component_class = component_class
+        # Extract metadata from legacy class
+        self.display_name = getattr(component_class, "display_name", component_class.__name__)
+        self.description = getattr(component_class, "description", "")
+        self.icon = getattr(component_class, "icon", "Box")
+        self.node_id = getattr(component_class, "node_id", component_class.__name__)
+
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
+        # 1. Prepare initialization parameters from config
+        # Map our config to the component's expected inputs
+        init_params = {}
+        if isinstance(self.config, dict):
+            init_params.update(self.config)
+        
+        # 2. Instantiate the legacy component
+        try:
+            instance = self.component_class(**init_params)
+        except Exception as e:
+            return {"error": f"Failed to initialize component {self.node_id}: {str(e)}"}
+
+        # 3. Handle execution logic based on component type
+        # Check for common Langflow/LFX execution methods
+        try:
+            if hasattr(instance, "run_model") and callable(instance.run_model):
+                # Many integration components use run_model
+                result = instance.run_model()
+                # If it returns a list of Data objects, serialize them
+                if isinstance(result, list):
+                    return [item.data if hasattr(item, "data") else item for item in result]
+                return result
+            
+            elif hasattr(instance, "build_model") and callable(instance.build_model):
+                # Model components (LLMs, Embeddings) use build_model
+                return instance.build_model()
+            
+            elif hasattr(instance, "run") and callable(instance.run):
+                # Generic component run method
+                import asyncio
+                if asyncio.iscoroutinefunction(instance.run):
+                    return await instance.run()
+                return instance.run()
+            
+            return {"error": f"Component {self.node_id} has no supported execution method (run_model/build_model/run)."}
+        except Exception as e:
+            return {"error": f"Execution failed in {self.node_id}: {str(e)}"}

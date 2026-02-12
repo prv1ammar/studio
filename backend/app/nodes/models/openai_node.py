@@ -16,7 +16,7 @@ class OpenAINode(BaseNode):
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> str:
         try:
-            llm = self._build_model()
+            llm = await self._build_model()
             user_input = input_data if input_data else self.config.get("input", "")
             if not user_input:
                 return "Error: No input provided to OpenAI Node"
@@ -26,21 +26,29 @@ class OpenAINode(BaseNode):
         except Exception as e:
             return f"OpenAI Execution Error: {str(e)}"
 
-    def _build_model(self):
+    async def _build_model(self):
         from langchain_openai import ChatOpenAI
-        api_key = self.config.get("api_key") or os.getenv("OPENAI_API_KEY")
+        
+        # 1. Try Secrets Manager
+        creds = await self.get_credential("credentials_id")
+        api_key = creds.get("api_key") if creds else None
+        
+        # 2. Fallback to config or ENV
+        if not api_key:
+            api_key = self.get_config("api_key") or os.getenv("OPENAI_API_KEY")
+            
         if not api_key:
             raise ValueError("API Key is required for OpenAI Node")
             
         return ChatOpenAI(
             api_key=api_key,
-            model=self.config.get("model", "gpt-4o"),
-            temperature=float(self.config.get("temperature", 0.7)),
-            max_tokens=int(self.config.get("max_tokens", 1000))
+            model=self.get_config("model", "gpt-4o"),
+            temperature=float(self.get_config("temperature", 0.7)),
+            max_tokens=int(self.get_config("max_tokens", 1000))
         )
 
     async def get_langchain_object(self, context: Optional[Dict[str, Any]] = None) -> Any:
         try:
-            return self._build_model()
+            return await self._build_model()
         except:
             return None

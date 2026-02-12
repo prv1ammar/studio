@@ -5,7 +5,7 @@ const getBaseUrl = () => {
     // If we are in local development, we use the hostname of the page
     // This allows other PCs on the network to connect to the backend on THIS PC
     const hostname = window.location.hostname;
-    return `http://${hostname}:8000`;
+    return `http://${hostname}:8001`;
 };
 
 export const API_BASE_URL = getBaseUrl();

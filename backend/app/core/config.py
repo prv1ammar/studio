@@ -17,6 +17,14 @@ class Settings(BaseSettings):
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5432/studio")
     SUPABASE_URL: str = os.getenv("SUPABASE_URL", "")
     SUPABASE_SERVICE_KEY: str = os.getenv("SUPABASE_SERVICE_KEY", "")
+    
+    # Phase 4: Performance & Scalability
+    NODE_EXECUTION_TIMEOUT: int = int(os.getenv("NODE_EXECUTION_TIMEOUT", "30"))  # seconds per node
+    MAX_CONCURRENT_JOBS_PER_USER: int = int(os.getenv("MAX_CONCURRENT_JOBS_PER_USER", "5"))
+    MAX_CONCURRENT_JOBS_PER_WORKSPACE: int = int(os.getenv("MAX_CONCURRENT_JOBS_PER_WORKSPACE", "10"))
+    WORKER_CONCURRENCY: int = int(os.getenv("WORKER_CONCURRENCY", "10"))  # Jobs per worker process
+    CACHE_TTL: int = int(os.getenv("CACHE_TTL", "300"))  # Redis cache TTL in seconds
+    ENABLE_RESULT_CACHING: bool = os.getenv("ENABLE_RESULT_CACHING", "true").lower() == "true"
 
     class Config:
         env_file = ".env"

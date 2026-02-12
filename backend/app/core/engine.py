@@ -40,8 +40,37 @@ class AgentEngine:
 
     async def execute_node(self, node_type: str, input_text: Any, config: Dict[str, Any] = None, context: Dict[str, Any] = None) -> Any:
         """
-        Loads and executes a node with Resilience (Retry logic).
+        Loads and executes a node with Resilience (Retry logic), Timeout protection, Intelligent Caching, Analytics, and Circuit Breaker.
         """
+        from app.core.timeout import execute_with_timeout, TimeoutError
+        from app.core.cache import cache_manager
+        from app.core.analytics import analytics_tracker
+        from app.core.circuit_breaker import circuit_breaker
+        
+        node_start_time = time.time()
+        
+        # Check circuit breaker first
+        can_execute, reason = await circuit_breaker.can_execute(node_type)
+        if not can_execute:
+            print(f"🔴 Circuit breaker preventing execution of {node_type}: {reason}")
+            return {"error": reason, "error_type": "circuit_breaker"}
+        
+        # Check cache (if enabled and node is cacheable)
+        cached_result = await cache_manager.get(node_type, input_text, config or {})
+        if cached_result is not None:
+            # Track cache hit
+            node_duration = time.time() - node_start_time
+            await analytics_tracker.track_node_execution(
+                node_type=node_type,
+                user_id=context.get("user_id") if context else None,
+                workspace_id=context.get("workspace_id") if context else None,
+                execution_id=context.get("execution_id") if context else "unknown",
+                duration=node_duration,
+                success=True,
+                cached=True
+            )
+            return cached_result
+        
         node = self.node_factory.get_node(node_type, config)
         if not node:
              return {"error": f"Node type '{node_type}' not found."}
@@ -49,13 +78,23 @@ class AgentEngine:
         # Resilience: Retry Logic
         max_retries = int(config.get("retry_count", 0)) if config else 0
         last_error = None
+        
+        # Get node-specific timeout or use default
+        node_timeout = int(config.get("timeout", 0)) if config else 0
+        if node_timeout == 0:
+            from app.core.config import settings
+            node_timeout = settings.NODE_EXECUTION_TIMEOUT
 
         for attempt in range(max_retries + 1):
             try:
                 # Add current attempt to context
                 if context: context["attempt"] = attempt
                 
-                result = await node.run(input_text, context)
+                # Execute with timeout protection
+                result = await execute_with_timeout(
+                    node.run(input_text, context),
+                    timeout=node_timeout
+                )
                 
                 # If result is a dict with an 'error' key, we might want to retry
                 if isinstance(result, dict) and "error" in result and attempt < max_retries:
@@ -63,17 +102,81 @@ class AgentEngine:
                     print(f"🔄 Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to internal error: {last_error}")
                     continue
                 
+                # Calculate duration
+                node_duration = time.time() - node_start_time
+                success = not (isinstance(result, dict) and "error" in result)
+                
+                # Track analytics
+                await analytics_tracker.track_node_execution(
+                    node_type=node_type,
+                    user_id=context.get("user_id") if context else None,
+                    workspace_id=context.get("workspace_id") if context else None,
+                    execution_id=context.get("execution_id") if context else "unknown",
+                    duration=node_duration,
+                    success=success,
+                    cached=False
+                )
+                
+                # Update circuit breaker
+                if success:
+                    await circuit_breaker.record_success(node_type)
+                    # Cache successful result
+                    await cache_manager.set(node_type, input_text, config or {}, result)
+                else:
+                    error_msg = result.get("error", "Unknown error") if isinstance(result, dict) else "Unknown error"
+                    await circuit_breaker.record_failure(node_type, error_msg)
+                
                 return result
+                
+            except TimeoutError as e:
+                last_error = f"Node execution timeout ({node_timeout}s)"
+                if attempt < max_retries:
+                    print(f"🔄 Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to timeout")
+                    continue
+                
+                # Track failed execution
+                node_duration = time.time() - node_start_time
+                await analytics_tracker.track_node_execution(
+                    node_type=node_type,
+                    user_id=context.get("user_id") if context else None,
+                    workspace_id=context.get("workspace_id") if context else None,
+                    execution_id=context.get("execution_id") if context else "unknown",
+                    duration=node_duration,
+                    success=False,
+                    cached=False
+                )
+                
+                # Record circuit breaker failure
+                await circuit_breaker.record_failure(node_type, last_error)
+                
+                print(f"❌ Node Execution Timeout ({node_type}) after {attempt+1} attempts: {last_error}")
+                return {"error": last_error, "error_type": "timeout"}
+                
             except Exception as e:
                 last_error = str(e)
                 if attempt < max_retries:
                     print(f"🔄 Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to exception: {last_error}")
                     continue
                 
+                # Track failed execution
+                node_duration = time.time() - node_start_time
+                await analytics_tracker.track_node_execution(
+                    node_type=node_type,
+                    user_id=context.get("user_id") if context else None,
+                    workspace_id=context.get("workspace_id") if context else None,
+                    execution_id=context.get("execution_id") if context else "unknown",
+                    duration=node_duration,
+                    success=False,
+                    cached=False
+                )
+                
+                # Record circuit breaker failure
+                await circuit_breaker.record_failure(node_type, last_error)
+                
                 print(f"❌ Node Execution Failed ({node_type}) after {attempt+1} attempts: {last_error}")
                 return {"error": last_error}
 
-    async def process_workflow(self, graph_data: Dict[str, Any], message: str, broadcaster=None, execution_id: str = None, start_node_id: str = None, initial_outputs: Dict[str, Any] = None) -> str:
+    async def process_workflow(self, graph_data: Dict[str, Any], message: str, broadcaster=None, execution_id: str = None, start_node_id: str = None, initial_outputs: Dict[str, Any] = None, context: Optional[Dict[str, Any]] = None) -> str:
         """
         Core workflow execution engine with Validation and Structured Context.
         Supports resuming from a specific node.
@@ -109,6 +212,18 @@ class AgentEngine:
             action="workflow_start",
             user_id=user_id,
             details={"execution_id": execution_id, "node_count": len(nodes)}
+        )
+        
+        # Analytics: Track workflow start
+        from app.core.analytics import analytics_tracker
+        workflow_id = execution_context.get("workflow_id", "unknown")
+        workspace_id = context.get("workspace_id") if context else None
+        await analytics_tracker.track_workflow_execution(
+            user_id=user_id,
+            workspace_id=workspace_id,
+            workflow_id=workflow_id,
+            execution_id=execution_id,
+            status="started"
         )
 
         # 3. Identify Entry Point (Support 'chatInput' or resume node)
@@ -203,14 +318,26 @@ class AgentEngine:
             
         # Log Success
         from app.core.audit import audit_logger
+        workflow_duration = time.time() - start_time
         await audit_logger.log(
             action="workflow_success",
             user_id=user_id,
             details={
                 "execution_id": execution_id, 
-                "duration": f"{time.time() - start_time:.2f}s"
+                "duration": f"{workflow_duration:.2f}s"
             }
         )
+        
+        # Analytics: Track workflow completion
+        await analytics_tracker.track_workflow_execution(
+            user_id=user_id,
+            workspace_id=workspace_id,
+            workflow_id=workflow_id,
+            execution_id=execution_id,
+            status="completed",
+            duration=workflow_duration
+        )
+        
         return str(result)
 
 # Instantiate and export the engine

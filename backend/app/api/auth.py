@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
@@ -38,6 +39,26 @@ async def register(user_in: UserCreate, db: AsyncSession = Depends(get_session))
         hashed_password=get_password_hash(user_in.password)
     )
     db.add(new_user)
+    await db.flush() # Get user.id without committing
+
+    # Create default workspace for the user
+    from app.db.models import Workspace, WorkspaceMember
+    workspace = Workspace(
+        name="Personal Workspace",
+        description=f"Personal space for {new_user.full_name or new_user.email}",
+        owner_id=new_user.id
+    )
+    db.add(workspace)
+    await db.flush() # Get workspace.id
+
+    # Add user as owner member of the workspace
+    membership = WorkspaceMember(
+        workspace_id=workspace.id,
+        user_id=new_user.id,
+        role="owner"
+    )
+    db.add(membership)
+    
     await db.commit()
     await db.refresh(new_user)
     
@@ -45,7 +66,12 @@ async def register(user_in: UserCreate, db: AsyncSession = Depends(get_session))
 
     # Log Auth Event
     from app.core.audit import audit_logger
-    await audit_logger.log(action="user_register", user_id=new_user.id, details={"email": new_user.email})
+    await audit_logger.log(
+        action="user_register", 
+        user_id=new_user.id, 
+        workspace_id=workspace.id,
+        details={"email": new_user.email}
+    )
 
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -65,10 +91,6 @@ async def login(user_in: UserLogin, db: AsyncSession = Depends(get_session)):
 
     return {"access_token": access_token, "token_type": "bearer"}
 
-@router.get("/me", response_model=User)
-async def get_me(current_user: User = Depends(get_current_user)):
-    return current_user
-
 async def get_current_user(token: str, db: AsyncSession = Depends(get_session)) -> User:
     user_id = decode_token(token)
     if not user_id:
@@ -81,3 +103,7 @@ async def get_current_user(token: str, db: AsyncSession = Depends(get_session)) 
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
+
+@router.get("/me", response_model=User)
+async def get_me(current_user: User = Depends(get_current_user)):
+    return current_user

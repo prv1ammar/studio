@@ -55,7 +55,8 @@ class NodeRegistry:
                     try:
                         with open(file_path, "r", encoding="utf-8") as f:
                             content = f.read()
-                            if "BaseNode" not in content and "@register_node" not in content:
+                            # Now also scan for legacy Components
+                            if not any(x in content for x in ["BaseNode", "@register_node", "Component", "LCModelComponent"]):
                                 continue
                     except Exception as e:
                         print(f"NodeRegistry Error reading {file}: {e}")
@@ -70,10 +71,10 @@ class NodeRegistry:
                         module_count += 1
                         cls._extract_nodes_from_module(module)
                     except (ImportError, ModuleNotFoundError) as e:
-                        print(f"NodeRegistry Warning: Could not load {module_name} (likely missing dependency: {e})")
+                        # Common for legacy components with niche dependencies
                         pass
                     except Exception as e:
-                        print(f"NodeRegistry Warning: Error loading {module_name}: {e}")
+                        # print(f"NodeRegistry Warning: Error loading {module_name}: {e}")
                         pass
 
         cls._is_scanned = True
@@ -82,28 +83,40 @@ class NodeRegistry:
     @classmethod
     def _extract_nodes_from_module(cls, module):
         import inspect
+        from .base import LangflowComponentAdapter
         count = 0
         for name, obj in inspect.getmembers(module, inspect.isclass):
-            if obj.__name__ == "BaseNode":
+            if obj.__name__ in ["BaseNode", "Component", "LCModelComponent", "LangflowComponentAdapter"]:
                 continue
             
-            # Use MRO to check for BaseNode inheritance (identity-safe)
+            # Use MRO to check for BaseNode OR Component inheritance
             try:
                 mro_names = [base.__name__ for base in inspect.getmro(obj)]
+                
+                # 1. Native BaseNode
                 if "BaseNode" in mro_names:
                     node_id = getattr(obj, "node_id", None) or obj.__name__
-                    if not node_id:
-                        node_id = obj.__name__
-                    
-                    # If already in _nodes (via decorator), just count it
-                    if node_id in cls._nodes and cls._nodes[node_id] is obj:
-                        count += 1
-                        continue
-                        
-                    # Otherwise, register and count
                     if node_id not in cls._nodes:
                         cls._nodes[node_id] = obj
                         count += 1
+                        
+                # 2. Legacy Component (Langflow/LFX)
+                elif any(x in mro_names for x in ["Component", "LCModelComponent"]):
+                    # We wrap the legacy component class in our adapter
+                    # We use the class name or display_name as the ID
+                    node_id = getattr(obj, "name", None) or getattr(obj, "display_name", obj.__name__)
+                    
+                    if node_id not in cls._nodes:
+                        # Create a factory that returns an instance of the adapter for THIS specific class
+                        # Because our system expects a class that can be instantiated with config
+                        class DynamicAdapter(LangflowComponentAdapter):
+                            def __init__(self, config=None):
+                                super().__init__(obj, config)
+                        
+                        DynamicAdapter.__name__ = f"Adapter_{obj.__name__}"
+                        cls._nodes[node_id] = DynamicAdapter
+                        count += 1
+                        
             except Exception:
                 continue
         return count
