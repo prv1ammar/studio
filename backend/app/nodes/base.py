@@ -1,8 +1,18 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional, Type
+from typing import Any, Dict, Optional, Type, List
 import time
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, ValidationError, Field
 from app.core.credentials import cred_manager
+
+# Phase 2: Node Law - Mandatory Schema
+class NodeSchema(BaseModel):
+    node_type: str
+    version: str = "1.0.0"
+    category: str  # trigger, action, logic, ai
+    inputs: Dict[str, Any] = Field(default_factory=dict)
+    outputs: Dict[str, Any] = Field(default_factory=dict)
+    credentials_required: List[str] = Field(default_factory=list)
+    deprecated: bool = False
 
 class NodeConfig(BaseModel):
     """Base Pydantic model for node configuration."""
@@ -13,17 +23,50 @@ class BaseNode(ABC):
     Base class for all nodes in the Studio.
     Provides standardized configuration, credential management, and performance tracking.
     """
+    # Metadata required by "Node Law"
+    node_type: str = ""
+    version: str = "1.0.0"
+    category: str = "custom"
+    inputs: Dict[str, Any] = {}
+    outputs: Dict[str, Any] = {}
+    credentials_required: List[str] = []
+    deprecated: bool = False
+
     node_id: str = "" 
     config_model: Optional[Type[BaseModel]] = None
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
-        self.raw_config = config or {}
+        self.raw_config = config.copy() if config else {}
         self.config = self._validate_config(self.raw_config)
         self.metrics = {
             "execution_time": 0.0,
             "success": False,
             "error": None
         }
+
+    def get_schema(self) -> NodeSchema:
+        """Returns the node's schema in compliance with 'Node Law'."""
+        try:
+            return NodeSchema(
+                node_type=self.node_type or self.__class__.__name__,
+                version=self.version,
+                category=self.category,
+                inputs=self.inputs,
+                outputs=self.outputs,
+                credentials_required=self.credentials_required,
+                deprecated=self.deprecated
+            )
+        except ValidationError:
+            # Fallback for legacy components during migration
+            return NodeSchema(
+                node_type=self.node_id or self.__class__.__name__,
+                version="0.0.0",
+                category="legacy",
+                inputs={},
+                outputs={},
+                credentials_required=[],
+                deprecated=True
+            )
 
     def _validate_config(self, config: Dict[str, Any]) -> Any:
         """Parses config into a Pydantic model if config_model is defined."""
@@ -64,12 +107,23 @@ class BaseNode(ABC):
             return cred_obj.get("data")
         return None
 
+    async def _validate_credentials(self):
+        """Checks if all required credentials are provided in the config."""
+        for cred_key in self.credentials_required:
+            cred_id = self.get_config(cred_key)
+            if not cred_id:
+                raise ValueError(f"Missing required credential: '{cred_key}'. Please configure it in the node settings.")
+
     async def run(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
         """
-        Standardized execution wrapper that tracks metrics.
+        Standardized execution wrapper that tracks metrics and validates pre-conditions.
         """
         start_time = time.time()
         try:
+            # 1. Validate Credentials before execution
+            await self._validate_credentials()
+
+            # 2. Execute actual node logic
             result = await self.execute(input_data, context)
             self.metrics["success"] = True
             return result

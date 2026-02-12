@@ -2,35 +2,40 @@ import aiohttp
 import json
 import base64
 from typing import Any, Dict, Optional
-from pydantic import Field
-from app.nodes.base import BaseNode, NodeConfig
-from app.nodes.registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
-class JiraConfig(NodeConfig):
-    domain: Optional[str] = Field(None, description="Jira Instance Domain (e.g. yourcompany.atlassian.net)")
-    email: Optional[str] = Field(None, description="Jira Account Email")
-    api_token: Optional[str] = Field(None, description="Jira API Token")
-    project_key: Optional[str] = Field(None, description="Jira Project Key (e.g. PROJ)")
-    credentials_id: Optional[str] = Field(None, description="Jira Credentials ID")
-    action: str = Field("create_issue", description="Action (create_issue, get_issue)")
-
-@register_node("jira_node")
+@register_node("jira_action")
 class JiraNode(BaseNode):
-    node_id = "jira_node"
-    config_model = JiraConfig
+    """Integrates with Jira for issue management."""
+    node_type = "jira_action"
+    version = "1.0.0"
+    category = "integrations"
+    credentials_required = ["jira_auth"]
+
+    inputs = {
+        "action": {"type": "string", "enum": ["create_issue", "get_issue"], "default": "create_issue"},
+        "domain": {"type": "string", "description": "e.g. company.atlassian.net"},
+        "project_key": {"type": "string", "description": "e.g. PROJ"},
+        "data": {"type": "any", "description": "Issue summary or full fields dict"}
+    }
+    outputs = {
+        "result": {"type": "object"},
+        "status": {"type": "string"}
+    }
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
         # 1. Auth Retrieval
-        creds = await self.get_credential("credentials_id")
+        creds = await self.get_credential("jira_auth")
         domain = self.get_config("domain")
         email = creds.get("email") if creds else self.get_config("email")
-        token = creds.get("token") if creds else self.get_config("api_token")
+        token = creds.get("token") or creds.get("api_token") if creds else self.get_config("api_token")
         project_key = self.get_config("project_key")
 
         if not domain or not email or not token:
-            return {"error": "Jira Domain, Email, and API Token are required."}
+            return {"status": "error", "error": "Jira Domain, Email, and API Token are required.", "data": None}
 
-        action = self.get_config("action")
+        action = self.get_config("action", "create_issue")
         
         # Basic Auth for Jira Cloud
         auth_string = f"{email}:{token}"
@@ -47,7 +52,6 @@ class JiraNode(BaseNode):
                 if action == "create_issue":
                     url = f"https://{domain}/rest/api/3/issue"
                     
-                    # input_data can be title or full fields
                     if isinstance(input_data, dict):
                         fields = input_data
                         if "project" not in fields:
@@ -64,28 +68,38 @@ class JiraNode(BaseNode):
                     async with session.post(url, json=payload, headers=headers) as resp:
                         result = await resp.json()
                         if resp.status >= 400:
-                            return {"error": f"Jira API Error: {result.get('errorMessages') or result.get('errors')}"}
-                        return {"status": "success", "issue_key": result.get("key"), "id": result.get("id")}
+                            return {"status": "error", "error": f"Jira API Error: {result.get('errorMessages') or result.get('errors')}", "data": result}
+                        return {
+                            "status": "success", 
+                            "data": {
+                                "issue_key": result.get("key"), 
+                                "id": result.get("id"),
+                                "url": f"https://{domain}/browse/{result.get('key')}"
+                            }
+                        }
 
                 elif action == "get_issue":
                     issue_key = input_data if isinstance(input_data, str) else None
                     if not issue_key:
-                        return {"error": "Issue key is required to fetch issue info."}
+                        return {"status": "error", "error": "Issue key is required to fetch issue info.", "data": None}
                         
                     url = f"https://{domain}/rest/api/3/issue/{issue_key}"
                     async with session.get(url, headers=headers) as resp:
                         result = await resp.json()
                         if resp.status >= 400:
-                            return {"error": f"Jira API Error: {result.get('errorMessages')}"}
+                            return {"status": "error", "error": f"Jira API Error: {result.get('errorMessages')}", "data": result}
                         return {
-                            "id": result.get("id"),
-                            "key": result.get("key"),
-                            "status": result.get("fields", {}).get("status", {}).get("name"),
-                            "summary": result.get("fields", {}).get("summary"),
-                            "description": result.get("fields", {}).get("description")
+                            "status": "success",
+                            "data": {
+                                "id": result.get("id"),
+                                "key": result.get("key"),
+                                "status": result.get("fields", {}).get("status", {}).get("name"),
+                                "summary": result.get("fields", {}).get("summary"),
+                                "description": result.get("fields", {}).get("description")
+                            }
                         }
 
-                return {"error": f"Unsupported Jira action: {action}"}
+                return {"status": "error", "error": f"Unsupported Jira action: {action}", "data": None}
 
             except Exception as e:
-                return {"error": f"Jira Node Failed: {str(e)}"}
+                return {"status": "error", "error": f"Jira Node Failed: {str(e)}", "data": None}

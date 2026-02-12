@@ -1,71 +1,85 @@
 import json
 from typing import Any, Dict, Optional, List
-from pydantic import Field
-from app.nodes.base import BaseNode, NodeConfig
-from app.nodes.registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 import aiohttp
 
-class AirtableConfig(NodeConfig):
-    base_id: str = Field(..., description="The ID of the Airtable Base")
-    table_name: str = Field(..., description="The name or ID of the Table")
-    credentials_id: Optional[str] = Field(None, description="Airtable Personal Access Token ID")
+@register_node("airtable_action")
+class AirtableNode(BaseNode):
+    """
+    Automate Airtable actions (Read/Write records).
+    """
+    node_type = "airtable_action"
+    version = "1.0.0"
+    category = "storage"
+    credentials_required = ["airtable_auth"]
 
-@register_node("airtable_reader")
-class AirtableReaderNode(BaseNode):
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
-        base_id = self.get_config("base_id")
-        table_name = self.get_config("table_name")
-        
-        creds_data = await self.get_credential("credentials_id")
-        token = creds_data.get("token") or creds_data.get("api_key") if creds_data else None
-        
-        if not token:
-            return {"error": "Airtable Access Token is required."}
+    inputs = {
+        "action": {"type": "string", "default": "read_records", "enum": ["read_records", "write_record"]},
+        "base_id": {"type": "string", "description": "Airtable Base ID"},
+        "table_name": {"type": "string", "description": "Table Name or ID"},
+        "data": {"type": "object", "optional": True, "description": "Fields for writing"}
+    }
+    outputs = {
+        "records": {"type": "array"},
+        "id": {"type": "string"},
+        "status": {"type": "string"}
+    }
+
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        try:
+            # 1. Resolve Auth
+            creds = await self.get_credential("airtable_auth")
+            token = creds.get("token") or creds.get("api_key") if creds else self.get_config("api_key")
             
-        url = f"https://api.airtable.com/v0/{base_id}/{table_name}"
-        headers = {"Authorization": f"Bearer {token}"}
+            base_id = self.get_config("base_id")
+            table_name = self.get_config("table_name")
 
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, headers=headers) as response:
-                if response.status >= 400:
-                    text = await response.text()
-                    return {"error": f"Airtable Error {response.status}: {text}"}
-                return await response.json()
+            if not all([token, base_id, table_name]):
+                return {"status": "error", "error": "Airtable Token, Base ID, and Table Name are required."}
 
-@register_node("airtable_writer")
-class AirtableWriterNode(BaseNode):
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
-        base_id = self.get_config("base_id")
-        table_name = self.get_config("table_name")
-        
-        creds_data = await self.get_credential("credentials_id")
-        token = creds_data.get("token") or creds_data.get("api_key") if creds_data else None
-        
-        if not token:
-            return {"error": "Airtable Access Token is required."}
-            
-        url = f"https://api.airtable.com/v0/{base_id}/{table_name}"
-        headers = {
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json"
-        }
-        
-        # Format records for Airtable API
-        # Airtable expects {"records": [{"fields": {...}}]}
-        records = []
-        if isinstance(input_data, list):
-            for item in input_data:
-                fields = item if isinstance(item, dict) else {"content": str(item)}
-                records.append({"fields": fields})
-        else:
-            fields = input_data if isinstance(input_data, dict) else {"content": str(input_data)}
-            records.append({"fields": fields})
+            headers = {
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json"
+            }
+            action = self.get_config("action", "read_records")
+            url = f"https://api.airtable.com/v0/{base_id}/{table_name}"
 
-        payload = {"records": records[:10]} # Airtable limit is 10 per batch
+            async with aiohttp.ClientSession() as session:
+                if action == "read_records":
+                    async with session.get(url, headers=headers) as resp:
+                        result = await resp.json()
+                        if resp.status >= 400:
+                            return {"status": "error", "error": f"Airtable Error: {result.get('error', {}).get('message')}"}
+                        return {
+                            "status": "success",
+                            "data": {
+                                "records": result.get("records", []),
+                                "count": len(result.get("records", []))
+                            }
+                        }
 
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, headers=headers, json=payload) as response:
-                if response.status >= 400:
-                    text = await response.text()
-                    return {"error": f"Airtable Error {response.status}: {text}"}
-                return await response.json()
+                elif action == "write_record":
+                    fields = input_data if isinstance(input_data, dict) else self.get_config("data", {})
+                    if not fields and isinstance(input_data, str):
+                        fields = {"content": input_data}
+                    
+                    payload = {"records": [{"fields": fields}]}
+                    async with session.post(url, headers=headers, json=payload) as resp:
+                        result = await resp.json()
+                        if resp.status >= 400:
+                             return {"status": "error", "error": f"Airtable Error: {result.get('error', {}).get('message')}"}
+                        
+                        created_record = result.get("records", [{}])[0]
+                        return {
+                            "status": "success",
+                            "data": {
+                                "id": created_record.get("id"),
+                                "fields": created_record.get("fields")
+                            }
+                        }
+
+            return {"status": "error", "error": f"Unsupported action: {action}"}
+
+        except Exception as e:
+            return {"status": "error", "error": f"Airtable Node Error: {str(e)}"}

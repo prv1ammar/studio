@@ -9,22 +9,35 @@ class OpenAINode(BaseNode):
     Official OpenAI Chat Node implementation.
     Executes standard OpenAI chat completions.
     """
-    
+    node_type = "openai_chat"
+    version = "1.0.0"
+    category = "ai"
+    inputs = {
+        "model": {"type": "string", "default": "gpt-4o"},
+        "temperature": {"type": "number", "default": 0.7},
+        "max_tokens": {"type": "number", "default": 1000},
+        "input": {"type": "string", "description": "User prompt"}
+    }
+    outputs = {
+        "text": {"type": "string", "description": "Generated response"},
+        "status": {"type": "string"}
+    }
+    credentials_required = ["openai_api_key"]
+
     def __init__(self, config: Dict[str, Any]):
         super().__init__(config)
-        self.node_type = "openai_chat"
 
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> str:
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
             llm = await self._build_model()
             user_input = input_data if input_data else self.config.get("input", "")
             if not user_input:
-                return "Error: No input provided to OpenAI Node"
+                return {"status": "error", "error": "No input provided to OpenAI Node", "data": None}
 
             response = llm.invoke(str(user_input))
-            return response.content
+            return {"status": "success", "data": {"text": response.content}}
         except Exception as e:
-            return f"OpenAI Execution Error: {str(e)}"
+            return {"status": "error", "error": f"OpenAI Execution Error: {str(e)}", "data": None}
 
     async def _build_model(self):
         from langchain_openai import ChatOpenAI

@@ -1,67 +1,61 @@
-from lfx.base.models.model import LCModelComponent
-from lfx.field_typing import Embeddings
-from lfx.io import BoolInput, FileInput, FloatInput, IntInput, MessageTextInput, Output
+from typing import Any, Dict, Optional, List
+from ..base import BaseNode
+from ..registry import register_node
 
+@register_node("vertexai_embeddings")
+class VertexAIEmbeddingsNode(BaseNode):
+    """
+    Generate embeddings using Vertex AI (Google Cloud).
+    """
+    node_type = "vertexai_embeddings"
+    version = "1.0.0"
+    category = "embeddings"
+    credentials_required = ["gcp_auth"]
 
-class VertexAIEmbeddingsComponent(LCModelComponent):
-    display_name = "Vertex AI Embeddings"
-    description = "Generate embeddings using Google Cloud Vertex AI models."
-    icon = "VertexAI"
-    name = "VertexAIEmbeddings"
+    inputs = {
+        "model": {"type": "string", "default": "textembedding-gecko"},
+        "project": {"type": "string", "optional": True},
+        "location": {"type": "string", "default": "us-central1"}
+    }
+    outputs = {
+        "embeddings_object": {"type": "object"},
+        "status": {"type": "string"}
+    }
 
-    inputs = [
-        FileInput(
-            name="credentials",
-            display_name="Credentials",
-            info="JSON credentials file. Leave empty to fallback to environment variables",
-            value="",
-            file_types=["json"],
-            required=True,
-        ),
-        MessageTextInput(name="location", display_name="Location", value="us-central1", advanced=True),
-        MessageTextInput(name="project", display_name="Project", info="The project ID.", advanced=True),
-        IntInput(name="max_output_tokens", display_name="Max Output Tokens", advanced=True),
-        IntInput(name="max_retries", display_name="Max Retries", value=1, advanced=True),
-        MessageTextInput(name="model_name", display_name="Model Name", value="textembedding-gecko", required=True),
-        IntInput(name="n", display_name="N", value=1, advanced=True),
-        IntInput(name="request_parallelism", value=5, display_name="Request Parallelism", advanced=True),
-        MessageTextInput(name="stop_sequences", display_name="Stop", advanced=True, is_list=True),
-        BoolInput(name="streaming", display_name="Streaming", value=False, advanced=True),
-        FloatInput(name="temperature", value=0.0, display_name="Temperature"),
-        IntInput(name="top_k", display_name="Top K", advanced=True),
-        FloatInput(name="top_p", display_name="Top P", value=0.95, advanced=True),
-    ]
+    async def execute(self, input_data: Any = None, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        try:
+            embeddings = await self.get_langchain_object(context)
+            
+            result_data = {}
+            if input_data:
+                if isinstance(input_data, str):
+                    result_data["embedding"] = embeddings.embed_query(input_data)
+                elif isinstance(input_data, list):
+                    result_data["embeddings"] = embeddings.embed_documents(input_data)
 
-    outputs = [
-        Output(display_name="Embeddings", name="embeddings", method="build_embeddings"),
-    ]
+            return {
+                "status": "success",
+                "data": {
+                    "embeddings_object": embeddings,
+                    **result_data
+                }
+            }
+        except Exception as e:
+            return {"status": "error", "error": f"Vertex AI Embeddings Failed: {str(e)}"}
 
-    def build_embeddings(self) -> Embeddings:
+    async def get_langchain_object(self, context: Optional[Dict[str, Any]] = None) -> Any:
         try:
             from langchain_google_vertexai import VertexAIEmbeddings
-        except ImportError as e:
-            msg = "Please install the langchain-google-vertexai package to use the VertexAIEmbeddings component."
-            raise ImportError(msg) from e
+        except ImportError:
+            raise ImportError("Please install 'langchain-google-vertexai' to use Vertex AI Embeddings.")
 
-        from google.oauth2 import service_account
-
-        if self.credentials:
-            gcloud_credentials = service_account.Credentials.from_service_account_file(self.credentials)
-        else:
-            # will fallback to environment variable or inferred from gcloud CLI
-            gcloud_credentials = None
+        # 1. Resolve Credentials
+        creds = await self.get_credential("gcp_auth")
+        
+        # 2. Build Object
+        # vertexai usually uses GOOGLE_APPLICATION_CREDENTIALS env var or service account info
         return VertexAIEmbeddings(
-            credentials=gcloud_credentials,
-            location=self.location,
-            max_output_tokens=self.max_output_tokens or None,
-            max_retries=self.max_retries,
-            model_name=self.model_name,
-            n=self.n,
-            project=self.project,
-            request_parallelism=self.request_parallelism,
-            stop=self.stop_sequences or None,
-            streaming=self.streaming,
-            temperature=self.temperature,
-            top_k=self.top_k or None,
-            top_p=self.top_p,
+            model_name=self.get_config("model", "textembedding-gecko"),
+            project=self.get_config("project") or (creds.get("project_id") if creds else None),
+            location=self.get_config("location", "us-central1")
         )

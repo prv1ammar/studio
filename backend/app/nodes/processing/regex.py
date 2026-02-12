@@ -1,83 +1,56 @@
 import re
+from typing import Any, Dict, Optional, List
+from ..base import BaseNode
+from ..registry import register_node
 
-from lfx.custom.custom_component.component import Component
-from lfx.io import MessageTextInput, Output
-from lfx.schema.data import Data
-from lfx.schema.message import Message
+@register_node("regex_extract")
+class RegexNode(BaseNode):
+    """
+    Extracts patterns from text using regular expressions.
+    """
+    node_type = "regex_extract"
+    version = "1.0.0"
+    category = "processing"
 
+    inputs = {
+        "text": {"type": "string", "description": "Text to analyze"},
+        "pattern": {"type": "string", "description": "Regex pattern to match"}
+    }
+    outputs = {
+        "matches": {"type": "array"},
+        "count": {"type": "number"},
+        "result": {"type": "string"},
+        "status": {"type": "string"}
+    }
 
-class RegexExtractorComponent(Component):
-    display_name = "Regex Extractor"
-    description = "Extract patterns from text using regular expressions."
-    icon = "regex"
-    legacy = True
-    replacement = ["processing.ParserComponent"]
-
-    inputs = [
-        MessageTextInput(
-            name="input_text",
-            display_name="Input Text",
-            info="The text to analyze",
-            required=True,
-        ),
-        MessageTextInput(
-            name="pattern",
-            display_name="Regex Pattern",
-            info="The regular expression pattern to match",
-            value=r"",
-            required=True,
-            tool_mode=True,
-        ),
-    ]
-
-    outputs = [
-        Output(display_name="Data", name="data", method="extract_matches"),
-        Output(display_name="Message", name="text", method="get_matches_text"),
-    ]
-
-    def extract_matches(self) -> list[Data]:
-        if not self.pattern or not self.input_text:
-            self.status = []
-            return []
-
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            # Compile regex pattern
-            pattern = re.compile(self.pattern)
+            text = str(input_data) if input_data is not None else self.get_config("text", "")
+            pattern_str = self.get_config("pattern")
+            
+            if not pattern_str:
+                return {"status": "error", "error": "Regex pattern is required.", "data": None}
 
-            # Find all matches in the input text
-            matches = pattern.findall(self.input_text)
+            regex = re.compile(pattern_str)
+            matches = regex.findall(text)
+            
+            # Normalize matches (findall can return strings or tuples)
+            normalized_matches = []
+            for m in matches:
+                if isinstance(m, tuple):
+                    normalized_matches.append({"groups": m, "full_match": "".join(m)})
+                else:
+                    normalized_matches.append(m)
 
-            # Filter out empty matches
-            filtered_matches = [match for match in matches if match]  # Remove empty matches
-
-            # Return empty list for no matches, or list of matches if found
-            result: list = [] if not filtered_matches else [Data(data={"match": match}) for match in filtered_matches]
-
+            return {
+                "status": "success",
+                "data": {
+                    "matches": normalized_matches,
+                    "count": len(normalized_matches),
+                    "result": "\n".join(str(m) for m in normalized_matches) if normalized_matches else ""
+                }
+            }
         except re.error as e:
-            error_message = f"Invalid regex pattern: {e!s}"
-            result = [Data(data={"error": error_message})]
-        except ValueError as e:
-            error_message = f"Error extracting matches: {e!s}"
-            result = [Data(data={"error": error_message})]
-
-        self.status = result
-        return result
-
-    def get_matches_text(self) -> Message:
-        """Get matches as a formatted text message."""
-        matches = self.extract_matches()
-
-        if not matches:
-            message = Message(text="No matches found")
-            self.status = message
-            return message
-
-        if "error" in matches[0].data:
-            message = Message(text=matches[0].data["error"])
-            self.status = message
-            return message
-
-        result = "\n".join(match.data["match"] for match in matches)
-        message = Message(text=result)
-        self.status = message
-        return message
+            return {"status": "error", "error": f"Invalid Regex: {str(e)}", "data": None}
+        except Exception as e:
+            return {"status": "error", "error": f"Regex Execution Failed: {str(e)}", "data": None}

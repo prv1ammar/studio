@@ -9,23 +9,47 @@ class UniversalAPIConnectorNode(BaseNode):
     Standardized Node for interacting with any REST API.
     Replaces multiple hardcoded 'ghost' nodes.
     """
+    node_type = "http_request"
+    version = "1.0.0"
+    category = "integrations"
+    inputs = {
+        "url": {"type": "string", "description": "Target URL"},
+        "method": {"type": "string", "default": "GET", "enum": ["GET", "POST", "PUT", "DELETE", "PATCH"]},
+        "headers": {"type": "object", "default": {}},
+        "body": {"type": "any", "description": "Request body (for POST/PUT)"},
+        "params": {"type": "object", "description": "Query parameters"}
+    }
+    outputs = {
+        "status": {"type": "string"},
+        "data": {"type": "any", "description": "Response body"},
+        "code": {"type": "number", "description": "HTTP Status Code"}
+    }
+    credentials_required = [] # varying based on usage
     
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
             import aiohttp
             import asyncio
         except ImportError:
-            return "Error: 'aiohttp' package is required. Please run: pip install aiohttp"
+            return {"status": "error", "error": "Error: 'aiohttp' package is required. Please run: pip install aiohttp"}
 
         try:
-            base_url = self.get_config("api_url") or self.get_config("base_url")
+            # Flexible config retrieval
+            base_url = self.get_config("api_url") or self.get_config("base_url") or self.get_config("url")
             api_key = self.get_config("api_key") or self.get_config("access_token")
             endpoint = self.get_config("endpoint", "")
             method = self.get_config("method", "GET").upper()
             action = self.get_config("action")
             
+            # Using input_data as body/params if not explicitly configured
+            payload = input_data
+            
+            if not base_url and isinstance(input_data, str) and input_data.startswith("http"):
+                 base_url = input_data
+                 payload = {} # Input absorbed as URL
+            
             if not base_url:
-                return "Error: API URL is required."
+                return {"status": "error", "error": "Error: API URL is required."}
             
             # Construct final URL
             if endpoint:
@@ -34,54 +58,69 @@ class UniversalAPIConnectorNode(BaseNode):
                 url = base_url
             
             # Prepare Headers
-            headers = {
-                "Content-Type": "application/json"
-            }
+            headers = self.get_config("headers", {})
+            if isinstance(headers, str):
+                try: headers = json.loads(headers)
+                except: headers = {}
+                
+            if "Content-Type" not in headers:
+                headers["Content-Type"] = "application/json"
+                
             if api_key:
-                # Common auth patterns
-                if self.config.get("auth_type") == "Bearer":
+                auth_type = self.get_config("auth_type")
+                if auth_type == "Bearer":
                     headers["Authorization"] = f"Bearer {api_key}"
-                elif self.config.get("auth_type") == "xc-token":
+                elif auth_type == "xc-token":
                     headers["xc-token"] = api_key
                 else:
-                    # Generic default
                     headers["Authorization"] = f"Bearer {api_key}"
 
             # Prepare Payload
-            payload = input_data if isinstance(input_data, dict) else {"query": input_data}
-            if action:
-                payload["action"] = action
+            if isinstance(payload, str) and method in ["POST", "PUT", "PATCH"]:
+                 try: payload = json.loads(payload)
+                 except: pass # Keep as string if not JSON
 
+            if action and isinstance(payload, dict):
+                payload["action"] = action
+                
             print(f"Universal API (Async): {method} {url}")
             
+            # Execute
             timeout = aiohttp.ClientTimeout(total=30)
             async with aiohttp.ClientSession(timeout=timeout) as session:
-                # Use generic request method for cleaner logic
-                # For GET/DELETE, use params. For POST/PATCH/PUT, use json body.
-                # Note: DELETE can technically have a body but usually doesn't in REST.
-                request_kwargs = {
-                    "headers": headers
-                }
+                request_kwargs = {"headers": headers}
                 
                 if method in ["GET", "DELETE"]:
-                    request_kwargs["params"] = payload
+                    if isinstance(payload, dict):
+                        request_kwargs["params"] = payload
                 else:
                     request_kwargs["json"] = payload
                 
                 async with session.request(method, url, **request_kwargs) as resp:
-                    status = resp.status
+                    status_code = resp.status
                     text_result = await resp.text()
                     
-                    if status >= 400:
-                        return f"API Error ({status}): {text_result}"
-                    
                     try:
-                        return await resp.json()
+                        data = await resp.json()
                     except:
-                        return text_result
+                        data = text_result
+                        
+                    if status_code >= 400:
+                        return {
+                            "status": "error", 
+                            "error": f"API Error ({status_code}): {text_result}", 
+                            "code": status_code,
+                            "data": data
+                        }
+                    
+                    return {
+                        "status": "success", 
+                        "data": data, 
+                        "code": status_code
+                    }
 
         except Exception as e:
-            return f"Universal API Execution Failed: {str(e)}"
+            return {"status": "error", "error": f"Universal API Execution Failed: {str(e)}"}
 
     async def get_langchain_object(self, context: Optional[Dict[str, Any]] = None) -> Any:
         try:

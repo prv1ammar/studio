@@ -5,7 +5,7 @@ from openai import OpenAI
 class LiteEmbeddingNode(BaseNode):
     def _build_embeddings(self):
         from langchain_openai import OpenAIEmbeddings
-        api_key = self.config.get("api_key", "sk-RVApjtnPznKZ4UXosZYEOQ").strip()
+        api_key = self.config.get("api_key")
         base_url = self.config.get("base_url", "https://toknroutertybot.tybotflow.com/").strip()
         model = self.config.get("model_name", "text-embedding-3-small")
         

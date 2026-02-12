@@ -113,21 +113,126 @@ NODE_MAP = {
     # Flow Controls
     "flow_controls_ConditionalRouter": "app.nodes.flow_controls.router_node.RouterNode",
     "ConditionalRouter": "app.nodes.flow_controls.router_node.RouterNode",
+    "webhook_trigger": "app.nodes.core.webhook_node.WebhookTriggerNode",
+    "database_query": "app.nodes.storage.database_nodes.DatabaseQueryNode",
+    "database_insert": "app.nodes.storage.database_nodes.DatabaseInsertNode",
+    "database_update": "app.nodes.storage.database_nodes.DatabaseUpdateNode",
+    "read_file": "app.nodes.core.file_nodes.ReadFileNode",
+    "write_file": "app.nodes.core.file_nodes.WriteFileNode",
+    "delete_file": "app.nodes.core.file_nodes.DeleteFileNode",
+    "slack_message_send": "app.nodes.integrations.slack_node.SlackSendMessageNode",
+    "slack_channel_read": "app.nodes.integrations.slack_node.SlackReadChannelNode",
+    "discord_message_send": "app.nodes.integrations.discord_node.DiscordNode",
+    "salesforce_record_create": "app.nodes.integrations.salesforce_node.SalesforceNode",
+    "hubspot_crm_action": "app.nodes.integrations.hubspot_node.HubSpotNode",
+    "json_query": "app.nodes.logic.json_nodes.JSONQueryNode",
+    "json_transform": "app.nodes.logic.json_nodes.JSONTransformNode",
+    "json_parse": "app.nodes.logic.json_nodes.JSONParseNode",
+    "pdf_parser": "app.nodes.processing.pdf_node.PDFParserNode",
+    "image_ocr": "app.nodes.integrations.image_ocr.ImageOCRNode",
+    "text_formatter": "app.nodes.logic.format_nodes.TextFormatterNode",
+    "date_formatter": "app.nodes.logic.format_nodes.DateFormatterNode",
+    "math_operation": "app.nodes.logic.format_nodes.MathOperationNode",
+    "gmail_send": "app.nodes.google.gmail.GmailSendMessageNode",
+    "gmail_message_fetch": "app.nodes.google.gmail.GmailFetchMessagesNode",
+    "twilio_sms_send": "app.nodes.communication.twilio_node.TwilioSMSNode",
+    "whatsapp_message_send": "app.nodes.communication.whatsapp_node.WhatsAppNode",
+    "email_smtp_send": "app.nodes.communication.smtp_node.SmtpEmailNode",
+    "github_action": "app.nodes.integrations.github_node.GitHubNode",
+    "jira_action": "app.nodes.integrations.jira_node.JiraNode",
+    "trello_action": "app.nodes.integrations.trello_node.TrelloNode",
+    "stripe_action": "app.nodes.integrations.stripe_node.StripeNode",
+    "paypal_action": "app.nodes.integrations.paypal_node.PayPalNode",
+    "telegram_send": "app.nodes.integrations.telegram_node.TelegramNode",
+    "firecrawl_scrape": "app.nodes.integrations.scraping.firecrawl_nodes.FirecrawlScrapeNode",
+    "firecrawl_crawl": "app.nodes.integrations.scraping.firecrawl_nodes.FirecrawlCrawlNode",
+    "agentql_extract": "app.nodes.integrations.scraping.agentql_node.AgentQLNode",
+    "instagram_scrape": "app.nodes.integrations.scraping.social_nodes.InstagramScrapeNode",
+    "assemblyai_action": "app.nodes.integrations.media.assemblyai_node.AssemblyAINode",
+    "elevenlabs_tts": "app.nodes.integrations.media.elevenlabs_node.ElevenLabsNode",
+    "stability_image_gen": "app.nodes.integrations.media.stability_node.StabilityAINode",
+    "universal_agent": "app.nodes.agents.universal_agent.UniversalAgentNode",
+    "text_parser": "app.nodes.processing.parser.TextParserNode",
+    "text_splitter": "app.nodes.processing.split_node.SplitTextNode",
+    "regex_extract": "app.nodes.processing.regex.RegexNode",
+    "ai_extractor": "app.nodes.processing.ai_extractor.AIExtractorNode",
+    "tavily_search": "app.nodes.tavily.tavily_search.TavilySearchNode",
+    "duckduckgo_search": "app.nodes.duckduckgo.duck_duck_go_search_run.DuckDuckGoSearchNode",
+    "wikipedia_search": "app.nodes.wikipedia.wikipedia.WikipediaNode",
+    "serpapi_search": "app.nodes.serpapi.serp.SerpApiNode",
+    "openai_embeddings": "app.nodes.openai.openai.OpenAIEmbeddingsNode",
+    "google_embeddings": "app.nodes.google.google_generative_ai_embeddings.GoogleEmbeddingsNode",
+    "vertexai_embeddings": "app.nodes.vertexai.vertexai_embeddings.VertexAIEmbeddingsNode",
+    "pinecone_vectorstore": "app.nodes.pinecone.pinecone.PineconeNode",
+    "chroma_vectorstore": "app.nodes.chroma.chroma.ChromaNode",
+    "hubspot_crm": "app.nodes.integrations.hubspot_node.HubSpotNode",
+    "salesforce_crm": "app.nodes.integrations.salesforce_node.SalesforceNode",
+    "pipedrive_crm": "app.nodes.integrations.pipedrive_node.PipedriveNode",
+    "stripe_action": "app.nodes.integrations.stripe_node.StripeNode",
+    "paypal_action": "app.nodes.integrations.paypal_node.PayPalNode",
+    "quickbooks_node": "app.nodes.integrations.quickbooks_node.QuickbooksNode",
+    "github_action": "app.nodes.integrations.github_node.GitHubNode",
+    "gitlab_action": "app.nodes.integrations.gitlab_node.GitLabNode",
+    "jira_action": "app.nodes.integrations.jira_node.JiraNode",
+    "notion_action": "app.nodes.integrations.notion_node.NotionNode",
+    "slack_action": "app.nodes.integrations.slack_node.SlackNode",
+    "discord_action": "app.nodes.integrations.discord_node.DiscordNode",
+    "telegram_action": "app.nodes.integrations.telegram_node.TelegramNode",
+    "mailchimp_action": "app.nodes.integrations.mailchimp_node.MailchimpNode",
+    "airtable_action": "app.nodes.storage.airtable_node.AirtableNode",
+    "google_sheets_action": "app.nodes.google.google_sheets.GoogleSheetsNode",
+    "supabase_action": "app.nodes.storage.supabase.supabase_node.SupabaseActionNode",
+    "youtube_action": "app.nodes.google.youtube.YouTubeNode",
+    "twitter_action": "app.nodes.social.twitter.TwitterNode",
+    "assemblyai_action": "app.nodes.integrations.media.assemblyai_node.AssemblyAINode",
+    "elevenlabs_tts": "app.nodes.integrations.media.elevenlabs_node.ElevenLabsNode",
+    "stability_image_gen": "app.nodes.integrations.media.stability_node.StabilityAINode",
+    "conditional_branch": "app.nodes.logic.advanced.ConditionalBranchNode",
+    "task_sequencer": "app.nodes.logic.advanced.TaskSequencerNode",
+    "autonomous_agent": "app.nodes.logic.advanced.AutonomousAgentNodeV2",
+    "odoo_action": "app.nodes.integrations.odoo_node.OdooNode",
+    "zoho_action": "app.nodes.integrations.zoho_node.ZohoNode",
+    "wordpress_action": "app.nodes.integrations.wordpress_node.WordPressNode",
+    "trello_action": "app.nodes.integrations.trello_node.TrelloNode",
+    "ecommerce_action": "app.nodes.verticals.ecommerce_node.EcommerceNode",
+    "legal_action": "app.nodes.verticals.legal_node.LegalNode",
+    "medtech_action": "app.nodes.verticals.medtech_node.MedTechNode",
+    "firecrawl_action": "app.nodes.integrations.scraping.firecrawl_nodes.FirecrawlNode",
+    "agentql_action": "app.nodes.integrations.scraping.agentql_node.AgentQLNode",
+    "analytics_action": "app.nodes.integrations.analytics_node.AnalyticsNode",
+    "mixpanel_action": "app.nodes.integrations.analytics_node.AnalyticsNode",
+    "sentry_action": "app.nodes.integrations.analytics_node.AnalyticsNode",
+    "aws_s3_action": "app.nodes.amazon.aws_node.AWSS3Node",
+    "google_cloud_action": "app.nodes.google.google_cloud_node.GoogleCloudNode",
+    "digitalocean_action": "app.nodes.integrations.digitalocean_node.DigitalOceanNode",
+    "groq_chat": "app.nodes.models.groq_node.GroqNode",
+    "deepseek_chat": "app.nodes.models.deepseek_node.DeepSeekNode",
+    "mistral_chat": "app.nodes.models.mistral_node.MistralNode",
+    "vertexai_chat": "app.nodes.models.vertexai_node.VertexAINode",
+    "milvus_vector_action": "app.nodes.storage.milvus_node.MilvusNode",
+    "qdrant_vector_action": "app.nodes.storage.qdrant_node.QdrantNode",
+    "weaviate_vector_action": "app.nodes.storage.weaviate_node.WeaviateNode",
+    "confluence_action": "app.nodes.integrations.confluence_node.ConfluenceNode",
+    "marketing_ads_action": "app.nodes.integrations.marketing_ads_node.MarketingAdsNode",
+    "support_ticketing_action": "app.nodes.integrations.support_ticketing_node.SupportTicketingNode",
+    "pdf_parser": "app.nodes.processing.pdf_node.PDFParserNode",
+    "image_ocr": "app.nodes.integrations.image_ocr.ImageOCRNode",
+    "document_processing_action": "app.nodes.processing.document_processing_node.DocumentProcessingNode",
 }
 
 from .registry import NodeRegistry
 
 class NodeFactory:
     def __init__(self):
-        # Trigger an initial scan when factory is created
-        NodeRegistry.scan_and_register()
+        # Scan moved to lazy loading in get_node
+        pass
 
     @staticmethod
     def get_node(node_type: str, config: Dict[str, Any]) -> Optional[BaseNode]:
-        # 1. Try Digital Registry (Dynamic Discovery)
-        node_class = NodeRegistry.get_node_class(node_type)
+        # 1. Try Digital Registry (Check if already loaded/registered via decorators)
+        node_class = NodeRegistry.get_node_class(node_type, scan=False)
         
-        # 2. Fallback to Legacy Map
+        # 2. Try Legacy Map (Explicit paths - FAST)
         if not node_class:
             node_path = NODE_MAP.get(node_type)
             if node_path:
@@ -135,11 +240,14 @@ class NodeFactory:
                     module_path, class_name = node_path.rsplit(".", 1)
                     module = importlib.import_module(module_path)
                     node_class = getattr(module, class_name)
-                    print(f"[NodeFactory]: Loaded '{node_type}' from Legacy Map. Please move to Registry.")
                 except Exception as e:
-                    print(f"NodeFactory Error: Failed to load mapped node '{node_type}': {e}")
-
-        # 3. Instantiate if found
+                    print(f"NodeFactory Error loading from NODE_MAP '{node_type}': {e}")
+        
+        # 3. Last Resort: Trigger Full Digital Scan (Slow but thorough)
+        if not node_class:
+            node_class = NodeRegistry.get_node_class(node_type, scan=True)
+            
+        # 4. Instantiate if found
         if node_class:
             try:
                 return node_class(config=config)

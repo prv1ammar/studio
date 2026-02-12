@@ -1,47 +1,66 @@
-from typing import Any, Dict, Optional
-from pydantic import Field
-from app.nodes.base import BaseNode, NodeConfig
-from app.nodes.registry import register_node
 import aiohttp
 import json
+from typing import Any, Dict, Optional, List
+from ..base import BaseNode
+from ..registry import register_node
 
-class TwitterConfig(NodeConfig):
-    credentials_id: Optional[str] = Field(None, description="Twitter OAuth 1.0a/Bearer Token ID")
+@register_node("twitter_action")
+class TwitterNode(BaseNode):
+    """
+    Automate Twitter actions (Search).
+    """
+    node_type = "twitter_action"
+    version = "1.0.0"
+    category = "social"
+    credentials_required = ["twitter_auth"]
 
-@register_node("twitter_post")
-class TwitterPostNode(BaseNode):
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
-        text = input_data if isinstance(input_data, str) else input_data.get("text", "")
-        
-        creds_data = await self.get_credential("credentials_id")
-        if not creds_data:
-            return {"error": "Twitter credentials are required."}
+    inputs = {
+        "action": {"type": "string", "default": "search", "enum": ["search"]},
+        "query": {"type": "string", "description": "Twitter search query"},
+        "max_results": {"type": "number", "default": 10}
+    }
+    outputs = {
+        "results": {"type": "array"},
+        "status": {"type": "string"}
+    }
+
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        try:
+            # 1. Resolve Auth
+            creds = await self.get_credential("twitter_auth")
+            bearer_token = creds.get("bearer_token") or creds.get("token") if creds else self.get_config("bearer_token")
             
-        # Simplified: Assumes creds_data contains 'bearer_token' for search or 'access_token' for posting
-        # Real-world Twitter posting needs OAuth 1.0a signatures
-        # For this prototype, we'll implement the Bearer-based search as it's more common in automations
-        return {"error": "Twitter Post requires OAuth 1.0a signatures. Try twitter_search for Bearer-based access."}
+            if not bearer_token:
+                return {"status": "error", "error": "Twitter Bearer Token is required."}
 
-@register_node("twitter_search")
-class TwitterSearchNode(BaseNode):
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
-        query = input_data if isinstance(input_data, str) else input_data.get("query", "")
-        
-        creds_data = await self.get_credential("credentials_id")
-        bearer_token = creds_data.get("bearer_token") if creds_data else None
-        
-        if not bearer_token:
-            return {"error": "Twitter Bearer Token is required."}
+            action = self.get_config("action", "search")
+            query = str(input_data) if input_data else self.get_config("query")
 
-        url = "https://api.twitter.com/2/tweets/search/recent"
-        headers = {"Authorization": f"Bearer {bearer_token}"}
-        params = {"query": query, "max_results": 10}
+            if not query:
+                return {"status": "error", "error": "Search query is required."}
 
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, headers=headers, params=params) as response:
-                if response.status >= 400:
-                    text = await response.text()
-                    return {"error": f"Twitter API Error {response.status}", "details": text}
-                
-                data = await response.json()
-                return data.get("data", [])
+            if action == "search":
+                max_res = int(self.get_config("max_results", 10))
+                url = "https://api.twitter.com/2/tweets/search/recent"
+                headers = {"Authorization": f"Bearer {bearer_token}"}
+                params = {"query": query, "max_results": max_res}
+
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(url, headers=headers, params=params) as response:
+                        result = await response.json()
+                        if response.status >= 400:
+                            return {"status": "error", "error": f"Twitter API Error: {result.get('title', 'Unknown error')}", "data": result}
+                        
+                        tweets = result.get("data", [])
+                        return {
+                            "status": "success",
+                            "data": {
+                                "results": tweets,
+                                "count": len(tweets)
+                            }
+                        }
+
+            return {"status": "error", "error": f"Unsupported action: {action}"}
+
+        except Exception as e:
+            return {"status": "error", "error": f"Twitter Node Error: {str(e)}"}

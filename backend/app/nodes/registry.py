@@ -32,22 +32,29 @@ class NodeRegistry:
         if cls._is_scanned:
             return
         
+        print("DEBUG: NodeRegistry scan starting...", flush=True)
         # Start scanning from the app.nodes directory
-        # We need the parent of the current directory to scan the 'nodes' package
         nodes_dir = os.path.dirname(os.path.abspath(__file__))
         package_root = os.path.abspath(os.path.join(nodes_dir, "..", ".."))
+        print(f"DEBUG: nodes_dir={nodes_dir}, package_root={package_root}", flush=True)
         
         if package_root not in sys.path:
             sys.path.append(package_root)
         
         # Add agents directory for legacy agent imports
         agents_path = os.path.join(package_root, "app", "agents")
+        print(f"DEBUG: agents_path={agents_path}", flush=True)
         if agents_path not in sys.path:
             sys.path.append(agents_path)
 
         # Scan all directories in nodes root
         module_count = 0
+        EXCLUDE_DIRS = ["__pycache__", "deactivated", "agentql", "vendor", "custom_component", "node_system", "agents"]
+        
         for root, dirs, files in os.walk(nodes_dir):
+            # Prune directories to skip
+            dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS]
+            
             for file in files:
                 if file.endswith(".py") and file not in ["__init__.py", "base.py", "registry.py"]:
                     # Optimization: Only import if the file looks like a Node
@@ -58,8 +65,7 @@ class NodeRegistry:
                             # Now also scan for legacy Components
                             if not any(x in content for x in ["BaseNode", "@register_node", "Component", "LCModelComponent"]):
                                 continue
-                    except Exception as e:
-                        print(f"NodeRegistry Error reading {file}: {e}")
+                    except Exception:
                         continue
 
                     # Convert file path to module path
@@ -70,11 +76,9 @@ class NodeRegistry:
                         module = importlib.import_module(module_name)
                         module_count += 1
                         cls._extract_nodes_from_module(module)
-                    except (ImportError, ModuleNotFoundError) as e:
-                        # Common for legacy components with niche dependencies
+                    except (ImportError, ModuleNotFoundError):
                         pass
-                    except Exception as e:
-                        # print(f"NodeRegistry Warning: Error loading {module_name}: {e}")
+                    except Exception:
                         pass
 
         cls._is_scanned = True
@@ -122,10 +126,14 @@ class NodeRegistry:
         return count
 
     @classmethod
-    def get_node_class(cls, node_type: str) -> Optional[Type[BaseNode]]:
-        if not cls._is_scanned:
+    def get_node_class(cls, node_type: str, scan: bool = True) -> Optional[Type[BaseNode]]:
+        if node_type in cls._nodes:
+            return cls._nodes[node_type]
+            
+        if scan and not cls._is_scanned:
             cls.scan_and_register()
-        return cls._nodes.get(node_type)
+            return cls._nodes.get(node_type)
+        return None
 
     @classmethod
     def bulk_register(cls, node_ids: List[str], node_class: Type[BaseNode]):

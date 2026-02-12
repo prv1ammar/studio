@@ -1,70 +1,70 @@
-from typing import Any, Dict, Optional
-from pydantic import Field
-from app.nodes.base import BaseNode, NodeConfig
-from app.nodes.registry import register_node
+from typing import Any, Dict, Optional, List
+from ..base import BaseNode
+from ..registry import register_node
+import os
 
-class LegalConfig(NodeConfig):
-    operation: str = Field("contract_analysis", description="Operation: contract_analysis, compliance_check, risk_assessment")
-    model: str = Field("gpt-4-turbo", description="LLM Model for analysis")
-    jurisdiction: str = Field("US", description="Legal jurisdiction (US, EU, UK)")
-    api_key: Optional[str] = Field(None, description="OpenAI API Key (Optional Override)")
-
-@register_node("legal_node")
+@register_node("legal_action")
 class LegalNode(BaseNode):
     """
     Vertical Node for Legal Automation.
-    Specialized in analyzing legal documents, checking compliance, and assessing risk.
+    Specialized in analyzing legal documents, checking compliance, and assessing risk using AI.
     """
-    node_id = "legal_node"
-    config_model = LegalConfig
+    node_type = "legal_action"
+    version = "1.0.0"
+    category = "verticals"
+    credentials_required = ["openai_auth"]
 
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
-        operation = self.get_config("operation")
-        jurisdiction = self.get_config("jurisdiction")
-        
-        # LLM Integration
-        import os
-        from openai import AsyncOpenAI
+    inputs = {
+        "operation": {"type": "string", "default": "contract_analysis", "enum": ["contract_analysis", "compliance_check", "risk_assessment"]},
+        "jurisdiction": {"type": "string", "default": "US", "enum": ["US", "EU", "UK", "Middle East"]},
+        "document_text": {"type": "string", "description": "Legal text to analyze"}
+    }
+    outputs = {
+        "analysis": {"type": "string"},
+        "risk_level": {"type": "string"},
+        "status": {"type": "string"}
+    }
 
-        api_key = self.get_config("api_key") or os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            return {"error": "Missing OpenAI API Key. Please configure it in the node or environment."}
-
-        client = AsyncOpenAI(api_key=api_key)
-        model = self.get_config("model")
-        
-        system_prompt = f"""You are an elite Legal AI Assistant specialized in {jurisdiction} Law.
-        Perform the requested operation with high precision.
-        """
-        
-        user_content = ""
-        if operation == "contract_analysis":
-            system_prompt += "Analyze the provided contract text. Identify key clauses, missing terms, and potential risks."
-            user_content = f"Contract Text:\n{input_data}"
-        elif operation == "compliance_check":
-            system_prompt += "Check the provided text/policy for compliance gaps against standard regulations (e.g., GDPR, CCPA) within the jurisdiction."
-            user_content = f"Policy Text:\n{input_data}"
-        elif operation == "risk_assessment":
-            system_prompt += "Assess legal risks in the given scenario or document. Provide a risk level (Low/Medium/High) and mitigation steps."
-            user_content = f"Scenario:\n{input_data}"
-        
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
+            from openai import AsyncOpenAI
+            
+            # 1. Resolve Auth
+            creds = await self.get_credential("openai_auth")
+            api_key = creds.get("api_key") if creds else os.getenv("OPENAI_API_KEY")
+            
+            if not api_key:
+                return {"status": "error", "error": "OpenAI API Key is required for Legal AI."}
+
+            client = AsyncOpenAI(api_key=api_key)
+            op = self.get_config("operation", "contract_analysis")
+            jurisdiction = self.get_config("jurisdiction", "US")
+            text = str(input_data) if isinstance(input_data, str) else self.get_config("document_text", "")
+
+            if not text:
+                return {"status": "error", "error": "Legal document text is required."}
+
+            system_prompt = f"You are an expert Legal AI Assistant specialized in {jurisdiction} Law. Perform {op}."
+            
             response = await client.chat.completions.create(
-                model=model,
+                model="gpt-4o",
                 messages=[
                     {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_content}
+                    {"role": "user", "content": f"Analyze this text:\n{text}"}
                 ],
                 temperature=0.1
             )
             
-            content = response.choices[0].message.content
+            result_text = response.choices[0].message.content
+            
             return {
                 "status": "success",
-                "operation": operation,
-                "jurisdiction": jurisdiction,
-                "analysis": content,
-                "model_used": model
+                "data": {
+                    "analysis": result_text,
+                    "operation": op,
+                    "jurisdiction": jurisdiction
+                }
             }
+
         except Exception as e:
-            return {"error": f"Legal AI Analysis Failed: {str(e)}"}
+            return {"status": "error", "error": f"Legal Node Error: {str(e)}"}

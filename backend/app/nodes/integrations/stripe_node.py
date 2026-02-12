@@ -1,54 +1,72 @@
 import stripe
 from typing import Any, Dict, Optional
-from pydantic import Field
-from app.nodes.base import BaseNode, NodeConfig
-from app.nodes.registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
-class StripeConfig(NodeConfig):
-    api_key: Optional[str] = Field(None, description="Stripe Secret API Key")
-    credentials_id: Optional[str] = Field(None, description="Stripe Credentials ID")
-    action: str = Field("create_customer", description="Action (create_customer, create_payment_intent, list_charges)")
-
-@register_node("stripe_node")
+@register_node("stripe_action")
 class StripeNode(BaseNode):
-    node_id = "stripe_node"
-    config_model = StripeConfig
+    """Integrates with Stripe for payments and customer management."""
+    node_type = "stripe_action"
+    version = "1.0.0"
+    category = "integrations"
+    credentials_required = ["stripe_auth"]
 
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
+    inputs = {
+        "action": {"type": "string", "enum": ["create_customer", "create_payment_intent", "list_charges"], "default": "create_customer"},
+        "data": {"type": "any", "description": "JSON payload for Stripe request"}
+    }
+    outputs = {
+        "result": {"type": "object"},
+        "status": {"type": "string"}
+    }
+
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         # 1. Auth Retrieval
-        creds = await self.get_credential("credentials_id")
-        api_key = creds.get("api_key") if creds else self.get_config("api_key")
+        creds = await self.get_credential("stripe_auth")
+        api_key = creds.get("api_key") or creds.get("secret_key") if creds else self.get_config("api_key")
 
         if not api_key:
-            return {"error": "Stripe API Key is required."}
+            return {"status": "error", "error": "Stripe API Key is required.", "data": None}
 
         stripe.api_key = api_key
-        action = self.get_config("action")
+        action = self.get_config("action", "create_customer")
 
         try:
             if action == "create_customer":
                 # input_data should be a dict with email, name, etc.
                 params = input_data if isinstance(input_data, dict) else {"email": str(input_data)}
                 customer = stripe.Customer.create(**params)
-                return customer.to_dict()
+                return {
+                    "status": "success",
+                    "data": customer.to_dict()
+                }
 
             elif action == "create_payment_intent":
                 # input_data should have amount and currency
                 params = input_data if isinstance(input_data, dict) else {}
                 if "amount" not in params or "currency" not in params:
-                     return {"error": "Amount and currency are required for payment intents."}
+                     return {"status": "error", "error": "Amount and currency are required for payment intents.", "data": None}
                 
                 intent = stripe.PaymentIntent.create(**params)
-                return intent.to_dict()
+                return {
+                    "status": "success",
+                    "data": intent.to_dict()
+                }
 
             elif action == "list_charges":
                 limit = input_data if isinstance(input_data, int) else 10
                 charges = stripe.Charge.list(limit=limit)
-                return [c.to_dict() for c in charges.data]
+                return {
+                    "status": "success",
+                    "data": {
+                        "charges": [c.to_dict() for c in charges.data],
+                        "has_more": charges.has_more
+                    }
+                }
 
-            return {"error": f"Unsupported Stripe action: {action}"}
+            return {"status": "error", "error": f"Unsupported Stripe action: {action}", "data": None}
 
         except stripe.error.StripeError as e:
-            return {"error": f"Stripe API Error: {str(e)}"}
+            return {"status": "error", "error": f"Stripe API Error: {str(e)}", "data": None}
         except Exception as e:
-            return {"error": f"Stripe Node Failed: {str(e)}"}
+            return {"status": "error", "error": f"Stripe Node Failed: {str(e)}", "data": None}

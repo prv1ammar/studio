@@ -1,47 +1,64 @@
 import aiohttp
 import json
-from typing import Any, Dict, Optional
-from pydantic import Field
-from app.nodes.base import BaseNode, NodeConfig
-from app.nodes.registry import register_node
+from typing import Any, Dict, Optional, List
+from ..base import BaseNode
+from ..registry import register_node
 
-class TelegramConfig(NodeConfig):
-    bot_token: Optional[str] = Field(None, description="Telegram Bot Token")
-    chat_id: Optional[str] = Field(None, description="Target Chat ID or @username")
-    credentials_id: Optional[str] = Field(None, description="Telegram Credentials ID")
-
-@register_node("telegram_node")
+@register_node("telegram_action")
 class TelegramNode(BaseNode):
-    node_id = "telegram_node"
-    config_model = TelegramConfig
+    """
+    Automate Telegram actions (Send Message).
+    """
+    node_type = "telegram_action"
+    version = "1.0.0"
+    category = "communication"
+    credentials_required = ["telegram_auth"]
 
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
-        # 1. Auth Retrieval
-        creds = await self.get_credential("credentials_id")
-        token = creds.get("token") if creds else self.get_config("bot_token")
-        chat_id = self.get_config("chat_id")
+    inputs = {
+        "chat_id": {"type": "string", "description": "Target Chat ID or @username"},
+        "text": {"type": "string", "optional": True},
+        "parse_mode": {"type": "string", "enum": ["Markdown", "HTML"], "default": "Markdown"}
+    }
+    outputs = {
+        "message_id": {"type": "number"},
+        "status": {"type": "string"}
+    }
 
-        if not token or not chat_id:
-            return {"error": "Telegram Bot Token and Chat ID are required."}
-
-        # 2. Payload Preparation
-        message = str(input_data)
-        if isinstance(input_data, dict):
-            message = f"📦 *Data Received*:\n```json\n{json.dumps(input_data, indent=2)}\n```"
-
-        url = f"https://api.telegram.org/bot{token}/sendMessage"
-        payload = {
-            "chat_id": chat_id,
-            "text": message,
-            "parse_mode": "Markdown"
-        }
-
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
+            # 1. Resolve Auth
+            creds = await self.get_credential("telegram_auth")
+            token = creds.get("token") or creds.get("bot_token") if creds else self.get_config("bot_token")
+            chat_id = self.get_config("chat_id")
+
+            if not token or not chat_id:
+                return {"status": "error", "error": "Telegram Bot Token and Chat ID are required."}
+
+            # 2. Prepare Payload
+            message = str(input_data) if input_data is not None else self.get_config("text", "New update from Studio")
+            if isinstance(input_data, dict):
+                message = f"📦 *Data Received*:\n```json\n{json.dumps(input_data, indent=2)}\n```"
+
+            url = f"https://api.telegram.org/bot{token}/sendMessage"
+            payload = {
+                "chat_id": chat_id,
+                "text": message,
+                "parse_mode": self.get_config("parse_mode", "Markdown")
+            }
+
             async with aiohttp.ClientSession() as session:
                 async with session.post(url, json=payload) as resp:
                     result = await resp.json()
                     if resp.status >= 400:
-                        return {"error": f"Telegram API Error: {result.get('description')}"}
-                    return {"status": "success", "message_id": result.get("result", {}).get("message_id")}
+                        return {"status": "error", "error": f"Telegram Error: {result.get('description')}"}
+                    
+                    return {
+                        "status": "success",
+                        "data": {
+                            "message_id": result.get("result", {}).get("message_id"),
+                            "chat": result.get("result", {}).get("chat", {}).get("title") or chat_id
+                        }
+                    }
+
         except Exception as e:
-            return {"error": f"Telegram Node Failed: {str(e)}"}
+            return {"status": "error", "error": f"Telegram Node Error: {str(e)}"}

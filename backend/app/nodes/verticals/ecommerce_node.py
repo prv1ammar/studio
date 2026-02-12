@@ -1,49 +1,76 @@
-from typing import Any, Dict, Optional
-from pydantic import Field
-from app.nodes.base import BaseNode, NodeConfig
-from app.nodes.registry import register_node
+from typing import Any, Dict, Optional, List
+from ..base import BaseNode
+from ..registry import register_node
 
-class EcommerceConfig(NodeConfig):
-    operation: str = Field("inventory_optimization", description="Operation: inventory_optimization, churn_prediction, dynamic_pricing")
-    platform: str = Field("Shopify", description="Platform: Shopify, WooCommerce, Magento")
-    currency: str = Field("USD", description="Base currency")
-
-@register_node("ecommerce_node")
+@register_node("ecommerce_action")
 class EcommerceNode(BaseNode):
     """
     Vertical Node for E-commerce Intelligence.
     Provides inventory insights, predicts customer churn, and suggests dynamic pricing strategies.
+    Supports Shopify, WooCommerce, and Magento (simulated).
     """
-    node_id = "ecommerce_node"
-    config_model = EcommerceConfig
+    node_type = "ecommerce_action"
+    version = "1.0.0"
+    category = "verticals"
+    credentials_required = ["ecommerce_platform_auth"]
 
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
-        operation = self.get_config("operation")
-        platform = self.get_config("platform")
-        
-        # Simulate business logic processing
-        
-        if operation == "inventory_optimization":
-            return {
-                "restock_alerts": ["SKU-102: Red T-Shirt (Large)"],
-                "overstock_risk": ["SKU-504: Winter Boots"],
-                "projected_stock_out": "4 days for bestsellers",
-                "recommendation": "Increase order volume for SKU-102 by 20%."
-            }
-        elif operation == "churn_prediction":
-            return {
-                "high_risk_customers": 45,
-                "avg_churn_probability": 0.12,
-                "top_churn_factor": "Lack of purchase in last 60 days",
-                "retention_campaign": "Offer 15% discount to win-back segment."
-            }
-        elif operation == "dynamic_pricing":
-            return {
-                "price_adjustments": [
-                    {"sku": "SKU-102", "old_price": 25.00, "new_price": 27.50, "reason": "High demand"},
-                    {"sku": "SKU-504", "old_price": 89.99, "new_price": 79.99, "reason": "Liquidation"}
-                ],
-                "expected_margin_lift": "3.5%"
-            }
-        
-        return {"error": "Invalid E-commerce operation"}
+    inputs = {
+        "operation": {"type": "string", "default": "inventory_optimization", "enum": ["inventory_optimization", "churn_prediction", "dynamic_pricing"]},
+        "platform": {"type": "string", "default": "Shopify", "enum": ["Shopify", "WooCommerce", "Magento"]},
+        "data": {"type": "object", "optional": True}
+    }
+    outputs = {
+        "insights": {"type": "object"},
+        "recommendations": {"type": "array"},
+        "status": {"type": "string"}
+    }
+
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        try:
+            # 1. Resolve Auth (Optional for simulator but follows Node Law)
+            creds = await self.get_credential("ecommerce_platform_auth")
+            
+            op = self.get_config("operation", "inventory_optimization")
+            platform = self.get_config("platform", "Shopify")
+
+            # Simulation logic
+            if op == "inventory_optimization":
+                return {
+                    "status": "success",
+                    "data": {
+                        "insights": {
+                            "restock_alerts": ["SKU-102: Red T-Shirt", "SKU-405: Jeans"],
+                            "overstock_risk": ["SKU-99: Winter Coat"],
+                            "stock_out_probability": "High (Next 48h)"
+                        },
+                        "recommendations": ["Order 50 units of SKU-102", "Discount SKU-99 by 15%"]
+                    }
+                }
+            elif op == "churn_prediction":
+                 return {
+                    "status": "success",
+                    "data": {
+                        "insights": {
+                            "high_risk_segment": "Last purchase > 90 days",
+                            "avg_churn_rate": 0.08,
+                            "top_churn_factor": "Shipping delays"
+                        },
+                        "recommendations": ["Email 20% discount code to high-risk segment"]
+                    }
+                }
+            elif op == "dynamic_pricing":
+                return {
+                    "status": "success",
+                    "data": {
+                        "insights": {
+                            "matched_competitor_price": 45.00,
+                            "margin_impact": "+2.5%"
+                        },
+                        "recommendations": ["Increase price of SKU-102 by $2.00 due to high demand"]
+                    }
+                }
+
+            return {"status": "error", "error": f"Unsupported E-commerce operation: {op}"}
+
+        except Exception as e:
+            return {"status": "error", "error": f"Ecommerce Node Error: {str(e)}"}

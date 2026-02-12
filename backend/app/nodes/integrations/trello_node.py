@@ -1,81 +1,115 @@
 import aiohttp
+from typing import Any, Dict, Optional, List
+from ..base import BaseNode
+from ..registry import register_node
 import json
-from typing import Any, Dict, Optional
-from pydantic import Field
-from app.nodes.base import BaseNode, NodeConfig
-from app.nodes.registry import register_node
 
-class TrelloConfig(NodeConfig):
-    api_key: Optional[str] = Field(None, description="Trello API Key")
-    token: Optional[str] = Field(None, description="Trello API Token")
-    list_id: Optional[str] = Field(None, description="Trello List ID for creating cards")
-    credentials_id: Optional[str] = Field(None, description="Trello Credentials ID")
-    action: str = Field("create_card", description="Action (create_card, get_board_info)")
-
-@register_node("trello_node")
+@register_node("trello_action")
 class TrelloNode(BaseNode):
-    node_id = "trello_node"
-    config_model = TrelloConfig
+    """
+    Automate Trello actions (Cards, Boards).
+    """
+    node_type = "trello_action"
+    version = "1.1.0"
+    category = "integrations"
+    credentials_required = ["trello_auth"]
 
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
-        # 1. Auth Retrieval
-        creds = await self.get_credential("credentials_id")
-        key = creds.get("key") if creds else self.get_config("api_key")
-        token = creds.get("token") if creds else self.get_config("token")
-        list_id = self.get_config("list_id")
+    inputs = {
+        "action": {"type": "string", "default": "create_card", "enum": ["create_card", "get_board_info", "list_cards"]},
+        "board_id": {"type": "string", "optional": True},
+        "list_id": {"type": "string", "optional": True},
+        "name": {"type": "string", "optional": True}
+    }
+    outputs = {
+        "results": {"type": "array"},
+        "card_url": {"type": "string"},
+        "status": {"type": "string"}
+    }
 
-        if not key or not token:
-            return {"error": "Trello API Key and Token are required."}
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        try:
+            # 1. Resolve Auth
+            creds = await self.get_credential("trello_auth")
+            key = creds.get("key") or self.get_config("api_key")
+            token = creds.get("token") or self.get_config("token")
 
-        action = self.get_config("action")
-        base_url = "https://api.trello.com/1"
-        
-        auth_params = {
-            "key": key,
-            "token": token
-        }
+            if not key or not token:
+                return {"status": "error", "error": "Trello API Key and Token are required."}
 
-        async with aiohttp.ClientSession() as session:
-            try:
+            action = self.get_config("action", "create_card")
+            base_url = "https://api.trello.com/1"
+            auth_params = {"key": key, "token": token}
+
+            async with aiohttp.ClientSession() as session:
                 if action == "create_card":
+                    list_id = self.get_config("list_id")
                     if not list_id:
-                        return {"error": "List ID is required for creating cards."}
-                        
-                    url = f"{base_url}/cards"
+                        return {"status": "error", "error": "List ID is required for creating cards."}
                     
                     payload = {
                         "idList": list_id,
+                        "name": self.get_config("name", "Studio Task"),
                         **auth_params
                     }
-                    
-                    if isinstance(input_data, dict):
+                    if isinstance(input_data, str):
+                        payload["name"] = input_data
+                    elif isinstance(input_data, dict):
                         payload.update(input_data)
-                    else:
-                        payload["name"] = str(input_data)
-                    
+
+                    url = f"{base_url}/cards"
                     async with session.post(url, params=payload) as resp:
                         result = await resp.json()
                         if resp.status >= 400:
-                            return {"error": f"Trello API Error: {result}"}
-                        return {"status": "success", "card_url": result.get("shortUrl"), "id": result.get("id")}
+                            return {"status": "error", "error": f"Trello Error: {result}"}
+                        return {
+                            "status": "success",
+                            "data": {
+                                "id": result.get("id"),
+                                "card_url": result.get("shortUrl"),
+                                "name": result.get("name")
+                            }
+                        }
 
                 elif action == "get_board_info":
-                    board_id = input_data if isinstance(input_data, str) else None
+                    board_id = str(input_data) if isinstance(input_data, str) else self.get_config("board_id")
                     if not board_id:
-                         return {"error": "Board ID is required to fetch board info."}
-                         
+                        return {"status": "error", "error": "Board ID is required."}
+                    
                     url = f"{base_url}/boards/{board_id}"
                     async with session.get(url, params=auth_params) as resp:
                         result = await resp.json()
                         if resp.status >= 400:
-                            return {"error": f"Trello API Error: {result}"}
+                            return {"status": "error", "error": f"Trello Error: {result}"}
                         return {
-                            "name": result.get("name"),
-                            "desc": result.get("desc"),
-                            "url": result.get("url")
+                            "status": "success",
+                            "data": {
+                                "id": result.get("id"),
+                                "name": result.get("name"),
+                                "url": result.get("url")
+                            }
                         }
 
-                return {"error": f"Unsupported Trello action: {action}"}
+                elif action == "list_cards":
+                    list_id = self.get_config("list_id")
+                    if not list_id:
+                        return {"status": "error", "error": "List ID is required to fetch cards."}
+                    
+                    url = f"{base_url}/lists/{list_id}/cards"
+                    async with session.get(url, params=auth_params) as resp:
+                        result = await resp.json()
+                        if resp.status >= 400:
+                            return {"status": "error", "error": f"Trello Error: {result}"}
+                        
+                        cards = [{"id": c["id"], "name": c["name"], "url": c["shortUrl"]} for c in result]
+                        return {
+                            "status": "success",
+                            "data": {
+                                "results": cards,
+                                "count": len(cards)
+                            }
+                        }
 
-            except Exception as e:
-                return {"error": f"Trello Node Failed: {str(e)}"}
+            return {"status": "error", "error": f"Unsupported Trello action: {action}"}
+
+        except Exception as e:
+            return {"status": "error", "error": f"Trello Node Error: {str(e)}"}

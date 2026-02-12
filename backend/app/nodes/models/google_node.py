@@ -9,12 +9,24 @@ class GoogleNode(BaseNode):
     Official Google Gemini Node implementation.
     Executes standard Google Generative AI chat completions.
     """
-    
+    node_type = "google_gemini"
+    version = "1.0.0"
+    category = "ai"
+    inputs = {
+        "model": {"type": "string", "default": "gemini-pro"},
+        "temperature": {"type": "number", "default": 0.7},
+        "input": {"type": "string", "description": "User prompt"}
+    }
+    outputs = {
+        "text": {"type": "string", "description": "Generated response"},
+        "status": {"type": "string"}
+    }
+    credentials_required = ["google_api_key"]
+
     def __init__(self, config: Dict[str, Any]):
         super().__init__(config)
-        self.node_type = "google_gemini"
 
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> str:
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
             import google.generativeai as genai
             
@@ -27,7 +39,7 @@ class GoogleNode(BaseNode):
                 api_key = self.get_config("api_key") or os.getenv("GOOGLE_API_KEY")
                 
             if not api_key:
-                return "Error: API Key is required for Google Node"
+                return {"status": "error", "error": "API Key is required for Google Node"}
                 
             model_name = self.get_config("model", "gemini-pro")
             temperature = float(self.get_config("temperature", 0.7))
@@ -35,7 +47,7 @@ class GoogleNode(BaseNode):
             # Helper to handle input being passed directly or config
             user_input = input_data if input_data else self.get_config("input", "")
             if not user_input:
-                return "Error: No input provided to Google Node"
+                return {"status": "error", "error": "No input provided to Google Node"}
 
             # Configure
             genai.configure(api_key=api_key)
@@ -46,8 +58,6 @@ class GoogleNode(BaseNode):
                 temperature=temperature
             )
             
-            print(f"[GoogleNode] Sending request to {model_name}...")
-            
             # Execute
             response = await model.generate_content_async(
                 str(user_input),
@@ -55,11 +65,9 @@ class GoogleNode(BaseNode):
             )
             
             result = response.text
-            print(f"[GoogleNode] Received response: {result[:50]}...")
-            return result
+            return {"status": "success", "data": {"text": result}}
             
         except ImportError:
-            return "Error: 'google-generativeai' package not installed. Please run: pip install google-generativeai"
+            return {"status": "error", "error": "Error: 'google-generativeai' package not installed. Please run: pip install google-generativeai"}
         except Exception as e:
-            print(f"[GoogleNode] Error: {e}")
-            return f"Google Execution Error: {str(e)}"
+            return {"status": "error", "error": f"Google Execution Error: {str(e)}"}

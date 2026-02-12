@@ -1,52 +1,63 @@
-from typing import Any, Dict, Optional
-from pydantic import Field
-from app.nodes.base import BaseNode, NodeConfig
-from app.nodes.registry import register_node
-try:
-    from simple_salesforce import Salesforce
-except ImportError:
-    Salesforce = None
+from typing import Any, Dict, Optional, List
+from ..base import BaseNode
+from ..registry import register_node
 
-class SalesforceConfig(NodeConfig):
-    username: Optional[str] = Field(None, description="Salesforce Username")
-    password: Optional[str] = Field(None, description="Salesforce Password")
-    security_token: Optional[str] = Field(None, description="Salesforce Security Token")
-    domain: str = Field("login", description="login (production) or test (sandbox)")
-    credentials_id: Optional[str] = Field(None, description="Salesforce Credentials ID")
-    object_type: str = Field("Lead", description="Target Object Type (Lead, Contact, Account, Task)")
-
-@register_node("salesforce_node")
+@register_node("salesforce_crm")
 class SalesforceNode(BaseNode):
-    node_id = "salesforce_node"
-    config_model = SalesforceConfig
+    """
+    Automate Salesforce CRM actions (Leads, Contacts, etc.).
+    """
+    node_type = "salesforce_crm"
+    version = "1.0.0"
+    category = "integrations"
+    credentials_required = ["salesforce_auth"]
 
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
-        if not Salesforce:
-            return {"error": "simple-salesforce library not installed."}
+    inputs = {
+        "object_type": {"type": "string", "default": "Lead"},
+        "record_data": {"type": "object", "optional": True}
+    }
+    outputs = {
+        "id": {"type": "string"},
+        "success": {"type": "boolean"},
+        "status": {"type": "string"}
+    }
 
-        # 1. Auth Retrieval
-        creds = await self.get_credential("credentials_id")
-        
-        username = creds.get("username") if creds else self.get_config("username")
-        password = creds.get("password") if creds else self.get_config("password")
-        token = creds.get("security_token") if creds else self.get_config("security_token")
-        domain = self.get_config("domain")
-
-        if not username or not password or not token:
-            return {"error": "Salesforce Credentials (Username, Password, Token) are required."}
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        try:
+            from simple_salesforce import Salesforce
+        except ImportError:
+            return {"status": "error", "error": "Please install 'simple-salesforce'."}
 
         try:
-            # simple-salesforce is sync, but we use it within our execute method
+            # 1. Resolve Auth
+            creds = await self.get_credential("salesforce_auth")
+            username = creds.get("username") if creds else self.get_config("username")
+            password = creds.get("password") if creds else self.get_config("password")
+            token = creds.get("security_token") if creds else self.get_config("security_token")
+            domain = self.get_config("domain", "login")
+
+            if not all([username, password, token]):
+                return {"status": "error", "error": "Salesforce Username, Password, and Security Token are required."}
+
             sf = Salesforce(username=username, password=password, security_token=token, domain=domain)
-            obj_type = self.get_config("object_type")
             
-            # Simple Create Implementation
-            if isinstance(input_data, dict):
-                # Using dynamic attribute access for the object type
-                res = sf.__getattr__(obj_type).create(input_data)
-                return {"status": "success", "id": res.get("id"), "object": obj_type}
+            # 2. Perform Action (Default to Create)
+            obj_type = self.get_config("object_type", "Lead")
+            data = input_data if isinstance(input_data, dict) else self.get_config("record_data", {})
             
-            return {"error": "Input data must be a dictionary map of field names to values."}
+            if not data:
+                return {"status": "error", "error": "Record data dictionary is required."}
+
+            res = sf.__getattr__(obj_type).create(data)
             
+            return {
+                "status": "success",
+                "data": {
+                    "id": res.get("id"),
+                    "success": res.get("success", True),
+                    "object": obj_type
+                }
+            }
+
         except Exception as e:
-            return {"error": f"Salesforce API Failure: {str(e)}"}
+            return {"status": "error", "error": f"Salesforce Node Error: {str(e)}"}

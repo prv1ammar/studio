@@ -1,49 +1,69 @@
-from typing import Any, Dict, Optional
-from pydantic import Field
-from app.nodes.base import BaseNode, NodeConfig
-from app.nodes.registry import register_node
+from typing import Any, Dict, Optional, List
+from ..base import BaseNode
+from ..registry import register_node
 
-class MedTechConfig(NodeConfig):
-    operation: str = Field("patient_summary", description="Operation: patient_summary, icd_coding, lab_interpretation")
-    specialty: str = Field("General", description="Medical specialty (Cardiology, Oncology, etc.)")
-    hipaa_compliant: bool = Field(True, description="Ensure PHI scrubbing is active")
-
-@register_node("medtech_node")
+@register_node("medtech_action")
 class MedTechNode(BaseNode):
     """
     Vertical Node for Healthcare Automation.
     Handles medical data summarization, ICD coding assistance, and lab result interpretation.
-    Note: Always requires HIPAA-compliant backend in production.
+    Note: Requires HIPAA-compliant backend for PHI in production.
     """
-    node_id = "medtech_node"
-    config_model = MedTechConfig
+    node_type = "medtech_action"
+    version = "1.0.0"
+    category = "verticals"
+    credentials_required = ["healthcare_auth"]
 
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
-        operation = self.get_config("operation")
-        specialty = self.get_config("specialty")
-        
-        # Simulate specialized medical AI processing
-        
-        if operation == "patient_summary":
-            return {
-                "summary": "Patient presents with chronic hypertension. Recent lab work shows elevated LDL.",
-                "vitals": {"BP": "140/90", "HR": "72"},
-                "active_medications": ["Lisinopril 10mg"],
-                "priors": "No previous surgeries."
-            }
-        elif operation == "icd_coding":
-            return {
-                "suggested_codes": [
-                    {"code": "I10", "description": "Essential (primary) hypertension"},
-                    {"code": "E78.0", "description": "Pure hypercholesterolemia"}
-                ],
-                "confidence": 0.98
-            }
-        elif operation == "lab_interpretation":
-            return {
-                "interpretation": "Creatinine level is within normal range, suggesting stable kidney function.",
-                "flagged_values": [],
-                "follow_up": "Continue monitoring LDL levels."
-            }
-        
-        return {"error": "Invalid MedTech operation"}
+    inputs = {
+        "operation": {"type": "string", "default": "patient_summary", "enum": ["patient_summary", "icd_coding", "lab_interpretation"]},
+        "specialty": {"type": "string", "default": "General"},
+        "data": {"type": "any", "description": "Patient data, notes, or lab results"}
+    }
+    outputs = {
+        "summary": {"type": "string"},
+        "codes": {"type": "array"},
+        "status": {"type": "string"}
+    }
+
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[Dict[str, Any], Any]:
+        try:
+            # 1. Resolve Auth (Optional for simulator)
+            creds = await self.get_credential("healthcare_auth")
+            
+            op = self.get_config("operation", "patient_summary")
+            data = input_data or self.get_config("data")
+
+            # Simulation logic
+            if op == "patient_summary":
+                return {
+                    "status": "success",
+                    "data": {
+                        "summary": "Patient exhibits signs of moderate hypertension. Recommending DASH diet.",
+                        "critical_flags": ["Elevated Sodium"],
+                        "vitals": {"BP": "145/95", "Temp": "98.6"}
+                    }
+                }
+            elif op == "icd_coding":
+                return {
+                    "status": "success",
+                    "data": {
+                        "codes": [
+                            {"code": "I10", "desc": "Essential hypertension"},
+                            {"code": "Z71.3", "desc": "Dietary counseling"}
+                        ],
+                        "confidence": 0.95
+                    }
+                }
+            elif op == "lab_interpretation":
+                return {
+                    "status": "success",
+                    "data": {
+                        "interpretation": "Glucose levels are slightly elevated. Monitor for pre-diabetes indicators.",
+                        "result": "Abnormal (Mild)"
+                    }
+                }
+
+            return {"status": "error", "error": f"Unsupported MedTech operation: {op}"}
+
+        except Exception as e:
+            return {"status": "error", "error": f"MedTech Node Error: {str(e)}"}

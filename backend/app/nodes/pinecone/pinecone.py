@@ -1,134 +1,95 @@
+from typing import Any, Dict, Optional, List
 import numpy as np
-from langchain_core.vectorstores import VectorStore
+from langchain_pinecone import PineconeVectorStore
+from ..base import BaseNode
+from ..registry import register_node
 
-from lfx.base.vectorstores.model import LCVectorStoreComponent, check_cached_vector_store
-from lfx.helpers.data import docs_to_data
-from lfx.io import DropdownInput, HandleInput, IntInput, SecretStrInput, StrInput
-from lfx.schema.data import Data
+@register_node("pinecone_vectorstore")
+class PineconeNode(BaseNode):
+    """
+    Pinecone Vector Store for high-performance vector search and storage.
+    """
+    node_type = "pinecone_vectorstore"
+    version = "1.0.0"
+    category = "vectorstores"
+    credentials_required = ["pinecone_auth"]
 
+    inputs = {
+        "index_name": {"type": "string", "description": "Pinecone index name"},
+        "namespace": {"type": "string", "optional": True},
+        "search_query": {"type": "string", "optional": True},
+        "top_k": {"type": "number", "default": 4},
+        "documents": {"type": "array", "optional": True, "description": "List of LangChain Documents or Data objects to insert"}
+    }
+    outputs = {
+        "results": {"type": "array"},
+        "vectorstore": {"type": "object"},
+        "status": {"type": "string"}
+    }
 
-class PineconeVectorStoreComponent(LCVectorStoreComponent):
-    display_name = "Pinecone"
-    description = "Pinecone Vector Store with search capabilities"
-    name = "Pinecone"
-    icon = "Pinecone"
-    inputs = [
-        StrInput(name="index_name", display_name="Index Name", required=True),
-        StrInput(name="namespace", display_name="Namespace", info="Namespace for the index."),
-        DropdownInput(
-            name="distance_strategy",
-            display_name="Distance Strategy",
-            options=["Cosine", "Euclidean", "Dot Product"],
-            value="Cosine",
-            advanced=True,
-        ),
-        SecretStrInput(name="pinecone_api_key", display_name="Pinecone API Key", required=True),
-        StrInput(
-            name="text_key",
-            display_name="Text Key",
-            info="Key in the record to use as text.",
-            value="text",
-            advanced=True,
-        ),
-        *LCVectorStoreComponent.inputs,
-        HandleInput(name="embedding", display_name="Embedding", input_types=["Embeddings"]),
-        IntInput(
-            name="number_of_results",
-            display_name="Number of Results",
-            info="Number of results to return.",
-            value=4,
-            advanced=True,
-        ),
-    ]
-
-    @check_cached_vector_store
-    def build_vector_store(self) -> VectorStore:
-        """Build and return a Pinecone vector store instance."""
+    async def execute(self, input_data: Any = None, context: Dict[str, Any] = None) -> Dict[str, Any]:
         try:
-            from langchain_pinecone import PineconeVectorStore
-        except ImportError as e:
-            msg = "langchain-pinecone is not installed. Please install it with `pip install langchain-pinecone`."
-            raise ValueError(msg) from e
+            # 1. Resolve Embedding Model (must be connected or in context)
+            embedding_node = context.get("embeddings") if context else None
+            if not embedding_node:
+                return {"status": "error", "error": "No Embedding model connected to Pinecone node."}
+            
+            # If context["embeddings"] is a node instance, call its get_langchain_object
+            if hasattr(embedding_node, "get_langchain_object"):
+                embeddings = await embedding_node.get_langchain_object(context)
+            else:
+                embeddings = embedding_node # Assume it's already the object
 
-        try:
-            from langchain_pinecone._utilities import DistanceStrategy
+            # 2. Build Pinecone Instance
+            creds = await self.get_credential("pinecone_auth")
+            api_key = creds.get("api_key") if creds else self.get_config("pinecone_api_key")
+            
+            if not api_key:
+                return {"status": "error", "error": "Pinecone API Key is required."}
 
-            # Wrap the embedding model to ensure float32 output
-            wrapped_embeddings = Float32Embeddings(self.embedding)
+            index_name = self.get_config("index_name")
+            namespace = self.get_config("namespace")
 
-            # Convert distance strategy
-            distance_strategy = self.distance_strategy.replace(" ", "_").upper()
-            distance_strategy = DistanceStrategy[distance_strategy]
-
-            # Initialize Pinecone instance with wrapped embeddings
-            pinecone = PineconeVectorStore(
-                index_name=self.index_name,
-                embedding=wrapped_embeddings,  # Use wrapped embeddings
-                text_key=self.text_key,
-                namespace=self.namespace,
-                distance_strategy=distance_strategy,
-                pinecone_api_key=self.pinecone_api_key,
+            vectorstore = PineconeVectorStore(
+                index_name=index_name,
+                embedding=embeddings,
+                namespace=namespace,
+                pinecone_api_key=api_key
             )
-        except Exception as e:
-            error_msg = "Error building Pinecone vector store"
-            raise ValueError(error_msg) from e
-        else:
-            self.ingest_data = self._prepare_ingest_data()
 
-            # Process documents if any
-            documents = []
-            if self.ingest_data:
-                # Convert DataFrame to Data if needed using parent's method
-
-                for doc in self.ingest_data:
-                    if isinstance(doc, Data):
-                        documents.append(doc.to_lc_document())
+            # 3. Handle Operations
+            # Mode A: Ingestion
+            docs_to_ingest = input_data if isinstance(input_data, list) else self.get_config("documents")
+            if docs_to_ingest:
+                # Convert to LC Documents if they are the Studio 'Data' objects
+                lc_docs = []
+                for d in docs_to_ingest:
+                    if hasattr(d, "to_lc_document"):
+                         lc_docs.append(d.to_lc_document())
+                    elif isinstance(d, dict) and "text" in d:
+                         from langchain_core.documents import Document
+                         lc_docs.append(Document(page_content=d["text"], metadata=d.get("data", {})))
                     else:
-                        documents.append(doc)
+                         lc_docs.append(d)
+                
+                vectorstore.add_documents(lc_docs)
 
-                if documents:
-                    pinecone.add_documents(documents)
+            # Mode B: Search
+            query = str(input_data) if isinstance(input_data, str) else self.get_config("search_query")
+            results = []
+            if query and not docs_to_ingest:
+                k = int(self.get_config("top_k", 4))
+                docs = vectorstore.similarity_search(query, k=k)
+                results = [{"text": d.page_content, "metadata": d.metadata} for d in docs]
 
-            return pinecone
+            return {
+                "status": "success",
+                "data": {
+                    "results": results,
+                    "count": len(results),
+                    "vectorstore": vectorstore
+                }
+            }
 
-    def search_documents(self) -> list[Data]:
-        """Search documents in the vector store."""
-        try:
-            if not self.search_query or not isinstance(self.search_query, str) or not self.search_query.strip():
-                return []
-
-            vector_store = self.build_vector_store()
-            docs = vector_store.similarity_search(
-                query=self.search_query,
-                k=self.number_of_results,
-            )
         except Exception as e:
-            error_msg = "Error searching documents"
-            raise ValueError(error_msg) from e
-        else:
-            data = docs_to_data(docs)
-            self.status = data
-            return data
-
-
-class Float32Embeddings:
-    """Wrapper class to ensure float32 embeddings."""
-
-    def __init__(self, base_embeddings):
-        self.base_embeddings = base_embeddings
-
-    def embed_documents(self, texts):
-        embeddings = self.base_embeddings.embed_documents(texts)
-        if isinstance(embeddings, np.ndarray):
-            return [[self._force_float32(x) for x in vec] for vec in embeddings]
-        return [[self._force_float32(x) for x in vec] for vec in embeddings]
-
-    def embed_query(self, text):
-        embedding = self.base_embeddings.embed_query(text)
-        if isinstance(embedding, np.ndarray):
-            return [self._force_float32(x) for x in embedding]
-        return [self._force_float32(x) for x in embedding]
-
-    def _force_float32(self, value):
-        """Convert any numeric type to Python float."""
-        return float(np.float32(value))
+            return {"status": "error", "error": f"Pinecone Execution Failed: {str(e)}"}

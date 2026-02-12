@@ -1,148 +1,61 @@
-from lfx.custom.custom_component.component import Component
-from lfx.helpers.data import safe_convert
-from lfx.inputs.inputs import BoolInput, HandleInput, MessageTextInput, MultilineInput, TabInput
-from lfx.schema.data import Data
-from lfx.schema.dataframe import DataFrame
-from lfx.schema.message import Message
-from lfx.template.field.base import Output
+from typing import Any, Dict, Optional
+from ..base import BaseNode
+from ..registry import register_node
 
+@register_node("text_parser")
+class TextParserNode(BaseNode):
+    """
+    Extracts or formats text using a template or stringification mode.
+    """
+    node_type = "text_parser"
+    version = "1.0.0"
+    category = "processing"
 
-class ParserComponent(Component):
-    display_name = "Parser"
-    description = "Extracts text using a template."
-    documentation: str = "https://docs.langflow.org/parser"
-    icon = "braces"
+    inputs = {
+        "input_data": {"type": "any", "description": "Data to parse or stringify"},
+        "mode": {"type": "string", "enum": ["Parser", "Stringify"], "default": "Parser"},
+        "template": {"type": "string", "default": "Text: {text}", "description": "Template with {key} variables"},
+        "separator": {"type": "string", "default": "\n", "description": "Separator for multiple items"}
+    }
+    outputs = {
+        "result": {"type": "string"},
+        "status": {"type": "string"}
+    }
 
-    inputs = [
-        HandleInput(
-            name="input_data",
-            display_name="Data or DataFrame",
-            input_types=["DataFrame", "Data"],
-            info="Accepts either a DataFrame or a Data object.",
-            required=True,
-        ),
-        TabInput(
-            name="mode",
-            display_name="Mode",
-            options=["Parser", "Stringify"],
-            value="Parser",
-            info="Convert into raw string instead of using a template.",
-            real_time_refresh=True,
-        ),
-        MultilineInput(
-            name="pattern",
-            display_name="Template",
-            info=(
-                "Use variables within curly brackets to extract column values for DataFrames "
-                "or key values for Data."
-                "For example: `Name: {Name}, Age: {Age}, Country: {Country}`"
-            ),
-            value="Text: {text}",  # Example default
-            dynamic=True,
-            show=True,
-            required=True,
-        ),
-        MessageTextInput(
-            name="sep",
-            display_name="Separator",
-            advanced=True,
-            value="\n",
-            info="String used to separate rows/items.",
-        ),
-    ]
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        try:
+            mode = self.get_config("mode", "Parser")
+            data = input_data if input_data is not None else self.get_config("input_data")
+            
+            if data is None:
+                return {"status": "error", "error": "No input data provided."}
 
-    outputs = [
-        Output(
-            display_name="Parsed Text",
-            name="parsed_text",
-            info="Formatted text output.",
-            method="parse_combined_text",
-        ),
-    ]
-
-    def update_build_config(self, build_config, field_value, field_name=None):
-        """Dynamically hide/show `template` and enforce requirement based on `stringify`."""
-        if field_name == "mode":
-            build_config["pattern"]["show"] = self.mode == "Parser"
-            build_config["pattern"]["required"] = self.mode == "Parser"
-            if field_value:
-                clean_data = BoolInput(
-                    name="clean_data",
-                    display_name="Clean Data",
-                    info=(
-                        "Enable to clean the data by removing empty rows and lines "
-                        "in each cell of the DataFrame/ Data object."
-                    ),
-                    value=True,
-                    advanced=True,
-                    required=False,
-                )
-                build_config["clean_data"] = clean_data.to_dict()
+            if mode == "Stringify":
+                if isinstance(data, (dict, list)):
+                    import json
+                    result = json.dumps(data, indent=2)
+                else:
+                    result = str(data)
             else:
-                build_config.pop("clean_data", None)
+                template = self.get_config("template", "{text}")
+                sep = self.get_config("separator", "\n")
+                
+                if isinstance(data, list):
+                    lines = []
+                    for item in data:
+                        if isinstance(item, dict):
+                            lines.append(template.format(**item))
+                        else:
+                            lines.append(template.format(text=str(item)))
+                    result = sep.join(lines)
+                elif isinstance(data, dict):
+                    result = template.format(**data)
+                else:
+                    result = template.format(text=str(data))
 
-        return build_config
-
-    def _clean_args(self):
-        """Prepare arguments based on input type."""
-        input_data = self.input_data
-
-        match input_data:
-            case list() if all(isinstance(item, Data) for item in input_data):
-                msg = "List of Data objects is not supported."
-                raise ValueError(msg)
-            case DataFrame():
-                return input_data, None
-            case Data():
-                return None, input_data
-            case dict() if "data" in input_data:
-                try:
-                    if "columns" in input_data:  # Likely a DataFrame
-                        return DataFrame.from_dict(input_data), None
-                    # Likely a Data object
-                    return None, Data(**input_data)
-                except (TypeError, ValueError, KeyError) as e:
-                    msg = f"Invalid structured input provided: {e!s}"
-                    raise ValueError(msg) from e
-            case _:
-                msg = f"Unsupported input type: {type(input_data)}. Expected DataFrame or Data."
-                raise ValueError(msg)
-
-    def parse_combined_text(self) -> Message:
-        """Parse all rows/items into a single text or convert input to string if `stringify` is enabled."""
-        # Early return for stringify option
-        if self.mode == "Stringify":
-            return self.convert_to_string()
-
-        df, data = self._clean_args()
-
-        lines = []
-        if df is not None:
-            for _, row in df.iterrows():
-                formatted_text = self.pattern.format(**row.to_dict())
-                lines.append(formatted_text)
-        elif data is not None:
-            # Use format_map with a dict that returns default_value for missing keys
-            class DefaultDict(dict):
-                def __missing__(self, key):
-                    return data.default_value or ""
-
-            formatted_text = self.pattern.format_map(DefaultDict(data.data))
-            lines.append(formatted_text)
-
-        combined_text = self.sep.join(lines)
-        self.status = combined_text
-        return Message(text=combined_text)
-
-    def convert_to_string(self) -> Message:
-        """Convert input data to string with proper error handling."""
-        result = ""
-        if isinstance(self.input_data, list):
-            result = "\n".join([safe_convert(item, clean_data=self.clean_data or False) for item in self.input_data])
-        else:
-            result = safe_convert(self.input_data or False)
-        self.log(f"Converted to string with length: {len(result)}")
-
-        message = Message(text=result)
-        self.status = message
-        return message
+            return {
+                "status": "success",
+                "data": {"result": result}
+            }
+        except Exception as e:
+            return {"status": "error", "error": f"Parsing Failed: {str(e)}"}

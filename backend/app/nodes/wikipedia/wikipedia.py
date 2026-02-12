@@ -1,53 +1,48 @@
+from typing import Any, Dict, Optional, List
 from langchain_community.utilities.wikipedia import WikipediaAPIWrapper
+from ..base import BaseNode
+from ..registry import register_node
 
-from lfx.custom.custom_component.component import Component
-from lfx.inputs.inputs import BoolInput, IntInput, MessageTextInput, MultilineInput
-from lfx.io import Output
-from lfx.schema.data import Data
-from lfx.schema.dataframe import DataFrame
+@register_node("wikipedia_search")
+class WikipediaNode(BaseNode):
+    """
+    Search and retrieve summaries from Wikipedia.
+    """
+    node_type = "wikipedia_search"
+    version = "1.0.0"
+    category = "search"
 
+    inputs = {
+        "query": {"type": "string", "description": "Search query"},
+        "lang": {"type": "string", "default": "en"},
+        "top_k": {"type": "number", "default": 3},
+        "max_chars": {"type": "number", "default": 4000}
+    }
+    outputs = {
+        "results": {"type": "string"},
+        "status": {"type": "string"}
+    }
 
-class WikipediaComponent(Component):
-    display_name = "Wikipedia"
-    description = "Call Wikipedia API."
-    icon = "Wikipedia"
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        try:
+            query = str(input_data) if input_data is not None else self.get_config("query")
+            if not query:
+                return {"status": "error", "error": "Search query is required."}
 
-    inputs = [
-        MultilineInput(
-            name="input_value",
-            display_name="Input",
-            tool_mode=True,
-        ),
-        MessageTextInput(name="lang", display_name="Language", value="en"),
-        IntInput(name="k", display_name="Number of results", value=4, required=True),
-        BoolInput(name="load_all_available_meta", display_name="Load all available meta", value=False, advanced=True),
-        IntInput(
-            name="doc_content_chars_max", display_name="Document content characters max", value=4000, advanced=True
-        ),
-    ]
+            wiki = WikipediaAPIWrapper(
+                top_k_results=int(self.get_config("top_k", 3)),
+                lang=self.get_config("lang", "en"),
+                doc_content_chars_max=int(self.get_config("max_chars", 4000))
+            )
+            
+            results = wiki.run(query)
 
-    outputs = [
-        Output(display_name="DataFrame", name="dataframe", method="fetch_content_dataframe"),
-    ]
-
-    def run_model(self) -> DataFrame:
-        return self.fetch_content_dataframe()
-
-    def _build_wrapper(self) -> WikipediaAPIWrapper:
-        return WikipediaAPIWrapper(
-            top_k_results=self.k,
-            lang=self.lang,
-            load_all_available_meta=self.load_all_available_meta,
-            doc_content_chars_max=self.doc_content_chars_max,
-        )
-
-    def fetch_content(self) -> list[Data]:
-        wrapper = self._build_wrapper()
-        docs = wrapper.load(self.input_value)
-        data = [Data.from_document(doc) for doc in docs]
-        self.status = data
-        return data
-
-    def fetch_content_dataframe(self) -> DataFrame:
-        data = self.fetch_content()
-        return DataFrame(data)
+            return {
+                "status": "success",
+                "data": {
+                    "results": results,
+                    "query": query
+                }
+            }
+        except Exception as e:
+            return {"status": "error", "error": f"Wikipedia Search Failed: {str(e)}"}

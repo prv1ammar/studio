@@ -4,45 +4,47 @@ from ..models.litellm.litellm_node import LiteLLMNode
 from ..registry import register_node
 import json
 
-@register_node("aiExtractorNode")
+@register_node("ai_extractor")
 class AIExtractorNode(BaseNode):
     """
     Generalized AI Structured Data Extractor.
-    Uses LLM to extract specific fields from unstructured text (Markdown, Chat, Scraped content).
+    Extracts specific fields from unstructured text using an LLM and a JSON schema.
     """
+    node_type = "ai_extractor"
+    version = "1.0.0"
+    category = "processing"
+
+    inputs = {
+        "text_content": {"type": "string", "description": "Text to extract from"},
+        "schema": {"type": "string", "description": "JSON schema for extraction (dict or string)"},
+        "instruction": {"type": "string", "default": "Extract the following information from the text."}
+    }
+    outputs = {
+        "data": {"type": "object"},
+        "status": {"type": "string"}
+    }
     
-    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         # 1. Resolve Input Text
-        text_content = None
-        if isinstance(input_data, str):
-            text_content = input_data
-        elif isinstance(input_data, dict):
-            # Try common fields
-            text_content = input_data.get("markdown") or input_data.get("text") or input_data.get("input") or str(input_data)
+        text_content = str(input_data) if input_data else self.get_config("text_content")
+        if isinstance(input_data, dict):
+            text_content = input_data.get("markdown") or input_data.get("text") or text_content
         
         if not text_content:
-            text_content = self.get_config("text_content")
-            
-        if not text_content:
-            return {"error": "No input text provided", "status": "failed"}
+            return {"status": "error", "error": "No input text provided."}
 
         # 2. Resolve Extraction Schema
-        # Example schema: {"price": "number", "location": "string", "urgent": "boolean"}
-        schema_str = self.get_config("schema", "{}")
+        schema_cfg = self.get_config("schema", "{}")
         try:
-            if isinstance(schema_str, str):
-                schema = json.loads(schema_str)
-            else:
-                schema = schema_str
+            schema = json.loads(schema_cfg) if isinstance(schema_cfg, str) else schema_cfg
         except:
-             return {"error": "Invalid JSON schema configuration", "status": "failed"}
+             return {"status": "error", "error": "Invalid JSON schema configuration."}
 
         if not schema:
-            return {"error": "No extraction schema defined", "status": "failed"}
+            return {"status": "error", "error": "No extraction schema defined."}
 
         # 3. Build Prompt
         instruction = self.get_config("instruction", "Extract the following information from the text.")
-        
         prompt = f"""{instruction}
 
 Target Schema:
@@ -58,16 +60,15 @@ Respond ONLY with valid JSON matching the schema. If a value is missing, use nul
 
         # 4. Execute LLM
         try:
-            # Use LiteLLMNode helper
             llm_node = LiteLLMNode(config=self.config)
             llm = await llm_node.get_langchain_object(context)
             
-            response = llm.invoke(prompt)
+            response = await llm.ainvoke(prompt)
             result_text = response.content if hasattr(response, 'content') else str(response)
             
-            # Clean possible markdown block
+            # Clean markdown JSON blocks
             result_text = result_text.strip()
-            if result_text.startswith("```"):
+            if "```" in result_text:
                 result_text = result_text.split("```")[1]
                 if result_text.lower().startswith("json"):
                     result_text = result_text[4:]
@@ -75,13 +76,12 @@ Respond ONLY with valid JSON matching the schema. If a value is missing, use nul
             extracted_data = json.loads(result_text.strip())
             
             return {
-                "extracted_data": extracted_data,
                 "status": "success",
-                "raw_text_length": len(text_content)
+                "data": {
+                    "extracted_data": extracted_data,
+                    "raw_length": len(text_content)
+                }
             }
             
         except Exception as e:
-            return {"error": str(e), "status": "failed"}
-
-    async def get_langchain_object(self, context: Optional[Dict[str, Any]] = None) -> Any:
-        return None
+            return {"status": "error", "error": f"AI Extraction Failed: {str(e)}"}

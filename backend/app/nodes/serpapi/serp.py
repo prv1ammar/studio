@@ -1,115 +1,64 @@
-from typing import Any
-
+from typing import Any, Dict, Optional, List
 from langchain_community.utilities.serpapi import SerpAPIWrapper
-from langchain_core.tools import ToolException
-from pydantic import BaseModel, Field
+from ..base import BaseNode
+from ..registry import register_node
 
-from lfx.custom.custom_component.component import Component
-from lfx.inputs.inputs import DictInput, IntInput, MultilineInput, SecretStrInput
-from lfx.io import Output
-from lfx.log.logger import logger
-from lfx.schema.data import Data
-from lfx.schema.message import Message
+@register_node("serpapi_search")
+class SerpApiNode(BaseNode):
+    """
+    Search engine results via SerpApi (Google, Bing, etc.).
+    """
+    node_type = "serpapi_search"
+    version = "1.0.0"
+    category = "search"
+    credentials_required = ["serpapi_auth"]
 
+    inputs = {
+        "query": {"type": "string", "description": "Search query"},
+        "engine": {"type": "string", "default": "google"},
+        "max_results": {"type": "number", "default": 5}
+    }
+    outputs = {
+        "results": {"type": "array"},
+        "status": {"type": "string"}
+    }
 
-class SerpAPISchema(BaseModel):
-    """Schema for SerpAPI search parameters."""
+    async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        try:
+            query = str(input_data) if input_data is not None else self.get_config("query")
+            if not query:
+                return {"status": "error", "error": "Search query is required."}
 
-    query: str = Field(..., description="The search query")
-    params: dict[str, Any] | None = Field(
-        default={
-            "engine": "google",
-            "google_domain": "google.com",
-            "gl": "us",
-            "hl": "en",
-        },
-        description="Additional search parameters",
-    )
-    max_results: int = Field(5, description="Maximum number of results to return")
-    max_snippet_length: int = Field(100, description="Maximum length of each result snippet")
+            creds = await self.get_credential("serpapi_auth")
+            api_key = creds.get("api_key") if creds else self.get_config("serpapi_api_key")
+            
+            if not api_key:
+                return {"status": "error", "error": "SerpApi API Key is required."}
 
+            params = {
+                "engine": self.get_config("engine", "google"),
+            }
+            
+            wrapper = SerpAPIWrapper(serpapi_api_key=api_key, params=params)
+            full_results = wrapper.results(query)
+            
+            organic = full_results.get("organic_results", [])[:int(self.get_config("max_results", 5))]
+            
+            results = []
+            for item in organic:
+                results.append({
+                    "title": item.get("title"),
+                    "link": item.get("link"),
+                    "snippet": item.get("snippet")
+                })
 
-class SerpComponent(Component):
-    display_name = "Serp Search API"
-    description = "Call Serp Search API with result limiting"
-    name = "Serp"
-    icon = "SerpSearch"
-
-    inputs = [
-        SecretStrInput(name="serpapi_api_key", display_name="SerpAPI API Key", required=True),
-        MultilineInput(
-            name="input_value",
-            display_name="Input",
-            tool_mode=True,
-        ),
-        DictInput(name="search_params", display_name="Parameters", advanced=True, is_list=True),
-        IntInput(name="max_results", display_name="Max Results", value=5, advanced=True),
-        IntInput(name="max_snippet_length", display_name="Max Snippet Length", value=100, advanced=True),
-    ]
-
-    outputs = [
-        Output(display_name="Data", name="data", method="fetch_content"),
-        Output(display_name="Text", name="text", method="fetch_content_text"),
-    ]
-
-    def _build_wrapper(self, params: dict[str, Any] | None = None) -> SerpAPIWrapper:
-        """Build a SerpAPIWrapper with the provided parameters."""
-        params = params or {}
-        if params:
-            return SerpAPIWrapper(
-                serpapi_api_key=self.serpapi_api_key,
-                params=params,
-            )
-        return SerpAPIWrapper(serpapi_api_key=self.serpapi_api_key)
-
-    def run_model(self) -> list[Data]:
-        return self.fetch_content()
-
-    def fetch_content(self) -> list[Data]:
-        wrapper = self._build_wrapper(self.search_params)
-
-        def search_func(
-            query: str, params: dict[str, Any] | None = None, max_results: int = 5, max_snippet_length: int = 100
-        ) -> list[Data]:
-            try:
-                local_wrapper = wrapper
-                if params:
-                    local_wrapper = self._build_wrapper(params)
-
-                full_results = local_wrapper.results(query)
-                organic_results = full_results.get("organic_results", [])[:max_results]
-
-                limited_results = [
-                    Data(
-                        text=result.get("snippet", ""),
-                        data={
-                            "title": result.get("title", "")[:max_snippet_length],
-                            "link": result.get("link", ""),
-                            "snippet": result.get("snippet", "")[:max_snippet_length],
-                        },
-                    )
-                    for result in organic_results
-                ]
-
-            except Exception as e:
-                error_message = f"Error in SerpAPI search: {e!s}"
-                logger.debug(error_message)
-                raise ToolException(error_message) from e
-            return limited_results
-
-        results = search_func(
-            self.input_value,
-            params=self.search_params,
-            max_results=self.max_results,
-            max_snippet_length=self.max_snippet_length,
-        )
-        self.status = results
-        return results
-
-    def fetch_content_text(self) -> Message:
-        data = self.fetch_content()
-        result_string = ""
-        for item in data:
-            result_string += item.text + "\n"
-        self.status = result_string
-        return Message(text=result_string)
+            return {
+                "status": "success",
+                "data": {
+                    "results": results,
+                    "query": query,
+                    "count": len(results)
+                }
+            }
+        except Exception as e:
+            return {"status": "error", "error": f"SerpApi Search Failed: {str(e)}"}

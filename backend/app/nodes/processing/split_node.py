@@ -1,71 +1,68 @@
 from ..base import BaseNode
-from typing import Any, Dict, Optional
+from ..registry import register_node
+from typing import Any, Dict, Optional, List
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+@register_node("text_splitter")
 class SplitTextNode(BaseNode):
-    async def execute(self, input_data: Any = None, context: Optional[Dict[str, Any]] = None) -> Any:
+    """
+    Splits long text into smaller chunks for LLM processing or vector storage.
+    """
+    node_type = "text_splitter"
+    version = "1.0.0"
+    category = "processing"
+
+    inputs = {
+        "chunk_size": {"type": "number", "default": 1000},
+        "chunk_overlap": {"type": "number", "default": 200},
+        "text": {"type": "string", "description": "Text to split"}
+    }
+    outputs = {
+        "chunks": {"type": "array"},
+        "count": {"type": "number"},
+        "status": {"type": "string"}
+    }
+
+    async def execute(self, input_data: Any = None, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            data_to_split = input_data
-            
-            # Resolve Inputs from context/graph if available
-            if context and "graph_data" in context:
-                graph = context["graph_data"]
-                node_id = context["node_id"]
-                edges = graph.get("edges", [])
-                nodes = graph.get("nodes", [])
-                engine = context.get("engine")
-                
-                # Pull Data
-                input_edge = next((e for e in edges if e["target"] == node_id and e["targetHandle"] in ["data_inputs", "input"]), None)
-                if input_edge:
-                    source_id = input_edge["source"]
-                    source_node = next((n for n in nodes if n["id"] == source_id), None)
-                    if source_node and engine:
-                        print(f"🔄 SplitText: Pulling data from node {source_id}...")
-                        data_to_split = await engine.execute_node(
-                            source_node["data"].get("id"), 
-                            None, 
-                            config=source_node["data"], 
-                            context={**context, "node_id": source_id}
-                        )
+            data_to_split = input_data if input_data is not None else self.get_config("text")
             
             if not data_to_split:
-                return "Error: No data provided to SplitTextNode."
+                return {"status": "error", "error": "No text provided to SplitTextNode.", "data": None}
                 
-            chunk_size = int(self.config.get("chunk_size", 1000))
-            chunk_overlap = int(self.config.get("chunk_overlap", 200))
+            chunk_size = int(self.get_config("chunk_size", 1000))
+            chunk_overlap = int(self.get_config("chunk_overlap", 200))
             
             splitter = RecursiveCharacterTextSplitter(
                 chunk_size=chunk_size,
                 chunk_overlap=chunk_overlap
             )
             
-            # Normalize to list
-            if not isinstance(data_to_split, list):
-                data_to_split = [data_to_split]
-                
-            results = []
-            for item in data_to_split:
-                content = ""
-                metadata = {}
-                
-                if isinstance(item, dict):
-                    content = item.get("text") or item.get("content") or str(item)
-                    metadata = item.get("metadata") or {k: v for k, v in item.items() if k not in ["text", "content"]}
-                else:
-                    content = str(item)
-                
-                chunks = splitter.split_text(content)
-                for i, chunk in enumerate(chunks):
-                    results.append({
-                        "text": chunk,
-                        "metadata": {**metadata, "chunk_index": i}
-                    })
+            # Normalize to list if necessary, but usually we split a string
+            if isinstance(data_to_split, list):
+                # Flatten or handle list of items
+                combined_results = []
+                for item in data_to_split:
+                    content = item.get("text") if isinstance(item, dict) else str(item)
+                    metadata = item.get("metadata", {}) if isinstance(item, dict) else {}
+                    chunks = splitter.split_text(content)
+                    for i, chunk in enumerate(chunks):
+                        combined_results.append({
+                            "text": chunk,
+                            "metadata": {**metadata, "chunk_index": i}
+                        })
+                results = combined_results
+            else:
+                chunks = splitter.split_text(str(data_to_split))
+                results = [{"text": chunk, "metadata": {"chunk_index": i}} for i, chunk in enumerate(chunks)]
             
-            print(f"✅ Split text into {len(results)} chunks.")
-            return results
+            return {
+                "status": "success",
+                "data": {
+                    "chunks": results,
+                    "count": len(results)
+                }
+            }
             
         except Exception as e:
-            import traceback
-            traceback.print_exc()
-            raise e
+            return {"status": "error", "error": f"Splitting Failed: {str(e)}", "data": None}

@@ -261,12 +261,25 @@ class AgentEngine:
             execution_context["node_outputs"][node_id] = result
             
             # Broadcast node completion
-            if broadcaster: await broadcaster("node_end", node_id, {"output": str(result)[:200]})
+            if broadcaster: 
+                log_output = result.get("data") if isinstance(result, dict) and "data" in result else result
+                await broadcaster("node_end", node_id, {"output": str(log_output)[:200]})
             
             # Handle Critical Failures (unless 'continue_on_fail' is set)
-            if isinstance(result, dict) and "error" in result:
+            is_error = False
+            error_message = ""
+            
+            if isinstance(result, dict):
+                if result.get("status") == "error":
+                    is_error = True
+                    error_message = result.get("error", "Unknown error")
+                elif "error" in result:
+                    is_error = True
+                    error_message = result["error"]
+            
+            if is_error:
                 if not node_data.get("continue_on_fail"):
-                    error_msg = f"Stopped at {node_data.get('label')}: {result['error']}"
+                    error_msg = f"Stopped at {node_data.get('label')}: {error_message}"
                     dlq.capture(execution_id, graph_data, error_msg, execution_context)
                     
                     # Log Failure
@@ -280,29 +293,52 @@ class AgentEngine:
 
             # --- TRAVERSAL ---
             # Determine next node based on handle matching or sequential edge
+            next_edges = [e for e in edges if e['source'] == node_id]
             next_edge = None
             
-            # Priority: Handle-based routing (Success/Error/Data)
+            # Priority: Handle-based routing
+            # 1. Check for explicit handle match (e.g. 'success', 'error', 'data')
             if isinstance(result, dict):
-                # Try to find an edge matching the key in results (e.g. 'success' port)
-                available_ports = [k for k in result.keys()]
-                next_edge = next((e for e in edges if e['source'] == node_id and e.get('sourceHandle') in available_ports), None)
+                # If we have a status, we might want to follow 'success' or 'error' edges
+                status = result.get("status")
+                
+                # Check for direct handle match in result keys
+                for edge in next_edges:
+                    handle = edge.get('sourceHandle')
+                    if handle and handle in result:
+                        next_edge = edge
+                        break
+                
+                # Special Logic: If status is success, follow 'success' handle if present
+                if not next_edge and status == "success":
+                     next_edge = next((e for e in next_edges if e.get('sourceHandle') == "success"), None)
+                
+                # Special Logic: If status is error (and we continued), follow 'error' handle
+                if not next_edge and status == "error":
+                     next_edge = next((e for e in next_edges if e.get('sourceHandle') == "error"), None)
 
-            # Fallback: First sequential edge
+            # Fallback: First generic edge (no handle or handle='default')
             if not next_edge:
-                next_edge = next((e for e in edges if e['source'] == node_id), None)
+                next_edge = next((e for e in next_edges if not e.get('sourceHandle') or e.get('sourceHandle') in ["default", "output"]), None)
 
             if not next_edge: break
             
             next_node_id = next_edge['target']
             s_handle = next_edge.get('sourceHandle')
-            t_handle = next_edge.get('targetHandle') or "input"
-
+            
             # Prepare Input for Next Node
-            if s_handle and isinstance(result, dict) and s_handle in result:
-                current_input = result[s_handle]
-            else:
-                current_input = result
+            current_input = result
+            
+            if isinstance(result, dict):
+                # 1. Direct handle match logic
+                if s_handle and s_handle in result:
+                    current_input = result[s_handle]
+                # 2. 'data' extraction for standard flow
+                elif "data" in result and getattr(result, "status", None) != "error":
+                     current_input = result["data"]
+                # 3. Legacy error fallback
+                elif "error" in result:
+                     current_input = result["error"]
 
             # Threshold for storage by reference (e.g., 50KB)
             if isinstance(current_input, str) and len(current_input) > 50000:
