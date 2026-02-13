@@ -1,6 +1,6 @@
 """
-Shopify Commerce Node - Studio Standard
-Batch 52: Commerce Expansion
+Shopify Node - Studio Standard (Universal Method)
+Batch 102: E-commerce & Payments Expansion
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
@@ -10,7 +10,7 @@ from ...registry import register_node
 @register_node("shopify_node")
 class ShopifyNode(BaseNode):
     """
-    Manage Shopify store data including Products, Orders, and Customers.
+    Complete Shopify store management via Admin API.
     """
     node_type = "shopify_node"
     version = "1.0.0"
@@ -21,122 +21,150 @@ class ShopifyNode(BaseNode):
         "action": {
             "type": "dropdown",
             "default": "list_products",
-            "options": ["list_products", "get_product", "list_orders", "get_order", "list_customers"],
-            "description": "Shopify action to perform"
+            "options": ["list_products", "create_product", "update_inventory", "list_orders", "create_order", "get_customer"],
+            "description": "Shopify action"
         },
-        "shop_url": {
+        "product_id": {
             "type": "string",
-            "required": True,
-            "description": "Store URL (e.g., 'your-store.myshopify.com')"
+            "optional": True
         },
-        "item_id": {
+        "title": {
             "type": "string",
-            "optional": True,
-            "description": "Specific Product or Order ID"
+            "optional": True
         },
-        "limit": {
-            "type": "number",
-            "default": 10,
-            "description": "Number of results to return"
+        "price": {
+            "type": "string",
+            "optional": True
+        },
+        "inventory_quantity": {
+            "type": "string",
+            "optional": True
+        },
+        "customer_email": {
+            "type": "string",
+            "optional": True
         }
     }
 
     outputs = {
         "result": {"type": "any"},
-        "count": {"type": "number"},
         "status": {"type": "string"}
     }
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            # 1. Resolve Auth
+            # 1. Authentication
             creds = await self.get_credential("shopify_auth")
-            access_token = None
-            shop_url = self.get_config("shop_url")
+            shop_domain = creds.get("shop_domain")  # e.g., "mystore.myshopify.com"
+            api_key = creds.get("api_key") or creds.get("access_token")
+            api_version = creds.get("api_version", "2024-01")
             
-            if creds:
-                access_token = creds.get("access_token") or creds.get("api_password")
-                shop_url = creds.get("shop_url") or shop_url
-            
-            if not access_token:
-                access_token = self.get_config("access_token")
+            if not shop_domain or not api_key:
+                return {"status": "error", "error": "Shopify Shop Domain and API Key required."}
 
-            if not access_token or not shop_url:
-                return {"status": "error", "error": "Shopify Access Token and Shop URL are required."}
-
-            # Normalize Shop URL
-            shop_url = shop_url.replace("https://", "").replace("http://", "").rstrip("/")
-            if not shop_url.endswith("myshopify.com") and "." not in shop_url:
-                shop_url = f"{shop_url}.myshopify.com"
-
-            action = self.get_config("action", "list_products")
-            limit = int(self.get_config("limit", 10))
-            item_id = self.get_config("item_id") or (str(input_data) if isinstance(input_data, (str, int)) and not str(input_data).startswith("http") else None)
-
+            # 2. Connect to Real API
+            base_url = f"https://{shop_domain}/admin/api/{api_version}"
             headers = {
-                "X-Shopify-Access-Token": access_token,
+                "X-Shopify-Access-Token": api_key,
                 "Content-Type": "application/json"
             }
             
-            base_api_url = f"https://{shop_url}/admin/api/2024-01"
+            action = self.get_config("action", "list_products")
 
             async with aiohttp.ClientSession() as session:
                 if action == "list_products":
-                    url = f"{base_api_url}/products.json"
-                    params = {"limit": limit}
-                    async with session.get(url, headers=headers, params=params) as resp:
-                        result = await resp.json()
-                        products = result.get("products", [])
-                        return {
-                            "status": "success",
-                            "data": {"result": products, "count": len(products)}
-                        }
-
-                elif action == "get_product":
-                    if not item_id:
-                         return {"status": "error", "error": "Product ID is required."}
-                    url = f"{base_api_url}/products/{item_id}.json"
+                    url = f"{base_url}/products.json"
                     async with session.get(url, headers=headers) as resp:
-                        result = await resp.json()
-                        return {
-                            "status": "success",
-                            "data": {"result": result.get("product"), "status": "fetched"}
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Shopify API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data.get("products", [])}}
+
+                elif action == "create_product":
+                    title = self.get_config("title")
+                    price = self.get_config("price", "0.00")
+                    
+                    if not title:
+                        return {"status": "error", "error": "title required"}
+                    
+                    url = f"{base_url}/products.json"
+                    payload = {
+                        "product": {
+                            "title": title,
+                            "variants": [{"price": price}]
                         }
+                    }
+                    async with session.post(url, headers=headers, json=payload) as resp:
+                        if resp.status not in [200, 201]:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Shopify API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data.get("product", {})}}
+
+                elif action == "update_inventory":
+                    product_id = self.get_config("product_id")
+                    inventory_quantity = self.get_config("inventory_quantity")
+                    
+                    if not product_id or not inventory_quantity:
+                        return {"status": "error", "error": "product_id and inventory_quantity required"}
+                    
+                    # First get inventory item ID
+                    url = f"{base_url}/products/{product_id}.json"
+                    async with session.get(url, headers=headers) as resp:
+                        if resp.status != 200:
+                            return {"status": "error", "error": f"Product not found: {resp.status}"}
+                        product_data = await resp.json()
+                        
+                    variant = product_data.get("product", {}).get("variants", [{}])[0]
+                    inventory_item_id = variant.get("inventory_item_id")
+                    
+                    if not inventory_item_id:
+                        return {"status": "error", "error": "No inventory item found"}
+                    
+                    # Get inventory levels
+                    url = f"{base_url}/inventory_levels.json?inventory_item_ids={inventory_item_id}"
+                    async with session.get(url, headers=headers) as resp:
+                        if resp.status != 200:
+                            return {"status": "error", "error": f"Inventory levels error: {resp.status}"}
+                        inventory_data = await resp.json()
+                    
+                    location_id = inventory_data.get("inventory_levels", [{}])[0].get("location_id")
+                    
+                    # Update inventory
+                    url = f"{base_url}/inventory_levels/set.json"
+                    payload = {
+                        "location_id": location_id,
+                        "inventory_item_id": inventory_item_id,
+                        "available": int(inventory_quantity)
+                    }
+                    async with session.post(url, headers=headers, json=payload) as resp:
+                        if resp.status not in [200, 201]:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Inventory update error: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
 
                 elif action == "list_orders":
-                    url = f"{base_api_url}/orders.json"
-                    params = {"limit": limit, "status": "any"}
-                    async with session.get(url, headers=headers, params=params) as resp:
-                        result = await resp.json()
-                        orders = result.get("orders", [])
-                        return {
-                            "status": "success",
-                            "data": {"result": orders, "count": len(orders)}
-                        }
-
-                elif action == "get_order":
-                    if not item_id:
-                         return {"status": "error", "error": "Order ID is required."}
-                    url = f"{base_api_url}/orders/{item_id}.json"
+                    url = f"{base_url}/orders.json"
                     async with session.get(url, headers=headers) as resp:
-                        result = await resp.json()
-                        return {
-                            "status": "success",
-                            "data": {"result": result.get("order"), "status": "fetched"}
-                        }
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Shopify API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data.get("orders", [])}}
 
-                elif action == "list_customers":
-                    url = f"{base_api_url}/customers.json"
-                    params = {"limit": limit}
-                    async with session.get(url, headers=headers, params=params) as resp:
-                        result = await resp.json()
-                        customers = result.get("customers", [])
-                        return {
-                            "status": "success",
-                            "data": {"result": customers, "count": len(customers)}
-                        }
+                elif action == "get_customer":
+                    email = self.get_config("customer_email") or str(input_data)
+                    url = f"{base_url}/customers/search.json?query=email:{email}"
+                    async with session.get(url, headers=headers) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Shopify API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data.get("customers", [])}}
 
-                return {"status": "error", "error": f"Unsupported Shopify action: {action}"}
+                return {"status": "error", "error": f"Unsupported action: {action}"}
 
         except Exception as e:
-            return {"status": "error", "error": f"Shopify execution failed: {str(e)}"}
+            return {"status": "error", "error": f"Shopify Node Failed: {str(e)}"}

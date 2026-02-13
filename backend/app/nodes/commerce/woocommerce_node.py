@@ -1,16 +1,17 @@
 """
-WooCommerce Node - Studio Standard
-Batch 52: Commerce Expansion
+WooCommerce Node - Studio Standard (Universal Method)
+Batch 102: E-commerce & Payments Expansion
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
+import base64
 from ...base import BaseNode
 from ...registry import register_node
 
 @register_node("woocommerce_node")
 class WooCommerceNode(BaseNode):
     """
-    Manage WooCommerce store data via the REST API.
+    WordPress e-commerce integration via WooCommerce REST API.
     """
     node_type = "woocommerce_node"
     version = "1.0.0"
@@ -21,117 +22,153 @@ class WooCommerceNode(BaseNode):
         "action": {
             "type": "dropdown",
             "default": "list_products",
-            "options": ["list_products", "get_product", "list_orders", "get_order", "list_customers"],
-            "description": "WooCommerce action to perform"
+            "options": ["list_products", "create_product", "update_product", "list_orders", "update_order_status", "get_customer"],
+            "description": "WooCommerce action"
         },
-        "site_url": {
+        "product_id": {
             "type": "string",
-            "required": True,
-            "description": "Wordpress/WooCommerce site URL (e.g., 'https://shop.example.com')"
+            "optional": True
         },
-        "item_id": {
+        "order_id": {
             "type": "string",
-            "optional": True,
-            "description": "Specific Product or Order ID"
+            "optional": True
         },
-        "limit": {
-            "type": "number",
-            "default": 10,
-            "description": "Number of results to return"
+        "name": {
+            "type": "string",
+            "optional": True
+        },
+        "price": {
+            "type": "string",
+            "optional": True
+        },
+        "status": {
+            "type": "dropdown",
+            "options": ["pending", "processing", "on-hold", "completed", "cancelled", "refunded", "failed"],
+            "optional": True
         }
     }
 
     outputs = {
         "result": {"type": "any"},
-        "count": {"type": "number"},
         "status": {"type": "string"}
     }
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            # 1. Resolve Auth
+            # 1. Authentication
             creds = await self.get_credential("woocommerce_auth")
-            consumer_key = None
-            consumer_secret = None
-            site_url = self.get_config("site_url")
+            store_url = creds.get("store_url")  # e.g., "https://mystore.com"
+            consumer_key = creds.get("consumer_key")
+            consumer_secret = creds.get("consumer_secret")
             
-            if creds:
-                consumer_key = creds.get("consumer_key")
-                consumer_secret = creds.get("consumer_secret")
-                site_url = creds.get("site_url") or site_url
+            if not all([store_url, consumer_key, consumer_secret]):
+                return {"status": "error", "error": "WooCommerce Store URL, Consumer Key, and Consumer Secret required."}
+
+            # 2. Connect to Real API
+            base_url = f"{store_url.rstrip('/')}/wp-json/wc/v3"
             
-            if not consumer_key or not consumer_secret:
-                consumer_key = self.get_config("consumer_key")
-                consumer_secret = self.get_config("consumer_secret")
-
-            if not all([consumer_key, consumer_secret, site_url]):
-                return {"status": "error", "error": "WooCommerce Consumer Key, Secret, and Site URL are required."}
-
-            site_url = site_url.rstrip("/")
+            # WooCommerce uses Basic Auth with consumer key:secret
+            auth_str = f"{consumer_key}:{consumer_secret}"
+            b64_auth = base64.b64encode(auth_str.encode()).decode()
+            
+            headers = {
+                "Authorization": f"Basic {b64_auth}",
+                "Content-Type": "application/json"
+            }
+            
             action = self.get_config("action", "list_products")
-            limit = int(self.get_config("limit", 10))
-            item_id = self.get_config("item_id") or (str(input_data) if isinstance(input_data, (str, int)) else None)
 
-            # Basic Auth for WooCommerce API
-            auth = aiohttp.BasicAuth(consumer_key, consumer_secret)
-            base_api_url = f"{site_url}/wp-json/wc/v3"
-
-            async with aiohttp.ClientSession(auth=auth) as session:
+            async with aiohttp.ClientSession() as session:
                 if action == "list_products":
-                    url = f"{base_api_url}/products"
-                    params = {"per_page": limit}
-                    async with session.get(url, params=params) as resp:
-                        result = await resp.json()
-                        if resp.status >= 400:
-                            return {"status": "error", "error": f"WooCommerce Error: {result}"}
-                        return {
-                            "status": "success",
-                            "data": {"result": result, "count": len(result)}
-                        }
+                    url = f"{base_url}/products"
+                    async with session.get(url, headers=headers) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"WooCommerce API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
 
-                elif action == "get_product":
-                    if not item_id:
-                         return {"status": "error", "error": "Product ID is required."}
-                    url = f"{base_api_url}/products/{item_id}"
-                    async with session.get(url) as resp:
-                        result = await resp.json()
-                        return {
-                            "status": "success",
-                            "data": {"result": result, "status": "fetched"}
-                        }
+                elif action == "create_product":
+                    name = self.get_config("name")
+                    price = self.get_config("price", "0.00")
+                    
+                    if not name:
+                        return {"status": "error", "error": "name required"}
+                    
+                    url = f"{base_url}/products"
+                    payload = {
+                        "name": name,
+                        "type": "simple",
+                        "regular_price": price,
+                        "status": "publish"
+                    }
+                    async with session.post(url, headers=headers, json=payload) as resp:
+                        if resp.status not in [200, 201]:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"WooCommerce API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
+
+                elif action == "update_product":
+                    product_id = self.get_config("product_id")
+                    if not product_id:
+                        return {"status": "error", "error": "product_id required"}
+                    
+                    url = f"{base_url}/products/{product_id}"
+                    payload = {}
+                    
+                    if self.get_config("name"):
+                        payload["name"] = self.get_config("name")
+                    if self.get_config("price"):
+                        payload["regular_price"] = self.get_config("price")
+                    
+                    if not payload:
+                        return {"status": "error", "error": "No update fields provided"}
+                    
+                    async with session.put(url, headers=headers, json=payload) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"WooCommerce API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
 
                 elif action == "list_orders":
-                    url = f"{base_api_url}/orders"
-                    params = {"per_page": limit}
-                    async with session.get(url, params=params) as resp:
-                        result = await resp.json()
-                        return {
-                            "status": "success",
-                            "data": {"result": result, "count": len(result)}
-                        }
+                    url = f"{base_url}/orders"
+                    async with session.get(url, headers=headers) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"WooCommerce API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
 
-                elif action == "get_order":
-                    if not item_id:
-                         return {"status": "error", "error": "Order ID is required."}
-                    url = f"{base_api_url}/orders/{item_id}"
-                    async with session.get(url) as resp:
-                        result = await resp.json()
-                        return {
-                            "status": "success",
-                            "data": {"result": result, "status": "fetched"}
-                        }
+                elif action == "update_order_status":
+                    order_id = self.get_config("order_id")
+                    status = self.get_config("status")
+                    
+                    if not order_id or not status:
+                        return {"status": "error", "error": "order_id and status required"}
+                    
+                    url = f"{base_url}/orders/{order_id}"
+                    payload = {"status": status}
+                    
+                    async with session.put(url, headers=headers, json=payload) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"WooCommerce API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
 
-                elif action == "list_customers":
-                    url = f"{base_api_url}/customers"
-                    params = {"per_page": limit}
-                    async with session.get(url, params=params) as resp:
-                        result = await resp.json()
-                        return {
-                            "status": "success",
-                            "data": {"result": result, "count": len(result)}
-                        }
+                elif action == "get_customer":
+                    customer_id = str(input_data) if input_data else self.get_config("product_id")
+                    url = f"{base_url}/customers/{customer_id}"
+                    async with session.get(url, headers=headers) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"WooCommerce API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
 
-                return {"status": "error", "error": f"Unsupported WooCommerce action: {action}"}
+                return {"status": "error", "error": f"Unsupported action: {action}"}
 
         except Exception as e:
-            return {"status": "error", "error": f"WooCommerce execution failed: {str(e)}"}
+            return {"status": "error", "error": f"WooCommerce Node Failed: {str(e)}"}

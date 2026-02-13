@@ -218,6 +218,12 @@ NODE_MAP = {
     "pdf_parser": "app.nodes.processing.pdf_node.PDFParserNode",
     "image_ocr": "app.nodes.integrations.image_ocr.ImageOCRNode",
     "document_processing_action": "app.nodes.processing.document_processing_node.DocumentProcessingNode",
+    # Batch 102: E-commerce & Payments
+    "shopify_node": "app.nodes.commerce.shopify_node.ShopifyNode",
+    "woocommerce_node": "app.nodes.commerce.woocommerce_node.WooCommerceNode",
+    "square_node": "app.nodes.finance.square_node.SquareNode",
+    "plaid_node": "app.nodes.finance.plaid_node.PlaidNode",
+    "mollie_node": "app.nodes.finance.mollie_node.MollieNode",
 }
 
 from .registry import NodeRegistry

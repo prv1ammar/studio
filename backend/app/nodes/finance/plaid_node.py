@@ -1,6 +1,6 @@
 """
-Plaid Node - Studio Standard
-Batch 58: Financial Services
+Plaid Node - Studio Standard (Universal Method)
+Batch 102: E-commerce & Payments Expansion
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
@@ -10,7 +10,7 @@ from ...registry import register_node
 @register_node("plaid_node")
 class PlaidNode(BaseNode):
     """
-    Connect to bank accounts and retrieve financial data via Plaid.
+    Banking and financial data access via Plaid API.
     """
     node_type = "plaid_node"
     version = "1.0.0"
@@ -20,20 +20,19 @@ class PlaidNode(BaseNode):
     inputs = {
         "action": {
             "type": "dropdown",
-            "default": "get_accounts",
-            "options": ["get_accounts", "get_transactions", "get_auth", "get_identity", "get_balance"],
-            "description": "Plaid action to perform"
+            "default": "create_link_token",
+            "options": ["create_link_token", "exchange_public_token", "get_accounts", "get_transactions", "get_balance", "get_identity"],
+            "description": "Plaid action"
+        },
+        "public_token": {
+            "type": "string",
+            "optional": True,
+            "description": "Public token from Plaid Link"
         },
         "access_token": {
             "type": "string",
-            "required": True,
-            "description": "The access token for the specific item/bank account"
-        },
-        "environment": {
-            "type": "dropdown",
-            "default": "sandbox",
-            "options": ["sandbox", "development", "production"],
-            "description": "Plaid environment to use"
+            "optional": True,
+            "description": "Access token for API calls"
         },
         "start_date": {
             "type": "string",
@@ -44,67 +43,173 @@ class PlaidNode(BaseNode):
             "type": "string",
             "optional": True,
             "description": "End date for transactions (YYYY-MM-DD)"
+        },
+        "user_id": {
+            "type": "string",
+            "optional": True,
+            "description": "Unique user ID for link token"
         }
     }
 
     outputs = {
         "result": {"type": "any"},
-        "status": {"type": "string"},
-        "count": {"type": "number"}
+        "status": {"type": "string"}
     }
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            # 1. Resolve Auth
+            # 1. Authentication
             creds = await self.get_credential("plaid_auth")
-            client_id = creds.get("client_id") if creds else self.get_config("client_id")
-            secret = creds.get("secret") if creds else self.get_config("secret")
-            access_token = self.get_config("access_token") or (str(input_data) if isinstance(input_data, str) and input_data.startswith("access-") else None)
+            client_id = creds.get("client_id")
+            secret = creds.get("secret")
+            environment = creds.get("environment", "sandbox")  # sandbox, development, or production
             
-            if not all([client_id, secret, access_token]):
-                return {"status": "error", "error": "Plaid Client ID, Secret, and Access Token are required."}
+            if not client_id or not secret:
+                return {"status": "error", "error": "Plaid Client ID and Secret required."}
 
-            env = self.get_config("environment", "sandbox")
-            base_url = f"https://{env}.plaid.com"
-            action = self.get_config("action", "get_accounts")
-
+            # 2. Connect to Real API
+            env_urls = {
+                "sandbox": "https://sandbox.plaid.com",
+                "development": "https://development.plaid.com",
+                "production": "https://production.plaid.com"
+            }
+            base_url = env_urls.get(environment, "https://sandbox.plaid.com")
+            
             headers = {
-                "Content-Type": "application/json",
-                "Plaid-Client-Id": client_id,
-                "Plaid-Secret": secret
+                "Content-Type": "application/json"
             }
             
+            action = self.get_config("action", "create_link_token")
+
             async with aiohttp.ClientSession() as session:
-                payload = {"access_token": access_token}
-
-                if action == "get_accounts":
-                    url = f"{base_url}/accounts/get"
-                elif action == "get_transactions":
-                    url = f"{base_url}/transactions/get"
-                    payload["start_date"] = self.get_config("start_date", "2024-01-01")
-                    payload["end_date"] = self.get_config("end_date", "2024-12-31")
-                elif action == "get_auth":
-                    url = f"{base_url}/auth/get"
-                elif action == "get_identity":
-                    url = f"{base_url}/identity/get"
-                elif action == "get_balance":
-                    url = f"{base_url}/accounts/balance/get"
-                else:
-                    return {"status": "error", "error": f"Unsupported Plaid action: {action}"}
-
-                async with session.post(url, headers=headers, json=payload) as resp:
-                    res_data = await resp.json()
-                    if resp.status >= 400:
-                        return {"status": "error", "error": f"Plaid API Error: {res_data}"}
+                if action == "create_link_token":
+                    user_id = self.get_config("user_id", "default_user")
                     
-                    return {
-                        "status": "success",
-                        "data": {
-                            "result": res_data,
-                            "status": "completed",
-                            "count": len(res_data.get("accounts", [])) if "accounts" in res_data else len(res_data.get("transactions", [])) if "transactions" in res_data else 1
-                        }
+                    url = f"{base_url}/link/token/create"
+                    payload = {
+                        "client_id": client_id,
+                        "secret": secret,
+                        "user": {
+                            "client_user_id": user_id
+                        },
+                        "client_name": "Studio Automation",
+                        "products": ["auth", "transactions"],
+                        "country_codes": ["US"],
+                        "language": "en"
                     }
+                    
+                    async with session.post(url, headers=headers, json=payload) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Plaid API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
+
+                elif action == "exchange_public_token":
+                    public_token = self.get_config("public_token") or str(input_data)
+                    
+                    if not public_token:
+                        return {"status": "error", "error": "public_token required"}
+                    
+                    url = f"{base_url}/item/public_token/exchange"
+                    payload = {
+                        "client_id": client_id,
+                        "secret": secret,
+                        "public_token": public_token
+                    }
+                    
+                    async with session.post(url, headers=headers, json=payload) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Plaid API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
+
+                elif action == "get_accounts":
+                    access_token = self.get_config("access_token") or str(input_data)
+                    
+                    if not access_token:
+                        return {"status": "error", "error": "access_token required"}
+                    
+                    url = f"{base_url}/accounts/get"
+                    payload = {
+                        "client_id": client_id,
+                        "secret": secret,
+                        "access_token": access_token
+                    }
+                    
+                    async with session.post(url, headers=headers, json=payload) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Plaid API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data.get("accounts", [])}}
+
+                elif action == "get_transactions":
+                    access_token = self.get_config("access_token")
+                    start_date = self.get_config("start_date", "2024-01-01")
+                    end_date = self.get_config("end_date", "2024-12-31")
+                    
+                    if not access_token:
+                        return {"status": "error", "error": "access_token required"}
+                    
+                    url = f"{base_url}/transactions/get"
+                    payload = {
+                        "client_id": client_id,
+                        "secret": secret,
+                        "access_token": access_token,
+                        "start_date": start_date,
+                        "end_date": end_date
+                    }
+                    
+                    async with session.post(url, headers=headers, json=payload) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Plaid API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data.get("transactions", [])}}
+
+                elif action == "get_balance":
+                    access_token = self.get_config("access_token") or str(input_data)
+                    
+                    if not access_token:
+                        return {"status": "error", "error": "access_token required"}
+                    
+                    url = f"{base_url}/accounts/balance/get"
+                    payload = {
+                        "client_id": client_id,
+                        "secret": secret,
+                        "access_token": access_token
+                    }
+                    
+                    async with session.post(url, headers=headers, json=payload) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Plaid API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data.get("accounts", [])}}
+
+                elif action == "get_identity":
+                    access_token = self.get_config("access_token") or str(input_data)
+                    
+                    if not access_token:
+                        return {"status": "error", "error": "access_token required"}
+                    
+                    url = f"{base_url}/identity/get"
+                    payload = {
+                        "client_id": client_id,
+                        "secret": secret,
+                        "access_token": access_token
+                    }
+                    
+                    async with session.post(url, headers=headers, json=payload) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Plaid API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
+
+                return {"status": "error", "error": f"Unsupported action: {action}"}
 
         except Exception as e:
             return {"status": "error", "error": f"Plaid Node Failed: {str(e)}"}
