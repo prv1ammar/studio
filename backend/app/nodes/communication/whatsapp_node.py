@@ -1,52 +1,97 @@
+"""
+WhatsApp Business Node (Meta) - Studio Standard
+Batch 46: Communication & Marketing
+"""
 from typing import Any, Dict, Optional
-from ..base import BaseNode
-from ..registry import register_node
 import aiohttp
 import json
+from ...base import BaseNode
+from ...registry import register_node
 
-@register_node("whatsapp_message_send")
-class WhatsAppNode(BaseNode):
-    """Sends messages via WhatsApp Business API (Meta)."""
-    node_type = "whatsapp_message_send"
+@register_node("whatsapp_meta")
+class WhatsAppMetaNode(BaseNode):
+    """
+    Send messages via WhatsApp Business API (Meta).
+    Supports: Direct Text, Business Templates.
+    """
+    node_type = "whatsapp_meta"
     version = "1.0.0"
     category = "communication"
-    credentials_required = ["whatsapp_creds"]
+    credentials_required = ["whatsapp_auth"]
 
     inputs = {
-        "to": {"type": "string", "description": "Recipient phone number with country code"},
-        "message": {"type": "string", "description": "Text message content"},
-        "template_name": {"type": "string", "description": "Optional template name"}
+        "phone_number_id": {
+            "type": "string",
+            "required": True,
+            "description": "Meta Phone Number ID"
+        },
+        "to": {
+            "type": "string",
+            "required": True,
+            "description": "Recipient phone number (with country code, no +)"
+        },
+        "message": {
+            "type": "string",
+            "description": "Message body for direct text"
+        },
+        "template_name": {
+            "type": "string",
+            "optional": True,
+            "description": "Meta Template Name"
+        },
+        "language_code": {
+            "type": "string",
+            "default": "en_US",
+            "description": "Template language code"
+        }
     }
+
     outputs = {
-        "id": {"type": "string", "description": "WhatsApp message ID"},
-        "status": {"type": "string"}
+        "message_id": {"type": "string"},
+        "status": {"type": "string"},
+        "recipient": {"type": "string"}
     }
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            creds = await self.get_credential("whatsapp_creds")
-            token = creds.get("access_token")
-            phone_number_id = creds.get("phone_number_id")
+            # 1. Resolve Auth
+            creds = await self.get_credential("whatsapp_auth")
+            token = None
+            phone_id = self.get_config("phone_number_id")
             
-            if not token or not phone_number_id:
-                return {"status": "error", "error": "WhatsApp Access Token and Phone Number ID are required.", "data": None}
+            if creds:
+                token = creds.get("access_token") or creds.get("token")
+                phone_id = creds.get("phone_number_id") or phone_id
+            
+            if not token:
+                token = self.get_config("access_token")
 
-            to_phone = input_data if isinstance(input_data, str) else self.get_config("to")
+            if not token or not phone_id:
+                return {"status": "error", "error": "WhatsApp/Meta Token and Phone Number ID are required."}
+
+            to_phone = self.get_config("to")
             message = self.get_config("message")
             template = self.get_config("template_name")
+            lang = self.get_config("language_code", "en_US")
 
-            if isinstance(input_data, dict):
+            # Dynamic Overrides
+            if isinstance(input_data, str):
+                if "@" in input_data: # Filter out email if accidentally passed
+                    pass
+                else:
+                    message = input_data
+            elif isinstance(input_data, dict):
                 to_phone = input_data.get("to") or to_phone
                 message = input_data.get("message") or message
                 template = input_data.get("template") or template
 
-            if not to_phone or (not message and not template):
-                return {"status": "error", "error": "Recipient and Message/Template are required.", "data": None}
+            if not to_phone:
+                 return {"status": "error", "error": "Recipient (to) is required."}
 
-            # Normalize phone
-            to_phone = to_phone.strip().replace(" ", "").replace("+", "")
-            
-            url = f"https://graph.facebook.com/v18.0/{phone_number_id}/messages"
+            # Normalize phone (no +, no spaces)
+            to_phone = str(to_phone).replace("+", "").replace(" ", "").replace("-", "")
+
+            url = f"https://graph.facebook.com/v18.0/{phone_id}/messages"
             headers = {
                 "Authorization": f"Bearer {token}",
                 "Content-Type": "application/json"
@@ -59,24 +104,38 @@ class WhatsAppNode(BaseNode):
             
             if template:
                 payload["type"] = "template"
-                payload["template"] = {"name": template, "language": {"code": "en_US"}}
+                payload["template"] = {
+                    "name": template,
+                    "language": {"code": lang}
+                }
             else:
+                if not message:
+                     return {"status": "error", "error": "Message body is required for direct text."}
                 payload["type"] = "text"
                 payload["text"] = {"body": message}
 
             async with aiohttp.ClientSession() as session:
                 async with session.post(url, headers=headers, json=payload) as resp:
                     result = await resp.json()
+                    
                     if resp.status >= 400:
-                        return {"status": "error", "error": f"WhatsApp API Error: {result.get('error', {}).get('message')}", "data": result}
+                        return {
+                            "status": "error", 
+                            "error": f"WhatsApp API Error: {result.get('error', {}).get('message', 'Unknown Error')}",
+                            "data": result
+                        }
+                    
+                    messages = result.get("messages", [])
+                    msg_id = messages[0].get("id") if messages else None
                     
                     return {
                         "status": "success",
                         "data": {
-                            "id": result.get("messages", [{}])[0].get("id"),
+                            "message_id": msg_id,
+                            "status": "sent",
                             "recipient": to_phone
                         }
                     }
 
         except Exception as e:
-            return {"status": "error", "error": f"WhatsApp Node Failed: {str(e)}", "data": None}
+            return {"status": "error", "error": f"WhatsApp execution failed: {str(e)}"}

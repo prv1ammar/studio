@@ -51,7 +51,11 @@
           "display_name": "IN: URL to Scrape",
           "type": "handle",
           "placeholder": "https://www.example.com/item/...",
-          "required": false
+          "required": false,
+          "types": [
+            "Text",
+            "Data"
+          ]
         }
       ],
       "outputs": [
@@ -352,7 +356,12 @@
           "name": "message",
           "display_name": "IN: Message to Send",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Message",
+            "Data"
+          ]
         },
         {
           "name": "channel",
@@ -4959,7 +4968,7 @@
     {
       "id": "processing_DataToDataFrame",
       "name": "DataToDataFrame",
-      "label": "Data \u2192 DataFrame",
+      "label": "Data → DataFrame",
       "description": "Converts one or multiple Data objects into a DataFrame. Each Data object corresponds to one row. Fields from `.data` become columns, and the `.text` (if present) is placed in a 'text' column.",
       "category": "Data Processing",
       "icon": "/assets/icons/imported/processing/data__dataframe.svg",
@@ -7594,6 +7603,144 @@
       ]
     }
   ],
+  "Finance": [
+    {
+      "id": "quickbooks_node",
+      "name": "QuickBooks",
+      "label": "QuickBooks",
+      "description": "Manage accounting in QuickBooks.",
+      "category": "Finance",
+      "icon": "Book",
+      "color": "#2ca01c",
+      "inputs": [
+        {
+          "name": "credentials_id",
+          "display_name": "QuickBooks Creds",
+          "type": "credentials",
+          "required": true
+        },
+        {
+          "name": "action",
+          "display_name": "Action",
+          "type": "dropdown",
+          "options": [
+            {
+              "label": "List Customers",
+              "value": "list_customers"
+            },
+            {
+              "label": "List Invoices",
+              "value": "list_invoices"
+            }
+          ],
+          "default": "list_customers",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "display_name": "Response",
+          "types": [
+            "Data",
+            "Text"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paypal_node",
+      "name": "PayPal",
+      "label": "PayPal",
+      "description": "Create orders and manage payouts in PayPal.",
+      "category": "Finance",
+      "icon": "DollarSign",
+      "color": "#003087",
+      "inputs": [
+        {
+          "name": "credentials_id",
+          "display_name": "PayPal Creds",
+          "type": "credentials",
+          "required": true
+        },
+        {
+          "name": "action",
+          "display_name": "Action",
+          "type": "dropdown",
+          "options": [
+            {
+              "label": "Create Order",
+              "value": "create_order"
+            },
+            {
+              "label": "List Payouts",
+              "value": "list_payouts"
+            }
+          ],
+          "default": "create_order",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "display_name": "Response",
+          "types": [
+            "Data",
+            "Text"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stripe_node",
+      "name": "Stripe",
+      "label": "Stripe",
+      "description": "Manage payments and customers in Stripe.",
+      "category": "Finance",
+      "icon": "CreditCard",
+      "color": "#6772e5",
+      "inputs": [
+        {
+          "name": "credentials_id",
+          "display_name": "Stripe Token",
+          "type": "credentials",
+          "required": true
+        },
+        {
+          "name": "action",
+          "display_name": "Action",
+          "type": "dropdown",
+          "options": [
+            {
+              "label": "Create Customer",
+              "value": "create_customer"
+            },
+            {
+              "label": "Create Payment Intent",
+              "value": "create_payment_intent"
+            },
+            {
+              "label": "List Charges",
+              "value": "list_charges"
+            }
+          ],
+          "default": "create_customer",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "display_name": "Response",
+          "types": [
+            "Data",
+            "Text"
+          ]
+        }
+      ]
+    }
+  ],
   "Icosacomputing": [
     {
       "id": "icosacomputing_Combinatorial Reasoner",
@@ -8102,7 +8249,12 @@
           "description": "The primary text input for the operation.",
           "default": "",
           "options": null,
-          "advanced": false
+          "advanced": false,
+          "types": [
+            "Text",
+            "Data",
+            "Message"
+          ]
         },
         {
           "name": "match_text",
@@ -14964,142 +15116,6 @@
   ],
   "Productivity": [
     {
-      "id": "quickbooks_node",
-      "name": "QuickBooks",
-      "label": "QuickBooks",
-      "description": "Manage accounting in QuickBooks.",
-      "category": "Finance",
-      "icon": "Book",
-      "color": "#2ca01c",
-      "inputs": [
-        {
-          "name": "credentials_id",
-          "display_name": "QuickBooks Creds",
-          "type": "credentials",
-          "required": true
-        },
-        {
-          "name": "action",
-          "display_name": "Action",
-          "type": "dropdown",
-          "options": [
-            {
-              "label": "List Customers",
-              "value": "list_customers"
-            },
-            {
-              "label": "List Invoices",
-              "value": "list_invoices"
-            }
-          ],
-          "default": "list_customers",
-          "required": true
-        }
-      ],
-      "outputs": [
-        {
-          "name": "output",
-          "display_name": "Response",
-          "types": [
-            "Data",
-            "Text"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "paypal_node",
-      "name": "PayPal",
-      "label": "PayPal",
-      "description": "Create orders and manage payouts in PayPal.",
-      "category": "Finance",
-      "icon": "DollarSign",
-      "color": "#003087",
-      "inputs": [
-        {
-          "name": "credentials_id",
-          "display_name": "PayPal Creds",
-          "type": "credentials",
-          "required": true
-        },
-        {
-          "name": "action",
-          "display_name": "Action",
-          "type": "dropdown",
-          "options": [
-            {
-              "label": "Create Order",
-              "value": "create_order"
-            },
-            {
-              "label": "List Payouts",
-              "value": "list_payouts"
-            }
-          ],
-          "default": "create_order",
-          "required": true
-        }
-      ],
-      "outputs": [
-        {
-          "name": "output",
-          "display_name": "Response",
-          "types": [
-            "Data",
-            "Text"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "stripe_node",
-      "name": "Stripe",
-      "label": "Stripe",
-      "description": "Manage payments and customers in Stripe.",
-      "category": "Finance",
-      "icon": "CreditCard",
-      "color": "#6772e5",
-      "inputs": [
-        {
-          "name": "credentials_id",
-          "display_name": "Stripe Token",
-          "type": "credentials",
-          "required": true
-        },
-        {
-          "name": "action",
-          "display_name": "Action",
-          "type": "dropdown",
-          "options": [
-            {
-              "label": "Create Customer",
-              "value": "create_customer"
-            },
-            {
-              "label": "Create Payment Intent",
-              "value": "create_payment_intent"
-            },
-            {
-              "label": "List Charges",
-              "value": "list_charges"
-            }
-          ],
-          "default": "create_customer",
-          "required": true
-        }
-      ],
-      "outputs": [
-        {
-          "name": "output",
-          "display_name": "Response",
-          "types": [
-            "Data",
-            "Text"
-          ]
-        }
-      ]
-    },
-    {
       "id": "gitlab_node",
       "name": "GitLab",
       "label": "GitLab",
@@ -15304,7 +15320,12 @@
           "name": "input_data",
           "display_name": "Input (e.g. Title)",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Data",
+            "Object"
+          ]
         }
       ],
       "outputs": [
@@ -15354,7 +15375,12 @@
           "name": "input_data",
           "display_name": "Payload (JSON)",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Data",
+            "Object"
+          ]
         }
       ],
       "outputs": [
@@ -15408,7 +15434,12 @@
           "name": "input_data",
           "display_name": "Content (JSON/Text)",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Data",
+            "Object"
+          ]
         }
       ],
       "outputs": [
@@ -15446,7 +15477,12 @@
           "name": "input_data",
           "display_name": "Email/Subscriber JSON",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Data",
+            "Object"
+          ]
         }
       ],
       "outputs": [
@@ -15517,7 +15553,12 @@
           "name": "message",
           "display_name": "Message",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Message",
+            "Data"
+          ]
         }
       ],
       "outputs": [
@@ -15556,7 +15597,12 @@
           "name": "input_data",
           "display_name": "Fields (JSON)",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Data",
+            "Object"
+          ]
         }
       ],
       "outputs": [
@@ -15606,7 +15652,12 @@
           "name": "input_data",
           "display_name": "Payload/Query",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Data",
+            "Object"
+          ]
         }
       ],
       "outputs": [
@@ -15651,7 +15702,12 @@
           "name": "message",
           "display_name": "Message",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Message",
+            "Data"
+          ]
         }
       ],
       "outputs": [
@@ -15695,7 +15751,11 @@
           "name": "title",
           "display_name": "Page Title",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Data"
+          ]
         }
       ],
       "outputs": [
@@ -15771,7 +15831,12 @@
           "name": "message",
           "display_name": "Message",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Message",
+            "Data"
+          ]
         }
       ],
       "outputs": [
@@ -15809,7 +15874,12 @@
           "name": "message",
           "display_name": "Message Text",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Text",
+            "Message",
+            "Data"
+          ]
         }
       ],
       "outputs": [
@@ -15854,7 +15924,13 @@
           "name": "data_to_write",
           "display_name": "Data to Append",
           "type": "handle",
-          "required": true
+          "required": true,
+          "types": [
+            "Data",
+            "Object",
+            "Array",
+            "Text"
+          ]
         }
       ],
       "outputs": [
@@ -15900,7 +15976,11 @@
           "display_name": "Range (Optional)",
           "type": "handle",
           "placeholder": "A1:C10",
-          "required": false
+          "required": false,
+          "types": [
+            "Text",
+            "Data"
+          ]
         }
       ],
       "outputs": [
@@ -18634,7 +18714,7 @@
       "name": "GmailLoaderComponent",
       "label": "Gmail Loader",
       "description": "Loads emails from Gmail using provided credentials.",
-      "category": "Google",
+      "category": "Search & Scraping",
       "icon": "/assets/icons/imported/google/gmail_loader.svg",
       "color": "#EA4335",
       "inputs": [
@@ -18689,7 +18769,7 @@
       "name": "Google Generative AI Embeddings",
       "label": "Google Generative AI Embeddings",
       "description": "Connect to Google's generative AI embeddings service using the GoogleGenerativeAIEmbeddings class, found in the langchain-google-genai package.",
-      "category": "Google",
+      "category": "Search & Scraping",
       "icon": "/assets/icons/imported/google/google_generative_ai_embeddings.svg",
       "color": "#4285F4",
       "inputs": [
@@ -18734,7 +18814,7 @@
       "name": "GoogleDriveComponent",
       "label": "Google Drive Loader",
       "description": "Loads documents from Google Drive using provided credentials.",
-      "category": "Google",
+      "category": "Search & Scraping",
       "icon": "/assets/icons/imported/google/google_drive_loader.svg",
       "color": "#34A853",
       "inputs": [
@@ -18779,7 +18859,7 @@
       "name": "GoogleDriveSearchComponent",
       "label": "Google Drive Search",
       "description": "Searches Google Drive files using provided credentials and query parameters.",
-      "category": "Google",
+      "category": "Search & Scraping",
       "icon": "/assets/icons/imported/google/google_drive_search.svg",
       "color": "#34A853",
       "inputs": [
@@ -18904,7 +18984,7 @@
       "name": "GoogleGenerativeAIModel",
       "label": "Google Generative AI",
       "description": "Generate text using Google Generative AI.",
-      "category": "Google",
+      "category": "Search & Scraping",
       "icon": "/assets/icons/imported/google/google_generative_ai.svg",
       "color": "#4285F4",
       "inputs": [
@@ -19062,7 +19142,7 @@
       "name": "GoogleOAuthToken",
       "label": "Google OAuth Token",
       "description": "Generates a JSON string with your Google OAuth token.",
-      "category": "Google",
+      "category": "Search & Scraping",
       "icon": "/assets/icons/imported/google/google_oauth_token.svg",
       "color": "#6b7280",
       "inputs": [
@@ -19107,7 +19187,7 @@
       "name": "GoogleSearchAPICore",
       "label": "Google Search API",
       "description": "Call Google Search API and return results as a DataFrame.",
-      "category": "Google",
+      "category": "Search & Scraping",
       "icon": "/assets/icons/imported/google/google_search_api.svg",
       "color": "#6b7280",
       "inputs": [
@@ -19172,7 +19252,7 @@
       "name": "GoogleSerperAPICore",
       "label": "Google Serper API",
       "description": "Call the Serper.dev Google Search API.",
-      "category": "Google",
+      "category": "Search & Scraping",
       "icon": "/assets/icons/imported/google/google_serper_api.svg",
       "color": "#6b7280",
       "inputs": [
@@ -19227,7 +19307,7 @@
       "name": "BigQueryExecutorComponent",
       "label": "BigQuery (Native)",
       "description": "Execute SQL queries on Google BigQuery using Service Account JSON.",
-      "category": "Google",
+      "category": "Search & Scraping",
       "icon": "/assets/icons/imported/google/bigquery.svg",
       "color": "#4285F4",
       "inputs": [
@@ -19243,7 +19323,11 @@
           "display_name": "SQL Query",
           "type": "handle",
           "required": true,
-          "description": "The SQL query to execute."
+          "description": "The SQL query to execute.",
+          "types": [
+            "Text",
+            "Data"
+          ]
         },
         {
           "name": "clean_query",
@@ -19274,7 +19358,7 @@
       "name": "gmailNode",
       "label": "Gmail Send (Native)",
       "description": "Send emails via Gmail API using OAuth Token JSON.",
-      "category": "Google",
+      "category": "Search & Scraping",
       "icon": "/assets/icons/imported/google/gmail.svg",
       "color": "#EA4335",
       "inputs": [
@@ -19312,7 +19396,12 @@
           "display_name": "Input Data",
           "type": "handle",
           "required": false,
-          "description": "Connect data from a previous node to use as the message body."
+          "description": "Connect data from a previous node to use as the message body.",
+          "types": [
+            "Text",
+            "Data",
+            "Object"
+          ]
         }
       ],
       "outputs": [
@@ -22641,7 +22730,7 @@
       "name": "ComposioGmailAPIComponent",
       "label": "Gmail",
       "description": "Gmail component for tools & utilities.",
-      "category": "Google",
+      "category": "Tools & Utilities",
       "icon": "/assets/icons/imported/composio/gmail.svg",
       "color": "#6b7280",
       "inputs": [
@@ -22696,7 +22785,7 @@
       "name": "ComposioGoogleBigQueryAPIComponent",
       "label": "GoogleBigQuery",
       "description": "GoogleBigQuery component for tools & utilities.",
-      "category": "Google",
+      "category": "Tools & Utilities",
       "icon": "/assets/icons/imported/composio/googlebigquery.svg",
       "color": "#6b7280",
       "inputs": [
@@ -22751,7 +22840,7 @@
       "name": "ComposioGoogleCalendarAPIComponent",
       "label": "GoogleCalendar",
       "description": "GoogleCalendar component for tools & utilities.",
-      "category": "Google",
+      "category": "Tools & Utilities",
       "icon": "/assets/icons/imported/composio/googlecalendar.svg",
       "color": "#6b7280",
       "inputs": [
@@ -22806,7 +22895,7 @@
       "name": "ComposioGoogleDocsAPIComponent",
       "label": "GoogleDocs",
       "description": "GoogleDocs component for tools & utilities.",
-      "category": "Google",
+      "category": "Tools & Utilities",
       "icon": "/assets/icons/imported/composio/googledocs.svg",
       "color": "#6b7280",
       "inputs": [
@@ -22861,7 +22950,7 @@
       "name": "ComposioGoogleSheetsAPIComponent",
       "label": "GoogleSheets",
       "description": "GoogleSheets component for tools & utilities.",
-      "category": "Google",
+      "category": "Tools & Utilities",
       "icon": "/assets/icons/imported/composio/googlesheets.svg",
       "color": "#6b7280",
       "inputs": [
@@ -22916,7 +23005,7 @@
       "name": "ComposioGoogleTasksAPIComponent",
       "label": "GoogleTasks",
       "description": "GoogleTasks component for tools & utilities.",
-      "category": "Google",
+      "category": "Tools & Utilities",
       "icon": "/assets/icons/imported/composio/googletasks.svg",
       "color": "#6b7280",
       "inputs": [
@@ -22971,7 +23060,7 @@
       "name": "ComposioGoogleclassroomAPIComponent",
       "label": "Google Classroom",
       "description": "Google Classroom component for tools & utilities.",
-      "category": "Google",
+      "category": "Tools & Utilities",
       "icon": "/assets/icons/imported/composio/google_classroom.svg",
       "color": "#6b7280",
       "inputs": [
@@ -23026,7 +23115,7 @@
       "name": "ComposioGooglemeetAPIComponent",
       "label": "GoogleMeet",
       "description": "GoogleMeet component for tools & utilities.",
-      "category": "Google",
+      "category": "Tools & Utilities",
       "icon": "/assets/icons/imported/composio/googlemeet.svg",
       "color": "#6b7280",
       "inputs": [
@@ -30677,7 +30766,7 @@
           "type": "text",
           "required": false,
           "description": "Warning to append to the response if Show Untrustworthy Response is enabled and trust score is below the threshold.",
-          "default": "\u26a0\ufe0f WARNING: The following response is potentially untrustworthy.",
+          "default": "⚠️ WARNING: The following response is potentially untrustworthy.",
           "options": null,
           "advanced": false
         }
@@ -37683,191 +37772,6 @@
       ]
     }
   ],
-  "Wolframalpha": [
-    {
-      "id": "wolframalpha_WolframAlphaAPI",
-      "name": "WolframAlphaAPI",
-      "label": "WolframAlpha API",
-      "description": "Enables queries to WolframAlpha for computational data, facts, and calculations across various topics, delivering structured responses.",
-      "category": "Wolframalpha",
-      "icon": "/assets/icons/imported/wolframalpha/wolframalpha_api.svg",
-      "color": "#6b7280",
-      "inputs": [
-        {
-          "name": "app_id",
-          "display_name": "WolframAlpha App ID",
-          "type": "password",
-          "required": true,
-          "description": "",
-          "default": "",
-          "options": null,
-          "advanced": false
-        },
-        {
-          "name": "input_value",
-          "display_name": "Input Query",
-          "type": "textarea",
-          "required": false,
-          "description": "Example query: 'What is the population of France?'",
-          "default": "",
-          "options": null,
-          "advanced": false
-        }
-      ],
-      "outputs": [
-        {
-          "name": "dataframe",
-          "display_name": "DataFrame",
-          "types": [
-            "DataFrame"
-          ]
-        }
-      ],
-      "base_classes": [
-        "DataFrame"
-      ],
-      "beta": false,
-      "documentation": ""
-    }
-  ],
-  "Finance": [
-    {
-      "id": "quickbooks_node",
-      "name": "QuickBooks",
-      "label": "QuickBooks",
-      "description": "Manage accounting in QuickBooks.",
-      "category": "Finance",
-      "icon": "Book",
-      "color": "#2ca01c",
-      "inputs": [
-        {
-          "name": "credentials_id",
-          "display_name": "QuickBooks Creds",
-          "type": "credentials",
-          "required": true
-        },
-        {
-          "name": "action",
-          "display_name": "Action",
-          "type": "dropdown",
-          "options": [
-            {
-              "label": "List Customers",
-              "value": "list_customers"
-            },
-            {
-              "label": "List Invoices",
-              "value": "list_invoices"
-            }
-          ],
-          "default": "list_customers",
-          "required": true
-        }
-      ],
-      "outputs": [
-        {
-          "name": "output",
-          "display_name": "Response",
-          "types": [
-            "Data",
-            "Text"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "paypal_node",
-      "name": "PayPal",
-      "label": "PayPal",
-      "description": "Create orders and manage payouts in PayPal.",
-      "category": "Finance",
-      "icon": "DollarSign",
-      "color": "#003087",
-      "inputs": [
-        {
-          "name": "credentials_id",
-          "display_name": "PayPal Creds",
-          "type": "credentials",
-          "required": true
-        },
-        {
-          "name": "action",
-          "display_name": "Action",
-          "type": "dropdown",
-          "options": [
-            {
-              "label": "Create Order",
-              "value": "create_order"
-            },
-            {
-              "label": "List Payouts",
-              "value": "list_payouts"
-            }
-          ],
-          "default": "create_order",
-          "required": true
-        }
-      ],
-      "outputs": [
-        {
-          "name": "output",
-          "display_name": "Response",
-          "types": [
-            "Data",
-            "Text"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "stripe_node",
-      "name": "Stripe",
-      "label": "Stripe",
-      "description": "Manage payments and customers in Stripe.",
-      "category": "Finance",
-      "icon": "CreditCard",
-      "color": "#6772e5",
-      "inputs": [
-        {
-          "name": "credentials_id",
-          "display_name": "Stripe Token",
-          "type": "credentials",
-          "required": true
-        },
-        {
-          "name": "action",
-          "display_name": "Action",
-          "type": "dropdown",
-          "options": [
-            {
-              "label": "Create Customer",
-              "value": "create_customer"
-            },
-            {
-              "label": "Create Payment Intent",
-              "value": "create_payment_intent"
-            },
-            {
-              "label": "List Charges",
-              "value": "list_charges"
-            }
-          ],
-          "default": "create_customer",
-          "required": true
-        }
-      ],
-      "outputs": [
-        {
-          "name": "output",
-          "display_name": "Response",
-          "types": [
-            "Data",
-            "Text"
-          ]
-        }
-      ]
-    }
-  ],
   "Verticals": [
     {
       "id": "ecommerce_node",
@@ -38015,6 +37919,53 @@
           ]
         }
       ]
+    }
+  ],
+  "Wolframalpha": [
+    {
+      "id": "wolframalpha_WolframAlphaAPI",
+      "name": "WolframAlphaAPI",
+      "label": "WolframAlpha API",
+      "description": "Enables queries to WolframAlpha for computational data, facts, and calculations across various topics, delivering structured responses.",
+      "category": "Wolframalpha",
+      "icon": "/assets/icons/imported/wolframalpha/wolframalpha_api.svg",
+      "color": "#6b7280",
+      "inputs": [
+        {
+          "name": "app_id",
+          "display_name": "WolframAlpha App ID",
+          "type": "password",
+          "required": true,
+          "description": "",
+          "default": "",
+          "options": null,
+          "advanced": false
+        },
+        {
+          "name": "input_value",
+          "display_name": "Input Query",
+          "type": "textarea",
+          "required": false,
+          "description": "Example query: 'What is the population of France?'",
+          "default": "",
+          "options": null,
+          "advanced": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "dataframe",
+          "display_name": "DataFrame",
+          "types": [
+            "DataFrame"
+          ]
+        }
+      ],
+      "base_classes": [
+        "DataFrame"
+      ],
+      "beta": false,
+      "documentation": ""
     }
   ]
 }
