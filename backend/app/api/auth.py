@@ -91,7 +91,11 @@ async def login(user_in: UserLogin, db: AsyncSession = Depends(get_session)):
 
     return {"access_token": access_token, "token_type": "bearer"}
 
-async def get_current_user(token: str, db: AsyncSession = Depends(get_session)) -> User:
+from fastapi.security import OAuth2PasswordBearer
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
+
+async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_session)) -> User:
     user_id = decode_token(token)
     if not user_id:
         raise HTTPException(

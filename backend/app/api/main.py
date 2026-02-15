@@ -15,7 +15,7 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 from app.db.session import get_session
-from app.db.models import User, Workflow, WorkflowVersion, AuditLog, Credential
+from app.db.models import User, Workflow, WorkflowVersion, AuditLog, Credential, Execution, NodeExecution, Comment
 from app.api.auth import get_current_user
 from app.core.audit import audit_logger
 
@@ -93,6 +93,10 @@ async def startup_event():
         
         # Start background listener for Redis Pub/Sub
         asyncio.create_task(listen_to_redis_updates())
+        # Start Scheduler
+        asyncio.create_task(scheduler.start())
+        print("OK: Workflow Scheduler started")
+
         print(f"OK: Connected to Redis at {settings.REDIS_URL}")
     except Exception as e:
         print(f"ERROR: Failed to connect to Redis: {e}")
@@ -107,7 +111,7 @@ async def listen_to_redis_updates():
             if message["type"] == "pmessage":
                 try:
                     data = json.loads(message["data"])
-                    await manager.broadcast(data)
+                    await manager.broadcast_all(data)
                 except Exception as e:
                     print(f"Error parsing/broadcasting Redis message: {e}")
     except Exception as e:
@@ -144,10 +148,27 @@ app.add_middleware(SecurityHeadersMiddleware)
 from app.api.auth import router as auth_router
 from app.api.workspace import router as workspace_router
 from app.api.billing import router as billing_router
+from app.api.webhooks import router as webhooks_router
+from app.api.schedules import router as schedules_router
+from app.api.debug import router as debug_router
+from app.api.private_nodes import router as private_nodes_router
+from app.api.api_keys import router as api_keys_router
+from app.api.marketplace import router as marketplace_router
+from app.api.monitoring import router as monitoring_router
+from app.api.drafting import router as drafting_router
+from app.core.scheduler import scheduler
 
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(workspace_router, prefix="/workspaces", tags=["workspaces"])
 app.include_router(billing_router, prefix="/billing", tags=["billing"])
+app.include_router(webhooks_router, prefix="/webhooks", tags=["webhooks"])
+app.include_router(schedules_router, prefix="/schedules", tags=["schedules"])
+app.include_router(debug_router, prefix="/debug", tags=["debug"])
+app.include_router(private_nodes_router, prefix="/nodes/private", tags=["private_nodes"])
+app.include_router(api_keys_router, prefix="/api", tags=["api_gateway"])
+app.include_router(marketplace_router, prefix="/marketplace", tags=["marketplace"])
+app.include_router(monitoring_router, prefix="/monitoring", tags=["monitoring"])
+app.include_router(drafting_router, prefix="/drafting", tags=["drafting"])
 
 class ConnectionManager:
     def __init__(self):
@@ -179,6 +200,14 @@ class ConnectionManager:
             await websocket.send_json(message)
         except Exception:
             pass
+
+    async def broadcast_all(self, message: dict):
+        for room_connections in self.rooms.values():
+            for connection in room_connections:
+                try:
+                    await connection.send_json(message)
+                except Exception:
+                    pass
                 
 manager = ConnectionManager()
 
@@ -395,7 +424,7 @@ async def test_credential(cred_id: str, workspace_id: Optional[str] = None, curr
         if cred_type == "discord":
             import aiohttp
             async with aiohttp.ClientSession() as session:
-                payload = {"content": "✅ Studio Credential Test Successful!"}
+                payload = {"content": " Studio Credential Test Successful!"}
                 async with session.post(data.get("webhook_url"), json=payload) as resp:
                     if resp.status < 400:
                         return {"status": "success", "message": "Discord Webhook is valid! Check your channel."}
@@ -776,6 +805,77 @@ async def run_individual_node(request: Dict[str, Any], current_user: User = Depe
         traceback.print_exc()
         return {"error": str(e), "status": "failed"}
 
+@app.get("/executions")
+async def list_executions(limit: int = 50, workspace_id: Optional[str] = None, db: AsyncSession = Depends(get_session), current_user: User = Depends(get_current_user)):
+    """Lists recent workflow executions for the user or specific workspace."""
+    try:
+        query = select(Execution).where(Execution.user_id == current_user.id).order_by(Execution.created_at.desc()).limit(limit)
+        if workspace_id:
+            query = query.where(Execution.workspace_id == workspace_id)
+        
+        result = await db.execute(query)
+        executions = result.scalars().all()
+        return executions
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/executions/{execution_id}")
+async def get_execution_details(execution_id: str, db: AsyncSession = Depends(get_session), current_user: User = Depends(get_current_user)):
+    """Retrieves detailed information about a specific execution and its node hopper path."""
+    try:
+        # Get master execution record
+        exec_res = await db.execute(select(Execution).where(Execution.id == execution_id))
+        execution = exec_res.scalar_one_or_none()
+        if not execution:
+            raise HTTPException(status_code=404, detail="Execution not found")
+        
+        # Verify access (simple check for now)
+        if execution.user_id != current_user.id:
+            raise HTTPException(status_code=403, detail="Access denied")
+
+        # Get node-level executions
+        nodes_res = await db.execute(select(NodeExecution).where(NodeExecution.execution_id == execution_id).order_by(NodeExecution.created_at.asc()))
+        node_executions = nodes_res.scalars().all()
+        
+        return {
+            "execution": execution,
+            "nodes": node_executions
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/workflows/{workflow_id}/comments")
+async def add_comment(workflow_id: str, request: Dict[str, Any], db: AsyncSession = Depends(get_session), current_user: User = Depends(get_current_user)):
+    """Adds a comment to a workflow or a specific node."""
+    try:
+        new_comment = Comment(
+            workflow_id=workflow_id,
+            node_id=request.get("nodeId"),
+            user_id=current_user.id,
+            text=request.get("text")
+        )
+        db.add(new_comment)
+        await db.commit()
+        await db.refresh(new_comment)
+        return new_comment
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/workflows/{workflow_id}/comments")
+async def list_comments(workflow_id: str, node_id: Optional[str] = None, db: AsyncSession = Depends(get_session), current_user: User = Depends(get_current_user)):
+    """Lists comments for a workflow, optionally filtered by node_id."""
+    try:
+        query = select(Comment).where(Comment.workflow_id == workflow_id)
+        if node_id:
+            query = query.where(Comment.node_id == node_id)
+        
+        query = query.order_by(Comment.created_at.asc())
+        result = await db.execute(query)
+        comments = result.scalars().all()
+        return comments
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.post("/run")
 async def run_workflow(execution: ExecutionRequest, current_user: User = Depends(get_current_user)):
     try:
@@ -840,6 +940,20 @@ async def run_workflow_async(execution: ExecutionRequest, current_user: User = D
             
         job_id = str(uuid.uuid4())
         graph_data = execution.graph.model_dump()
+
+        # Check for empty graph
+        if not graph_data.get("nodes"):
+            await audit_logger.log(
+                action="workflow_run_empty", 
+                user_id=current_user.id, 
+                details={"message": execution.message}
+            )
+            # Return immediate guidance
+            return {
+                "response": "Welcome to Tyboo Studio! 👋 Your canvas is currently empty. \n\nTo build your first AI: \n1. Drag a **Chat Input** node from the 'AI Services' list. \n2. Drag an **AI Agent** node. \n3. Connect them and click 'Run' again! 🚀", 
+                "status": "success", 
+                "sender_name": "Studio Guide"
+            }
         
         # Acquire slot (released by worker)
         await rate_limiter.acquire(current_user.id, execution_id=job_id)
@@ -874,3 +988,4 @@ async def run_workflow_async(execution: ExecutionRequest, current_user: User = D
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
+

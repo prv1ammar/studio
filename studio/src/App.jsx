@@ -519,6 +519,9 @@ const App = () => {
       if (res.data.job_id) {
         setActiveJobId(res.data.job_id);
         setMessages((prev) => [...prev, { role: 'bot', text: `🚀 Workflow queued (Job: ${res.data.job_id.slice(0, 8)}...). Waiting for updates...` }]);
+      } else if (res.data.response) {
+        setMessages((prev) => [...prev, { role: 'bot', text: res.data.response }]);
+        setIsRunning(false);
       }
     } catch (e) {
       setMessages((prev) => [...prev, {

@@ -27,7 +27,10 @@ from app.core.validator import validator
 from app.core.credentials import cred_manager
 from app.core.storage import storage_manager
 from app.core.dlq import dlq
+from app.db.session import async_session
+from app.db.models import Execution, NodeExecution
 import uuid
+from datetime import datetime
 
 class AgentEngine:
     """
@@ -52,7 +55,7 @@ class AgentEngine:
         # Check circuit breaker first
         can_execute, reason = await circuit_breaker.can_execute(node_type)
         if not can_execute:
-            print(f"🔴 Circuit breaker preventing execution of {node_type}: {reason}")
+            print(f" Circuit breaker preventing execution of {node_type}: {reason}")
             return {"error": reason, "error_type": "circuit_breaker"}
         
         # Check cache (if enabled and node is cacheable)
@@ -71,7 +74,7 @@ class AgentEngine:
             )
             return cached_result
         
-        node = self.node_factory.get_node(node_type, config)
+        node = await self.node_factory.get_instance(node_type, config, context)
         if not node:
              return {"error": f"Node type '{node_type}' not found."}
         
@@ -96,11 +99,22 @@ class AgentEngine:
                     timeout=node_timeout
                 )
                 
-                # If result is a dict with an 'error' key, we might want to retry
+                # Check for logical errors that might need healing
                 if isinstance(result, dict) and "error" in result and attempt < max_retries:
-                    last_error = result["error"]
-                    print(f"🔄 Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to internal error: {last_error}")
-                    continue
+                    from app.core.self_healing import self_healing
+                    analysis = await self_healing.analyze_and_suggest(node_type, result["error"], config or {}, attempt)
+                    
+                    if analysis["strategy"] == "retry":
+                        delay = analysis.get("delay", 1)
+                        print(f" Self-Healing: {analysis['reason']} (Waiting {delay}s...)")
+                        await asyncio.sleep(delay)
+                        
+                        # Apply dynamic config patches (e.g., increase timeout)
+                        if "config_patch" in analysis:
+                            config.update(analysis["config_patch"])
+                            if "timeout" in analysis["config_patch"]:
+                                node_timeout = analysis["config_patch"]["timeout"]
+                        continue
                 
                 # Calculate duration
                 node_duration = time.time() - node_start_time
@@ -131,7 +145,7 @@ class AgentEngine:
             except TimeoutError as e:
                 last_error = f"Node execution timeout ({node_timeout}s)"
                 if attempt < max_retries:
-                    print(f"🔄 Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to timeout")
+                    print(f" Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to timeout")
                     continue
                 
                 # Track failed execution
@@ -149,13 +163,13 @@ class AgentEngine:
                 # Record circuit breaker failure
                 await circuit_breaker.record_failure(node_type, last_error)
                 
-                print(f"❌ Node Execution Timeout ({node_type}) after {attempt+1} attempts: {last_error}")
+                print(f" Node Execution Timeout ({node_type}) after {attempt+1} attempts: {last_error}")
                 return {"error": last_error, "error_type": "timeout"}
                 
             except Exception as e:
                 last_error = str(e)
                 if attempt < max_retries:
-                    print(f"🔄 Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to exception: {last_error}")
+                    print(f" Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to exception: {last_error}")
                     continue
                 
                 # Track failed execution
@@ -173,7 +187,7 @@ class AgentEngine:
                 # Record circuit breaker failure
                 await circuit_breaker.record_failure(node_type, last_error)
                 
-                print(f"❌ Node Execution Failed ({node_type}) after {attempt+1} attempts: {last_error}")
+                print(f" Node Execution Failed ({node_type}) after {attempt+1} attempts: {last_error}")
                 return {"error": last_error}
 
     async def process_workflow(self, graph_data: Dict[str, Any], message: str, broadcaster=None, execution_id: str = None, start_node_id: str = None, initial_outputs: Dict[str, Any] = None, context: Optional[Dict[str, Any]] = None) -> str:
@@ -185,6 +199,23 @@ class AgentEngine:
         
         # Performance Tracking (OpenTelemetry Ready)
         start_time = time.time()
+        
+        # PERSIST INITIAL EXECUTION RECORD
+        try:
+            async with async_session() as session:
+                exec_record = Execution(
+                    id=execution_id,
+                    workflow_id=graph_data.get("id"),
+                    workspace_id=context.get("workspace_id", "default") if context else "default",
+                    user_id=context.get("user_id") if context else None,
+                    status="running",
+                    input={"message": message}
+                )
+                session.add(exec_record)
+                await session.commit()
+        except Exception as e:
+            print(f" Failed to persist initial execution: {e}")
+
         # 1. GRAPH VALIDATION
         is_valid, errors = validator.validate(graph_data)
         if not is_valid:
@@ -249,7 +280,33 @@ class AgentEngine:
             execution_context["current_node_id"] = node_id
             
             # Broadcast node start
-            if broadcaster: await broadcaster("node_start", node_id)
+            if broadcaster: 
+                await broadcaster("node_start", node_id, {
+                    "input": str(current_input)[:500],
+                    "timestamp": time.time()
+                })
+            
+            #  DEBUGGER: Check for BREAKPOINT
+            if context and context.get("debug_mode"):
+                from app.core.config import settings
+                import redis.asyncio as aioredis
+                r = aioredis.from_url(settings.REDIS_URL, decode_responses=True)
+                
+                # Check if this node_id is marked as a breakpoint
+                is_paused = await r.get(f"breakpoint_{execution_id}_{node_id}")
+                if is_paused:
+                    print(f" Debugger: Paused at node {node_id}")
+                    if broadcaster: await broadcaster("debug_paused", node_id)
+                    
+                    # Wait for resume signal
+                    while await r.get(f"breakpoint_{execution_id}_{node_id}"):
+                        await asyncio.sleep(0.5)
+                        # Check for 'step_over'
+                        if await r.get(f"step_{execution_id}"):
+                            await r.delete(f"step_{execution_id}")
+                            break
+                    
+                    if broadcaster: await broadcaster("debug_resumed", node_id)
             
             # --- EXECUTE ---
             if reg_id == 'chatInput':
@@ -257,13 +314,35 @@ class AgentEngine:
             else:
                 result = await self.execute_node(reg_id, current_input, config=node_data, context=execution_context)
 
+            # PERSIST NODE EXECUTION
+            try:
+                async with async_session() as session:
+                    node_exec = NodeExecution(
+                        execution_id=execution_id,
+                        node_id=node_id,
+                        node_type=reg_id,
+                        input=current_input,
+                        output=result,
+                        status="success" if not (isinstance(result, dict) and "error" in result) else "error",
+                        error=result.get("error") if isinstance(result, dict) else None,
+                        execution_time=node.metrics.get("execution_time", 0.0) if hasattr(node, "metrics") else 0.0
+                    )
+                    session.add(node_exec)
+                    await session.commit()
+            except Exception as e:
+                print(f" Failed to persist node execution: {e}")
+
             # Store in output history
             execution_context["node_outputs"][node_id] = result
             
             # Broadcast node completion
             if broadcaster: 
                 log_output = result.get("data") if isinstance(result, dict) and "data" in result else result
-                await broadcaster("node_end", node_id, {"output": str(log_output)[:200]})
+                await broadcaster("node_end", node_id, {
+                    "output": str(log_output)[:1000],
+                    "status": "success" if not is_error else "error",
+                    "execution_time": node.metrics.get("execution_time", 0.0) if hasattr(node, "metrics") else 0.0
+                })
             
             # Handle Critical Failures (unless 'continue_on_fail' is set)
             is_error = False
@@ -289,6 +368,23 @@ class AgentEngine:
                         user_id=user_id,
                         details={"execution_id": execution_id, "error": error_msg}
                     )
+
+                    # UPDATE EXECUTION RECORD TO FAILED
+                    try:
+                        async with async_session() as db:
+                            from sqlmodel import select
+                            statement = select(Execution).where(Execution.id == execution_id)
+                            res = await db.execute(statement)
+                            exec_rec = res.scalar_one_or_none()
+                            if exec_rec:
+                                exec_rec.status = "failed"
+                                exec_rec.error = error_msg
+                                exec_rec.finished_at = datetime.utcnow()
+                                db.add(exec_rec)
+                                await db.commit()
+                    except Exception as e:
+                        print(f" Failed to update failed execution record: {e}")
+
                     return error_msg
 
             # --- TRAVERSAL ---
@@ -342,7 +438,7 @@ class AgentEngine:
 
             # Threshold for storage by reference (e.g., 50KB)
             if isinstance(current_input, str) and len(current_input) > 50000:
-                print(f"📦 Storing large output from {node_id} by reference.")
+                print(f" Storing large output from {node_id} by reference.")
                 current_input = storage_manager.store(current_input)
 
             # Resolve reference if input is a pointer
@@ -374,6 +470,23 @@ class AgentEngine:
             duration=workflow_duration
         )
         
+        # UPDATE EXECUTION RECORD
+        try:
+            async with async_session() as db:
+                from sqlmodel import select
+                statement = select(Execution).where(Execution.id == execution_id)
+                results = await db.execute(statement)
+                exec_record = results.scalar_one_or_none()
+                if exec_record:
+                    exec_record.status = "completed"
+                    exec_record.output = {"result": str(result)}
+                    exec_record.duration = workflow_duration
+                    exec_record.finished_at = datetime.utcnow()
+                    db.add(exec_record)
+                    await db.commit()
+        except Exception as e:
+            print(f" Failed to update execution record: {e}")
+        
         return str(result)
 
 # Instantiate and export the engine
@@ -383,3 +496,4 @@ engine = AgentEngine()
 # (It expects engine.registry to exist)
 from app.nodes.factory import NODE_MAP
 engine.registry = NODE_MAP
+
