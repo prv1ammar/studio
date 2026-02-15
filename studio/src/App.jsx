@@ -528,7 +528,8 @@ const App = () => {
       // Use Async execution
       const res = await axios.post(`${API_BASE_URL}/run/async`, {
         message: msg,
-        graph: reactFlowInstance.toObject()
+        graph: reactFlowInstance.toObject(),
+        workspace_id: currentWorkspaceId
       });
 
       if (res.data.job_id) {

@@ -987,16 +987,19 @@ async def run_workflow_async(execution: ExecutionRequest, current_user: User = D
         # Acquire slot (released by worker)
         await rate_limiter.acquire(current_user.id, execution_id=job_id)
         
-        # Determine queue based on region
-        region = current_user.preferred_region or "us-east-1"
-        queue_name = f"{region}-default"
+        # Determine queue (Default for now, until multi-region workers are deployed)
+        queue_name = "default"
         
+        # Extract workspace_id if present in request
+        workspace_id = getattr(execution, "workspace_id", None)
+
         await app.state.redis_pool.enqueue_job(
             'run_workflow_task',
             graph_data=graph_data,
             message=execution.message,
             job_id=job_id,
             user_id=current_user.id,
+            workspace_id=workspace_id,
             _queue_name=queue_name
         )
         

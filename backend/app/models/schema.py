@@ -40,5 +40,6 @@ class WorkflowGraph(BaseModel):
 class ExecutionRequest(BaseModel):
     message: str
     graph: WorkflowGraph
+    workspace_id: Optional[str] = None
     class Config:
         extra = "allow"

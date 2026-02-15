@@ -23,8 +23,9 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 ## 📦 Phase 3: Distributed Execution (Worker Pool)
 *Scaling execution independently of the API.*
 
-- [ ] **Async Queue (ARQ)**: Transition Webhook/API triggers to Redis-backed queues.
-- [ ] **Worker Isolation**: Deploy separate worker nodes to handle heavy AI/Data processing.
+- [x] **Worker Pool (ARQ)**: Decouple execution from API.
+- [x] **Job Persistence**: Store job status in Redis/Postgres for polling.
+- [x] **Horizontal Scaling**: Allow adding more worker nodes without changing the core API.
 - [ ] **Retry Policies**: Advanced backoff strategies for transient network failures.
 - [ ] **Dead Letter Queue (DLQ)**: Capture and replay failed background tasks.
 
@@ -44,5 +45,5 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 
 ---
 
-**Current Status**: 🟢 Phase 2 Complete (Multi-Tenancy) | 🟡 Starting Phase 3 (Distributed Execution)
-**Last Updated**: 2026-02-15 (14:35 CET)
+**Current Status**: 🟢 Phase 3 In Progress (Distributed Execution) | 🟡 Designing Retry Policies
+**Last Updated**: 2026-02-15 (15:30 CET)
