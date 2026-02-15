@@ -202,6 +202,19 @@ class AgentEngine:
         # Performance Tracking (OpenTelemetry Ready)
         start_time = time.time()
         
+        # 0. RATE LIMITING CHECK
+        from app.core.rate_limiter import rate_limiter
+        user_id = context.get("user_id") if context else "anonymous"
+        workspace_id = context.get("workspace_id") if context else "default"
+        
+        can_run = await rate_limiter.check_user_limit(user_id)
+        if not can_run:
+            error_msg = f"Rate Limit Exceeded: Parallel execution limit reached for user {user_id}"
+            if broadcaster: await broadcaster("error", "rate_limit_exceeded", {"message": error_msg})
+            return error_msg
+            
+        await rate_limiter.acquire(user_id, workspace_id, execution_id)
+        
         # PERSIST INITIAL EXECUTION RECORD
         try:
             async with async_session() as session:
@@ -490,6 +503,9 @@ class AgentEngine:
                     await db.commit()
         except Exception as e:
             print(f" Failed to update execution record: {e}")
+        
+        # RELEASE RATE LIMIT SLOT
+        await rate_limiter.release(user_id, workspace_id)
         
         return str(result)
 
