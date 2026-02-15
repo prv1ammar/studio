@@ -108,6 +108,7 @@ const App = () => {
   const [workflowName, setWorkflowName] = useState('New Workflow');
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [credentialList, setCredentialList] = useState([]);
+  const [nodeSearchTerm, setNodeSearchTerm] = useState('');
   const socketRef = useRef(null);
 
   // Fetch user profile on mount or auth change
@@ -622,6 +623,40 @@ const App = () => {
     }
   };
 
+  const handlePublishTemplate = async () => {
+    if (!workflowId) {
+      alert("Please save your workflow first before publishing it as a template.");
+      return;
+    }
+
+    const name = prompt("Enter a name for this template:", workflowName);
+    if (!name) return;
+    const description = prompt("Enter a description for this template:", "Architecture for " + name);
+    if (!description) return;
+
+    try {
+      const token = localStorage.getItem('studio_token');
+      const res = await axios.post(`${API_BASE_URL}/templates/publish/${workflowId}`, null, {
+        params: { name, description },
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      alert(res.data.message);
+    } catch (err) {
+      console.error("Publishing error:", err);
+      alert("Failed to publish template: " + (err.response?.data?.detail || err.message));
+    }
+  };
+
+  const focusNode = (nodeId) => {
+    if (!reactFlowInstance) return;
+    const node = nodes.find(n => n.id === nodeId);
+    if (node) {
+      reactFlowInstance.setCenter(node.position.x + 100, node.position.y + 50, { zoom: 1.2, duration: 800 });
+      setSelectedNode(node);
+      setNodeSearchTerm('');
+    }
+  };
+
   const handleLoadVersion = (data) => {
     if (data.nodes) setNodes(data.nodes);
     if (data.edges) setEdges(data.edges);
@@ -683,6 +718,10 @@ const App = () => {
 
           <button className="prime-btn" onClick={() => setShowTemplates(true)}>
             <Layout size={16} /> Templates
+          </button>
+
+          <button className="prime-btn" onClick={handlePublishTemplate} title="Publish current workflow as a template">
+            <Copy size={16} /> Publish
           </button>
 
           <button className="prime-btn" onClick={() => document.getElementById('import-input').click()}>
@@ -854,6 +893,36 @@ const App = () => {
                 >
                   {showMinimap ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
+
+                <div className="relative group">
+                  <input
+                    className="search-prime-input"
+                    style={{ width: '200px', height: '32px' }}
+                    placeholder="Find node..."
+                    value={nodeSearchTerm}
+                    onChange={(e) => setNodeSearchTerm(e.target.value)}
+                  />
+                  {nodeSearchTerm && (
+                    <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1b1e] border border-white/10 rounded-lg shadow-2xl max-h-60 overflow-y-auto z-50">
+                      {nodes
+                        .filter(n => n.data?.label?.toLowerCase().includes(nodeSearchTerm.toLowerCase()) || n.type?.toLowerCase().includes(nodeSearchTerm.toLowerCase()))
+                        .map(n => (
+                          <div
+                            key={n.id}
+                            onClick={() => focusNode(n.id)}
+                            className="p-2 hover:bg-white/5 border-b border-white/5 cursor-pointer text-xs text-white flex items-center justify-between"
+                          >
+                            <span>{n.data?.label || n.type}</span>
+                            <span className="text-[10px] opacity-40 uppercase">{n.type?.replace('agentNode', 'Agent')}</span>
+                          </div>
+                        ))
+                      }
+                      {nodes.filter(n => n.data?.label?.toLowerCase().includes(nodeSearchTerm.toLowerCase())).length === 0 && (
+                        <div className="p-4 text-center text-[10px] text-gray-500">No results found</div>
+                      )}
+                    </div>
+                  )}
+                </div>
                 <div className="v-divider"></div>
                 <button
                   className="prime-btn collabs-btn"

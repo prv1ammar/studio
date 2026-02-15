@@ -11,22 +11,26 @@ router = APIRouter()
 
 @router.get("/list", response_model=List[Template])
 async def list_templates(
+    workspace_id: Optional[str] = None,
     category: Optional[str] = None,
     public_only: bool = True,
     db: AsyncSession = Depends(get_session),
     current_user: User = Depends(get_current_user)
 ):
     """
-    Lists available templates. Public templates are visible to everyone.
-    Private templates are visible only within their workspace.
+    Lists available templates.
+    If workspace_id is provided, shows public templates PLUS private templates for that workspace.
     """
-    query = select(Template)
+    from sqlalchemy import or_
     
     if public_only:
-        query = query.where(Template.is_public == True)
+        query = select(Template).where(Template.is_public == True)
     else:
-        # Show public templates OR private ones the user has access to (not implemented fully yet, default to public)
-        query = query.where(Template.is_public == True)
+        # Show public templates OR private ones for the specific workspace
+        conditions = [Template.is_public == True]
+        if workspace_id:
+            conditions.append(Template.workspace_id == workspace_id)
+        query = select(Template).where(or_(*conditions))
         
     if category:
         query = query.where(Template.category == category)
@@ -104,4 +108,55 @@ async def clone_template_to_workspace(
         "definition": new_workflow.definition,
         "name": new_workflow.name,
         "message": f"Successfully cloned '{template.name}'"
+    }
+
+@router.post("/publish/{workflow_id}")
+async def publish_workflow_as_template(
+    workflow_id: str,
+    name: str,
+    description: str,
+    category: str = "Custom",
+    is_public: bool = False,
+    db: AsyncSession = Depends(get_session),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Promotes an existing workflow to a template.
+    Usually is_public=False to keep it within the workspace.
+    """
+    # 1. Fetch workflow
+    res = await db.execute(select(Workflow).where(Workflow.id == workflow_id))
+    workflow = res.scalar_one_or_none()
+    if not workflow:
+        raise HTTPException(status_code=404, detail="Workflow not found")
+
+    # 2. Verify workspace permissions (must be Admin/Owner)
+    res = await db.execute(select(WorkspaceMember).where(
+        WorkspaceMember.workspace_id == workflow.workspace_id,
+        WorkspaceMember.user_id == current_user.id
+    ))
+    membership = res.scalar_one_or_none()
+    if not membership or membership.role not in ["owner", "admin"]:
+        raise HTTPException(status_code=403, detail="Only workspace Owners or Admins can publish templates")
+
+    # 3. Create Template
+    new_template = Template(
+        name=name,
+        description=description,
+        category=category,
+        definition=workflow.definition,
+        author_id=current_user.id,
+        workspace_id=workflow.workspace_id,
+        is_public=is_public,
+        tags=["published", "internal"]
+    )
+    
+    db.add(new_template)
+    await db.commit()
+    await db.refresh(new_template)
+    
+    return {
+        "status": "success",
+        "template_id": new_template.id,
+        "message": f"Workflow '{workflow.name}' has been published as a template."
     }

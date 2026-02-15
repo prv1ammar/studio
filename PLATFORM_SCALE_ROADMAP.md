@@ -33,8 +33,8 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 *Reducing friction for new users.*
 
 - [x] **Public Template Library**: Pre-built recipes (e.g., Slack alerts, DB Sync).
-- [ ] **Private Template Marketplace**: Custom organization-wide blueprints.
-- [ ] **Graph Search**: Search and replace functionality within complex workflows.
+- [x] **Private Template Marketplace**: Custom organization-wide blueprints.
+- [x] **Graph Search**: Search and replace functionality within complex workflows.
 
 ## 💳 Phase 5: Usage Metering & Pre-Billing
 *Understanding costs and laying the foundation for monetization.*
@@ -45,5 +45,5 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 
 ---
 
-**Current Status**: 🟢 Phase 4 In Progress (Growth Engine) | 🟡 Building Private Marketplace
-**Last Updated**: 2026-02-15 (17:15 CET)
+**Current Status**: 🟢 Phase 4 Complete (Growth Engine) | 🟡 Starting Phase 5 (Usage & Billing)
+**Last Updated**: 2026-02-15 (17:30 CET)
