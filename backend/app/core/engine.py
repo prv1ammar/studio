@@ -4,6 +4,8 @@ from typing import Dict, Any, List, Optional
 import traceback
 import orjson
 import time
+import asyncio
+import random
 from app.nodes.factory import NodeFactory
 
 # Root path setup
@@ -145,7 +147,9 @@ class AgentEngine:
             except TimeoutError as e:
                 last_error = f"Node execution timeout ({node_timeout}s)"
                 if attempt < max_retries:
-                    print(f" Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to timeout")
+                    delay = (2 ** attempt) + random.uniform(0, 1)
+                    print(f" Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to timeout. Waiting {delay:.2f}s...")
+                    await asyncio.sleep(delay)
                     continue
                 
                 # Track failed execution
@@ -169,7 +173,9 @@ class AgentEngine:
             except Exception as e:
                 last_error = str(e)
                 if attempt < max_retries:
-                    print(f" Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to exception: {last_error}")
+                    delay = (2 ** attempt) + random.uniform(0, 1)
+                    print(f" Retrying node {node_type} (Attempt {attempt+1}/{max_retries}) due to exception: {last_error}. Waiting {delay:.2f}s...")
+                    await asyncio.sleep(delay)
                     continue
                 
                 # Track failed execution

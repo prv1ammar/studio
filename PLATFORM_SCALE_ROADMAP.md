@@ -26,8 +26,8 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 - [x] **Worker Pool (ARQ)**: Decouple execution from API.
 - [x] **Job Persistence**: Store job status in Redis/Postgres for polling.
 - [x] **Horizontal Scaling**: Allow adding more worker nodes without changing the core API.
-- [ ] **Retry Policies**: Advanced backoff strategies for transient network failures.
-- [ ] **Dead Letter Queue (DLQ)**: Capture and replay failed background tasks.
+- [x] **Retry Policies**: Advanced backoff strategies (exponential backoff + jitter) for transient failures.
+- [x] **Dead Letter Queue (DLQ)**: Capture and replay failed background tasks (via `backend/scripts/replay_dlq.py`).
 
 ## 🎨 Phase 4: Growth & Templates
 *Reducing friction for new users.*
@@ -45,5 +45,5 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 
 ---
 
-**Current Status**: 🟢 Phase 3 In Progress (Distributed Execution) | 🟡 Designing Retry Policies
-**Last Updated**: 2026-02-15 (15:30 CET)
+**Current Status**: 🟢 Phase 3 Complete (Distributed Resilience) | 🟡 Starting Phase 4 (Growth Engine)
+**Last Updated**: 2026-02-15 (16:45 CET)

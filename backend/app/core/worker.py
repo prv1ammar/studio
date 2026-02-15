@@ -8,6 +8,7 @@ from app.core.engine import engine
 from app.core.config import settings
 from app.core.timeout import execute_with_timeout, TimeoutError
 from app.core.rate_limiter import rate_limiter
+from app.core.dlq import dlq
 import json
 from typing import Dict, Any
 
@@ -63,6 +64,17 @@ async def run_workflow_task(ctx, graph_data: Dict[str, Any], message: str, job_i
             "error_type": "timeout"
         }))
         
+        # Capture to DLQ
+        try:
+            dlq.capture(
+                execution_id=job_id,
+                graph=graph_data,
+                error=error_msg,
+                context={"user_id": user_id, "workspace_id": workspace_id, "type": "timeout"}
+            )
+        except Exception as dlq_err:
+            print(f"[DLQ ERROR] Failed to capture timeout: {dlq_err}")
+        
     except Exception as e:
         import traceback
         error_trace = traceback.format_exc()
@@ -73,6 +85,17 @@ async def run_workflow_task(ctx, graph_data: Dict[str, Any], message: str, job_i
             "error": str(e),
             "trace": error_trace
         }))
+
+        # Capture to DLQ
+        try:
+            dlq.capture(
+                execution_id=job_id,
+                graph=graph_data,
+                error=str(e),
+                context={"user_id": user_id, "workspace_id": workspace_id, "type": "exception", "trace": error_trace}
+            )
+        except Exception as dlq_err:
+            print(f"[DLQ ERROR] Failed to capture exception: {dlq_err}")
     
     finally:
         # Release rate limit slots
