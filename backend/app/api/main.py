@@ -159,6 +159,7 @@ from app.api.drafting import router as drafting_router
 from app.api.credentials import router as credentials_router
 from app.api.audit import router as audit_router
 from app.api.templates import router as templates_router
+from app.api.docs import router as docs_router
 from app.core.scheduler import scheduler
 
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
@@ -175,6 +176,7 @@ app.include_router(monitoring_router, prefix="/monitoring", tags=["monitoring"])
 app.include_router(drafting_router, prefix="/drafting", tags=["drafting"])
 app.include_router(credentials_router, prefix="/credentials", tags=["credentials"])
 app.include_router(templates_router, prefix="/templates", tags=["templates"])
+app.include_router(docs_router, prefix="/docs", tags=["documentation"])
 
 class ConnectionManager:
     def __init__(self):

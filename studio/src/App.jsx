@@ -35,6 +35,7 @@ import CopilotBar from './components/CopilotBar';
 import TemplateGallery from './components/TemplateGallery';
 import PublishModal from './components/PublishModal';
 import WorkspaceModal from './components/WorkspaceModal';
+import NodeReference from './components/NodeReference';
 import CollaborationOverlay from './components/CollaborationOverlay';
 import CommentSidebar from './components/CommentSidebar';
 import { API_BASE_URL } from './config';
@@ -109,6 +110,7 @@ const App = () => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [credentialList, setCredentialList] = useState([]);
   const [nodeSearchTerm, setNodeSearchTerm] = useState('');
+  const [showDocs, setShowDocs] = useState(false);
   const socketRef = useRef(null);
 
   // Fetch user profile on mount or auth change
@@ -751,6 +753,10 @@ const App = () => {
             <Activity size={16} /> Monitor
           </button>
 
+          <button className="prime-btn" onClick={() => setShowDocs(true)}>
+            <BookOpen size={16} /> Docs
+          </button>
+
           <button className="prime-btn" onClick={() => setIsVersionOpen(true)}>
             <History size={16} /> History
           </button>
@@ -1196,6 +1202,8 @@ const App = () => {
         workflowId={workflowId}
         selectedNodeId={selectedNode?.id}
       />
+
+      {showDocs && <NodeReference onClose={() => setShowDocs(false)} />}
     </div>
   );
 };

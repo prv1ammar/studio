@@ -80,6 +80,39 @@ export default function WorkspaceModal({ isOpen, onClose, currentWorkspaceId, on
         }
     };
 
+    const handleWsExport = async (wsId) => {
+        try {
+            const res = await axios.get(`${API_BASE_URL}/workspaces/${wsId}/export`, { headers });
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(res.data, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", `workspace_${wsId}_export.json`);
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        } catch (e) {
+            alert("Export failed");
+        }
+    };
+
+    const handleWsImport = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            try {
+                const bundle = JSON.parse(event.target.result);
+                const res = await axios.post(`${API_BASE_URL}/workspaces/import`, bundle, { headers });
+                alert(res.data.message);
+                fetchWorkspaces();
+            } catch (err) {
+                alert("Import failed: " + (err.response?.data?.detail || err.message));
+            }
+        };
+        reader.readAsText(file);
+    };
+
     if (!isOpen) return null;
 
     return (
@@ -136,6 +169,21 @@ export default function WorkspaceModal({ isOpen, onClose, currentWorkspaceId, on
                             <button className="prime-btn" onClick={handleCreateWorkspace}>
                                 <Plus size={16} /> New Workspace
                             </button>
+                            <button className="prime-btn" onClick={() => document.getElementById('ws-import-input').click()}>
+                                <Upload size={16} /> Restore
+                            </button>
+                            <input
+                                id="ws-import-input"
+                                type="file"
+                                accept=".json"
+                                style={{ display: 'none' }}
+                                onChange={handleWsImport}
+                            />
+                            {activeTab === 'workspaces' && selectedWs && (
+                                <button className="prime-btn" onClick={() => handleWsExport(selectedWs.id)}>
+                                    <Download size={16} /> Export
+                                </button>
+                            )}
                             <button className="close-btn" onClick={onClose}><X size={20} /></button>
                         </div>
                     </header>

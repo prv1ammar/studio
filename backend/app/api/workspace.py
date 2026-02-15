@@ -187,4 +187,99 @@ async def create_comment(
     db.add(new_comment)
     await db.commit()
     await db.refresh(new_comment)
+    await db.refresh(new_comment)
     return new_comment
+
+@router.get("/{workspace_id}/export")
+async def export_workspace_bundle(
+    workspace_id: str,
+    db: AsyncSession = Depends(get_session),
+    member: WorkspaceMember = Depends(requires_viewer)
+):
+    """
+    Generates a full JSON bundle of the workspace (Workflows, Templates).
+    """
+    # 1. Fetch Workflows
+    wf_res = await db.execute(select(Workflow).where(Workflow.workspace_id == workspace_id))
+    workflows = wf_res.scalars().all()
+
+    # 2. Fetch Templates
+    from app.db.models import Template
+    t_res = await db.execute(select(Template).where(Template.workspace_id == workspace_id))
+    templates = t_res.scalars().all()
+
+    bundle = {
+        "version": "1.0.0",
+        "exported_at": str(uuid.uuid4()), # Non-deterministic ID for this export
+        "workflows": [
+            {
+                "name": w.name,
+                "description": w.description,
+                "definition": w.definition
+            } for w in workflows
+        ],
+        "templates": [
+            {
+                "name": t.name,
+                "description": t.description,
+                "category": t.category,
+                "definition": t.definition,
+                "is_public": t.is_public
+            } for t in templates
+        ]
+    }
+    
+    return bundle
+
+@router.post("/import")
+async def import_workspace_bundle(
+    bundle: Dict[str, Any],
+    db: AsyncSession = Depends(get_session),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Creates a new workspace from a JSON bundle and restores its content.
+    """
+    # 1. Create Workspace
+    ws_name = bundle.get("name", f"Imported Workspace {uuid.uuid4().hex[:6]}")
+    new_ws = Workspace(name=ws_name, owner_id=current_user.id)
+    db.add(new_ws)
+    await db.flush()
+
+    # 2. Add Owner
+    membership = WorkspaceMember(workspace_id=new_ws.id, user_id=current_user.id, role="owner")
+    db.add(membership)
+
+    # 3. Restore Workflows
+    for wf_data in bundle.get("workflows", []):
+        wf = Workflow(
+            name=wf_data["name"],
+            description=wf_data.get("description"),
+            definition=wf_data["definition"],
+            workspace_id=new_ws.id
+        )
+        db.add(wf)
+
+    # 4. Restore Templates
+    from app.db.models import Template
+    for t_data in bundle.get("templates", []):
+        tpl = Template(
+            name=t_data["name"],
+            description=t_data.get("description"),
+            category=t_data.get("category", "Imported"),
+            definition=t_data["definition"],
+            author_id=current_user.id,
+            workspace_id=new_ws.id,
+            is_public=t_data.get("is_public", False)
+        )
+        db.add(tpl)
+
+    await db.commit()
+    await db.refresh(new_ws)
+
+    return {
+        "status": "success",
+        "workspace_id": new_ws.id,
+        "name": new_ws.name,
+        "message": f"Successfully imported {len(bundle.get('workflows', []))} workflows and {len(bundle.get('templates', []))} templates."
+    }

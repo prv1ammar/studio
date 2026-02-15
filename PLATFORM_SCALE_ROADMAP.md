@@ -47,10 +47,10 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 *Preparing for public traffic.*
 
 - [ ] **Infrastructure-as-Code (Terraform)**: One-click cloud deployments.
-- [ ] **Data Export/Import**: Full workspace portability.
-- [ ] **Documentation Portal**: Dynamic node reference guide.
+- [x] **Data Export/Import**: Full workspace portability.
+- [x] **Documentation Portal**: Dynamic node reference guide.
 
 ---
 
-**Current Status**: 🟢 Phase 5 Complete (Metering Engine) | 🟡 Starting Phase 6 (v1.0 Launch)
-**Last Updated**: 2026-02-15 (17:45 CET)
+**Current Status**: 🟢 Phase 5 Complete (Metering Engine) | 🟡 In Progress: Phase 6 (v1.0 Preparation)
+**Last Updated**: 2026-02-15 (18:00 CET)
