@@ -7,6 +7,7 @@ from app.db.models import User, Workspace, WorkspaceMember, Workflow, Comment
 from app.api.auth import get_current_user
 from app.api.rbac import requires_viewer, requires_editor, requires_admin, requires_owner
 from pydantic import BaseModel
+from app.core.audit import audit_logger
 import uuid
 
 router = APIRouter()
@@ -56,6 +57,15 @@ async def create_workspace(
     db.add(membership)
     await db.commit()
     await db.refresh(new_ws)
+    
+    # Audit Log
+    await audit_logger.log(
+        action="workspace_create",
+        user_id=current_user.id,
+        workspace_id=new_ws.id,
+        details={"name": new_ws.name}
+    )
+
     return new_ws
 
 @router.get("/{workspace_id}/members")
@@ -100,6 +110,17 @@ async def invite_to_workspace(
         await db.rollback()
         raise HTTPException(status_code=400, detail="User already a member")
 
+    # Audit Log
+    try:
+        await audit_logger.log(
+            action="workspace_invite",
+            user_id=member.user_id,
+            workspace_id=workspace_id,
+            details={"invited_email": email, "role": role}
+        )
+    except:
+        pass # Don't block response on logging failure
+
     return {"status": "success", "message": f"User {email} added to workspace"}
 
 # Comments API
@@ -110,6 +131,19 @@ async def get_comments(
     current_user: User = Depends(get_current_user)
 ):
     """Retrieves all comments for a workflow."""
+    # 1. Get Workflow to find Workspace ID
+    wf_res = await db.execute(select(Workflow).where(Workflow.id == workflow_id))
+    workflow = wf_res.scalar_one_or_none()
+    if not workflow:
+        raise HTTPException(status_code=404, detail="Workflow not found")
+
+    # 2. Check Permissions using manual lookup (since we don't have workspace_id in path)
+    perm_res = await db.execute(select(WorkspaceMember).where(
+        WorkspaceMember.workspace_id == workflow.workspace_id,
+        WorkspaceMember.user_id == current_user.id
+    ))
+    if not perm_res.scalar_one_or_none():
+        raise HTTPException(status_code=403, detail="Access denied")
     result = await db.execute(
         select(Comment, User.full_name, User.email)
         .join(User, Comment.user_id == User.id)
@@ -130,6 +164,20 @@ async def create_comment(
     current_user: User = Depends(get_current_user)
 ):
     """Creates a new comment on a workflow/node."""
+    # 1. Get Workflow to find Workspace ID
+    wf_res = await db.execute(select(Workflow).where(Workflow.id == comment_in.workflow_id))
+    workflow = wf_res.scalar_one_or_none()
+    if not workflow:
+        raise HTTPException(status_code=404, detail="Workflow not found")
+
+    # 2. Check Permissions
+    perm_res = await db.execute(select(WorkspaceMember).where(
+        WorkspaceMember.workspace_id == workflow.workspace_id,
+        WorkspaceMember.user_id == current_user.id
+    ))
+    if not perm_res.scalar_one_or_none():
+        raise HTTPException(status_code=403, detail="Access denied")
+
     new_comment = Comment(
         workflow_id=comment_in.workflow_id,
         node_id=comment_in.node_id,

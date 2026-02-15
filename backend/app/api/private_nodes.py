@@ -5,6 +5,8 @@ from sqlmodel import select
 from app.db.session import get_session
 from app.db.models import PrivateNode, User, WorkspaceMember
 from app.api.auth import get_current_user
+from app.api.rbac import requires_viewer
+from app.core.audit import audit_logger
 from datetime import datetime
 import uuid
 
@@ -62,23 +64,24 @@ async def register_private_node(
     from app.nodes.private_registry import PrivateRegistry
     PrivateRegistry.invalidate_cache(node_type, workspace_id)
     
+    # Audit Log
+    await audit_logger.log(
+        action="private_node_register",
+        user_id=current_user.id,
+        workspace_id=workspace_id,
+        details={"node_type": node_type, "name": new_node.name}
+    )
+
     return new_node
 
 @router.get("/list/{workspace_id}")
 async def list_private_nodes(
     workspace_id: str,
     db: AsyncSession = Depends(get_session),
-    current_user: User = Depends(get_current_user)
+    member: WorkspaceMember = Depends(requires_viewer)
 ):
     """Lists all private nodes available in the specified workspace."""
-    # Check access
-    res = await db.execute(select(WorkspaceMember).where(
-        WorkspaceMember.workspace_id == workspace_id, 
-        WorkspaceMember.user_id == current_user.id
-    ))
-    if not res.scalar_one_or_none():
-        raise HTTPException(status_code=403, detail="Access denied to this workspace")
-
+    # Access verified by dependency
     res = await db.execute(select(PrivateNode).where(PrivateNode.workspace_id == workspace_id))
     return res.scalars().all()
 
@@ -109,4 +112,13 @@ async def delete_private_node(
 
     await db.delete(node)
     await db.commit()
+
+    # Audit Log
+    await audit_logger.log(
+        action="private_node_delete",
+        user_id=current_user.id,
+        workspace_id=node.workspace_id,
+        details={"node_type": node.node_type}
+    )
+
     return {"status": "success"}

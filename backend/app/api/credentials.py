@@ -5,7 +5,9 @@ from sqlmodel import select
 from app.db.session import get_session
 from app.db.models import Credential, User, WorkspaceMember
 from app.api.auth import get_current_user
+from app.api.rbac import requires_viewer, requires_editor
 from app.core.credentials import cred_manager
+from app.core.audit import audit_logger
 import uuid
 
 router = APIRouter()
@@ -18,8 +20,16 @@ async def list_credentials(
 ):
     """Lists credentials metadata for the current user or workspace."""
     try:
-        # If no workspace_id provided, default to user's personal ones or a default workspace
-        # For simplicity in V1, we list all credentials the user has access to
+        # Security: Validation
+        if workspace_id:
+            # Check if user is a member (Viewer+)
+            res = await db.execute(select(WorkspaceMember).where(
+                WorkspaceMember.workspace_id == workspace_id,
+                WorkspaceMember.user_id == current_user.id
+            ))
+            if not res.scalar_one_or_none():
+                raise HTTPException(status_code=403, detail="Access denied to this workspace")
+
         creds = await cred_manager.list_credentials(user_id=current_user.id, workspace_id=workspace_id)
         # Format for React Select (label/value)
         return {"credentials": [{"label": c["name"], "value": c["id"], "type": c["type"]} for c in creds]}
@@ -40,6 +50,16 @@ async def add_credential(
         data = payload.get("data", {})
         workspace_id = payload.get("workspace_id")
 
+        if workspace_id:
+             # Check if user is Editor+
+            res = await db.execute(select(WorkspaceMember).where(
+                WorkspaceMember.workspace_id == workspace_id,
+                WorkspaceMember.user_id == current_user.id
+            ))
+            member = res.scalar_one_or_none()
+            if not member or member.role not in ["owner", "admin", "editor"]:
+                raise HTTPException(status_code=403, detail="Insufficient permissions (Editor required)")
+
         new_id = await cred_manager.add_credential(
             user_id=current_user.id,
             cred_type=cred_type,
@@ -48,6 +68,15 @@ async def add_credential(
             cred_id=cred_id,
             workspace_id=workspace_id
         )
+
+        # Audit Log
+        await audit_logger.log(
+            action="credential_create",
+            user_id=current_user.id,
+            workspace_id=workspace_id,
+            details={"name": name, "type": cred_type, "cred_id": new_id}
+        )
+        
         return {"status": "success", "id": new_id}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -60,10 +89,42 @@ async def delete_credential(
 ):
     """Removes a credential."""
     try:
-        success = await cred_manager.remove_credential(cred_id=cred_id, user_id=current_user.id)
-        if not success:
-            raise HTTPException(status_code=404, detail="Credential not found or permission denied")
+        # 1. Fetch credential to check ownership/workspace
+        res = await db.execute(select(Credential).where(Credential.id == cred_id))
+        cred = res.scalar_one_or_none()
+        if not cred:
+            raise HTTPException(status_code=404, detail="Credential not found")
+            
+        # 2. Check Permissions
+        if cred.workspace_id:
+            # Check workspace membership (Editor+)
+            res = await db.execute(select(WorkspaceMember).where(
+                WorkspaceMember.workspace_id == cred.workspace_id,
+                WorkspaceMember.user_id == current_user.id
+            ))
+            member = res.scalar_one_or_none()
+            if not member or member.role not in ["owner", "admin", "editor"]:
+                raise HTTPException(status_code=403, detail="Insufficient permissions to delete credential")
+            
+            # Use remove logic with workspace_id to ensure it finds it
+            await cred_manager.remove_credential(cred_id=cred_id, user_id=current_user.id, workspace_id=cred.workspace_id)
+        else:
+            # Personal credential
+            if cred.user_id != current_user.id:
+                raise HTTPException(status_code=403, detail="Cannot delete another user's private credential")
+            await cred_manager.remove_credential(cred_id=cred_id, user_id=current_user.id)
+
+        # Audit Log
+        await audit_logger.log(
+            action="credential_delete",
+            user_id=current_user.id,
+            workspace_id=cred.workspace_id,
+            details={"name": cred.name, "type": cred.type, "cred_id": cred_id}
+        )
+
         return {"status": "success"}
+    except HTTPException as e:
+        raise e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

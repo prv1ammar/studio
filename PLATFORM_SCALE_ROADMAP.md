@@ -15,9 +15,9 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 ## 🏢 Phase 2: Multi-Tenant Hardening & RBAC 
 *Absolute data isolation and team-based collaboration.*
 
-- [ ] **Workspace Scoping Audit**: Verify all DB queries are filtered by `workspace_id`.
-- [ ] **Credential Sandboxing**: Prevent cross-workspace credential leakage.
-- [ ] **Governance & Audit Logs**: High-fidelity records of system changes (Users invited, Keys rotated).
+- [x] **Workspace Scoping Audit**: Verify all DB queries are filtered by `workspace_id`.
+- [x] **Credential Sandboxing**: Prevent cross-workspace credential leakage.
+- [x] **Governance & Audit Logs**: High-fidelity records of system changes (Users invited, Keys rotated).
 - [ ] **Permission UI**: Frontend roles management (Invite/Promote/Demote members).
 
 ## 📦 Phase 3: Distributed Execution (Worker Pool)
@@ -44,5 +44,5 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 
 ---
 
-**Current Status**: 🟢 Hardened Core (V3.0) Complete | 🟡 Starting Phase 1
-**Last Updated**: 2026-02-15
+**Current Status**: 🟢 Phase 1 Complete | 🟡 Finishing Phase 2 (UI Pending)
+**Last Updated**: 2026-02-15 (14:15 CET)

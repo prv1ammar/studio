@@ -3,7 +3,10 @@ from typing import Dict, Any, Optional
 from sqlmodel import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import get_session
-from app.db.models import WebhookEndpoint, WebhookEvent, Workflow, Execution
+from app.db.models import WebhookEndpoint, WebhookEvent, Workflow, Execution, User, WorkspaceMember
+from app.api.auth import get_current_user
+from app.api.rbac import requires_viewer, requires_editor
+from app.core.audit import audit_logger
 from app.core.engine import engine
 from app.core.config import settings
 import json
@@ -179,7 +182,8 @@ async def handle_incoming_webhook(
 @router.get("/endpoints/list")
 async def list_endpoints(
     workspace_id: str, 
-    db: AsyncSession = Depends(get_session)
+    db: AsyncSession = Depends(get_session),
+    member: WorkspaceMember = Depends(requires_viewer)
 ):
     result = await db.execute(select(WebhookEndpoint).where(WebhookEndpoint.workspace_id == workspace_id))
     return result.scalars().all()
@@ -187,10 +191,32 @@ async def list_endpoints(
 @router.post("/endpoints/create")
 async def create_endpoint(
     data: Dict[str, Any], 
-    db: AsyncSession = Depends(get_session)
+    db: AsyncSession = Depends(get_session),
+    current_user: User = Depends(get_current_user)
 ):
+    workspace_id = data.get("workspace_id")
+    if not workspace_id:
+        raise HTTPException(status_code=400, detail="workspace_id is required")
+
+    # Manually check permissions since workspace_id is in body
+    # (Editor or higher required)
+    result = await db.execute(
+        select(WorkspaceMember)
+        .where(
+            WorkspaceMember.workspace_id == workspace_id,
+            WorkspaceMember.user_id == current_user.id
+        )
+    )
+    member = result.scalar_one_or_none()
+    
+    if not member:
+        raise HTTPException(status_code=403, detail="Not a member of this workspace")
+    
+    if member.role not in ["owner", "admin", "editor"]:
+        raise HTTPException(status_code=403, detail="Insufficient permissions (Editor required)")
+
     new_ep = WebhookEndpoint(
-        workspace_id=data["workspace_id"],
+        workspace_id=workspace_id,
         name=data["name"],
         url="", # Will be generated based on ID
         secret=data.get("secret"),
@@ -206,4 +232,12 @@ async def create_endpoint(
     db.add(new_ep)
     await db.commit()
     
+    # Audit Log
+    await audit_logger.log(
+        action="webhook_create",
+        user_id=current_user.id,
+        workspace_id=workspace_id,
+        details={"name": data["name"], "endpoint_id": new_ep.id}
+    )
+
     return new_ep
