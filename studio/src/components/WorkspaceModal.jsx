@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { X, UserPlus, Shield, Check, Mail, Plus, Trash2, Users, Globe, Layout, Loader2 } from 'lucide-react';
+import { X, UserPlus, Shield, Check, Mail, Plus, Trash2, Users, Globe, Layout, Loader2, List } from 'lucide-react';
+import AuditLogViewer from './AuditLogViewer';
 import axios from 'axios';
 import { API_BASE_URL } from '../config';
 
@@ -101,6 +102,12 @@ export default function WorkspaceModal({ isOpen, onClose, currentWorkspaceId, on
                         >
                             <Users size={16} /> Workspace Team
                         </button>
+                        <button
+                            className={activeTab === 'audit' ? 'active' : ''}
+                            onClick={() => setActiveTab('audit')}
+                        >
+                            <Shield size={16} /> Audit Logs
+                        </button>
                     </nav>
                 </aside>
 
@@ -190,6 +197,12 @@ export default function WorkspaceModal({ isOpen, onClose, currentWorkspaceId, on
                                         </div>
                                     ))}
                                 </div>
+                            </div>
+                        )}
+
+                        {activeTab === 'audit' && selectedWs && (
+                            <div className="audit-view" style={{ flex: 1, overflow: 'hidden' }}>
+                                <AuditLogViewer workspaceId={selectedWs.id} />
                             </div>
                         )}
                     </div>

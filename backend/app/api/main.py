@@ -157,12 +157,14 @@ from app.api.marketplace import router as marketplace_router
 from app.api.monitoring import router as monitoring_router
 from app.api.drafting import router as drafting_router
 from app.api.credentials import router as credentials_router
+from app.api.audit import router as audit_router
 from app.core.scheduler import scheduler
 
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(workspace_router, prefix="/workspaces", tags=["workspaces"])
 app.include_router(billing_router, prefix="/billing", tags=["billing"])
 app.include_router(webhooks_router, prefix="/webhooks", tags=["webhooks"])
+app.include_router(audit_router, prefix="/audit", tags=["audit"])
 app.include_router(schedules_router, prefix="/schedules", tags=["schedules"])
 app.include_router(debug_router, prefix="/debug", tags=["debug"])
 app.include_router(private_nodes_router, prefix="/nodes/private", tags=["private_nodes"])

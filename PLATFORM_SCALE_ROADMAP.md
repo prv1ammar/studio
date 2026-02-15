@@ -18,7 +18,7 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 - [x] **Workspace Scoping Audit**: Verify all DB queries are filtered by `workspace_id`.
 - [x] **Credential Sandboxing**: Prevent cross-workspace credential leakage.
 - [x] **Governance & Audit Logs**: High-fidelity records of system changes (Users invited, Keys rotated).
-- [ ] **Permission UI**: Frontend roles management (Invite/Promote/Demote members).
+- [x] **Permission UI**: Frontend roles management (Invite/Promote/Demote members).
 
 ## 📦 Phase 3: Distributed Execution (Worker Pool)
 *Scaling execution independently of the API.*
@@ -44,5 +44,5 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 
 ---
 
-**Current Status**: 🟢 Phase 1 Complete | 🟡 Finishing Phase 2 (UI Pending)
-**Last Updated**: 2026-02-15 (14:15 CET)
+**Current Status**: 🟢 Phase 2 Complete (Multi-Tenancy) | 🟡 Starting Phase 3 (Distributed Execution)
+**Last Updated**: 2026-02-15 (14:35 CET)
