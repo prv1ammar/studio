@@ -240,6 +240,16 @@ class Incident(SQLModel, table=True):
     resolved_at: Optional[datetime] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
+class UsageRecord(SQLModel, table=True):
+    """Tracks monthly usage metrics for a workspace to enforce tier limits."""
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True)
+    workspace_id: str = Field(foreign_key="workspace.id", index=True)
+    month: str = Field(index=True)  # Format: YYYY-MM
+    tasks_executed: int = Field(default=0)
+    ai_tokens_used: int = Field(default=0)
+    estimated_cost: float = Field(default=0.0)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
 class ApiKey(SQLModel, table=True):
     """Secure access tokens for programmatic workflow triggering."""
     id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True)

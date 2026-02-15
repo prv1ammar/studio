@@ -48,3 +48,37 @@ async def upgrade_subscription(tier: str, db: AsyncSession = Depends(get_session
         "message": f"Upgraded to {tier.capitalize()} plan",
         "tier": tier
     }
+
+@router.get("/usage/{workspace_id}")
+async def get_usage(workspace_id: str, db: AsyncSession = Depends(get_session), current_user: User = Depends(get_current_user)):
+    """Retrieve usage statistics for a workspace."""
+    from app.core.billing import billing_manager
+    from app.core.tier_manager import tier_manager
+    from app.db.models import Workspace
+    
+    # 1. Fetch workspace & owner
+    res = await db.execute(select(Workspace).where(Workspace.id == workspace_id))
+    workspace = res.scalar_one_or_none()
+    if not workspace:
+        raise HTTPException(status_code=404, detail="Workspace not found")
+
+    res = await db.execute(select(User).where(User.id == workspace.owner_id))
+    owner = res.scalar_one_or_none()
+    if not owner:
+        raise HTTPException(status_code=404, detail="Owner not found")
+
+    # 2. Get current month usage
+    usage = await billing_manager.get_or_create_usage(db, workspace_id)
+    
+    # 3. Get limits
+    tier_info = tier_manager.get_tier_info(owner.tier)
+    
+    return {
+        "month": usage.month,
+        "tasks_executed": usage.tasks_executed,
+        "ai_tokens_used": usage.ai_tokens_used,
+        "estimated_cost": usage.estimated_cost,
+        "task_limit": tier_info["limits"].get("max_tasks_per_month", 0),
+        "token_limit": tier_info["limits"].get("max_tokens_per_month", 0),
+        "tier": owner.tier
+    }

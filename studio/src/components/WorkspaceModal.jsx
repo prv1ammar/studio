@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, UserPlus, Shield, Check, Mail, Plus, Trash2, Users, Globe, Layout, Loader2, List } from 'lucide-react';
 import AuditLogViewer from './AuditLogViewer';
+import UsageStats from './UsageStats';
 import axios from 'axios';
 import { API_BASE_URL } from '../config';
 
@@ -108,14 +109,28 @@ export default function WorkspaceModal({ isOpen, onClose, currentWorkspaceId, on
                         >
                             <Shield size={16} /> Audit Logs
                         </button>
+                        <button
+                            className={activeTab === 'usage' ? 'active' : ''}
+                            onClick={() => setActiveTab('usage')}
+                        >
+                            <Activity size={16} /> Usage Metering
+                        </button>
                     </nav>
                 </aside>
 
                 <main className="dashboard-main">
                     <header className="dashboard-header">
                         <div className="header-info">
-                            <h2>{activeTab === 'workspaces' ? 'Workspaces' : `${selectedWs?.name} Team`}</h2>
-                            <p>{activeTab === 'workspaces' ? 'Manage your shared environments' : 'Invite and manage collaborators'}</p>
+                            <h2>{
+                                activeTab === 'workspaces' ? 'Workspaces' :
+                                    activeTab === 'usage' ? `Usage: ${selectedWs?.name}` :
+                                        `${selectedWs?.name} Team`
+                            }</h2>
+                            <p>{
+                                activeTab === 'workspaces' ? 'Manage your shared environments' :
+                                    activeTab === 'usage' ? 'Monthly resource consumption and limits' :
+                                        'Invite and manage collaborators'
+                            }</p>
                         </div>
                         <div className="header-actions">
                             <button className="prime-btn" onClick={handleCreateWorkspace}>
@@ -203,6 +218,12 @@ export default function WorkspaceModal({ isOpen, onClose, currentWorkspaceId, on
                         {activeTab === 'audit' && selectedWs && (
                             <div className="audit-view" style={{ flex: 1, overflow: 'hidden' }}>
                                 <AuditLogViewer workspaceId={selectedWs.id} />
+                            </div>
+                        )}
+
+                        {activeTab === 'usage' && selectedWs && (
+                            <div className="usage-view" style={{ flex: 1, overflow: 'hidden' }}>
+                                <UsageStats workspaceId={selectedWs.id} />
                             </div>
                         )}
                     </div>

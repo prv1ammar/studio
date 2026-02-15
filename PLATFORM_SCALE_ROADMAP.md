@@ -39,11 +39,18 @@ This document outlines the strategic transition from a **Hardened Core Engine** 
 ## 💳 Phase 5: Usage Metering & Pre-Billing
 *Understanding costs and laying the foundation for monetization.*
 
-- [ ] **Execution Metering**: Track "Tasks per Month" per workspace.
-- [ ] **AI Token Logging**: Transparent tracking of LLM costs (Input/Output tokens).
-- [ ] **Tier Manager**: Logic to switch between Free/Pro limits.
+- [x] **Execution Metering**: Track "Tasks per Month" per workspace.
+- [x] **AI Token Logging**: Transparent tracking of LLM costs (Input/Output tokens).
+- [x] **Tier Manager**: Logic to switch between Free/Pro limits.
+
+## 🚢 Phase 6: Final Hardening & v1.0 Launch
+*Preparing for public traffic.*
+
+- [ ] **Infrastructure-as-Code (Terraform)**: One-click cloud deployments.
+- [ ] **Data Export/Import**: Full workspace portability.
+- [ ] **Documentation Portal**: Dynamic node reference guide.
 
 ---
 
-**Current Status**: 🟢 Phase 4 Complete (Growth Engine) | 🟡 Starting Phase 5 (Usage & Billing)
-**Last Updated**: 2026-02-15 (17:30 CET)
+**Current Status**: 🟢 Phase 5 Complete (Metering Engine) | 🟡 Starting Phase 6 (v1.0 Launch)
+**Last Updated**: 2026-02-15 (17:45 CET)

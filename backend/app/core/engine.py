@@ -138,10 +138,26 @@ class AgentEngine:
                     await circuit_breaker.record_success(node_type)
                     # Cache successful result
                     await cache_manager.set(node_type, input_text, config or {}, result)
+
+                    token_usage = 0
+                    if isinstance(result, dict):
+                        # Detect common token usage patterns (OpenAI, Anthropic, etc.)
+                        data = result.get("data", {})
+                        raw_res = data.get("result", {})
+                        if isinstance(raw_res, dict) and "usage" in raw_res:
+                            usage = raw_res["usage"]
+                            token_usage = usage.get("total_tokens", 0) or usage.get("total_tokens", 0)
+
+                    # Track Billing Usage (Task execution) - background
+                    asyncio.create_task(billing_manager.track_usage(
+                        workspace_id=context.get("workspace_id") if context else None,
+                        tasks=1,
+                        tokens=token_usage
+                    ))
                 else:
                     error_msg = result.get("error", "Unknown error") if isinstance(result, dict) else "Unknown error"
                     await circuit_breaker.record_failure(node_type, error_msg)
-                
+
                 return result
                 
             except TimeoutError as e:
@@ -203,6 +219,14 @@ class AgentEngine:
         Core workflow execution engine with Validation and Structured Context.
         Supports resuming from a specific node.
         """
+        workspace_id = context.get("workspace_id") if context else None
+        
+        # 1. Check Billing Limits
+        if not await billing_manager.check_limits(workspace_id):
+            error_msg = "Monthly task limit exceeded for this workspace."
+            if broadcaster: await broadcaster("error", "billing_limit_exceeded", {"message": error_msg})
+            raise Exception(error_msg)
+
         execution_id = execution_id or str(uuid.uuid4())
         
         # Performance Tracking (OpenTelemetry Ready)
