@@ -51,7 +51,7 @@ class ChunkDoclingNode(BaseNode):
             )
 
             for index, item in enumerate(data_to_chunk):
-                print(f"📦 Chunk Processing Item {index}: Type={type(item)}")
+                print(f" Chunk Processing Item {index}: Type={type(item)}")
                 
                 if isinstance(item, dict):
                     text_content = item.get("text", "")
@@ -64,7 +64,7 @@ class ChunkDoclingNode(BaseNode):
 
                 # Intelligent Choice:
                 if text_content and ("![" in text_content or self.config.get("force_text_chunking")):
-                    print("🧠 ChunkDocling: Using Enriched Text splitting...")
+                    print(" ChunkDocling: Using Enriched Text splitting...")
                     chunks = splitter.split_text(text_content)
                     for i, chunk_text in enumerate(chunks):
                         results.append({
@@ -79,7 +79,7 @@ class ChunkDoclingNode(BaseNode):
                 elif doc_obj:
                     from docling_core.transforms.chunker.hierarchical_chunker import HierarchicalChunker
                     chunker = HierarchicalChunker()
-                    print(f"📄 ChunkDocling: Using Hierarchical Chunker...")
+                    print(f" ChunkDocling: Using Hierarchical Chunker...")
                     
                     c_idx = 0
                     for chunk in chunker.chunk(dl_doc=doc_obj):

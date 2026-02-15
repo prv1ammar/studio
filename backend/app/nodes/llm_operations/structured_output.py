@@ -216,7 +216,7 @@ class StructuredOutputComponent(Component):
         except Exception as e:  # noqa: BLE001
             logger.warning(
                 f"Trustcall extraction failed, falling back to Langchain: {e} "
-                "(Note: This may not be an error—some models or configurations do not support tool calling. "
+                "(Note: This may not be an errorsome models or configurations do not support tool calling. "
                 "Falling back is normal in such cases.)"
             )
             return None

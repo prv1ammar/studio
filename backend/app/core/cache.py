@@ -22,7 +22,7 @@ class CacheManager:
     async def init_redis(self, redis_client: aioredis.Redis):
         """Initialize with the app's Redis instance."""
         self.redis = redis_client
-        print(f"✅ Cache Manager initialized (TTL: {settings.CACHE_TTL}s)")
+        print(f" Cache Manager initialized (TTL: {settings.CACHE_TTL}s)")
     
     def _generate_cache_key(self, node_type: str, input_data: Any, config: Dict[str, Any]) -> str:
         """
@@ -61,14 +61,14 @@ class CacheManager:
             if cached_data:
                 self.stats["hits"] += 1
                 result = json.loads(cached_data)
-                print(f"💾 Cache HIT: {node_type} (key: {cache_key[:20]}...)")
+                print(f" Cache HIT: {node_type} (key: {cache_key[:20]}...)")
                 return result
             
             self.stats["misses"] += 1
             return None
             
         except Exception as e:
-            print(f"⚠️ Cache get error: {e}")
+            print(f" Cache get error: {e}")
             return None
     
     async def set(self, node_type: str, input_data: Any, config: Dict[str, Any], result: Any):
@@ -98,13 +98,13 @@ class CacheManager:
             await self.redis.setex(cache_key, ttl, cached_data)
             
             self.stats["writes"] += 1
-            print(f"💾 Cache SET: {node_type} (TTL: {ttl}s, key: {cache_key[:20]}...)")
+            print(f" Cache SET: {node_type} (TTL: {ttl}s, key: {cache_key[:20]}...)")
             
         except (TypeError, ValueError) as e:
             # Result not serializable, skip caching
-            print(f"⚠️ Cache skip (not serializable): {node_type}")
+            print(f" Cache skip (not serializable): {node_type}")
         except Exception as e:
-            print(f"⚠️ Cache set error: {e}")
+            print(f" Cache set error: {e}")
     
     async def invalidate(self, pattern: str = None):
         """
@@ -123,13 +123,13 @@ class CacheManager:
             
             if keys:
                 await self.redis.delete(*keys)
-                print(f"🗑️ Invalidated {len(keys)} cache entries (pattern: {pattern})")
+                print(f" Invalidated {len(keys)} cache entries (pattern: {pattern})")
                 return len(keys)
             
             return 0
             
         except Exception as e:
-            print(f"⚠️ Cache invalidation error: {e}")
+            print(f" Cache invalidation error: {e}")
             return 0
     
     async def invalidate_node_type(self, node_type: str):
@@ -155,3 +155,4 @@ class CacheManager:
         self.stats = {"hits": 0, "misses": 0, "writes": 0}
 
 cache_manager = CacheManager()
+

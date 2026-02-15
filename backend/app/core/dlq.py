@@ -23,6 +23,7 @@ class DeadLetterQueue:
         file_path = self.dlq_path / f"failed_{execution_id}.json"
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(payload, f, indent=4)
-        print(f"⚠️ Sent execution {execution_id} to DLQ.")
+        print(f" Sent execution {execution_id} to DLQ.")
 
 dlq = DeadLetterQueue()
+

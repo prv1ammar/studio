@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional, Type, List
+from typing import Any, Dict, Optional, Type, List, Tuple
 import time
 from pydantic import BaseModel, ValidationError, Field
 from app.core.credentials import cred_manager
@@ -34,6 +34,8 @@ class BaseNode(ABC):
 
     node_id: str = "" 
     config_model: Optional[Type[BaseModel]] = None
+    input_model: Optional[Type[BaseModel]] = None
+    output_model: Optional[Type[BaseModel]] = None
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.raw_config = config.copy() if config else {}
@@ -41,8 +43,18 @@ class BaseNode(ABC):
         self.metrics = {
             "execution_time": 0.0,
             "success": False,
-            "error": None
+            "error": None,
+            "input_size": 0,
+            "output_size": 0,
+            "logs": []
         }
+
+    def log(self, message: str):
+        """Appends a timestamped log trace to the execution metrics."""
+        timestamp = datetime.now().strftime("%H:%M:%S")
+        self.metrics["logs"].append(f"[{timestamp}] {message}")
+        # Also print to stdout for real-time worker monitoring
+        print(f"[{self.node_type}] {message}")
 
     def get_schema(self) -> NodeSchema:
         """Returns the node's schema in compliance with 'Node Law'."""
@@ -75,8 +87,31 @@ class BaseNode(ABC):
                 return self.config_model(**config)
             except ValidationError as e:
                 # Log error or handle it
-                print(f"⚠️ Validation error for {self.node_id}: {e}")
+                print(f" Validation error for config in {self.node_type}: {e}")
         return config
+
+    def _validate_inputs(self, input_data: Any) -> Any:
+        """Validates inputs against input_model if defined, or basic schema check."""
+        if self.input_model:
+            try:
+                # Handle cases where input_data might be a single value instead of a dict
+                if not isinstance(input_data, dict):
+                    # Try to find the first required field or 'input' field to map it
+                    # For now, let's assume it should be a dict if a model is provided
+                    pass
+                return self.input_model(**input_data)
+            except ValidationError as e:
+                raise ValueError(f"Input validation failed for {self.node_type}: {str(e)}")
+        
+        # Basic check for required fields in the 'inputs' dictionary
+        if isinstance(input_data, dict):
+            for name, spec in self.inputs.items():
+                if spec.get("required") and name not in input_data:
+                    # Check if it's in config as a fallback
+                    if not self.get_config(name):
+                        raise ValueError(f"Missing required input: '{name}' for node {self.node_type}")
+        
+        return input_data
 
     def get_config(self, key: str, default: Any = None) -> Any:
         """Retrieves a config value with fallback to environment variables."""
@@ -107,25 +142,66 @@ class BaseNode(ABC):
             return cred_obj.get("data")
         return None
 
-    async def _validate_credentials(self):
-        """Checks if all required credentials are provided in the config."""
+    async def validate_credentials(self):
+        """
+        Comprehensive pre-flight check for credentials.
+        Verifies existence, DB presence, and decryption capability.
+        """
         for cred_key in self.credentials_required:
             cred_id = self.get_config(cred_key)
             if not cred_id:
-                raise ValueError(f"Missing required credential: '{cred_key}'. Please configure it in the node settings.")
+                # If not in config directly, check for 'creds_id' or 'credentials_id' generic fallback
+                cred_id = self.get_config("credentials_id") or self.get_config("creds_id")
+                
+            if not cred_id:
+                raise ValueError(f"Auth Error: Missing required credential '{cred_key}' for node '{self.node_type}'. Connect a credential in the settings.")
+            
+            # Verify DB presence and decryption
+            cred_data = await self.get_credential(cred_key)
+            if not cred_data:
+                # Fallback to checking by common keys if the key itself isn't the cred_id
+                cred_data = await cred_manager.get_credential(cred_id)
+                
+            if not cred_data:
+                raise ValueError(f"Auth Error: Credential '{cred_id}' not found or decryption failed for node '{self.node_type}'.")
+            
+            # Node-specific type check could happen here if we had service types
+            pass
+
+    async def check_connection(self) -> Tuple[bool, Optional[str]]:
+        """
+        Optional node-specific method to ping the service.
+        Returns (is_connected, error_message).
+        """
+        return True, None
 
     async def run(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
         """
         Standardized execution wrapper that tracks metrics and validates pre-conditions.
         """
         start_time = time.time()
+        self.metrics["input_size"] = len(str(input_data))
         try:
-            # 1. Validate Credentials before execution
-            await self._validate_credentials()
+            # 1. PRE-FLIGHT AUTH VALIDATION
+            await self.validate_credentials()
 
-            # 2. Execute actual node logic
-            result = await self.execute(input_data, context)
+            # 2. Validate Inputs
+            validated_input = self._validate_inputs(input_data)
+
+            # 3. Execute actual node logic
+            result = await self.execute(validated_input, context)
+            
+            # 4. Success tracking
             self.metrics["success"] = True
+            self.metrics["output_size"] = len(str(result))
+            
+            # 5. Output Validation (Optional)
+            if self.output_model:
+                try:
+                    self.output_model(**result)
+                except ValidationError as e:
+                    print(f" Output validation warning for {self.node_type}: {e}")
+
             return result
         except Exception as e:
             self.metrics["success"] = False

@@ -1,4 +1,200 @@
 {
+  "Triggers": [
+    {
+      "id": "webhook_trigger",
+      "name": "Webhook",
+      "label": "Webhook",
+      "description": "Trigger this workflow via an external HTTP request.",
+      "category": "Triggers",
+      "icon": "Zap",
+      "color": "#fbbf24",
+      "inputs": [
+        {
+          "name": "webhook_id",
+          "display_name": "Webhook ID",
+          "type": "text",
+          "required": true,
+          "placeholder": "Unique Webhook Slug"
+        },
+        {
+          "name": "http_method",
+          "display_name": "HTTP Method",
+          "type": "select",
+          "options": [
+            {
+              "label": "POST",
+              "value": "POST"
+            },
+            {
+              "label": "GET",
+              "value": "GET"
+            }
+          ],
+          "default": "POST",
+          "required": false
+        },
+        {
+          "name": "verification_type",
+          "display_name": "Security Type",
+          "type": "select",
+          "options": [
+            {
+              "label": "None",
+              "value": ""
+            },
+            {
+              "label": "Generic HMAC",
+              "value": "generic"
+            },
+            {
+              "label": "GitHub",
+              "value": "github"
+            },
+            {
+              "label": "Stripe",
+              "value": "stripe"
+            },
+            {
+              "label": "Slack",
+              "value": "slack"
+            }
+          ],
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "secret",
+          "display_name": "Signing Secret",
+          "type": "password",
+          "required": false,
+          "placeholder": "Your Webhook Secret"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "body",
+          "display_name": "Request Body",
+          "types": [
+            "Object",
+            "Data"
+          ]
+        },
+        {
+          "name": "headers",
+          "display_name": "Headers",
+          "types": [
+            "Object"
+          ]
+        },
+        {
+          "name": "query_params",
+          "display_name": "Query Parameters",
+          "types": [
+            "Object"
+          ]
+        }
+      ]
+    }
+  ],
+  "Orchestration": [
+    {
+      "id": "sub_workflow",
+      "name": "Workflow",
+      "label": "Workflow",
+      "description": "Call another workflow as a modular node.",
+      "category": "Orchestration",
+      "icon": "Layers",
+      "color": "#6366f1",
+      "inputs": [
+        {
+          "name": "workflow_id",
+          "display_name": "Workflow to Run",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "input_data",
+          "display_name": "Input Object",
+          "type": "handle",
+          "types": [
+            "Object"
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "display_name": "Sub-Workflow Output",
+          "types": [
+            "Object",
+            "Text"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "parallel_map",
+      "name": "Parallel",
+      "label": "Parallel",
+      "description": "Process a list in parallel using a sub-workflow.",
+      "category": "Orchestration",
+      "icon": "Box",
+      "color": "#10b981",
+      "inputs": [
+        {
+          "name": "sub_workflow_id",
+          "display_name": "Task Workflow",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "items",
+          "display_name": "Items to Process",
+          "type": "handle",
+          "types": [
+            "Array"
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "results",
+          "display_name": "Result List",
+          "types": [
+            "Array"
+          ]
+        }
+      ]
+    }
+  ],
+  "Globalization": [
+    {
+      "id": "translation_node",
+      "name": "Translator",
+      "label": "Translator",
+      "description": "Translate text between languages using AI.",
+      "category": "Globalization",
+      "icon": "Languages",
+      "color": "#ec4899",
+      "inputs": [
+        {
+          "name": "text",
+          "display_name": "Input Text",
+          "type": "text",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "translated_text",
+          "display_name": "Translated Text",
+          "types": [
+            "Text"
+          ]
+        }
+      ]
+    }
+  ],
   "AI Services & Agents": [
     {
       "id": "transcriptionNode",
@@ -29164,10 +29360,10 @@
   "Tyboo": [
     {
       "id": "liteLLM",
-      "name": "LiteLLM",
-      "label": "Lite LLM (Tybot)",
-      "description": "High-performance company-specific LLM router.",
-      "category": "Tyboo",
+      "name": "AI Model",
+      "label": "AI Model",
+      "description": "Multi-provider AI interface for high-performance reasoning.",
+      "category": "Artificial Intelligence",
       "icon": "Cpu",
       "color": "#ec4899",
       "inputs": [

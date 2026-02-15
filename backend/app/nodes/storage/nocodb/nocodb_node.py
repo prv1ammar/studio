@@ -20,35 +20,35 @@ class NocoDBAPIWrapper:
     def fetch_projects(self):
         # NocoDB V1 for projects
         url = f"{self.base_url}/api/v1/db/meta/projects"
-        print(f"📡 NocoDB API: Fetching Projects from {url}")
+        print(f" NocoDB API: Fetching Projects from {url}")
         try:
             response = requests.get(url, headers=self._get_headers(), timeout=10)
             if response.status_code != 200:
                  # Try V2 projects path if V1 fails
                  url = f"{self.base_url}/api/v2/meta/bases"
-                 print(f"📡 NocoDB API: Trying V2 Bases {url}")
+                 print(f" NocoDB API: Trying V2 Bases {url}")
                  response = requests.get(url, headers=self._get_headers(), timeout=10)
             
             response.raise_for_status()
             data = response.json()
             return data.get("list", data) if isinstance(data, dict) else data
         except Exception as e:
-            print(f"❌ NocoDB API Error: {e}")
+            print(f" NocoDB API Error: {e}")
             return []
 
     def fetch_tables(self, project_id: str):
         # NocoDB V2 for tables
         url = f"{self.base_url}/api/v2/meta/bases/{project_id}/tables"
-        print(f"📡 NocoDB API: Fetching Tables from {url}")
+        print(f" NocoDB API: Fetching Tables from {url}")
         response = requests.get(url, headers=self._get_headers(), timeout=10)
         
         if response.status_code != 200:
              # Try V1 path fallback
              url = f"{self.base_url}/api/v1/db/meta/projects/{project_id}/tables"
-             print(f"📡 NocoDB API: Trying V1 Tables {url}")
+             print(f" NocoDB API: Trying V1 Tables {url}")
              response = requests.get(url, headers=self._get_headers(), timeout=10)
 
-        print(f"📥 NocoDB API: Status {response.status_code}")
+        print(f" NocoDB API: Status {response.status_code}")
         response.raise_for_status()
         data = response.json()
         return data.get("list", data) if isinstance(data, dict) else data
@@ -67,7 +67,7 @@ class NocoDBAPIWrapper:
         
         # Robust operation normalization
         op_norm = str(operation).strip().lower()
-        print(f"📡 NocoDB API Query: {operation} (Norm: {op_norm}) on {endpoint}")
+        print(f" NocoDB API Query: {operation} (Norm: {op_norm}) on {endpoint}")
         
         # Determine method
         if op_norm in ["read", "all", "list", "search"]:
@@ -113,7 +113,7 @@ class NocoDBAPIWrapper:
         else:
             raise ValueError(f"Unsupported operation: {operation}")
             
-        print(f"📥 NocoDB API Query: Status {response.status_code}")
+        print(f" NocoDB API Query: Status {response.status_code}")
         response.raise_for_status()
         return response.json()
 

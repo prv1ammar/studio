@@ -23,3 +23,4 @@ class AuditLogger:
             await db.commit()
 
 audit_logger = AuditLogger()
+

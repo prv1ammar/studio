@@ -77,7 +77,7 @@ class CredentialStore:
                     "data": json.loads(decrypted_json)
                 }
             except Exception as e:
-                print(f"❌ Failed to decrypt credential {cred_id}: {e}")
+                print(f" Failed to decrypt credential {cred_id}: {e}")
                 return None
 
     async def list_credentials(self, user_id: str, cred_type: str = None, workspace_id: Optional[str] = None) -> List[Dict[str, Any]]:
@@ -124,3 +124,4 @@ class CredentialStore:
             return False
 
 cred_manager = CredentialStore()
+

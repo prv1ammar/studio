@@ -4,6 +4,8 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6379/0")
     WORKFLOW_TIMEOUT: int = 3600  # 1 hour
+    API_BASE_URL: str = os.getenv("API_BASE_URL", "http://localhost:8001")
+    STUDIO_REGION: str = os.getenv("STUDIO_REGION", "us-east-1")
     
     # Auth Settings
     SECRET_KEY: str = os.getenv("SECRET_KEY", "super-secret-studio-key-replace-in-prod")
@@ -31,3 +33,4 @@ class Settings(BaseSettings):
         extra = "ignore"
 
 settings = Settings()
+

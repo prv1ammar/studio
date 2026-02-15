@@ -20,7 +20,7 @@ class WorkerMonitor:
     async def init_redis(self, redis_client: aioredis.Redis):
         """Initialize with the app's Redis instance."""
         self.redis = redis_client
-        print(f"✅ Worker Monitor initialized (ID: {self.worker_id})")
+        print(f"Worker Monitor initialized (ID: {self.worker_id})")
     
     async def start_heartbeat(self, worker_type: str = "default"):
         """
@@ -38,20 +38,22 @@ class WorkerMonitor:
                 except asyncio.CancelledError:
                     break
                 except Exception as e:
-                    print(f"⚠️ Heartbeat error: {e}")
+                    print(f"Heartbeat error: {e}")
                     await asyncio.sleep(self.heartbeat_interval)
         
         self.heartbeat_task = asyncio.create_task(heartbeat_loop())
-        print(f"💓 Heartbeat started for worker {self.worker_id}")
+        print(f"Heartbeat started for worker {self.worker_id}")
     
     async def send_heartbeat(self, worker_type: str = "default"):
         """Send a single heartbeat to Redis."""
         if not self.redis:
             return
         
+        from app.core.config import settings
         heartbeat_data = {
             "worker_id": self.worker_id,
             "worker_type": worker_type,
+            "region": settings.STUDIO_REGION,
             "timestamp": time.time(),
             "hostname": socket.gethostname()
         }
@@ -76,7 +78,7 @@ class WorkerMonitor:
         if self.redis:
             await self.redis.delete(f"worker:heartbeat:{self.worker_id}")
         
-        print(f"💔 Heartbeat stopped for worker {self.worker_id}")
+        print(f"Heartbeat stopped for worker {self.worker_id}")
     
     async def get_active_workers(self) -> List[Dict[str, Any]]:
         """Get list of all active workers based on heartbeats."""
@@ -94,7 +96,7 @@ class WorkerMonitor:
                     ).isoformat()
                     workers.append(worker_info)
             except Exception as e:
-                print(f"⚠️ Error reading worker data: {e}")
+                print(f"Error reading worker data: {e}")
         
         return workers
     
@@ -107,7 +109,7 @@ class WorkerMonitor:
             depth = await self.redis.llen(queue_name)
             return depth or 0
         except Exception as e:
-            print(f"⚠️ Error getting queue depth: {e}")
+            print(f"Error getting queue depth: {e}")
             return 0
     
     async def get_queue_stats(self) -> Dict[str, Any]:
@@ -160,3 +162,4 @@ class WorkerMonitor:
         pass
 
 worker_monitor = WorkerMonitor()
+

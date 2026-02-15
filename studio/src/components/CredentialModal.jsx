@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { X, Plus, Trash2, Shield, Key, ExternalLink } from 'lucide-react';
-
-const API_BASE_URL = window.location.origin.includes('localhost') ? 'http://localhost:8000' : '';
+import { API_BASE_URL } from '../config';
 
 export default function CredentialModal({ isOpen, onClose }) {
     const [credentials, setCredentials] = useState([]);

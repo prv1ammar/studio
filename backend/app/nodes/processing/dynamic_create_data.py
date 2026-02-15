@@ -339,14 +339,14 @@ class DynamicCreateDataComponent(Component):
             return Message(text="No form data available")
 
         # Format as text message
-        message_lines = ["📋 Form Data:"]
+        message_lines = [" Form Data:"]
         message_lines.append("=" * 40)
 
         for field_name, value in dynamic_values.items():
             # Use field_name as display_name
             display_name = field_name
 
-            message_lines.append(f"• {display_name}: {value}")
+            message_lines.append(f" {display_name}: {value}")
 
         message_lines.append("=" * 40)
         message_lines.append(f"Total fields: {len(dynamic_values)}")

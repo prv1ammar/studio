@@ -224,6 +224,143 @@ NODE_MAP = {
     "square_node": "app.nodes.finance.square_node.SquareNode",
     "plaid_node": "app.nodes.finance.plaid_node.PlaidNode",
     "mollie_node": "app.nodes.finance.mollie_node.MollieNode",
+    # Batch 103: Core Workflow Nodes (n8n/Zapier Parity)
+    "merge_node": "app.nodes.flow_controls.merge_node.MergeNode",
+    "split_in_batches_node": "app.nodes.flow_controls.split_in_batches_node.SplitInBatchesNode",
+    "set_node": "app.nodes.flow_controls.set_node.SetNode",
+    "wait_node": "app.nodes.flow_controls.wait_node.WaitNode",
+    "item_lists_node": "app.nodes.flow_controls.item_lists_node.ItemListsNode",
+    # Batch 104: Communication Essentials (n8n/Zapier Parity)
+    "microsoft_teams_node": "app.nodes.communication.microsoft_teams_node.MicrosoftTeamsNode",
+    "sendgrid_node": "app.nodes.communication.sendgrid_node.SendGridNode",
+    "zoom_node": "app.nodes.communication.zoom_node.ZoomNode",
+    "mattermost_node": "app.nodes.communication.mattermost_node.MattermostNode",
+    "aws_ses_node": "app.nodes.communication.aws_ses_node.AWSSESNode",
+    "mailgun_node": "app.nodes.communication.email_services_batch.MailgunNode",
+    "postmark_node": "app.nodes.communication.email_services_batch.PostmarkNode",
+    "sparkpost_node": "app.nodes.communication.email_services_batch.SparkPostNode",
+    "mandrill_node": "app.nodes.communication.email_services_batch.MandrillNode",
+    "constant_contact_node": "app.nodes.communication.email_services_batch.ConstantContactNode",
+    # Batch 105: Productivity Suite (n8n/Zapier Parity)
+    "google_calendar_node": "app.nodes.productivity.google_workspace_batch.GoogleCalendarNode",
+    "google_docs_node": "app.nodes.productivity.google_workspace_batch.GoogleDocsNode",
+    "microsoft_outlook_node": "app.nodes.productivity.microsoft_office_batch.MicrosoftOutlookNode",
+    "microsoft_excel_node": "app.nodes.productivity.microsoft_office_batch.MicrosoftExcelNode",
+    "monday_com_node": "app.nodes.productivity.project_management_batch.MondayComNode",
+    "asana_node": "app.nodes.productivity.project_management_batch.AsanaNode",
+    "clickup_node": "app.nodes.productivity.project_management_batch.ClickUpNode",
+    "linear_node": "app.nodes.productivity.agile_tasks_batch.LinearNode",
+    "basecamp_node": "app.nodes.productivity.agile_tasks_batch.BasecampNode",
+    "todoist_node": "app.nodes.productivity.agile_tasks_batch.TodoistNode",
+    # Batch 106: Social Media (n8n/Zapier Parity)
+    "facebook_pages_node": "app.nodes.social_media.facebook_pages_node.FacebookPagesNode",
+    "linkedin_node": "app.nodes.social_media.linkedin_node.LinkedInNode",
+    "reddit_node": "app.nodes.social_media.reddit_node.RedditNode",
+    "pinterest_node": "app.nodes.social_media.pinterest_node.PinterestNode",
+    "medium_node": "app.nodes.social_media.medium_node.MediumNode",
+    "tumblr_node": "app.nodes.social_media.tumblr_node.TumblrNode",
+    "buffer_node": "app.nodes.social_media.buffer_node.BufferNode",
+    "hootsuite_node": "app.nodes.social_media.hootsuite_node.HootsuiteNode",
+    "sprout_social_node": "app.nodes.social_media.sprout_social_node.SproutSocialNode",
+    "later_node": "app.nodes.social_media.later_node.LaterNode",
+    # Batch 107: Cloud Storage (n8n/Zapier Parity)
+    "dropbox_node": "app.nodes.storage.dropbox_node.DropboxNode",
+    "box_node": "app.nodes.storage.box_node.BoxNode",
+    "onedrive_node": "app.nodes.storage.onedrive_node.OneDriveNode",
+    "google_cloud_storage_node": "app.nodes.storage.google_cloud_storage_node.GoogleCloudStorageNode",
+    "azure_blob_storage_node": "app.nodes.storage.azure_blob_storage_node.AzureBlobStorageNode",
+    "backblaze_b2_node": "app.nodes.storage.backblaze_b2_node.BackblazeB2Node",
+    "wasabi_node": "app.nodes.storage.wasabi_node.WasabiNode",
+    "pcloud_node": "app.nodes.storage.pcloud_node.PCloudNode",
+    "sync_com_node": "app.nodes.storage.sync_com_node.SyncComNode",
+    "ftp_node": "app.nodes.storage.ftp_node.FTPNode",
+    # Batch 108: Marketing & CRM (n8n/Zapier Parity)
+    "salesforce_node": "app.nodes.marketing.salesforce_node.SalesforceNode",
+    "hubspot_node": "app.nodes.marketing.hubspot_node.HubSpotNode",
+    "zoho_crm_node": "app.nodes.marketing.zoho_crm_node.ZohoCRMNode",
+    "pipedrive_node": "app.nodes.marketing.pipedrive_node.PipedriveNode",
+    "activecampaign_node": "app.nodes.marketing.activecampaign_node.ActiveCampaignNode",
+    "mailchimp_node": "app.nodes.marketing.mailchimp_node.MailchimpNode",
+    "copper_node": "app.nodes.marketing.copper_node.CopperNode",
+    "insightly_node": "app.nodes.marketing.insightly_node.InsightlyNode",
+    "freshsales_node": "app.nodes.marketing.freshsales_node.FreshsalesNode",
+    "keap_node": "app.nodes.marketing.keap_node.KeapNode",
+    # Batch 109: Analytics & Support (n8n/Zapier Parity)
+    "google_analytics_node": "app.nodes.analytics.google_analytics_node.GoogleAnalyticsNode",
+    "mixpanel_node": "app.nodes.analytics.mixpanel_node.MixpanelNode",
+    "zendesk_node": "app.nodes.support.zendesk_node.ZendeskNode",
+    "intercom_node": "app.nodes.support.intercom_node.IntercomNode",
+    "freshdesk_node": "app.nodes.support.freshdesk_node.FreshdeskNode",
+    "posthog_node": "app.nodes.analytics.posthog_node.PostHogNode",
+    "segment_node": "app.nodes.analytics.segment_node.SegmentNode",
+    "help_scout_node": "app.nodes.support.help_scout_node.HelpScoutNode",
+    "drift_node": "app.nodes.analytics.drift_node.DriftNode",
+    "hotjar_node": "app.nodes.analytics.hotjar_node.HotjarNode",
+    # Batch 110: Developer Tools & Databases (n8n/Zapier Parity)
+    "jira_node": "app.nodes.developer_tools.jira_node.JiraNode",
+    "github_node": "app.nodes.developer_tools.github_node.GitHubNode",
+    "gitlab_node": "app.nodes.developer_tools.gitlab_node.GitLabNode",
+    "bitbucket_node": "app.nodes.developer_tools.bitbucket_node.BitbucketNode",
+    "aws_lambda_node": "app.nodes.developer_tools.aws_lambda_node.AWSLambdaNode",
+    "docker_node": "app.nodes.developer_tools.docker_node.DockerNode",
+    "mysql_node": "app.nodes.database.mysql_node.MySQLNode",
+    "postgresql_node": "app.nodes.database.postgresql_node.PostgreSQLNode",
+    "mongodb_node": "app.nodes.database.mongodb_node.MongoDBNode",
+    "redis_node": "app.nodes.database.redis_node.RedisNode",
+    # Batch 111: Utilities & Data Processing (n8n/Zapier Parity)
+    "date_time_node": "app.nodes.utilities.date_time_node.DateTimeNode",
+    "math_node": "app.nodes.utilities.math_node.MathNode",
+    "crypto_node": "app.nodes.utilities.crypto_node.CryptoNode",
+    "compression_node": "app.nodes.utilities.compression_node.CompressionNode",
+    "spreadsheet_parser_node": "app.nodes.utilities.spreadsheet_parser_node.SpreadsheetParserNode",
+    "markdown_node": "app.nodes.utilities.markdown_node.MarkdownNode",
+    "data_transformation_node": "app.nodes.utilities.data_transformation_node.DataTransformationNode",
+    "wait_for_webhook_node": "app.nodes.utilities.wait_for_webhook_node.WaitForWebhookNode",
+    "ssh_node": "app.nodes.utilities.ssh_node.SSHNode",
+    "binary_data_node": "app.nodes.utilities.binary_data_node.BinaryDataNode",
+    # Batch 112: Advanced Search & Knowledge (Component Parity)
+    "arxiv_node": "app.nodes.search.arxiv_node.ArXivNode",
+    "wolframalpha_node": "app.nodes.search.wolframalpha_node.WolframAlphaNode",
+    "searchapi_node": "app.nodes.search.searchapi_node.SearchAPINode",
+    "exa_search_node": "app.nodes.search.exa_search_node.ExaSearchNode",
+    "yahoo_finance_node": "app.nodes.finance.yahoo_finance_node.YahooFinanceNode",
+    "bing_search_node": "app.nodes.search.bing_search_node.BingSearchNode",
+    "google_search_node": "app.nodes.search.google_search_node.GoogleSearchNode",
+    "serper_search_node": "app.nodes.search.serper_search_node.SerperSearchNode",
+    # Batch 113: Intelligent Infrastructure & IoT (Component Parity)
+    "homeassistant_control": "app.nodes.iot.homeassistant_node.HomeAssistantControlNode",
+    "cloudflare_node": "app.nodes.infrastructure.cloudflare_node.CloudflareNode",
+    "elasticsearch_node": "app.nodes.database.elasticsearch_node.ElasticsearchNode",
+    "clickhouse_node": "app.nodes.database.clickhouse_node.ClickhouseNode",
+    "cassandra_node": "app.nodes.database.cassandra_node.CassandraNode",
+    # Batch 114: Advanced AI Frameworks & Memory (Component Parity)
+    "ollama_node": "app.nodes.ai.ollama_node.OllamaNode",
+    "crewai_agent_node": "app.nodes.agents.crewai_node.CrewAIAgentNode",
+    "mem0_node": "app.nodes.memory.mem0_node.Mem0Node",
+    "perplexity_node": "app.nodes.ai.perplexity_node.PerplexityNode",
+    # Batch 115: Specialized Tools (Component Parity)
+    "apify_node": "app.nodes.search.apify_node.ApifyNode",
+    "glean_search_node": "app.nodes.search.glean_node.GleanSearchNode",
+    "needle_node": "app.nodes.search.needle_node.NeedleNode",
+    "vectara_node": "app.nodes.storage.vectara_node.VectaraNode",
+    "zep_node": "app.nodes.memory.zep_node.ZepNode",
+    # Batch 116: Specialized Toolkits (Component Parity)
+    "jigsawstack_node": "app.nodes.ai.jigsawstack_node.JigsawStackNode",
+    "composio_node": "app.nodes.tools.composio_node.ComposioNode",
+    "twelvelabs_node": "app.nodes.media.twelvelabs_node.TwelveLabsNode",
+    # Batch 117: Advanced Document Processing (Component Parity)
+    "unstructured_node": "app.nodes.processing.unstructured_node.UnstructuredNode",
+    "scrapegraph_node": "app.nodes.search.scrapegraph_node.ScrapeGraphNode",
+    # Batch 118: AI Essentials & Local Inference (Component Parity)
+    "cohere_rerank_node": "app.nodes.processing.cohere_rerank_node.CohereRerankNode",
+    "lmstudio_node": "app.nodes.ai.lmstudio_node.LMStudioNode",
+    "huggingface_node": "app.nodes.ai.huggingface_node.HuggingFaceNode",
+    "upstash_node": "app.nodes.storage.upstash_node.UpstashNode",
+    # Phase 4 Triggers & Orchestration
+    "webhook_trigger": "app.nodes.triggers.webhook_node.WebhookTriggerNode",
+    "sub_workflow": "app.nodes.orchestration.sub_workflow_node.SubWorkflowNode",
+    "parallel_map": "app.nodes.orchestration.parallel_map_node.ParallelMapNode",
+    "translation_node": "app.nodes.logic.translation_node.TranslationNode",
 }
 
 from .registry import NodeRegistry
@@ -332,3 +469,29 @@ class NodeFactory:
         except Exception as e:
              print(f"NodeFactory Generic Fallback Error: {e}")
              return None
+
+    @classmethod
+    async def get_instance(cls, node_type: str, config: Dict[str, Any], context: Optional[Dict[str, Any]] = None) -> Optional[BaseNode]:
+        """
+        Master factory method (Async). 
+        Checks Standard Registry first, then Private Registry (Database).
+        """
+        # 1. Try Standard (Sync) Factory first
+        node = cls.get_node(node_type, config)
+        if node:
+            return node
+
+        # 2. Try Private Registry (Async DB Load)
+        if context:
+            workspace_id = context.get("workspace_id")
+            from .private_registry import PrivateRegistry
+            private_class = await PrivateRegistry.get_node_class(node_type, workspace_id)
+            if private_class:
+                try:
+                    return private_class(config=config)
+                except Exception as e:
+                    print(f"NodeFactory Error: Failed to instantiate private node {node_type}: {e}")
+
+        # 3. Fallback to generic if everything else fails
+        from .generic_node import GenericNode
+        return GenericNode(node_type=node_type, config=config)

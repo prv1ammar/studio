@@ -1,16 +1,18 @@
 """
 MongoDB Node - Studio Standard (Universal Method)
-Batch 95: Database Connectors (n8n Critical - Enhanced)
+Batch 110: Developer Tools & Databases
 """
-from typing import Any, Dict, Optional, List
-import motor.motor_asyncio
+from typing import Any, Dict, Optional
+import aiohttp
 from ...base import BaseNode
 from ...registry import register_node
+
+# MongoDB uses `motor` for async access.
 
 @register_node("mongodb_node")
 class MongoDBNode(BaseNode):
     """
-    Execute CRUD operations on MongoDB.
+    MongoDB NoSQL database integration.
     """
     node_type = "mongodb_node"
     version = "1.0.0"
@@ -20,23 +22,23 @@ class MongoDBNode(BaseNode):
     inputs = {
         "action": {
             "type": "dropdown",
-            "default": "find_items",
-            "options": ["find_items", "insert_item", "update_item", "delete_item", "aggregate"],
+            "default": "find",
+            "options": ["find", "insert_one", "update_one", "delete_one"],
             "description": "MongoDB action"
         },
         "collection": {
             "type": "string",
-            "required": True
+            "optional": True
         },
         "query": {
             "type": "string",
             "optional": True,
-            "description": "Query JSON"
+            "description": "JSON Query Filter"
         },
         "document": {
             "type": "string",
             "optional": True,
-            "description": "Document JSON for insert/update"
+            "description": "JSON Document"
         }
     }
 
@@ -47,54 +49,53 @@ class MongoDBNode(BaseNode):
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            # 1. Authentication
+            import motor.motor_asyncio
+        except ImportError:
+            return {"status": "error", "error": "motor library not installed. Please install it to use MongoDB Node."}
+
+        try:
             creds = await self.get_credential("mongodb_auth")
-            uri = creds.get("connection_string") or f"mongodb://{creds.get('host', 'localhost')}:{creds.get('port', 27017)}"
+            uri = creds.get("connection_string", "mongodb://localhost:27017")
             db_name = creds.get("database")
             
-            if not uri:
-                return {"status": "error", "error": "MongoDB Connection String required."}
-
             client = motor.motor_asyncio.AsyncIOMotorClient(uri)
             db = client[db_name]
             
-            action = self.get_config("action", "find_items")
+            action = self.get_config("action", "find")
             collection_name = self.get_config("collection")
-            if not collection_name:
-                return {"status": "error", "error": "collection required"}
-
-            collection = db[collection_name]
+            if not collection_name: 
+                 return {"status": "error", "error": "collection required"}
             
+            coll = db[collection_name]
+
             import json
-            query_str = self.get_config("query", "{}")
-            query = json.loads(query_str) if isinstance(query_str, str) else query_str
             
-            if action == "find_items":
-                cursor = collection.find(query)
-                results = await cursor.to_list(length=100)
-                # Convert ObjectId to str
-                for doc in results:
-                    if "_id" in doc: doc["_id"] = str(doc["_id"])
-                return {"status": "success", "data": {"result": results}}
-
-            elif action == "insert_item":
-                doc_str = self.get_config("document") or str(input_data)
-                document = json.loads(doc_str) if isinstance(doc_str, str) else doc_str
+            if action == "find":
+                query_str = self.get_config("query", "{}")
+                try:
+                    query = json.loads(query_str)
+                except:
+                    return {"status": "error", "error": "Invalid JSON in query"}
                 
-                result = await collection.insert_one(document)
-                return {"status": "success", "data": {"result": {"inserted_id": str(result.inserted_id)}}}
-
-            elif action == "update_item":
-                update_str = self.get_config("document")
-                update = json.loads(update_str) if isinstance(update_str, str) else update_str
-                
-                result = await collection.update_many(query, {"$set": update})
-                return {"status": "success", "data": {"result": {"modified_count": result.modified_count}}}
-
-            elif action == "delete_item":
-                result = await collection.delete_many(query)
-                return {"status": "success", "data": {"result": {"deleted_count": result.deleted_count}}}
-
+                cursor = coll.find(query)
+                docs = await cursor.to_list(length=100) # Limit default
+                # Simplify types like ObjectId to string
+                for doc in docs:
+                   if "_id" in doc: doc["_id"] = str(doc["_id"])
+                   
+                return {"status": "success", "data": {"result": docs}}
+            
+            elif action == "insert_one":
+                doc_str = self.get_config("document")
+                if not doc_str: return {"status": "error", "error": "document required"}
+                try:
+                    doc = json.loads(doc_str)
+                except:
+                    return {"status": "error", "error": "Invalid JSON in document"}
+                    
+                res = await coll.insert_one(doc)
+                return {"status": "success", "data": {"result": str(res.inserted_id)}}
+            
             return {"status": "error", "error": f"Unsupported action: {action}"}
 
         except Exception as e:

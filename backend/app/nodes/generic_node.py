@@ -15,7 +15,7 @@ class GenericNode(BaseNode):
 
     async def execute(self, input_data: Any, context: Dict[str, Any] = None) -> Dict[str, Any]:
         """Returns a standardized mock response to maintain engine stability."""
-        print(f"⚠️ [GenericNode] Falling back for node_type: {self.node_type}")
+        print(f" [GenericNode] Falling back for node_type: {self.node_type}")
         
         result_text = str(input_data)
         if "chat" in self.node_type or "llm" in self.node_type:

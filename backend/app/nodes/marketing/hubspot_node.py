@@ -1,82 +1,109 @@
-from typing import Any, Dict, Optional, List
-from ..base import BaseNode
-from ..registry import register_node
-import hubspot
-from hubspot.crm.contacts import SimplePublicObjectInput, ApiException
+"""
+HubSpot Node - Studio Standard (Universal Method)
+Batch 108: Marketing & CRM
+"""
+from typing import Any, Dict, Optional
+import aiohttp
+from ...base import BaseNode
+from ...registry import register_node
 
-@register_node("hubspot_crm")
+@register_node("hubspot_node")
 class HubSpotNode(BaseNode):
     """
-    Automate HubSpot CRM actions (Contacts, Search, etc.).
+    HubSpot CRM integration for marketing and sales.
     """
-    node_type = "hubspot_crm"
+    node_type = "hubspot_node"
     version = "1.0.0"
-    category = "integrations"
+    category = "marketing"
     credentials_required = ["hubspot_auth"]
 
     inputs = {
-        "action": {"type": "string", "default": "create_contact", "enum": ["create_contact", "search_contact"]},
-        "contact_data": {"type": "object", "optional": True, "description": "Properties for creation"}
+        "action": {
+            "type": "dropdown",
+            "default": "create_contact",
+            "options": ["create_contact", "list_contacts", "update_contact", "search"],
+            "description": "HubSpot action"
+        },
+        "email": {
+            "type": "string",
+            "optional": True
+        },
+        "firstname": {
+            "type": "string",
+            "optional": True
+        },
+        "lastname": {
+            "type": "string",
+            "optional": True
+        },
+        "properties": {
+            "type": "string",
+            "optional": True,
+            "description": "JSON object of properties"
+        }
     }
+
     outputs = {
-        "id": {"type": "string"},
-        "results": {"type": "array"},
+        "result": {"type": "any"},
         "status": {"type": "string"}
     }
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            # 1. Resolve Auth
             creds = await self.get_credential("hubspot_auth")
-            token = creds.get("access_token") if creds else self.get_config("access_token")
+            access_token = creds.get("access_token")
             
-            if not token:
-                return {"status": "error", "error": "HubSpot Access Token is required."}
+            if not access_token:
+                return {"status": "error", "error": "HubSpot access token required"}
 
-            client = hubspot.Client.create(access_token=token)
+            base_url = "https://api.hubapi.com/crm/v3/objects"
+            headers = {
+                "Authorization": f"Bearer {access_token}",
+                "Content-Type": "application/json"
+            }
+            
             action = self.get_config("action", "create_contact")
-            
-            if action == "create_contact":
-                properties = input_data if isinstance(input_data, dict) else self.get_config("contact_data", {})
-                if not properties and isinstance(input_data, str):
-                    properties = {"email": input_data}
+
+            async with aiohttp.ClientSession() as session:
+                if action == "create_contact":
+                    email = self.get_config("email")
+                    firstname = self.get_config("firstname")
+                    lastname = self.get_config("lastname")
+                    
+                    if not email:
+                         # Email is usually primary for HubSpot contacts
+                         pass
+                    
+                    properties = {"email": email}
+                    if firstname: properties["firstname"] = firstname
+                    if lastname: properties["lastname"] = lastname
+                    
+                    # Merge extra properties if provided
+                    extra_props = self.get_config("properties")
+                    if extra_props:
+                        import json
+                        try:
+                            properties.update(json.loads(extra_props))
+                        except:
+                            pass
+                            
+                    payload = {"properties": properties}
+                    
+                    url = f"{base_url}/contacts"
+                    async with session.post(url, headers=headers, json=payload) as resp:
+                         if resp.status != 201:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"HubSpot API Error {resp.status}: {error_text}"}
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data}}
                 
-                if not properties:
-                    return {"status": "error", "error": "Properties dictionary is required for contact creation."}
-
-                api_response = client.crm.contacts.basic_api.create(
-                    simple_public_object_input=SimplePublicObjectInput(properties=properties)
-                )
-                res = api_response.to_dict()
-                return {
-                    "status": "success",
-                    "data": {
-                        "id": res.get("id"),
-                        "properties": res.get("properties")
-                    }
-                }
-
-            elif action == "search_contact":
-                query = str(input_data) if input_data else self.get_config("contact_data", {}).get("email")
-                if not query:
-                    return {"status": "error", "error": "Search query (email) is required."}
-
-                search_request = {
-                    "filterGroups": [{"filters": [{"value": query, "propertyName": "email", "operator": "EQ"}]}]
-                }
-                api_response = client.crm.contacts.search_api.do_search(public_object_search_request=search_request)
-                res = api_response.to_dict()
-                return {
-                    "status": "success",
-                    "data": {
-                        "results": res.get("results", []),
-                        "total": res.get("total", 0)
-                    }
-                }
+                elif action == "list_contacts":
+                    url = f"{base_url}/contacts"
+                    async with session.get(url, headers=headers) as resp:
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data.get("results", [])}}
 
             return {"status": "error", "error": f"Unsupported action: {action}"}
 
-        except ApiException as e:
-             return {"status": "error", "error": f"HubSpot API Error: {e.reason}"}
         except Exception as e:
-            return {"status": "error", "error": f"HubSpot Node Error: {str(e)}"}
+            return {"status": "error", "error": f"HubSpot Node Failed: {str(e)}"}

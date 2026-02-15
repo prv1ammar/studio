@@ -1,63 +1,115 @@
-from typing import Any, Dict, Optional, List
-from ..base import BaseNode
-from ..registry import register_node
+"""
+Salesforce Node - Studio Standard (Universal Method)
+Batch 108: Marketing & CRM
+"""
+from typing import Any, Dict, Optional
+import aiohttp
+from ...base import BaseNode
+from ...registry import register_node
 
-@register_node("salesforce_crm")
+@register_node("salesforce_node")
 class SalesforceNode(BaseNode):
     """
-    Automate Salesforce CRM actions (Leads, Contacts, etc.).
+    Salesforce CRM integration for managing objects.
     """
-    node_type = "salesforce_crm"
+    node_type = "salesforce_node"
     version = "1.0.0"
-    category = "integrations"
+    category = "marketing"
     credentials_required = ["salesforce_auth"]
 
     inputs = {
-        "object_type": {"type": "string", "default": "Lead"},
-        "record_data": {"type": "object", "optional": True}
+        "action": {
+            "type": "dropdown",
+            "default": "create_record",
+            "options": ["create_record", "get_record", "update_record", "search"],
+            "description": "Salesforce action"
+        },
+        "sobject": {
+            "type": "string",
+            "default": "Account",
+            "description": "Object type (e.g. Account, Contact, Lead)"
+        },
+        "data_json": {
+            "type": "string",
+            "optional": True,
+            "description": "JSON body for record creation/update"
+        },
+        "record_id": {
+            "type": "string",
+            "optional": True
+        },
+        "query": {
+            "type": "string",
+            "optional": True,
+            "description": "SOQL Query"
+        }
     }
+
     outputs = {
-        "id": {"type": "string"},
-        "success": {"type": "boolean"},
+        "result": {"type": "any"},
         "status": {"type": "string"}
     }
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            from simple_salesforce import Salesforce
-        except ImportError:
-            return {"status": "error", "error": "Please install 'simple-salesforce'."}
-
-        try:
-            # 1. Resolve Auth
             creds = await self.get_credential("salesforce_auth")
-            username = creds.get("username") if creds else self.get_config("username")
-            password = creds.get("password") if creds else self.get_config("password")
-            token = creds.get("security_token") if creds else self.get_config("security_token")
-            domain = self.get_config("domain", "login")
-
-            if not all([username, password, token]):
-                return {"status": "error", "error": "Salesforce Username, Password, and Security Token are required."}
-
-            sf = Salesforce(username=username, password=password, security_token=token, domain=domain)
+            access_token = creds.get("access_token")
+            instance_url = creds.get("instance_url")
             
-            # 2. Perform Action (Default to Create)
-            obj_type = self.get_config("object_type", "Lead")
-            data = input_data if isinstance(input_data, dict) else self.get_config("record_data", {})
-            
-            if not data:
-                return {"status": "error", "error": "Record data dictionary is required."}
+            if not access_token or not instance_url:
+                return {"status": "error", "error": "Salesforce access token and instance URL required"}
 
-            res = sf.__getattr__(obj_type).create(data)
-            
-            return {
-                "status": "success",
-                "data": {
-                    "id": res.get("id"),
-                    "success": res.get("success", True),
-                    "object": obj_type
-                }
+            api_version = "v57.0"
+            base_url = f"{instance_url}/services/data/{api_version}"
+            headers = {
+                "Authorization": f"Bearer {access_token}",
+                "Content-Type": "application/json"
             }
+            
+            action = self.get_config("action", "create_record")
+
+            async with aiohttp.ClientSession() as session:
+                if action == "create_record":
+                    sobject = self.get_config("sobject", "Account")
+                    data_str = self.get_config("data_json", "{}")
+                    
+                    import json
+                    try:
+                        data = json.loads(data_str)
+                    except:
+                        return {"status": "error", "error": "Invalid JSON in data_json"}
+                    
+                    url = f"{base_url}/sobjects/{sobject}"
+                    async with session.post(url, headers=headers, json=data) as resp:
+                        if resp.status != 201:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Salesforce API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
+                
+                elif action == "get_record":
+                    sobject = self.get_config("sobject", "Account")
+                    record_id = self.get_config("record_id")
+                    if not record_id:
+                        return {"status": "error", "error": "record_id required"}
+                        
+                    url = f"{base_url}/sobjects/{sobject}/{record_id}"
+                    async with session.get(url, headers=headers) as resp:
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
+                
+                elif action == "search":
+                    query = self.get_config("query")
+                    if not query:
+                        return {"status": "error", "error": "query (SOQL) required"}
+                        
+                    params = {"q": query}
+                    url = f"{base_url}/query"
+                    async with session.get(url, headers=headers, params=params) as resp:
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data}}
+
+            return {"status": "error", "error": f"Unsupported action: {action}"}
 
         except Exception as e:
-            return {"status": "error", "error": f"Salesforce Node Error: {str(e)}"}
+            return {"status": "error", "error": f"Salesforce Node Failed: {str(e)}"}

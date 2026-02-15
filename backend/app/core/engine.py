@@ -187,8 +187,10 @@ class AgentEngine:
                 # Record circuit breaker failure
                 await circuit_breaker.record_failure(node_type, last_error)
                 
-                print(f" Node Execution Failed ({node_type}) after {attempt+1} attempts: {last_error}")
-                return {"error": last_error}
+                import traceback
+                stack_trace = traceback.format_exc()
+                print(f" Node Execution Failed ({node_type}) after {attempt + 1} attempts: {last_error}")
+                return {"error": last_error, "stack_trace": stack_trace}
 
     async def process_workflow(self, graph_data: Dict[str, Any], message: str, broadcaster=None, execution_id: str = None, start_node_id: str = None, initial_outputs: Dict[str, Any] = None, context: Optional[Dict[str, Any]] = None) -> str:
         """
@@ -323,8 +325,10 @@ class AgentEngine:
                         node_type=reg_id,
                         input=current_input,
                         output=result,
+                        logs=getattr(node, "metrics", {}).get("logs", []),
                         status="success" if not (isinstance(result, dict) and "error" in result) else "error",
                         error=result.get("error") if isinstance(result, dict) else None,
+                        stack_trace=result.get("stack_trace") if isinstance(result, dict) else None,
                         execution_time=node.metrics.get("execution_time", 0.0) if hasattr(node, "metrics") else 0.0
                     )
                     session.add(node_exec)

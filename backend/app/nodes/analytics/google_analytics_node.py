@@ -1,8 +1,8 @@
 """
-Google Analytics 4 (GA4) Node - Studio Standard (Universal Method)
-Batch 98: Analytics (Enterprise Expansion)
+Google Analytics Node - Studio Standard (Universal Method)
+Batch 109: Analytics & Support
 """
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, Optional
 import aiohttp
 from ...base import BaseNode
 from ...registry import register_node
@@ -10,7 +10,7 @@ from ...registry import register_node
 @register_node("google_analytics_node")
 class GoogleAnalyticsNode(BaseNode):
     """
-    Report data and track events via Google Analytics 4 (GA4) Data API and Measurement Protocol.
+    Google Analytics 4 (GA4) integration.
     """
     node_type = "google_analytics_node"
     version = "1.0.0"
@@ -21,42 +21,28 @@ class GoogleAnalyticsNode(BaseNode):
         "action": {
             "type": "dropdown",
             "default": "run_report",
-            "options": ["run_report", "send_event"],
+            "options": ["run_report", "get_metadata"],
             "description": "GA4 action"
         },
         "property_id": {
             "type": "string",
+            "optional": True,
             "description": "GA4 Property ID"
         },
         "date_ranges": {
             "type": "string",
             "optional": True,
-            "description": "Date ranges (e.g. yesterday, today, 2023-01-01 to 2023-01-31)"
+            "description": "JSON list of date ranges"
         },
         "dimensions": {
             "type": "string",
             "optional": True,
-            "description": "Comma-separated dimensions (e.g. city, eventName)"
+            "description": "Comma separated dimensions"
         },
         "metrics": {
             "type": "string",
             "optional": True,
-            "description": "Comma-separated metrics (e.g. activeUsers, eventCount)"
-        },
-        "event_name": {
-            "type": "string",
-            "optional": True,
-            "description": "Event name for measurement protocol"
-        },
-        "event_params": {
-             "type": "string",
-             "optional": True,
-             "description": "JSON event parameters"
-        },
-        "client_id": {
-            "type": "string",
-            "optional": True,
-            "description": "Client ID for user tracking"
+            "description": "Comma separated metrics"
         }
     }
 
@@ -67,88 +53,63 @@ class GoogleAnalyticsNode(BaseNode):
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            # 1. Authentication
             creds = await self.get_credential("google_analytics_auth")
-            access_token = creds.get("access_token") # OAuth token for Data API
-            api_secret = creds.get("api_secret") # For Measurement Protocol
-            measurement_id = creds.get("measurement_id") # For Measurement Protocol
+            access_token = creds.get("access_token")
+            
+            if not access_token:
+                return {"status": "error", "error": "Google Analytics access token required"}
+
+            base_url = "https://analyticsdata.googleapis.com/v1beta"
+            headers = {"Authorization": f"Bearer {access_token}", "Content-Type": "application/json"}
             
             action = self.get_config("action", "run_report")
 
             async with aiohttp.ClientSession() as session:
-                
-                # Reporting (Data API)
                 if action == "run_report":
-                    if not access_token:
-                        return {"status": "error", "error": "Google Access Token required for reporting."}
-                    
                     property_id = self.get_config("property_id")
                     if not property_id:
                         return {"status": "error", "error": "property_id required"}
-
-                    # Construct JSON payload
-                    # This is simplified; robust implementation would parse ranges/dims/metrics more fully
-                    date_range_str = self.get_config("date_ranges", "yesterday")
-                    start_date = date_range_str
-                    end_date = date_range_str # Simple default
-                    if " to " in date_range_str:
-                         start_date, end_date = date_range_str.split(" to ")
-
-                    dims = [{"name": d.strip()} for d in self.get_config("dimensions", "").split(",") if d.strip()]
-                    metrics = [{"name": m.strip()} for m in self.get_config("metrics", "").split(",") if m.strip()]
-
-                    payload = {
-                        "dateRanges": [{"startDate": start_date, "endDate": end_date}],
-                        "dimensions": dims,
-                        "metrics": metrics
-                    }
-
-                    url = f"https://analyticsdata.googleapis.com/v1beta/properties/{property_id}:runReport"
-                    headers = {
-                        "Authorization": f"Bearer {access_token}",
-                        "Content-Type": "application/json"
-                    }
-
+                        
+                    url = f"{base_url}/properties/{property_id}:runReport"
+                    
+                    # Construct request body
+                    payload = {}
+                    
+                    # Date Ranges
+                    dr_str = self.get_config("date_ranges")
+                    if dr_str:
+                         import json
+                         try:
+                             payload["dateRanges"] = json.loads(dr_str)
+                         except:
+                             payload["dateRanges"] = [{"startDate": "30daysAgo", "endDate": "today"}]
+                    else:
+                        payload["dateRanges"] = [{"startDate": "30daysAgo", "endDate": "today"}]
+                        
+                    # Dimensions
+                    dims = self.get_config("dimensions")
+                    if dims:
+                        payload["dimensions"] = [{"name": d.strip()} for d in dims.split(",") if d.strip()]
+                        
+                    # Metrics
+                    mets = self.get_config("metrics")
+                    if mets:
+                        payload["metrics"] = [{"name": m.strip()} for m in mets.split(",") if m.strip()]
+                    else:
+                        payload["metrics"] = [{"name": "activeUsers"}] # Default
+                        
                     async with session.post(url, headers=headers, json=payload) as resp:
-                        if resp.status != 200:
-                            return {"status": "error", "error": f"GA4 API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data}}
+                         if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"GA4 API Error {resp.status}: {error_text}"}
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data}}
 
-                # Tracking (Measurement Protocol)
-                elif action == "send_event":
-                    if not api_secret or not measurement_id:
-                        return {"status": "error", "error": "API Secret and Measurement ID required for sending events."}
-                    
-                    event_name = self.get_config("event_name")
-                    client_id = self.get_config("client_id", "555555555.555555555") # Dummy default if not provided
-                    
-                    if not event_name:
-                        return {"status": "error", "error": "event_name required"}
+                elif action == "get_metadata":
+                    # Admin API typically separate, simplified here or placeholder
+                    return {"status": "error", "error": "Metadata retrieval requires Admin API scope"}
 
-                    import json
-                    params_str = self.get_config("event_params")
-                    params = {}
-                    if params_str:
-                        params = json.loads(params_str) if isinstance(params_str, str) else params_str
-
-                    payload = {
-                        "client_id": client_id,
-                        "events": [{
-                            "name": event_name,
-                            "params": params
-                        }]
-                    }
-                    
-                    url = f"https://www.google-analytics.com/mp/collect?measurement_id={measurement_id}&api_secret={api_secret}"
-                    
-                    async with session.post(url, json=payload) as resp:
-                         # 204 No Content is success for MP
-                         if resp.status not in [200, 204]:
-                              return {"status": "error", "error": f"Measurement Protocol Error: {resp.status}"}
-                         return {"status": "success", "data": {"result": {"message": "Event sent"}}}
-
-                return {"status": "error", "error": f"Unsupported action: {action}"}
+            return {"status": "error", "error": f"Unsupported action: {action}"}
 
         except Exception as e:
             return {"status": "error", "error": f"Google Analytics Node Failed: {str(e)}"}

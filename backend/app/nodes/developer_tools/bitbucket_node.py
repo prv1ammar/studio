@@ -1,8 +1,8 @@
 """
 Bitbucket Node - Studio Standard (Universal Method)
-Batch 96: Developer Tools (n8n Critical)
+Batch 110: Developer Tools & Databases
 """
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, Optional
 import aiohttp
 from ...base import BaseNode
 from ...registry import register_node
@@ -10,7 +10,7 @@ from ...registry import register_node
 @register_node("bitbucket_node")
 class BitbucketNode(BaseNode):
     """
-    Manage repositories and pull requests via Bitbucket Cloud API v2.
+    Bitbucket integration for version control.
     """
     node_type = "bitbucket_node"
     version = "1.0.0"
@@ -20,18 +20,21 @@ class BitbucketNode(BaseNode):
     inputs = {
         "action": {
             "type": "dropdown",
-            "default": "list_repositories",
-            "options": ["list_repositories", "get_repository", "list_pull_requests"],
+            "default": "create_issue",
+            "options": ["create_issue", "list_repos", "get_commit"],
             "description": "Bitbucket action"
         },
         "workspace": {
             "type": "string",
-            "description": "Workspace ID or slug"
+            "optional": True
         },
         "repo_slug": {
             "type": "string",
-            "optional": True,
-            "description": "Repository slug"
+            "optional": True
+        },
+        "title": {
+            "type": "string",
+            "optional": True
         }
     }
 
@@ -42,65 +45,60 @@ class BitbucketNode(BaseNode):
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            # 1. Authentication
             creds = await self.get_credential("bitbucket_auth")
-            # Can be Basic Auth (app password) or OAuth
             username = creds.get("username")
             app_password = creds.get("app_password")
-            access_token = creds.get("access_token")
             
-            headers = {"Content-Type": "application/json"}
-            auth = None
-            
-            if access_token:
-                headers["Authorization"] = f"Bearer {access_token}"
-            elif username and app_password:
-                auth = aiohttp.BasicAuth(username, app_password)
-            else:
-                 return {"status": "error", "error": "Bitbucket Auth required (Token or User/AppPass)."}
-            
-            # 2. Connect to Real API
+            if not username or not app_password:
+                return {"status": "error", "error": "Bitbucket username and App Password required"}
+
             base_url = "https://api.bitbucket.org/2.0"
-            action = self.get_config("action", "list_repositories")
-            workspace = self.get_config("workspace")
+            auth = aiohttp.BasicAuth(username, app_password)
+            headers = {"Content-Type": "application/json"}
+            
+            action = self.get_config("action", "create_issue")
 
-            if not workspace:
-                return {"status": "error", "error": "workspace required"}
-
-            async with aiohttp.ClientSession(auth=auth) as session:
-                if action == "list_repositories":
-                    url = f"{base_url}/repositories/{workspace}"
-                    async with session.get(url, headers=headers) as resp:
-                        if resp.status != 200:
-                            return {"status": "error", "error": f"Bitbucket API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data.get("values", [])}}
-
-                elif action == "get_repository":
+            async with aiohttp.ClientSession() as session:
+                if action == "create_issue":
+                    workspace = self.get_config("workspace")
                     repo_slug = self.get_config("repo_slug")
-                    if not repo_slug:
-                        return {"status": "error", "error": "repo_slug required"}
+                    title = self.get_config("title")
                     
-                    url = f"{base_url}/repositories/{workspace}/{repo_slug}"
-                    async with session.get(url, headers=headers) as resp:
-                        if resp.status != 200:
-                            return {"status": "error", "error": f"Bitbucket API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data}}
-
-                elif action == "list_pull_requests":
+                    if not workspace or not repo_slug or not title:
+                        return {"status": "error", "error": "workspace, repo_slug, and title required"}
+                        
+                    payload = {
+                        "title": title,
+                        "content": {"raw": self.get_config("content", "")}
+                    }
+                    
+                    url = f"{base_url}/repositories/{workspace}/{repo_slug}/issues"
+                    async with session.post(url, headers=headers, auth=auth, json=payload) as resp:
+                         if resp.status != 201:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"Bitbucket API Error {resp.status}: {error_text}"}
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data}}
+                
+                elif action == "list_repos":
+                     workspace = self.get_config("workspace")
+                     url = f"{base_url}/repositories/{workspace}" if workspace else f"{base_url}/repositories"
+                     async with session.get(url, headers=headers, auth=auth) as resp:
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data.get("values", [])}}
+                
+                elif action == "get_commit":
+                    workspace = self.get_config("workspace")
                     repo_slug = self.get_config("repo_slug")
-                    if not repo_slug:
-                        return {"status": "error", "error": "repo_slug required"}
+                    commit = self.get_config("commit_hash")
+                    if not commit: return {"status": "error", "error": "commit_hash required"}
                     
-                    url = f"{base_url}/repositories/{workspace}/{repo_slug}/pullrequests"
-                    async with session.get(url, headers=headers) as resp:
-                        if resp.status != 200:
-                            return {"status": "error", "error": f"Bitbucket API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data.get("values", [])}}
+                    url = f"{base_url}/repositories/{workspace}/{repo_slug}/commit/{commit}"
+                    async with session.get(url, headers=headers, auth=auth) as resp:
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data}}
 
-                return {"status": "error", "error": f"Unsupported action: {action}"}
+            return {"status": "error", "error": f"Unsupported action: {action}"}
 
         except Exception as e:
             return {"status": "error", "error": f"Bitbucket Node Failed: {str(e)}"}

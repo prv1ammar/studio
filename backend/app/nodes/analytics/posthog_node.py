@@ -1,8 +1,8 @@
 """
 PostHog Node - Studio Standard (Universal Method)
-Batch 98: Analytics (Enterprise Expansion)
+Batch 109: Analytics & Support
 """
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, Optional
 import aiohttp
 from ...base import BaseNode
 from ...registry import register_node
@@ -10,7 +10,7 @@ from ...registry import register_node
 @register_node("posthog_node")
 class PostHogNode(BaseNode):
     """
-    Capture events and identify users in PostHog.
+    PostHog integration for product analytics.
     """
     node_type = "posthog_node"
     version = "1.0.0"
@@ -21,22 +21,20 @@ class PostHogNode(BaseNode):
         "action": {
             "type": "dropdown",
             "default": "capture_event",
-            "options": ["capture_event", "identify_user", "alias_user"],
+            "options": ["capture_event", "identify_user"],
             "description": "PostHog action"
         },
-        "distinct_id": {
+        "event": {
             "type": "string",
-            "required": True,
-            "description": "User Distinct ID"
+            "optional": True
         },
-        "event_name": {
+        "distinct_id": {
             "type": "string",
             "optional": True
         },
         "properties": {
             "type": "string",
-            "optional": True,
-            "description": "JSON properties"
+            "optional": True
         }
     }
 
@@ -47,90 +45,76 @@ class PostHogNode(BaseNode):
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            # 1. Authentication
             creds = await self.get_credential("posthog_auth")
-            api_key = creds.get("api_key") # Project API Key
+            api_key = creds.get("api_key")
             host = creds.get("host", "https://app.posthog.com")
             
             if not api_key:
-                return {"status": "error", "error": "PostHog API Key required."}
+                return {"status": "error", "error": "PostHog API key required"}
 
-            headers = {
-                "Content-Type": "application/json"
-            }
+            base_url = f"{host}/capture"
+            headers = {"Content-Type": "application/json"}
             
-            # 2. Connect to Real API
-            base_url = f"{host.rstrip('/')}"
             action = self.get_config("action", "capture_event")
-            distinct_id = self.get_config("distinct_id")
-            
-            import json
-            props_str = self.get_config("properties")
-            props = {}
-            if props_str:
-                props = json.loads(props_str) if isinstance(props_str, str) else props_str
 
             async with aiohttp.ClientSession() as session:
-                
                 if action == "capture_event":
-                    event = self.get_config("event_name")
-                    if not event:
-                        return {"status": "error", "error": "event_name required"}
-
-                    url = f"{base_url}/capture/"
+                    event = self.get_config("event")
+                    distinct_id = self.get_config("distinct_id")
+                    
+                    if not event or not distinct_id:
+                        return {"status": "error", "error": "event and distinct_id required"}
+                    
                     payload = {
                         "api_key": api_key,
                         "event": event,
                         "properties": {
-                            "distinct_id": distinct_id,
-                            **props
+                            "distinct_id": distinct_id
                         },
                         "timestamp": None # Optional
                     }
-                    async with session.post(url, headers=headers, json=payload) as resp:
-                        if resp.status != 200:
-                            return {"status": "error", "error": f"PostHog API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data}}
+                    
+                    # Merge extra props
+                    import json
+                    extra_props = self.get_config("properties")
+                    if extra_props:
+                        try:
+                            payload["properties"].update(json.loads(extra_props))
+                        except:
+                            pass
+                            
+                    async with session.post(base_url, headers=headers, json=payload) as resp:
+                         # PostHog usually returns status 1 or 200/201
+                         if resp.status != 200:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"PostHog API Error {resp.status}: {error_text}"}
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data}}
 
                 elif action == "identify_user":
-                    url = f"{base_url}/capture/"
+                    distinct_id = self.get_config("distinct_id")
+                    if not distinct_id: return {"status": "error", "error": "distinct_id required"}
+                    
                     payload = {
                         "api_key": api_key,
                         "event": "$identify",
                         "properties": {
                             "distinct_id": distinct_id,
-                            "$set": props
+                            "$set": {}
                         }
                     }
-                    async with session.post(url, headers=headers, json=payload) as resp:
-                         if resp.status != 200:
-                              return {"status": "error", "error": f"PostHog API Error: {resp.status}"}
+                    extra_props = self.get_config("properties")
+                    if extra_props:
+                        try:
+                           payload["properties"]["$set"] = json.loads(extra_props)
+                        except:
+                           pass
+                           
+                    async with session.post(base_url, headers=headers, json=payload) as resp:
                          res_data = await resp.json()
                          return {"status": "success", "data": {"result": res_data}}
 
-                elif action == "alias_user":
-                    alias_id = self.get_config("event_name") # Reusing event_name for alias (new ID)
-                    if not alias_id:
-                         return {"status": "error", "error": "alias_id (in event_name) required"}
-                    
-                    url = f"{base_url}/capture/"
-                    # Alias: alias_id is the new ID, distinct_id is the old ID
-                    payload = {
-                        "api_key": api_key,
-                        "event": "$create_alias",
-                        "properties": {
-                            "distinct_id": distinct_id,
-                            "alias": alias_id
-                        }
-                    }
-                    async with session.post(url, headers=headers, json=payload) as resp:
-                         if resp.status != 200:
-                              return {"status": "error", "error": f"PostHog API Error: {resp.status}"}
-                         res_data = await resp.json()
-                         return {"status": "success", "data": {"result": res_data}}
-
-                return {"status": "error", "error": f"Unsupported action: {action}"}
+            return {"status": "error", "error": f"Unsupported action: {action}"}
 
         except Exception as e:
             return {"status": "error", "error": f"PostHog Node Failed: {str(e)}"}

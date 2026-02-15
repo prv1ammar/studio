@@ -107,6 +107,7 @@ const App = () => {
   const [workflowId, setWorkflowId] = useState(null);
   const [workflowName, setWorkflowName] = useState('New Workflow');
   const [isCommentOpen, setIsCommentOpen] = useState(false);
+  const [credentialList, setCredentialList] = useState([]);
   const socketRef = useRef(null);
 
   // Fetch user profile on mount or auth change
@@ -271,6 +272,20 @@ const App = () => {
     };
     fetchLibrary();
   }, []);
+
+  // Fetch credentials list
+  const fetchCredentials = async () => {
+    try {
+      const resp = await axios.get(`${API_BASE_URL}/credentials/list`);
+      setCredentialList(resp.data.credentials || []);
+    } catch (e) {
+      console.error("Failed to fetch credentials", e);
+    }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) fetchCredentials();
+  }, [isAuthenticated, isCredModalOpen]);
 
   useEffect(() => {
     if (selectedNode) {
@@ -998,7 +1013,7 @@ const App = () => {
                           {field.description || 'Enable this option'}
                         </span>
                       </div>
-                    ) : (field.type === 'dropdown' || field.type === 'multiselect' || field.options) ? (
+                    ) : (field.type === 'dropdown' || field.type === 'multiselect' || field.options || field.name.toLowerCase().includes('api_key') || field.name.toLowerCase().includes('token') || field.name.toLowerCase().includes('credential')) ? (
                       <select
                         className="ins-input"
                         multiple={field.type === 'multiselect'}
@@ -1014,6 +1029,15 @@ const App = () => {
                         }}
                       >
                         {field.type !== 'multiselect' && <option value="">Select...</option>}
+
+                        {/* Auto-inject Credentials if it looks like an auth field */}
+                        {(field.name.toLowerCase().includes('api_key') || field.name.toLowerCase().includes('token') || field.name.toLowerCase().includes('credential')) &&
+                          credentialList.map(c => (
+                            <option key={c.value} value={c.value}>🔒 {c.label} ({c.type})</option>
+                          ))
+                        }
+
+                        {/* Standard options */}
                         {(field.options || []).map((opt) => {
                           const label = typeof opt === 'object' ? opt.label : opt;
                           const value = typeof opt === 'object' ? opt.value : opt;

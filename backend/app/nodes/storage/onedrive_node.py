@@ -1,8 +1,8 @@
 """
 OneDrive Node - Studio Standard (Universal Method)
-Batch 94: Cloud Storage (n8n Critical)
+Batch 107: Cloud Storage
 """
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, Optional
 import aiohttp
 from ...base import BaseNode
 from ...registry import register_node
@@ -10,26 +10,30 @@ from ...registry import register_node
 @register_node("onedrive_node")
 class OneDriveNode(BaseNode):
     """
-    Manage files in OneDrive personal via Microsoft Graph API.
+    Microsoft OneDrive integration via Graph API.
     """
     node_type = "onedrive_node"
     version = "1.0.0"
     category = "storage"
-    credentials_required = ["microsoft_auth"]
+    credentials_required = ["microsoft_graph_auth"]
 
     inputs = {
         "action": {
             "type": "dropdown",
-            "default": "list_children",
-            "options": ["list_children", "get_metadata", "download_file", "upload_file", "create_folder"],
+            "default": "upload_file",
+            "options": ["upload_file", "list_drive", "list_children", "create_folder"],
             "description": "OneDrive action"
         },
-        "item_path": {
+        "path": {
             "type": "string",
-            "default": "/",
-            "description": "Path to item (e.g. /Documents/file.txt)"
+            "optional": True,
+            "description": "Path or item ID"
         },
-        "content": {
+        "file_content": {
+            "type": "string",
+            "optional": True
+        },
+        "file_name": {
             "type": "string",
             "optional": True
         }
@@ -42,85 +46,77 @@ class OneDriveNode(BaseNode):
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            # 1. Authentication
-            creds = await self.get_credential("microsoft_auth")
+            creds = await self.get_credential("microsoft_graph_auth")
             access_token = creds.get("access_token")
             
             if not access_token:
-                return {"status": "error", "error": "Microsoft Access Token required."}
+                return {"status": "error", "error": "OneDrive access token required"}
 
+            base_url = "https://graph.microsoft.com/v1.0/me/drive"
             headers = {
-                "Authorization": f"Bearer {access_token}",
-                "Content-Type": "application/json"
+                "Authorization": f"Bearer {access_token}"
             }
             
-            # 2. Connect to Real API
-            base_url = "https://graph.microsoft.com/v1.0/me/drive/root"
-            action = self.get_config("action", "list_children")
+            action = self.get_config("action", "upload_file")
 
             async with aiohttp.ClientSession() as session:
-                if action == "list_children":
-                    path = self.get_config("item_path", "/")
-                    if path == "/":
-                        url = f"{base_url}/children"
-                    else:
-                        url = f"{base_url}:{path}:/children"
+                if action == "upload_file":
+                    file_name = self.get_config("file_name")
+                    file_content = self.get_config("file_content")
+                    folder_path = self.get_config("path", "")
                     
-                    async with session.get(url, headers=headers) as resp:
+                    if not file_name or file_content is None:
+                        return {"status": "error", "error": "file_name and file_content required"}
+                    
+                    # Upload small files directly (for simplicity)
+                    # For larger files, create upload session is needed
+                    target_url = f"{base_url}/root:/{folder_path}/{file_name}:/content" if folder_path else f"{base_url}/root:/{file_name}:/content"
+                    
+                    upload_headers = headers.copy()
+                    upload_headers["Content-Type"] = "text/plain" # Or octet-stream
+                    
+                    async with session.put(target_url, headers=upload_headers, data=file_content) as resp:
+                        if resp.status not in [200, 201]:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"OneDrive API Error {resp.status}: {error_text}"}
+                        res_data = await resp.json()
+                        return {"status": "success", "data": {"result": res_data}}
+
+                elif action == "list_drive":
+                    target_url = f"{base_url}/root/children"
+                    async with session.get(target_url, headers=headers) as resp:
                         if resp.status != 200:
-                            return {"status": "error", "error": f"OneDrive API Error: {resp.status}"}
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"OneDrive API Error {resp.status}: {error_text}"}
                         res_data = await resp.json()
                         return {"status": "success", "data": {"result": res_data.get("value", [])}}
-
-                elif action == "get_metadata":
-                    path = self.get_config("item_path")
-                    if not path:
-                          return {"status": "error", "error": "item_path required"}
-                          
-                    url = f"{base_url}:{path}"
-                    async with session.get(url, headers=headers) as resp:
-                        if resp.status != 200:
-                            return {"status": "error", "error": f"OneDrive API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data}}
-
-                elif action == "upload_file":
-                    # Simple upload for small files
-                    path = self.get_config("item_path")
-                    content = self.get_config("content") or str(input_data)
-                    
-                    if not path:
-                        return {"status": "error", "error": "item_path required"}
-                    
-                    url = f"{base_url}:{path}:/content"
-                    headers["Content-Type"] = "text/plain"  # Assume text for now
-                    async with session.put(url, headers=headers, data=content) as resp:
-                        if resp.status not in [200, 201]:
-                            return {"status": "error", "error": f"OneDrive API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data}}
-
+                
                 elif action == "create_folder":
-                    # For creating folder, we need the parent path
-                    path = self.get_config("item_path")
-                    if not path:
-                        return {"status": "error", "error": "item_path required (e.g. /NewFolder)"}
+                    folder_name = self.get_config("file_name") # Reuse input
+                    parent_id = self.get_config("path") # Use path as parent ID or assume root
                     
-                    # Assume creating in root for simplicity if no parent specified logic
-                    # This is naive implementation
-                    url = f"{base_url}/children"
+                    if not folder_name:
+                         return {"status": "error", "error": "Folder name (file_name) required"}
+                    
+                    target_url = f"{base_url}/items/{parent_id}/children" if parent_id else f"{base_url}/root/children"
+                    
                     payload = {
-                        "name": path.strip("/"),
+                        "name": folder_name,
                         "folder": {},
                         "@microsoft.graph.conflictBehavior": "rename"
                     }
-                    async with session.post(url, headers=headers, json=payload) as resp:
-                        if resp.status != 201:
-                             return {"status": "error", "error": f"OneDrive API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data}}
+                    
+                    create_headers = headers.copy()
+                    create_headers["Content-Type"] = "application/json"
+                    
+                    async with session.post(target_url, headers=create_headers, json=payload) as resp:
+                         if resp.status != 201:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"OneDrive API Error {resp.status}: {error_text}"}
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data}}
 
-                return {"status": "error", "error": f"Unsupported action: {action}"}
+            return {"status": "error", "error": f"Unsupported action: {action}"}
 
         except Exception as e:
             return {"status": "error", "error": f"OneDrive Node Failed: {str(e)}"}

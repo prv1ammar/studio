@@ -21,7 +21,7 @@ async_session = sessionmaker(
 async def init_db():
     async with engine.begin() as conn:
         # Import models here to ensure they are registered
-        from .models import User, Workflow, Credential, AuditLog, Workspace, WorkspaceMember, Comment
+        from .models import User, Workflow, Credential, AuditLog, Workspace, WorkspaceMember, Comment, Execution, NodeExecution, WebhookEndpoint, WebhookEvent, WebhookDelivery, Schedule, PrivateNode, ApiKey, Template, SlaMetric, Incident
         await conn.run_sync(SQLModel.metadata.create_all)
 
 async def get_session() -> AsyncSession:

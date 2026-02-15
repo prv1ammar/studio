@@ -24,7 +24,7 @@ class ParseDataNode(BaseNode):
                     source_id = input_edge["source"]
                     source_node = next((n for n in nodes if n["id"] == source_id), None)
                     if source_node and engine:
-                        print(f"🔄 ParseData: Pulling data from node {source_id}...")
+                        print(f" ParseData: Pulling data from node {source_id}...")
                         data_to_parse = await engine.execute_node(
                             source_node["data"].get("id"), 
                             None, 
@@ -53,13 +53,13 @@ class ParseDataNode(BaseNode):
                         formatted_parts.append(template.format(**full_dict))
                     except KeyError as e:
                         # Fallback if key missing
-                        print(f"⚠️ ParseData Warning: Missing key {e} for template.")
+                        print(f" ParseData Warning: Missing key {e} for template.")
                         formatted_parts.append(str(item.get("text") or item))
                 else:
                     formatted_parts.append(str(item))
             
             result = sep.join(formatted_parts)
-            print(f"✅ Formatted {len(formatted_parts)} items into a single message.")
+            print(f" Formatted {len(formatted_parts)} items into a single message.")
             return result
             
         except Exception as e:

@@ -1,5 +1,7 @@
 import asyncio
 import os
+from dotenv import load_dotenv
+load_dotenv()
 from arq import create_pool
 from arq.connections import RedisSettings
 from app.core.engine import engine
@@ -132,3 +134,4 @@ class WorkerSettings:
     job_timeout = settings.WORKFLOW_TIMEOUT
     max_jobs = settings.WORKER_CONCURRENCY  # Concurrent jobs per worker
     queue_name = os.getenv("WORKER_QUEUE", "default")  # Configurable for multi-region support
+

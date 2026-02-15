@@ -37,7 +37,7 @@ class TelegramNode(BaseNode):
             # 2. Prepare Payload
             message = str(input_data) if input_data is not None else self.get_config("text", "New update from Studio")
             if isinstance(input_data, dict):
-                message = f"📦 *Data Received*:\n```json\n{json.dumps(input_data, indent=2)}\n```"
+                message = f" *Data Received*:\n```json\n{json.dumps(input_data, indent=2)}\n```"
 
             url = f"https://api.telegram.org/bot{token}/sendMessage"
             payload = {

@@ -883,41 +883,87 @@ body {
   color: var(--text-primary);
 }
 
-/* CRITICAL: Custom Handle Styles - MUST BE CLICKABLE */
+/* CRITICAL: Custom Handle Styles - Premium n8n-inspired Design */
 .custom-handle {
-  width: 14px !important;
-  height: 14px !important;
-  border: 3px solid var(--bg-surface) !important;
+  width: 18px !important;
+  height: 18px !important;
+  border: 3px solid #ffffff !important;
   border-radius: 50% !important;
   cursor: crosshair !important;
-  transition: all 0.2s ease !important;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
   position: absolute !important;
   z-index: 100 !important;
   pointer-events: all !important;
+  box-shadow:
+    0 0 0 3px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2) !important;
+  opacity: 1 !important;
 }
 
 .custom-handle-target {
-  left: -7px !important;
+  left: -9px !important;
 }
 
 .custom-handle-source {
-  right: -7px !important;
+  right: -9px !important;
 }
 
+/* Enhanced hover state with glow effect */
 .custom-handle:hover {
-  transform: scale(1.4) !important;
-  box-shadow: 0 0 12px currentColor !important;
-  border-width: 2px !important;
-}
-
-.react-flow__handle-connecting {
   transform: scale(1.5) !important;
-  box-shadow: 0 0 16px currentColor !important;
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.3),
+    0 0 20px currentColor,
+    0 0 30px currentColor,
+    inset 0 0 0 2px rgba(255, 255, 255, 0.4) !important;
+  border-width: 3px !important;
+  filter: brightness(1.2) !important;
 }
 
+/* Active connection state */
+.react-flow__handle-connecting {
+  transform: scale(1.6) !important;
+  box-shadow:
+    0 0 0 5px rgba(59, 130, 246, 0.3),
+    0 0 25px var(--accent),
+    0 0 40px var(--accent) !important;
+  animation: pulsePort 1.5s ease-in-out infinite !important;
+}
+
+/* Valid connection target */
 .react-flow__handle-valid {
   border-color: var(--success) !important;
-  box-shadow: 0 0 12px var(--success) !important;
+  box-shadow:
+    0 0 0 4px rgba(16, 185, 129, 0.3),
+    0 0 20px var(--success),
+    0 0 30px var(--success) !important;
+  animation: pulseValid 1s ease-in-out infinite !important;
+}
+
+/* Port pulse animations */
+@keyframes pulsePort {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes pulseValid {
+
+  0%,
+  100% {
+    transform: scale(1.4);
+  }
+
+  50% {
+    transform: scale(1.6);
+  }
 }
 
 /* Inspector */

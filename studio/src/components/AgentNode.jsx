@@ -5,23 +5,44 @@ import {
     Wind, Layers, Mail, FileText, Settings, BookOpen,
     CheckCircle, User, Zap, ArrowRightCircle, LogOut, PenTool, Bot,
     Play, Loader2, Code, Type, Activity, Terminal,
-    Scissors, Box, Link, Wrench
+    Scissors, Box, Link, Wrench, Languages
 } from 'lucide-react';
 
 const icons = {
-    OpenAI: Cpu, Anthropic: Brain, Google: Globe, Mistral: Wind, Ollama: Layers,
-    Pinecone: Layers, Chroma: Database, MongoDB: Database, PostgreSQL: Database,
-    Supabase: Database, Tavily: Search, DuckDuckGo: Search, SerpApi: Search,
-    Wikipedia: BookOpen, Gmail: Mail, Slack: MessageSquare, Notion: FileText,
-    Airtable: Settings, chatInput: MessageSquare, textInput: Type,
-    fileInput: FileText, urlLoader: Globe, promptTemplate: PenTool,
-    chatPrompt: MessageSquare, toolCallingAgent: Bot, reactAgent: Zap,
-    router: ArrowRightCircle, conditional: ArrowRightCircle,
-    chatOutput: LogOut, textOutput: LogOut, faq: BookOpen,
-    booking: CheckCircle, patient: User, orchestrator: Cpu,
-    OpenRouter: Globe, Groq: Zap, DeepSeek: Brain, AstraDB: Database,
-    FAISS: Layers, Milvus: Database, SearchAPI: Search, Python: Code,
-    Bot, Code, Box
+    // LLMs
+    OpenAI: 'https://cdn.worldvectorlogo.com/logos/openai-2.svg',
+    Anthropic: 'https://cdn.worldvectorlogo.com/logos/claude.svg',
+    Claude: 'https://cdn.worldvectorlogo.com/logos/claude.svg',
+    Google: 'https://cdn.worldvectorlogo.com/logos/google-icon.svg',
+    Mistral: 'https://mistral.ai/images/logo.svg',
+    DeepSeek: Brain,
+
+    // Core
+    webhook_trigger: Zap,
+    chatInput: MessageSquare,
+    textInput: Type,
+    chatOutput: LogOut,
+    sub_workflow: Layers,
+    parallel_map: Box,
+    translation_node: Globe,
+    AI_Model: Cpu,
+
+    // Tools & Integrations
+    Gmail: 'https://cdn.worldvectorlogo.com/logos/gmail-icon.svg',
+    Slack: 'https://cdn.worldvectorlogo.com/logos/slack-new-logo.svg',
+    Notion: 'https://cdn.worldvectorlogo.com/logos/notion-2.svg',
+    Salesforce: 'https://cdn.worldvectorlogo.com/logos/salesforce-2.svg',
+    Hubspot: 'https://cdn.worldvectorlogo.com/logos/hubspot.svg',
+    Github: 'https://cdn.worldvectorlogo.com/logos/github-icon-1.svg',
+    Supabase: 'https://cdn.worldvectorlogo.com/logos/supabase.svg',
+    Airtable: 'https://cdn.worldvectorlogo.com/logos/airtable.svg',
+    Pinecone: Layers,
+    Chroma: Database,
+    MongoDB: Database,
+    PostgreSQL: Database,
+    Tavily: Search,
+    SearchAPI: Search,
+    Python: Code,
 };
 
 const getLucideIcon = (name) => {
@@ -29,9 +50,12 @@ const getLucideIcon = (name) => {
         Cpu, Brain, Database, Search, Globe, MessageSquare,
         Wind, Layers, Mail, FileText, Settings, BookOpen,
         CheckCircle, User, Zap, ArrowRightCircle, LogOut, PenTool, Bot,
-        Code, Type, Terminal, Scissors, Box, Link, Wrench
+        Code, Type, Terminal, Scissors, Box, Link, Wrench, Languages
     };
     if (iconMap[name]) return iconMap[name];
+    if (name && name.toLowerCase().includes('search')) return Search;
+    if (name && name.toLowerCase().includes('database')) return Database;
+    if (name && name.toLowerCase().includes('agent')) return Bot;
     return Activity;
 };
 
@@ -48,8 +72,8 @@ const TYPE_COLORS = {
 
 const AgentNode = ({ id, data, selected }) => {
     const [iconError, setIconError] = React.useState(false);
-    const isSvgIcon = !iconError && typeof data.icon === 'string' && (data.icon.includes('/') || data.icon.endsWith('.svg'));
-    const IconComponent = (icons[data.icon] || getLucideIcon(data.icon || data.label));
+    const iconSource = icons[data.icon] || getLucideIcon(data.icon || data.label);
+    const isExternalIcon = typeof iconSource === 'string';
 
     const color = data.color || '#3b82f6';
     const isExecuting = data.isExecuting;
@@ -73,15 +97,18 @@ const AgentNode = ({ id, data, selected }) => {
                         color: color,
                     }}
                 >
-                    {isSvgIcon ? (
+                    {isExternalIcon ? (
                         <img
-                            src={data.icon}
+                            src={iconSource}
                             alt=""
-                            style={{ width: 18, height: 18 }}
+                            style={{ width: 22, height: 22, objectFit: 'contain' }}
                             onError={() => setIconError(true)}
                         />
                     ) : (
-                        <IconComponent size={18} strokeWidth={2.5} />
+                        (() => {
+                            const Icon = iconSource;
+                            return <Icon size={18} strokeWidth={2.5} />;
+                        })()
                     )}
                 </div>
 

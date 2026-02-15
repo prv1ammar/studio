@@ -33,3 +33,4 @@ async def execute_with_timeout(coro, timeout: int = None):
         return await asyncio.wait_for(coro, timeout=timeout)
     except asyncio.TimeoutError:
         raise TimeoutError(f"Execution exceeded {timeout}s timeout")
+

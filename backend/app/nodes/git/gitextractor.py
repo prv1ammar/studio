@@ -121,11 +121,11 @@ class GitExtractorComponent(Component):
                     level = root.replace(temp_dir, "").count(os.sep)
                     indent = "    " * level
                     if level == 0:
-                        tree.append(f"└── {Path(root).name}")
+                        tree.append(f" {Path(root).name}")
                     else:
-                        tree.append(f"{indent}├── {Path(root).name}")
+                        tree.append(f"{indent} {Path(root).name}")
                     subindent = "    " * (level + 1)
-                    tree.extend(f"{subindent}├── {f}" for f in files)
+                    tree.extend(f"{subindent} {f}" for f in files)
                 directory_structure = "\n".join(tree)
                 self.status = directory_structure
                 return Message(text=directory_structure)

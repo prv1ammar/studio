@@ -1,100 +1,182 @@
 """
 Wait Node - Studio Standard (Universal Method)
-Batch 93: Advanced Workflow (n8n Critical)
+Batch 103: Core Workflow Nodes
 """
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, Optional
 import asyncio
-from datetime import datetime
+from datetime import datetime, timedelta
 from ...base import BaseNode
 from ...registry import register_node
 
 @register_node("wait_node")
 class WaitNode(BaseNode):
     """
-    Pause execution for a specific duration or until a trigger.
+    Pause workflow execution for a specified duration or until a specific time.
     """
     node_type = "wait_node"
     version = "1.0.0"
-    category = "flow_control"
+    category = "flow_controls"
     credentials_required = []
 
     inputs = {
         "mode": {
             "type": "dropdown",
-            "default": "wait_amount",
-            "options": ["wait_amount", "wait_until"],
+            "default": "duration",
+            "options": ["duration", "until_time", "until_date"],
             "description": "Wait mode"
         },
-        "amount": {
+        "duration": {
             "type": "number",
-            "description": "Amount of time to wait"
+            "default": 1,
+            "optional": True,
+            "description": "Duration to wait"
         },
         "unit": {
             "type": "dropdown",
             "default": "seconds",
             "options": ["seconds", "minutes", "hours", "days"],
+            "optional": True,
             "description": "Time unit"
         },
-        "date_time": {
+        "until_time": {
             "type": "string",
-            "description": "Specific date/time to wait until (ISO 8601)"
+            "optional": True,
+            "description": "Wait until this time (HH:MM format)"
+        },
+        "until_date": {
+            "type": "string",
+            "optional": True,
+            "description": "Wait until this date (YYYY-MM-DD HH:MM format)"
         }
     }
 
     outputs = {
         "result": {"type": "any"},
-        "status": {"type": "string"}
+        "status": {"type": "string"},
+        "wait_info": {"type": "object"}
     }
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            mode = self.get_config("mode", "wait_amount")
+            mode = self.get_config("mode", "duration")
             
-            if mode == "wait_amount":
-                amount = float(self.get_config("amount", 1))
+            wait_seconds = 0
+            wait_until = None
+            
+            if mode == "duration":
+                duration = float(self.get_config("duration", 1))
                 unit = self.get_config("unit", "seconds")
                 
-                seconds = amount
+                # Convert to seconds
                 if unit == "minutes":
-                    seconds *= 60
+                    wait_seconds = duration * 60
                 elif unit == "hours":
-                    seconds *= 3600
+                    wait_seconds = duration * 3600
                 elif unit == "days":
-                    seconds *= 86400
+                    wait_seconds = duration * 86400
+                else:  # seconds
+                    wait_seconds = duration
                 
-                # In execution engine, we perform the wait
-                await asyncio.sleep(seconds)
+                # Perform the wait
+                await asyncio.sleep(wait_seconds)
                 
                 return {
                     "status": "success",
                     "data": {
                         "result": input_data,
-                        "waited_seconds": seconds
+                        "wait_info": {
+                            "mode": "duration",
+                            "waited_seconds": wait_seconds,
+                            "waited_duration": f"{duration} {unit}"
+                        }
                     }
                 }
             
-            elif mode == "wait_until":
-                date_str = self.get_config("date_time")
-                if not date_str:
-                    return {"status": "error", "error": "date_time required for wait_until"}
+            elif mode == "until_time":
+                until_time_str = self.get_config("until_time", "00:00")
                 
-                target_time = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
-                now = datetime.now(target_time.tzinfo)
-                
-                wait_seconds = (target_time - now).total_seconds()
-                
-                if wait_seconds > 0:
+                try:
+                    # Parse time (HH:MM format)
+                    target_hour, target_minute = map(int, until_time_str.split(":"))
+                    
+                    now = datetime.now()
+                    target_time = now.replace(hour=target_hour, minute=target_minute, second=0, microsecond=0)
+                    
+                    # If target time is in the past today, set it for tomorrow
+                    if target_time <= now:
+                        target_time += timedelta(days=1)
+                    
+                    wait_seconds = (target_time - now).total_seconds()
+                    
+                    # Cap wait time at 24 hours for safety
+                    if wait_seconds > 86400:
+                        wait_seconds = 86400
+                    
                     await asyncio.sleep(wait_seconds)
-                
-                return {
-                    "status": "success",
-                    "data": {
-                        "result": input_data,
-                        "waited_until": date_str
+                    
+                    return {
+                        "status": "success",
+                        "data": {
+                            "result": input_data,
+                            "wait_info": {
+                                "mode": "until_time",
+                                "target_time": target_time.isoformat(),
+                                "waited_seconds": wait_seconds
+                            }
+                        }
                     }
-                }
+                
+                except ValueError:
+                    return {"status": "error", "error": "Invalid time format. Use HH:MM"}
             
-            return {"status": "error", "error": f"Unsupported mode: {mode}"}
+            elif mode == "until_date":
+                until_date_str = self.get_config("until_date")
+                
+                if not until_date_str:
+                    return {"status": "error", "error": "until_date required for this mode"}
+                
+                try:
+                    # Parse datetime (YYYY-MM-DD HH:MM format)
+                    target_datetime = datetime.fromisoformat(until_date_str.replace(" ", "T"))
+                    
+                    now = datetime.now()
+                    
+                    if target_datetime <= now:
+                        return {
+                            "status": "success",
+                            "data": {
+                                "result": input_data,
+                                "wait_info": {
+                                    "mode": "until_date",
+                                    "message": "Target date/time is in the past, continuing immediately"
+                                }
+                            }
+                        }
+                    
+                    wait_seconds = (target_datetime - now).total_seconds()
+                    
+                    # Cap wait time at 7 days for safety
+                    if wait_seconds > 604800:
+                        wait_seconds = 604800
+                    
+                    await asyncio.sleep(wait_seconds)
+                    
+                    return {
+                        "status": "success",
+                        "data": {
+                            "result": input_data,
+                            "wait_info": {
+                                "mode": "until_date",
+                                "target_datetime": target_datetime.isoformat(),
+                                "waited_seconds": wait_seconds
+                            }
+                        }
+                    }
+                
+                except ValueError:
+                    return {"status": "error", "error": "Invalid date format. Use YYYY-MM-DD HH:MM"}
+            
+            return {"status": "error", "error": f"Unsupported wait mode: {mode}"}
 
         except Exception as e:
             return {"status": "error", "error": f"Wait Node Failed: {str(e)}"}

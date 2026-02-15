@@ -18,7 +18,7 @@ class CircuitBreaker:
     async def init_redis(self, redis_client: aioredis.Redis):
         """Initialize with the app's Redis instance."""
         self.redis = redis_client
-        print("✅ Circuit Breaker initialized")
+        print(" Circuit Breaker initialized")
     
     async def record_success(self, node_type: str):
         """Record successful execution."""
@@ -35,10 +35,10 @@ class CircuitBreaker:
                 # Close the circuit
                 await self.redis.set(f"circuit:state:{node_type}", "closed")
                 await self.redis.delete(f"circuit:opened_at:{node_type}")
-                print(f"✅ Circuit CLOSED for {node_type} (recovered)")
+                print(f" Circuit CLOSED for {node_type} (recovered)")
                 
         except Exception as e:
-            print(f"⚠️ Circuit breaker error (success): {e}")
+            print(f" Circuit breaker error (success): {e}")
     
     async def record_failure(self, node_type: str, error: str):
         """Record failed execution and potentially open circuit."""
@@ -65,10 +65,10 @@ class CircuitBreaker:
                         3600,  # Keep error for 1 hour
                         error
                     )
-                    print(f"🔴 Circuit OPENED for {node_type} after {failures} failures")
+                    print(f" Circuit OPENED for {node_type} after {failures} failures")
                     
         except Exception as e:
-            print(f"⚠️ Circuit breaker error (failure): {e}")
+            print(f" Circuit breaker error (failure): {e}")
     
     async def can_execute(self, node_type: str) -> tuple[bool, Optional[str]]:
         """
@@ -93,7 +93,7 @@ class CircuitBreaker:
                         # Move to half-open state
                         await self.redis.set(f"circuit:state:{node_type}", "half_open")
                         await self.redis.set(f"circuit:half_open_calls:{node_type}", "0")
-                        print(f"🟡 Circuit HALF-OPEN for {node_type} (testing recovery)")
+                        print(f" Circuit HALF-OPEN for {node_type} (testing recovery)")
                         return True, None
                 
                 # Circuit is still open
@@ -112,7 +112,7 @@ class CircuitBreaker:
             return True, None
             
         except Exception as e:
-            print(f"⚠️ Circuit breaker check error: {e}")
+            print(f" Circuit breaker check error: {e}")
             # Fail open - allow execution if circuit breaker has issues
             return True, None
     
@@ -146,7 +146,7 @@ class CircuitBreaker:
             return status
             
         except Exception as e:
-            print(f"⚠️ Error getting circuit status: {e}")
+            print(f" Error getting circuit status: {e}")
             return {"state": "error", "error": str(e)}
     
     async def get_all_circuits(self) -> list[Dict]:
@@ -164,7 +164,7 @@ class CircuitBreaker:
             return circuits
             
         except Exception as e:
-            print(f"⚠️ Error getting all circuits: {e}")
+            print(f" Error getting all circuits: {e}")
             return []
     
     async def reset_circuit(self, node_type: str):
@@ -178,9 +178,10 @@ class CircuitBreaker:
             await self.redis.delete(f"circuit:opened_at:{node_type}")
             await self.redis.delete(f"circuit:last_error:{node_type}")
             await self.redis.delete(f"circuit:half_open_calls:{node_type}")
-            print(f"🔄 Circuit RESET for {node_type} (manual override)")
+            print(f" Circuit RESET for {node_type} (manual override)")
             
         except Exception as e:
-            print(f"⚠️ Error resetting circuit: {e}")
+            print(f" Error resetting circuit: {e}")
 
 circuit_breaker = CircuitBreaker()
+

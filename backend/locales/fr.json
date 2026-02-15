@@ -1,0 +1,7 @@
+{
+    "welcome": "Bienvenue sur Studio",
+    "workflow_started": "L'exécution du workflow a commencé",
+    "workflow_completed": "Workflow terminé avec succès",
+    "node_error": "Erreur dans le nœud {node_id}: {error}",
+    "scheduled_task": "Exécution planifiée"
+}

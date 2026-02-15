@@ -1,0 +1,7 @@
+{
+    "welcome": "مرحباً بكم في استوديو",
+    "workflow_started": "بدأ تنفيذ سير العمل",
+    "workflow_completed": "اكتمل سير العمل بنجاح",
+    "node_error": "خطأ في العقدة {node_id}: {error}",
+    "scheduled_task": "تنفيذ مجدول"
+}

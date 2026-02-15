@@ -5,6 +5,7 @@ from sqlmodel import select, and_
 from app.db.session import get_session
 from app.db.models import User, Workspace, WorkspaceMember, Workflow, Comment
 from app.api.auth import get_current_user
+from app.api.rbac import requires_viewer, requires_editor, requires_admin, requires_owner
 from pydantic import BaseModel
 import uuid
 
@@ -61,18 +62,9 @@ async def create_workspace(
 async def get_workspace_members(
     workspace_id: str,
     db: AsyncSession = Depends(get_session),
-    current_user: User = Depends(get_current_user)
+    member: WorkspaceMember = Depends(requires_viewer)
 ):
     """Returns members of a workspace if user is a member."""
-    # Check if user is member
-    member_check = await db.execute(
-        select(WorkspaceMember).where(
-            and_(WorkspaceMember.workspace_id == workspace_id, WorkspaceMember.user_id == current_user.id)
-        )
-    )
-    if not member_check.scalar_one_or_none():
-        raise HTTPException(status_code=403, detail="Not a member of this workspace")
-
     result = await db.execute(
         select(User.id, User.email, User.full_name, WorkspaceMember.role)
         .join(WorkspaceMember, User.id == WorkspaceMember.user_id)
@@ -86,19 +78,9 @@ async def invite_to_workspace(
     email: str,
     role: str = "editor",
     db: AsyncSession = Depends(get_session),
-    current_user: User = Depends(get_current_user)
+    member: WorkspaceMember = Depends(requires_editor)
 ):
     """Invites a user to a workspace by email."""
-    # Check if current user is owner/editor
-    member_check = await db.execute(
-        select(WorkspaceMember).where(
-            and_(WorkspaceMember.workspace_id == workspace_id, WorkspaceMember.user_id == current_user.id)
-        )
-    )
-    me = member_check.scalar_one_or_none()
-    if not me or me.role not in ["owner", "editor"]:
-        raise HTTPException(status_code=403, detail="Insufficient permissions")
-
     # Find invited user
     user_result = await db.execute(select(User).where(User.email == email))
     invited_user = user_result.scalar_one_or_none()

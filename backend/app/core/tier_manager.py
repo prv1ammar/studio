@@ -144,3 +144,4 @@ class TierManager:
         return comparison
 
 tier_manager = TierManager()
+

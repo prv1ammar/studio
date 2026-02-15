@@ -1,8 +1,8 @@
 """
 GitHub Node - Studio Standard (Universal Method)
-Batch 96: Developer Tools (n8n Critical)
+Batch 110: Developer Tools & Databases
 """
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, Optional
 import aiohttp
 from ...base import BaseNode
 from ...registry import register_node
@@ -10,7 +10,7 @@ from ...registry import register_node
 @register_node("github_node")
 class GitHubNode(BaseNode):
     """
-    Manage repositories, issues, and pull requests via GitHub API v3.
+    GitHub integration for version control.
     """
     node_type = "github_node"
     version = "1.0.0"
@@ -20,27 +20,25 @@ class GitHubNode(BaseNode):
     inputs = {
         "action": {
             "type": "dropdown",
-            "default": "get_repository",
-            "options": ["get_repository", "list_issues", "create_issue", "list_pull_requests", "get_user"],
+            "default": "create_issue",
+            "options": ["create_issue", "list_issues", "create_pr", "list_repos"],
             "description": "GitHub action"
         },
         "owner": {
             "type": "string",
-            "description": "Owner of the repository"
+            "optional": True
         },
         "repo": {
             "type": "string",
-            "description": "Repository name"
+            "optional": True
         },
         "title": {
             "type": "string",
-            "optional": True,
-            "description": "Title for issue/PR"
+            "optional": True
         },
         "body": {
             "type": "string",
-            "optional": True,
-            "description": "Body content"
+            "optional": True
         }
     }
 
@@ -51,79 +49,56 @@ class GitHubNode(BaseNode):
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
-            # 1. Authentication
             creds = await self.get_credential("github_auth")
-            access_token = creds.get("access_token")
-            
-            if not access_token:
-                return {"status": "error", "error": "GitHub Access Token required."}
-
+            access_token = creds.get("access_token") # or pat
+            base_url = "https://api.github.com"
             headers = {
                 "Authorization": f"Bearer {access_token}",
-                "Accept": "application/vnd.github.v3+json",
-                "User-Agent": "Studio-App"
+                "Accept": "application/vnd.github+json"
             }
             
-            # 2. Connect to Real API
-            base_url = "https://api.github.com"
-            action = self.get_config("action", "get_repository")
+            if not access_token:
+                return {"status": "error", "error": "GitHub access token required"}
+
+            action = self.get_config("action", "create_issue")
 
             async with aiohttp.ClientSession() as session:
-                if action == "get_user":
-                    url = f"{base_url}/user"
-                    async with session.get(url, headers=headers) as resp:
-                        if resp.status != 200:
-                            return {"status": "error", "error": f"GitHub API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data}}
-
-                # Repository based actions
-                owner = self.get_config("owner")
-                repo = self.get_config("repo")
-                
-                if not owner or not repo:
-                    return {"status": "error", "error": "owner and repo required"}
-
-                if action == "get_repository":
-                    url = f"{base_url}/repos/{owner}/{repo}"
-                    async with session.get(url, headers=headers) as resp:
-                        if resp.status != 200:
-                            return {"status": "error", "error": f"GitHub API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data}}
-
-                elif action == "list_issues":
-                    url = f"{base_url}/repos/{owner}/{repo}/issues"
-                    async with session.get(url, headers=headers) as resp:
-                        if resp.status != 200:
-                            return {"status": "error", "error": f"GitHub API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data}}
-
-                elif action == "create_issue":
-                    title = self.get_config("title") or str(input_data)
+                if action == "create_issue":
+                    owner = self.get_config("owner")
+                    repo = self.get_config("repo")
+                    title = self.get_config("title")
                     body = self.get_config("body", "")
                     
-                    if not title:
-                        return {"status": "error", "error": "title required for issue"}
+                    if not owner or not repo or not title:
+                        return {"status": "error", "error": "owner, repo, and title required"}
+                        
+                    payload = {"title": title, "body": body}
                     
                     url = f"{base_url}/repos/{owner}/{repo}/issues"
-                    payload = {"title": title, "body": body}
                     async with session.post(url, headers=headers, json=payload) as resp:
-                        if resp.status != 201:
-                            return {"status": "error", "error": f"GitHub API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data}}
-
-                elif action == "list_pull_requests":
-                    url = f"{base_url}/repos/{owner}/{repo}/pulls"
+                         if resp.status != 201:
+                            error_text = await resp.text()
+                            return {"status": "error", "error": f"GitHub API Error {resp.status}: {error_text}"}
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data}}
+                
+                elif action == "list_issues":
+                    owner = self.get_config("owner")
+                    repo = self.get_config("repo")
+                    if not owner or not repo: return {"status": "error", "error": "owner and repo required"}
+                    
+                    url = f"{base_url}/repos/{owner}/{repo}/issues"
                     async with session.get(url, headers=headers) as resp:
-                        if resp.status != 200:
-                            return {"status": "error", "error": f"GitHub API Error: {resp.status}"}
-                        res_data = await resp.json()
-                        return {"status": "success", "data": {"result": res_data}}
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data}}
 
-                return {"status": "error", "error": f"Unsupported action: {action}"}
+                elif action == "list_repos":
+                    url = f"{base_url}/user/repos"
+                    async with session.get(url, headers=headers) as resp:
+                         res_data = await resp.json()
+                         return {"status": "success", "data": {"result": res_data}}
+
+            return {"status": "error", "error": f"Unsupported action: {action}"}
 
         except Exception as e:
             return {"status": "error", "error": f"GitHub Node Failed: {str(e)}"}

@@ -52,7 +52,7 @@ class DoclingNode(BaseNode):
             if not os.path.exists(path):
                 return f"Error: File not found for Docling at {path}"
 
-            print(f"📄 Docling: Vision Processing {path}...")
+            print(f" Docling: Vision Processing {path}...")
             
             from docling.datamodel.base_models import InputFormat
             from docling.document_converter import DocumentConverter, PdfFormatOption
@@ -132,7 +132,7 @@ class DoclingNode(BaseNode):
                         markdown_parts.append(img_markdown)
                         
                     except Exception as e:
-                        print(f"⚠️ Docling: Figure save failed: {e}")
+                        print(f" Docling: Figure save failed: {e}")
                 
                 # If it's a structural element (Text, Table, Header)
                 else:

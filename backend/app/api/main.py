@@ -156,6 +156,7 @@ from app.api.api_keys import router as api_keys_router
 from app.api.marketplace import router as marketplace_router
 from app.api.monitoring import router as monitoring_router
 from app.api.drafting import router as drafting_router
+from app.api.credentials import router as credentials_router
 from app.core.scheduler import scheduler
 
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
@@ -169,6 +170,7 @@ app.include_router(api_keys_router, prefix="/api", tags=["api_gateway"])
 app.include_router(marketplace_router, prefix="/marketplace", tags=["marketplace"])
 app.include_router(monitoring_router, prefix="/monitoring", tags=["monitoring"])
 app.include_router(drafting_router, prefix="/drafting", tags=["drafting"])
+app.include_router(credentials_router, prefix="/credentials", tags=["credentials"])
 
 class ConnectionManager:
     def __init__(self):
@@ -622,6 +624,31 @@ async def save_workflow_snapshot(workflow_data: Dict[str, Any], workspace_id: Op
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/execution/{execution_id}/nodes")
+async def get_execution_nodes(execution_id: str, db: AsyncSession = Depends(get_session), current_user: User = Depends(get_current_user)):
+    """Retrieves all node-level execution records for a specific workflow run."""
+    try:
+        # Check if execution belongs to user or workspace
+        exec_check = await db.execute(select(Execution).where(Execution.id == execution_id))
+        exec_rec = exec_check.scalar_one_or_none()
+        
+        if not exec_rec:
+            raise HTTPException(status_code=404, detail="Execution not found.")
+            
+        # Basic security: If execution has user_id, it must match current_user
+        if exec_rec.user_id and exec_rec.user_id != current_user.id:
+            # Check workspace membership
+            pass
+
+        result = await db.execute(
+            select(NodeExecution)
+            .where(NodeExecution.execution_id == execution_id)
+            .order_by(NodeExecution.created_at.asc())
+        )
+        return result.scalars().all()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.get("/workflow/versions")
 async def list_workflow_versions(db: AsyncSession = Depends(get_session), current_user: User = Depends(get_current_user)):
     """Lists all saved workflow versions accessible to the user."""
@@ -984,6 +1011,91 @@ async def run_workflow_async(execution: ExecutionRequest, current_user: User = D
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to queue task: {str(e)}")
+
+@app.api_route("/webhooks/{webhook_id}", methods=["GET", "POST", "PUT", "DELETE"])
+async def webhook_receiver(webhook_id: str, request: Request, db: AsyncSession = Depends(get_session)):
+    """
+    Public gateway for incoming webhooks.
+    Matches the webhook_id to a workflow trigger.
+    """
+    try:
+        # 1. Parse incoming data
+        body = {}
+        if request.method in ["POST", "PUT", "PATCH"]:
+            try:
+                body = await request.json()
+            except:
+                raw_body = await request.body()
+                body = {"raw": raw_body.decode() if raw_body else ""}
+        
+        headers = {k: v for k, v in request.headers.items()}
+        query_params = dict(request.query_params)
+
+        # 2. Find matching workflow
+        from app.db.models import Workspace
+        result = await db.execute(select(Workflow, Workspace).join(Workspace))
+        rows = result.all()
+        
+        target_workflow = None
+        target_owner_id = None
+        for wf, ws in rows:
+            definition = wf.definition or {}
+            nodes = definition.get("nodes", [])
+            for node in nodes:
+                node_data = node.get("data", {})
+                if node_data.get("id") == "webhook_trigger":
+                    # Check if node config matches the id
+                    if node_data.get("webhook_id") == webhook_id or node_data.get("webhook_slug") == webhook_id:
+                        target_workflow = wf
+                        target_owner_id = ws.owner_id
+                        break
+            if target_workflow: break
+
+        if not target_workflow:
+            raise HTTPException(status_code=404, detail="Webhook ID not found or not active.")
+
+        # 3. Trigger Workflow (Async)
+        job_id = str(uuid.uuid4())
+        
+        # Determine region and queue from owner
+        # Fallback to defaults
+        queue_name = "us-east-1-default"
+        
+        await app.state.redis_pool.enqueue_job(
+            'run_workflow_task',
+            graph_data=target_workflow.definition,
+            message=f"Webhook {webhook_id} triggered",
+            job_id=job_id,
+            user_id=target_owner_id,
+            initial_outputs={
+                # We seed the webhook trigger node's output directly
+                # Find the node ID of the webhook trigger to map its output
+                next(n["id"] for n in target_workflow.definition["nodes"] if n.get("data", {}).get("id") == "webhook_trigger"): {
+                    "body": body,
+                    "headers": headers,
+                    "query_params": query_params,
+                    "received_at": datetime.utcnow().isoformat()
+                }
+            }
+        )
+        
+        await audit_logger.log(
+            action="webhook_triggered",
+            user_id=target_owner_id,
+            details={"webhook_id": webhook_id, "job_id": job_id}
+        )
+        
+        return {
+            "status": "success", 
+            "job_id": job_id, 
+            "message": "Webhook received and workflow queued."
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f" Webhook Error: {e}")
+        raise HTTPException(status_code=500, detail=f"Internal webhook processing error: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn

@@ -10,8 +10,11 @@ import { API_BASE_URL } from '../config';
 export default function Dashboard({ isOpen, onClose }) {
     const [logs, setLogs] = useState([]);
     const [stats, setStats] = useState(null);
+    const [executions, setExecutions] = useState([]);
+    const [selectedExecution, setSelectedExecution] = useState(null);
+    const [nodeHistory, setNodeHistory] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [activeTab, setActiveTab] = useState('overview'); // overview, logs, workers
+    const [activeTab, setActiveTab] = useState('overview'); // overview, logs, executions, workers
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
@@ -73,6 +76,13 @@ export default function Dashboard({ isOpen, onClose }) {
                         >
                             <Terminal size={16} />
                             <span>Audit Logs</span>
+                        </button>
+                        <button
+                            className={`nav-item ${activeTab === 'executions' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('executions')}
+                        >
+                            <History size={16} />
+                            <span>Executions</span>
                         </button>
                         <button
                             className={`nav-item ${activeTab === 'workers' ? 'active' : ''}`}
@@ -215,6 +225,90 @@ export default function Dashboard({ isOpen, onClose }) {
                                         ))}
                                     </div>
                                 </div>
+                            </div>
+                        )}
+
+                        {activeTab === 'executions' && (
+                            <div className="executions-view">
+                                {!selectedExecution ? (
+                                    <div className="executions-list">
+                                        <div className="table-header">
+                                            <div className="col-time">Time</div>
+                                            <div className="col-id">Execution ID</div>
+                                            <div className="col-status">Status</div>
+                                            <div className="col-action">Action</div>
+                                        </div>
+                                        <div className="table-body">
+                                            {logs.filter(l => l.action.startsWith('workflow_')).map((exec, i) => (
+                                                <div key={i} className="table-row clickable" onClick={async () => {
+                                                    setSelectedExecution(exec);
+                                                    const res = await axios.get(`${API_BASE_URL}/execution/${exec.details.execution_id}/nodes`);
+                                                    setNodeHistory(res.data);
+                                                }}>
+                                                    <div className="col-time">{new Date(exec.timestamp).toLocaleString()}</div>
+                                                    <div className="col-id text-xs font-mono">{exec.details.execution_id}</div>
+                                                    <div className="col-status">
+                                                        <span className={`log-tag ${exec.action === 'workflow_success' ? 'green' : 'red'}`}>
+                                                            {exec.action.replace('workflow_', '')}
+                                                        </span>
+                                                    </div>
+                                                    <div className="col-action"><ChevronRight size={14} /></div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="execution-detail">
+                                        <button className="back-btn mb-4 flex items-center gap-2 text-xs text-secondary hover:text-white" onClick={() => setSelectedExecution(null)}>
+                                            <ChevronRight size={14} className="rotate-180" /> Back to Executions
+                                        </button>
+
+                                        <div className="detail-header mb-6">
+                                            <h3>Execution History: {selectedExecution.details.execution_id}</h3>
+                                        </div>
+
+                                        <div className="node-history-timeline">
+                                            {nodeHistory.map((node, i) => (
+                                                <details key={i} className="node-history-item mb-4 bg-white/5 rounded-lg border border-white/10 overflow-hidden">
+                                                    <summary className="p-4 cursor-pointer hover:bg-white/10 flex items-center justify-between">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className={`status-dot ${node.status === 'success' ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                                                            <span className="font-bold">{node.node_id}</span>
+                                                            <span className="text-xs text-secondary">({node.node_type})</span>
+                                                        </div>
+                                                        <span className="text-xs font-mono text-secondary">{node.execution_time.toFixed(3)}s</span>
+                                                    </summary>
+                                                    <div className="node-details-content p-4 border-t border-white/10 space-y-4">
+                                                        <div className="grid grid-cols-2 gap-4">
+                                                            <div>
+                                                                <h4 className="text-xs font-bold uppercase text-tertiary mb-2">Input</h4>
+                                                                <pre className="text-xs bg-black/50 p-2 rounded max-h-40 overflow-auto">{JSON.stringify(node.input, null, 2)}</pre>
+                                                            </div>
+                                                            <div>
+                                                                <h4 className="text-xs font-bold uppercase text-tertiary mb-2">Output</h4>
+                                                                <pre className="text-xs bg-black/50 p-2 rounded max-h-40 overflow-auto">{JSON.stringify(node.output, null, 2)}</pre>
+                                                            </div>
+                                                        </div>
+                                                        {node.logs && node.logs.length > 0 && (
+                                                            <div>
+                                                                <h4 className="text-xs font-bold uppercase text-tertiary mb-2">Internal Logs</h4>
+                                                                <div className="text-xs font-mono bg-black/30 p-2 rounded space-y-1">
+                                                                    {node.logs.map((l, j) => <div key={j} className="text-blue-300">{l}</div>)}
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                        {node.stack_trace && (
+                                                            <div className="mt-4">
+                                                                <h4 className="text-xs font-bold uppercase text-red-400 mb-2">Stack Trace</h4>
+                                                                <pre className="text-xs bg-red-900/20 text-red-200 p-2 rounded overflow-auto whitespace-pre-wrap">{node.stack_trace}</pre>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </details>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         )}
 

@@ -16,7 +16,7 @@ class AnalyticsTracker:
     async def init_redis(self, redis_client: aioredis.Redis):
         """Initialize with the app's Redis instance."""
         self.redis = redis_client
-        print("✅ Analytics Tracker initialized")
+        print(" Analytics Tracker initialized")
     
     async def track_workflow_execution(
         self, 
@@ -58,7 +58,7 @@ class AnalyticsTracker:
                 await self.redis.ltrim(f"analytics:durations:{workflow_id}", 0, 99)
             
         except Exception as e:
-            print(f"⚠️ Analytics tracking error: {e}")
+            print(f" Analytics tracking error: {e}")
     
     async def track_node_execution(
         self,
@@ -91,7 +91,7 @@ class AnalyticsTracker:
             await self.redis.ltrim(f"analytics:node_durations:{node_type}", 0, 99)
             
         except Exception as e:
-            print(f"⚠️ Node analytics error: {e}")
+            print(f" Node analytics error: {e}")
     
     async def track_api_call(
         self,
@@ -122,7 +122,7 @@ class AnalyticsTracker:
                 await self.redis.hset(f"analytics:costs:{today}", api_type, str(new_cost))
             
         except Exception as e:
-            print(f"⚠️ API tracking error: {e}")
+            print(f" API tracking error: {e}")
     
     async def get_node_usage_stats(self, limit: int = 20) -> List[Dict[str, Any]]:
         """Get most-used nodes."""
@@ -142,7 +142,7 @@ class AnalyticsTracker:
             return stats[:limit]
             
         except Exception as e:
-            print(f"⚠️ Error getting node stats: {e}")
+            print(f" Error getting node stats: {e}")
             return []
     
     async def get_workflow_stats(self, days: int = 7) -> Dict[str, Any]:
@@ -187,7 +187,7 @@ class AnalyticsTracker:
             return stats
             
         except Exception as e:
-            print(f"⚠️ Error getting workflow stats: {e}")
+            print(f" Error getting workflow stats: {e}")
             return {}
     
     async def get_performance_insights(self) -> Dict[str, Any]:
@@ -245,7 +245,7 @@ class AnalyticsTracker:
             return insights
             
         except Exception as e:
-            print(f"⚠️ Error getting insights: {e}")
+            print(f" Error getting insights: {e}")
             return {}
     
     async def get_cost_analysis(self, days: int = 30) -> Dict[str, Any]:
@@ -297,7 +297,8 @@ class AnalyticsTracker:
             return analysis
             
         except Exception as e:
-            print(f"⚠️ Error getting cost analysis: {e}")
+            print(f" Error getting cost analysis: {e}")
             return {}
 
 analytics_tracker = AnalyticsTracker()
+
