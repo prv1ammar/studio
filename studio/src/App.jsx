@@ -1076,10 +1076,13 @@ const App = () => {
       {/* Modals */}
       {showTemplates && (
         <TemplateGallery
-          onSelect={(template) => {
-            setNodes(template.nodes || []);
-            setEdges(template.edges || []);
-            setShowTemplates(false);
+          currentWorkspaceId={currentWorkspaceId}
+          onCloneSuccess={(data) => {
+            setWorkflowId(data.workflow_id);
+            setWorkflowName(data.name || 'Cloned Workflow');
+            if (data.definition?.nodes) setNodes(data.definition.nodes);
+            if (data.definition?.edges) setEdges(data.definition.edges);
+            setMessages((prev) => [...prev, { role: 'bot', text: `✨ Successfully deployed template: ${data.name}. You can now customize and run it!` }]);
           }}
           onClose={() => setShowTemplates(false)}
         />
