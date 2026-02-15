@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   postgres:
     image: postgres:15-alpine
@@ -10,6 +12,11 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d studio"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:7-alpine
@@ -18,33 +25,56 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   api:
     build: 
       context: .
-      dockerfile: Dockerfile
+      dockerfile: backend.Dockerfile
     container_name: studio-api
     ports:
       - "8000:8000"
     environment:
       - DATABASE_URL=postgresql+asyncpg://user:password@postgres:5432/studio
       - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=super-secret-studio-key-replace-in-prod
+      - ENCRYPTION_KEY=u-1L6_R_5XWp_A5r9zR8hX1Bv-x4S8S3Wd5l_Uq9jW8=
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   worker:
     build: 
       context: .
-      dockerfile: Dockerfile
+      dockerfile: backend.Dockerfile
     container_name: studio-worker
     command: python -m app.core.worker
     environment:
       - DATABASE_URL=postgresql+asyncpg://user:password@postgres:5432/studio
       - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=super-secret-studio-key-replace-in-prod
+      - ENCRYPTION_KEY=u-1L6_R_5XWp_A5r9zR8hX1Bv-x4S8S3Wd5l_Uq9jW8=
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./studio
+      dockerfile: frontend.Dockerfile
+    container_name: studio-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
 
 volumes:
   postgres_data:
