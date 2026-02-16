@@ -7,6 +7,22 @@ from typing import Dict, List, Any, Optional
 os.environ["HF_HUB_DISABLE_SYMLINKS"] = "1"
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 
+# Add project root to path (AI-Agent-Studio/)
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+
+# Backend path to support 'app.' imports
+backend_path = os.path.join(project_root, "backend")
+if backend_path not in sys.path:
+    sys.path.insert(0, backend_path)
+
+# Vendor path for imported libraries (langflow, lfx)
+vendor_path = os.path.join(project_root, "backend", "vendor")
+if vendor_path not in sys.path:
+    sys.path.insert(0, vendor_path)
+    
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -19,25 +35,9 @@ from app.db.models import User, Workflow, WorkflowVersion, AuditLog, Credential,
 from app.api.auth import get_current_user
 from app.core.audit import audit_logger
 
-# Add project root to path (AI-Agent-Studio/)
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
-
 # Ensure outputs directory exists
 outputs_dir = os.path.join(project_root, "outputs")
 os.makedirs(outputs_dir, exist_ok=True)
-
-# Backend path to support 'app.' imports
-backend_path = os.path.join(project_root, "backend")
-if backend_path not in sys.path:
-    sys.path.append(backend_path)
-
-# Vendor path for imported libraries (langflow, lfx)
-vendor_path = os.path.join(project_root, "backend", "vendor")
-if vendor_path not in sys.path:
-    sys.path.append(vendor_path)
-    
-if project_root not in sys.path:
-    sys.path.append(project_root)
 
 # Correct module paths based on new structure
 try:
@@ -554,7 +554,20 @@ def get_node_library():
             with open(lib_path, "r", encoding="utf-8") as f:
                 lib = json.load(f)
                 
-                # Check for critical missing categories if necessary
+                # Merge migrated nodes from external file
+                migrated_path = os.path.join(project_root, "backend", "data", "migrated_nodes.json")
+                if os.path.exists(migrated_path):
+                    try:
+                        with open(migrated_path, "r", encoding="utf-8") as mf:
+                            migrated_lib = json.load(mf)
+                            for cat, nodes in migrated_lib.items():
+                                if cat in lib:
+                                    lib[cat].extend(nodes)
+                                else:
+                                    lib[cat] = nodes
+                    except Exception as me:
+                        print(f"Warning: Failed to load migrated nodes: {me}")
+
                 return lib
         return {}
     except Exception as e:

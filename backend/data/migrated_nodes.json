@@ -1,0 +1,475 @@
+{
+  "Native Integrations": [
+    {
+      "id": "github_node",
+      "name": "GitHub (Native)",
+      "label": "GitHub",
+      "description": "Interact with GitHub repositories, issues, and pull requests directly.",
+      "category": "Native Integrations",
+      "icon": "Github",
+      "color": "#181717",
+      "inputs": [
+        {
+          "name": "github_auth",
+          "display_name": "GitHub Connection",
+          "type": "credential",
+          "required": true
+        },
+        {
+          "name": "action",
+          "display_name": "Action",
+          "type": "select",
+          "options": [
+            {
+              "label": "Get Repository",
+              "value": "get_repository"
+            },
+            {
+              "label": "List Issues",
+              "value": "list_issues"
+            },
+            {
+              "label": "Create Issue",
+              "value": "create_issue"
+            },
+            {
+              "label": "List Pull Requests",
+              "value": "list_pull_requests"
+            },
+            {
+              "label": "Create Pull Request",
+              "value": "create_pull_request"
+            },
+            {
+              "label": "Get File Content",
+              "value": "get_contents"
+            }
+          ],
+          "default": "get_repository",
+          "required": true
+        },
+        {
+          "name": "repository",
+          "display_name": "Repository (owner/repo)",
+          "type": "text",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "display_name": "Result Data",
+          "types": [
+            "Object"
+          ]
+        },
+        {
+          "name": "url",
+          "display_name": "URL",
+          "types": [
+            "Text"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jira_node",
+      "name": "Jira (Native)",
+      "label": "Jira",
+      "description": "Direct Jira Cloud integration for issue and project management.",
+      "category": "Native Integrations",
+      "icon": "Trello",
+      "color": "#0052cc",
+      "inputs": [
+        {
+          "name": "jira_auth",
+          "display_name": "Jira Connection",
+          "type": "credential",
+          "required": true
+        },
+        {
+          "name": "action",
+          "display_name": "Action",
+          "type": "select",
+          "options": [
+            {
+              "label": "Get Issue",
+              "value": "get_issue"
+            },
+            {
+              "label": "Create Issue",
+              "value": "create_issue"
+            },
+            {
+              "label": "List Projects",
+              "value": "list_projects"
+            }
+          ],
+          "default": "get_issue",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "display_name": "Result Data",
+          "types": [
+            "Object"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "asana_node",
+      "name": "Asana (Native)",
+      "label": "Asana",
+      "description": "Native Asana integration for task and project tracking.",
+      "category": "Native Integrations",
+      "icon": "CheckCircle",
+      "color": "#f06292",
+      "inputs": [
+        {
+          "name": "asana_auth",
+          "display_name": "Asana Connection",
+          "type": "credential",
+          "required": true
+        },
+        {
+          "name": "action",
+          "display_name": "Action",
+          "type": "select",
+          "options": [
+            {
+              "label": "Get Task",
+              "value": "get_task"
+            },
+            {
+              "label": "Create Task",
+              "value": "create_task"
+            }
+          ],
+          "default": "get_task",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "display_name": "Result Data",
+          "types": [
+            "Object"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "google_sheets_node",
+      "name": "Google Sheets (Native)",
+      "label": "Google Sheets",
+      "description": "Read and write data directly to Google Sheets.",
+      "category": "Native Integrations",
+      "icon": "FileSpreadsheet",
+      "color": "#0f9d58",
+      "inputs": [
+        {
+          "name": "google_sheets_auth",
+          "display_name": "Google Connection",
+          "type": "credential",
+          "required": true
+        },
+        {
+          "name": "spreadsheet_id",
+          "display_name": "Spreadsheet ID",
+          "type": "text",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "display_name": "Result Data",
+          "types": [
+            "Object"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heygen_node",
+      "name": "Heygen (Native)",
+      "label": "Heygen",
+      "description": "Generate AI videos with lifelike avatars directly.",
+      "category": "Native Integrations",
+      "icon": "Video",
+      "color": "#6366f1",
+      "inputs": [
+        {
+          "name": "heygen_auth",
+          "display_name": "Heygen Connection",
+          "type": "credential",
+          "required": true
+        },
+        {
+          "name": "action",
+          "display_name": "Action",
+          "type": "select",
+          "options": [
+            "generate_video",
+            "get_video_status",
+            "list_avatars"
+          ],
+          "default": "generate_video"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video_url",
+          "display_name": "Video URL",
+          "types": [
+            "Text"
+          ]
+        },
+        {
+          "name": "video_id",
+          "display_name": "Video ID",
+          "types": [
+            "Text"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coda_node",
+      "name": "Coda (Native)",
+      "label": "Coda",
+      "description": "Integrate with Coda docs and tables natively.",
+      "category": "Native Integrations",
+      "icon": "FileText",
+      "color": "#f06292",
+      "inputs": [
+        {
+          "name": "coda_auth",
+          "display_name": "Coda Connection",
+          "type": "credential",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "display_name": "Result Data",
+          "types": [
+            "Object"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "miro_node",
+      "name": "Miro (Native)",
+      "label": "Miro",
+      "description": "Manage Miro boards and content via direct API.",
+      "category": "Native Integrations",
+      "icon": "Layout",
+      "color": "#ffca28",
+      "inputs": [
+        {
+          "name": "miro_auth",
+          "display_name": "Miro Connection",
+          "type": "credential",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "display_name": "Result Data",
+          "types": [
+            "Object"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hubspot_node",
+      "name": "HubSpot (Native)",
+      "label": "HubSpot",
+      "description": "CRM integration for contacts and marketing.",
+      "category": "Native Integrations",
+      "icon": "Target",
+      "color": "#ff7a59",
+      "inputs": [
+        {
+          "name": "hubspot_auth",
+          "display_name": "HubSpot Connection",
+          "type": "credential",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "display_name": "Result Data",
+          "types": [
+            "Object"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "klaviyo_node",
+      "name": "Klaviyo (Native)",
+      "label": "Klaviyo",
+      "description": "E-commerce marketing automation.",
+      "category": "Native Integrations",
+      "icon": "Mail",
+      "color": "#235c3c",
+      "inputs": [
+        {
+          "name": "klaviyo_auth",
+          "display_name": "Klaviyo Connection",
+          "type": "credential",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "display_name": "Result Data",
+          "types": [
+            "Object"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "api_tool",
+      "name": "Universal HTTP (Auth)",
+      "label": "HTTP Request",
+      "description": "Make any HTTP request with integrated Credential Store support.",
+      "category": "Native Integrations",
+      "icon": "Globe",
+      "color": "#3b82f6",
+      "inputs": [
+        {
+          "name": "api_credential",
+          "display_name": "Saved Credential",
+          "type": "credential",
+          "required": false
+        },
+        {
+          "name": "url",
+          "display_name": "URL",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "method",
+          "display_name": "Method",
+          "type": "select",
+          "options": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH"
+          ],
+          "default": "GET"
+        },
+        {
+          "name": "auth_type",
+          "display_name": "Auth Mode",
+          "type": "select",
+          "options": [
+            "none",
+            "bearer",
+            "basic",
+            "header",
+            "query"
+          ],
+          "default": "none"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "response",
+          "display_name": "Response JSON",
+          "types": [
+            "Object"
+          ]
+        },
+        {
+          "name": "status_code",
+          "display_name": "Status Code",
+          "types": [
+            "Number"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "google_tasks_node",
+      "name": "Google Tasks (Native)",
+      "label": "Google Tasks",
+      "description": "Manage tasks and task lists natively via Google API.",
+      "category": "Native Integrations",
+      "icon": "ListChecks",
+      "color": "#4285f4",
+      "inputs": [
+        {
+          "name": "google_tasks_auth",
+          "display_name": "Google Connection",
+          "type": "credential",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "display_name": "Result Data",
+          "types": [
+            "Object"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "google_bigquery_node",
+      "name": "BigQuery (Native)",
+      "label": "BigQuery",
+      "description": "Enterprise data warehouse integration for processing massive datasets.",
+      "category": "Native Integrations",
+      "icon": "Database",
+      "color": "#4285f4",
+      "inputs": [
+        {
+          "name": "google_bigquery_auth",
+          "display_name": "Google Connection",
+          "type": "credential",
+          "required": true
+        },
+        {
+          "name": "project_id",
+          "display_name": "Project ID",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "query",
+          "display_name": "SQL Query",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "display_name": "Rows",
+          "types": [
+            "Array"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -638,27 +638,6 @@
       "fields": []
     }
   ],
-  "Composio_api": [
-    {
-      "id": "LCToolComponent",
-      "label": null,
-      "description": null,
-      "color": "#818cf8",
-      "icon": null,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "api_run_model",
-          "type": "Any"
-        },
-        {
-          "name": "api_build_tool",
-          "type": "Any"
-        }
-      ],
-      "fields": []
-    }
-  ],
   "Confluence": [
     {
       "id": "Component",

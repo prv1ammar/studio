@@ -2,7 +2,18 @@ import os
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+    REDIS_HOST: str = os.getenv("REDIS_HOST", "localhost")
+    REDIS_PORT: str = os.getenv("REDIS_PORT", "6379")
+    REDIS_PASSWORD: str = os.getenv("REDIS_PASSWORD", "")
+    REDIS_DB: str = os.getenv("REDIS_DB", "0")
+
+    @property
+    def REDIS_URL(self) -> str:
+        if os.getenv("REDIS_URL"):
+            return os.getenv("REDIS_URL")
+        auth = f":{self.REDIS_PASSWORD}@" if self.REDIS_PASSWORD else ""
+        return f"redis://{auth}{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DB}"
+
     WORKFLOW_TIMEOUT: int = 3600  # 1 hour
     API_BASE_URL: str = os.getenv("API_BASE_URL", "http://localhost:8001")
     STUDIO_REGION: str = os.getenv("STUDIO_REGION", "us-east-1")
@@ -19,6 +30,8 @@ class Settings(BaseSettings):
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5432/studio")
     SUPABASE_URL: str = os.getenv("SUPABASE_URL", "")
     SUPABASE_SERVICE_KEY: str = os.getenv("SUPABASE_SERVICE_KEY", "")
+    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
+    OPENAI_BASE_URL: str = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
     
     # Phase 4: Performance & Scalability
     NODE_EXECUTION_TIMEOUT: int = int(os.getenv("NODE_EXECUTION_TIMEOUT", "30"))  # seconds per node
