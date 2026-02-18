@@ -4,8 +4,8 @@ Batch 104: Communication Essentials - Rapid Multi-Node Creation
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # ============================================
 # MAILGUN NODE
@@ -17,6 +17,43 @@ class MailgunNode(BaseNode):
     category = "communication"
     credentials_required = ["mailgun_auth"]
     
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'send_email',
+            'options': [
+                {'name': 'Send Email', 'value': 'send_email'},
+                {'name': 'Get Stats', 'value': 'get_stats'},
+            ],
+        },
+        {
+            'displayName': 'From',
+            'name': 'from',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'To',
+            'name': 'to',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {"type": "dropdown", "default": "send_email", "options": ["send_email", "get_stats"]},
         "to": {"type": "string", "optional": True},

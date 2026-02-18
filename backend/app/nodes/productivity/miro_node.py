@@ -4,8 +4,8 @@ Batch 113: Productivity & Collaboration
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("miro_node")
 class MiroNode(BaseNode):
@@ -17,6 +17,37 @@ class MiroNode(BaseNode):
     category = "productivity"
     credentials_required = ["miro_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_boards',
+            'options': [
+                {'name': 'List Boards', 'value': 'list_boards'},
+                {'name': 'Get Board', 'value': 'get_board'},
+                {'name': 'Create Board', 'value': 'create_board'},
+                {'name': 'List Items', 'value': 'list_items'},
+                {'name': 'Create Sticky Note', 'value': 'create_sticky_note'},
+            ],
+            'description': 'Miro action',
+        },
+        {
+            'displayName': 'Board Id',
+            'name': 'board_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Miro Board ID',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+            'description': 'Content for sticky note',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

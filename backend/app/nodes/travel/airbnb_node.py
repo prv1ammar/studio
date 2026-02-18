@@ -4,8 +4,8 @@ Batch 72: Travel & Hospitality
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("airbnb_node")
 class AirbnbNode(BaseNode):
@@ -17,6 +17,27 @@ class AirbnbNode(BaseNode):
     category = "travel"
     credentials_required = ["airbnb_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_listings',
+            'options': [
+                {'name': 'List Listings', 'value': 'list_listings'},
+                {'name': 'Get Listing', 'value': 'get_listing'},
+                {'name': 'Search Experiences', 'value': 'search_experiences'},
+            ],
+            'description': 'Airbnb action',
+        },
+        {
+            'displayName': 'Listing Id',
+            'name': 'listing_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

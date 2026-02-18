@@ -15,6 +15,35 @@ class AWSS3Node(BaseNode):
     category = "storage"
     credentials_required = ["aws_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'upload',
+        },
+        {
+            'displayName': 'Bucket',
+            'name': 'bucket',
+            'type': 'string',
+            'default': '',
+            'description': 'S3 Bucket Name',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Path',
+            'name': 'path',
+            'type': 'string',
+            'default': '',
+            'description': 'S3 Key/Path',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "upload", "enum": ["upload", "list_files", "delete_file"]},
         "bucket": {"type": "string", "description": "S3 Bucket Name"},

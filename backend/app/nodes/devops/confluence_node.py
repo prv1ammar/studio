@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional, List
 import aiohttp
 import base64
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("confluence_node")
 class ConfluenceNode(BaseNode):
@@ -20,6 +20,51 @@ class ConfluenceNode(BaseNode):
     category = "devops"
     credentials_required = ["confluence_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_page',
+            'options': [
+                {'name': 'Create Page', 'value': 'create_page'},
+                {'name': 'Get Page', 'value': 'get_page'},
+                {'name': 'List Spaces', 'value': 'list_spaces'},
+                {'name': 'Search Content', 'value': 'search_content'},
+            ],
+            'description': 'Confluence action to perform',
+        },
+        {
+            'displayName': 'Domain',
+            'name': 'domain',
+            'type': 'string',
+            'default': '',
+            'description': 'Atlassian domain (e.g., 'company.atlassian.net')',
+            'required': True,
+        },
+        {
+            'displayName': 'Page Id',
+            'name': 'page_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Specific Page ID',
+        },
+        {
+            'displayName': 'Payload',
+            'name': 'payload',
+            'type': 'string',
+            'default': '',
+            'description': 'Structured data for creation (title, content)',
+        },
+        {
+            'displayName': 'Space Key',
+            'name': 'space_key',
+            'type': 'string',
+            'default': '',
+            'description': 'Space Key (e.g., 'DEV')',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

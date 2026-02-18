@@ -4,8 +4,8 @@ Batch 112: Advanced Search & Knowledge
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("bing_search_node")
 class BingSearchNode(BaseNode):
@@ -17,6 +17,31 @@ class BingSearchNode(BaseNode):
     category = "search"
     credentials_required = ["bing_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Market',
+            'name': 'market',
+            'type': 'string',
+            'default': 'en-US',
+            'description': 'The market to search in (e.g., en-US, fr-FR)',
+        },
+        {
+            'displayName': 'Num Results',
+            'name': 'num_results',
+            'type': 'string',
+            'default': 10,
+            'description': 'Number of results to return',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'The search query',
+            'required': True,
+        },
+    ]
     inputs = {
         "query": {
             "type": "string",

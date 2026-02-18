@@ -4,8 +4,8 @@ Batch 85: SMB Finance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("freshbooks_node")
 class FreshBooksNode(BaseNode):
@@ -17,6 +17,29 @@ class FreshBooksNode(BaseNode):
     category = "finance"
     credentials_required = ["freshbooks_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_identity',
+            'options': [
+                {'name': 'Get Identity', 'value': 'get_identity'},
+                {'name': 'List Invoices', 'value': 'list_invoices'},
+                {'name': 'List Clients', 'value': 'list_clients'},
+                {'name': 'Get Account Details', 'value': 'get_account_details'},
+            ],
+            'description': 'FreshBooks action',
+        },
+        {
+            'displayName': 'Account Id',
+            'name': 'account_id',
+            'type': 'string',
+            'default': '',
+            'description': 'FreshBooks Account ID (required for invoices/clients).',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

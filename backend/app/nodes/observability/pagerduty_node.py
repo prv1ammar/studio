@@ -4,8 +4,8 @@ Batch 83: Observability & SRE
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("pagerduty_node")
 class PagerDutyNode(BaseNode):
@@ -17,6 +17,29 @@ class PagerDutyNode(BaseNode):
     category = "observability"
     credentials_required = ["pagerduty_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_incidents',
+            'options': [
+                {'name': 'List Incidents', 'value': 'list_incidents'},
+                {'name': 'Get Incident', 'value': 'get_incident'},
+                {'name': 'Create Incident', 'value': 'create_incident'},
+                {'name': 'List Oncalls', 'value': 'list_oncalls'},
+                {'name': 'List Services', 'value': 'list_services'},
+            ],
+            'description': 'PagerDuty action',
+        },
+        {
+            'displayName': 'Incident Id',
+            'name': 'incident_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

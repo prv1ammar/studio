@@ -4,8 +4,8 @@ Batch 111: Utilities & Data Processing
 """
 from typing import Any, Dict, Optional
 import asyncio
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("wait_for_webhook_node")
 class WaitForWebhookNode(BaseNode):
@@ -17,6 +17,24 @@ class WaitForWebhookNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Timeout',
+            'name': 'timeout',
+            'type': 'string',
+            'default': 60,
+            'description': 'Timeout in seconds',
+        },
+        {
+            'displayName': 'Webhook Id',
+            'name': 'webhook_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID to wait for',
+            'required': True,
+        },
+    ]
     inputs = {
         "webhook_id": {
             "type": "string",

@@ -16,6 +16,28 @@ class UniversalAgentNode(BaseNode):
     version = "1.1.0"
     category = "agents"
     
+
+    properties = [
+        {
+            'displayName': 'Agent Pattern',
+            'name': 'agent_pattern',
+            'type': 'string',
+            'default': 'standard',
+        },
+        {
+            'displayName': 'Input',
+            'name': 'input',
+            'type': 'string',
+            'default': '',
+            'description': 'User message or task',
+        },
+        {
+            'displayName': 'System Prompt',
+            'name': 'system_prompt',
+            'type': 'string',
+            'default': 'You are a professional assistant.',
+        },
+    ]
     inputs = {
         "system_prompt": {"type": "string", "default": "You are a professional assistant."},
         "agent_pattern": {"type": "string", "enum": ["simple", "standard", "planner"], "default": "standard"},

@@ -5,8 +5,8 @@ Batch 87: Retail & Marketplaces
 from typing import Any, Dict, Optional, List
 import aiohttp
 import uuid
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("walmart_node")
 class WalmartNode(BaseNode):
@@ -18,6 +18,21 @@ class WalmartNode(BaseNode):
     category = "marketplaces"
     credentials_required = ["walmart_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_orders',
+            'options': [
+                {'name': 'List Orders', 'value': 'list_orders'},
+                {'name': 'Get Item Inventory', 'value': 'get_item_inventory'},
+                {'name': 'List All Items', 'value': 'list_all_items'},
+            ],
+            'description': 'Walmart action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 88: Automotive & Fleet
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("tesla_node")
 class TeslaNode(BaseNode):
@@ -17,6 +17,28 @@ class TeslaNode(BaseNode):
     category = "automotive"
     credentials_required = ["tesla_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_vehicles',
+            'options': [
+                {'name': 'List Vehicles', 'value': 'list_vehicles'},
+                {'name': 'Get Vehicle Data', 'value': 'get_vehicle_data'},
+                {'name': 'Wake Vehicle', 'value': 'wake_vehicle'},
+                {'name': 'Get Charge State', 'value': 'get_charge_state'},
+            ],
+            'description': 'Tesla action',
+        },
+        {
+            'displayName': 'Vehicle Id',
+            'name': 'vehicle_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

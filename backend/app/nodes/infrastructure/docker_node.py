@@ -3,8 +3,8 @@ Docker Infrastructure Node - Studio Standard
 Batch 45: DevOps & Infrastructure
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("docker_node")
 class DockerNode(BaseNode):
@@ -17,6 +17,37 @@ class DockerNode(BaseNode):
     category = "infrastructure"
     credentials_required = [] # Usually local or env-based
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_containers',
+            'options': [
+                {'name': 'List Containers', 'value': 'list_containers'},
+                {'name': 'Start Container', 'value': 'start_container'},
+                {'name': 'Stop Container', 'value': 'stop_container'},
+                {'name': 'List Images', 'value': 'list_images'},
+                {'name': 'Pull Image', 'value': 'pull_image'},
+            ],
+            'description': 'Action to perform on Docker',
+        },
+        {
+            'displayName': 'All Containers',
+            'name': 'all_containers',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Show all containers (even stopped ones)',
+        },
+        {
+            'displayName': 'Target Id',
+            'name': 'target_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Container ID or Image Name',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

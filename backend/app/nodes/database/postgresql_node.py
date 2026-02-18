@@ -4,8 +4,8 @@ Batch 110: Developer Tools & Databases
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # PostgreSQL typically uses `asyncpg`.
 
@@ -19,6 +19,29 @@ class PostgreSQLNode(BaseNode):
     category = "database"
     credentials_required = ["postgresql_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'execute_query',
+            'options': [
+                {'name': 'Execute Query', 'value': 'execute_query'},
+                {'name': 'Insert Row', 'value': 'insert_row'},
+                {'name': 'Update Row', 'value': 'update_row'},
+                {'name': 'Delete Row', 'value': 'delete_row'},
+            ],
+            'description': 'PostgreSQL action',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'SQL Query',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

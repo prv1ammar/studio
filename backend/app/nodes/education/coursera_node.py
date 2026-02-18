@@ -4,8 +4,8 @@ Batch 75: Education & EdTech
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("coursera_node")
 class CourseraNode(BaseNode):
@@ -17,6 +17,34 @@ class CourseraNode(BaseNode):
     category = "education"
     credentials_required = ["coursera_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_courses',
+            'options': [
+                {'name': 'Search Courses', 'value': 'search_courses'},
+                {'name': 'Get Course Details', 'value': 'get_course_details'},
+                {'name': 'List Partners', 'value': 'list_partners'},
+            ],
+            'description': 'Coursera action',
+        },
+        {
+            'displayName': 'Course Id',
+            'name': 'course_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Topic or keyword (e.g. Machine Learning)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

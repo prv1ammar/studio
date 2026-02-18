@@ -5,8 +5,8 @@ Batch 111: Utilities & Data Processing
 from typing import Any, Dict, Optional
 import markdown
 import html2text
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("markdown_node")
 class MarkdownNode(BaseNode):
@@ -18,6 +18,26 @@ class MarkdownNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'markdown_to_html',
+            'options': [
+                {'name': 'Markdown To Html', 'value': 'markdown_to_html'},
+                {'name': 'Html To Markdown', 'value': 'html_to_markdown'},
+            ],
+            'description': 'Conversion',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

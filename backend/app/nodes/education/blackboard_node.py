@@ -4,8 +4,8 @@ Batch 75: Education & EdTech
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("blackboard_node")
 class BlackboardNode(BaseNode):
@@ -17,6 +17,36 @@ class BlackboardNode(BaseNode):
     category = "education"
     credentials_required = ["blackboard_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_courses',
+            'options': [
+                {'name': 'List Courses', 'value': 'list_courses'},
+                {'name': 'Get Course', 'value': 'get_course'},
+                {'name': 'List Users', 'value': 'list_users'},
+                {'name': 'Get Gradebook', 'value': 'get_gradebook'},
+            ],
+            'description': 'Blackboard action',
+        },
+        {
+            'displayName': 'Base Url',
+            'name': 'base_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Institutional Blackboard URL',
+            'required': True,
+        },
+        {
+            'displayName': 'Course Id',
+            'name': 'course_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

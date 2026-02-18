@@ -4,8 +4,8 @@ Batch 76: Gaming & Meta
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("roblox_node")
 class RobloxNode(BaseNode):
@@ -17,6 +17,34 @@ class RobloxNode(BaseNode):
     category = "gaming"
     credentials_required = ["roblox_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_universe',
+            'options': [
+                {'name': 'Get Universe', 'value': 'get_universe'},
+                {'name': 'List Assets', 'value': 'list_assets'},
+                {'name': 'Get User Info', 'value': 'get_user_info'},
+            ],
+            'description': 'Roblox action',
+        },
+        {
+            'displayName': 'Universe Id',
+            'name': 'universe_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the experience/universe',
+        },
+        {
+            'displayName': 'User Id',
+            'name': 'user_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

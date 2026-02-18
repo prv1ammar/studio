@@ -3,8 +3,8 @@ Map Node - Studio Standard (Universal Method)
 Batch 93: Advanced Workflow (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("map_node")
 class MapNode(BaseNode):
@@ -16,6 +16,27 @@ class MapNode(BaseNode):
     category = "flow_control"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Fields',
+            'name': 'fields',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON object of mapping { "new_field": "{{ old_field }} + value" }',
+        },
+        {
+            'displayName': 'Mapping Mode',
+            'name': 'mapping_mode',
+            'type': 'options',
+            'default': 'keep_and_add',
+            'options': [
+                {'name': 'Keep And Add', 'value': 'keep_and_add'},
+                {'name': 'Create New', 'value': 'create_new'},
+            ],
+            'description': 'How to map data',
+        },
+    ]
     inputs = {
         "mapping_mode": {
             "type": "dropdown",

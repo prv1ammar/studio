@@ -4,8 +4,8 @@ Batch 109: Analytics & Support
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("help_scout_node")
 class HelpScoutNode(BaseNode):
@@ -17,6 +17,33 @@ class HelpScoutNode(BaseNode):
     category = "support"
     credentials_required = ["help_scout_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_conversation',
+            'options': [
+                {'name': 'Create Conversation', 'value': 'create_conversation'},
+                {'name': 'List Conversations', 'value': 'list_conversations'},
+                {'name': 'Create Customer', 'value': 'create_customer'},
+            ],
+            'description': 'Help Scout action',
+        },
+        {
+            'displayName': 'Mailbox Id',
+            'name': 'mailbox_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

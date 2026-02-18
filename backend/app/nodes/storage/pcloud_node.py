@@ -4,8 +4,8 @@ Batch 107: Cloud Storage
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("pcloud_node")
 class PCloudNode(BaseNode):
@@ -17,6 +17,47 @@ class PCloudNode(BaseNode):
     category = "storage"
     credentials_required = ["pcloud_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'upload_file',
+            'options': [
+                {'name': 'Upload File', 'value': 'upload_file'},
+                {'name': 'List Folder', 'value': 'list_folder'},
+                {'name': 'Create Folder', 'value': 'create_folder'},
+            ],
+            'description': 'pCloud action',
+        },
+        {
+            'displayName': 'File Content',
+            'name': 'file_content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Filename',
+            'name': 'filename',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Folder Id',
+            'name': 'folder_id',
+            'type': 'string',
+            'default': '0',
+            'description': 'Root folder ID is 0',
+        },
+        {
+            'displayName': 'Name',
+            'name': 'name',
+            'type': 'string',
+            'default': '',
+            'description': 'Folder name',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

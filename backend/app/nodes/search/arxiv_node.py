@@ -6,8 +6,8 @@ import urllib.request
 from urllib.parse import urlparse, quote
 from xml.etree.ElementTree import Element
 from defusedxml.ElementTree import fromstring
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("arxiv_node")
 class ArXivNode(BaseNode):
@@ -19,6 +19,38 @@ class ArXivNode(BaseNode):
     category = "search"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Max Results',
+            'name': 'max_results',
+            'type': 'string',
+            'default': 10,
+            'description': 'Maximum number of results to return',
+        },
+        {
+            'displayName': 'Search Query',
+            'name': 'search_query',
+            'type': 'string',
+            'default': '',
+            'description': 'The search query for arXiv papers (e.g., 'quantum computing')',
+            'required': True,
+        },
+        {
+            'displayName': 'Search Type',
+            'name': 'search_type',
+            'type': 'options',
+            'default': 'all',
+            'options': [
+                {'name': 'All', 'value': 'all'},
+                {'name': 'Title', 'value': 'title'},
+                {'name': 'Abstract', 'value': 'abstract'},
+                {'name': 'Author', 'value': 'author'},
+                {'name': 'Cat', 'value': 'cat'},
+            ],
+            'description': 'The field to search in',
+        },
+    ]
     inputs = {
         "search_query": {
             "type": "string",

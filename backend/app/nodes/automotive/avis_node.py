@@ -4,8 +4,8 @@ Batch 88: Automotive & Fleet
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("avis_node")
 class AvisNode(BaseNode):
@@ -17,6 +17,27 @@ class AvisNode(BaseNode):
     category = "automotive"
     credentials_required = ["avis_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_rentals',
+            'options': [
+                {'name': 'Search Rentals', 'value': 'search_rentals'},
+                {'name': 'Get Reservation Details', 'value': 'get_reservation_details'},
+                {'name': 'Modify Reservation', 'value': 'modify_reservation'},
+            ],
+            'description': 'Avis action',
+        },
+        {
+            'displayName': 'Pickup Location',
+            'name': 'pickup_location',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

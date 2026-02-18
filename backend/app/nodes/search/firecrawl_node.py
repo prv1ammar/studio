@@ -3,8 +3,8 @@ Firecrawl Search & Scraping Node - Studio Standard
 Batch 48: Browsing & Search
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("firecrawl_node")
 class FirecrawlNode(BaseNode):
@@ -17,6 +17,50 @@ class FirecrawlNode(BaseNode):
     category = "search"
     credentials_required = ["firecrawl_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'scrape',
+            'options': [
+                {'name': 'Scrape', 'value': 'scrape'},
+                {'name': 'Crawl', 'value': 'crawl'},
+                {'name': 'Map', 'value': 'map'},
+            ],
+            'description': 'Scraping action',
+        },
+        {
+            'displayName': 'Formats',
+            'name': 'formats',
+            'type': 'string',
+            'default': ['markdown'],
+            'description': 'Output formats (markdown, html, raw, content)',
+        },
+        {
+            'displayName': 'Limit',
+            'name': 'limit',
+            'type': 'string',
+            'default': 10,
+            'description': 'Crawl limit (number of pages)',
+        },
+        {
+            'displayName': 'Only Main Content',
+            'name': 'only_main_content',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Extract only the main content (skip headers/footers)',
+        },
+        {
+            'displayName': 'Url',
+            'name': 'url',
+            'type': 'string',
+            'default': '',
+            'description': 'Target URL to process',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

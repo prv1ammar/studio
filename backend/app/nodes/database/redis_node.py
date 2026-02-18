@@ -4,8 +4,8 @@ Batch 110: Developer Tools & Databases
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # Redis uses `redis-py` (asyncio support in redis>=4.2.0)
 
@@ -19,6 +19,41 @@ class RedisNode(BaseNode):
     category = "database"
     credentials_required = ["redis_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_key',
+            'options': [
+                {'name': 'Get Key', 'value': 'get_key'},
+                {'name': 'Set Key', 'value': 'set_key'},
+                {'name': 'Del Key', 'value': 'del_key'},
+                {'name': 'Incr Key', 'value': 'incr_key'},
+            ],
+            'description': 'Redis action',
+        },
+        {
+            'displayName': 'Expiration',
+            'name': 'expiration',
+            'type': 'string',
+            'default': '',
+            'description': 'Expiration in seconds',
+        },
+        {
+            'displayName': 'Key',
+            'name': 'key',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Value',
+            'name': 'value',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -5,8 +5,8 @@ Part of Phase 6: Rewriting Existing Nodes to remove Composio
 import json
 import httpx
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("asana_node")
 class AsanaNode(BaseNode):
@@ -20,6 +20,57 @@ class AsanaNode(BaseNode):
     category = "productivity"
     credentials_required = ["asana_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_task',
+            'options': [
+                {'name': 'Get Task', 'value': 'get_task'},
+                {'name': 'Create Task', 'value': 'create_task'},
+                {'name': 'List Projects', 'value': 'list_projects'},
+                {'name': 'List Workspaces', 'value': 'list_workspaces'},
+            ],
+            'description': 'Action to perform',
+        },
+        {
+            'displayName': 'Name',
+            'name': 'name',
+            'type': 'string',
+            'default': '',
+            'description': 'Task name',
+        },
+        {
+            'displayName': 'Notes',
+            'name': 'notes',
+            'type': 'string',
+            'default': '',
+            'description': 'Task description/notes',
+        },
+        {
+            'displayName': 'Project Id',
+            'name': 'project_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Asana Project GID',
+        },
+        {
+            'displayName': 'Task Id',
+            'name': 'task_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Asana Task GID',
+        },
+        {
+            'displayName': 'Workspace Id',
+            'name': 'workspace_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Asana Workspace GID',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

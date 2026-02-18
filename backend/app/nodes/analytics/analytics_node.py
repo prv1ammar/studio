@@ -13,6 +13,33 @@ class AnalyticsNode(BaseNode):
     category = "integrations"
     credentials_required = ["analytics_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'fetch_metrics',
+        },
+        {
+            'displayName': 'Event Name',
+            'name': 'event_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Properties',
+            'name': 'properties',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Service',
+            'name': 'service',
+            'type': 'string',
+            'default': 'btrix',
+        },
+    ]
     inputs = {
         "service": {"type": "string", "default": "btrix", "enum": ["btrix", "mixpanel", "sentry", "google_analytics"]},
         "action": {"type": "string", "default": "fetch_metrics", "enum": ["fetch_metrics", "track_event", "log_error", "generate_report"]},

@@ -4,8 +4,8 @@ Batch 72: Travel & Hospitality
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("amadeus_node")
 class AmadeusNode(BaseNode):
@@ -17,6 +17,49 @@ class AmadeusNode(BaseNode):
     category = "travel"
     credentials_required = ["amadeus_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_flights',
+            'options': [
+                {'name': 'Search Flights', 'value': 'search_flights'},
+                {'name': 'Search Hotels', 'value': 'search_hotels'},
+                {'name': 'List Locations', 'value': 'list_locations'},
+                {'name': 'Get Status', 'value': 'get_status'},
+            ],
+            'description': 'Amadeus action',
+        },
+        {
+            'displayName': 'City Code',
+            'name': 'city_code',
+            'type': 'string',
+            'default': '',
+            'description': 'City IATA code for hotel search',
+        },
+        {
+            'displayName': 'Departure Date',
+            'name': 'departure_date',
+            'type': 'string',
+            'default': '',
+            'description': 'YYYY-MM-DD',
+        },
+        {
+            'displayName': 'Destination',
+            'name': 'destination',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Origin',
+            'name': 'origin',
+            'type': 'string',
+            'default': '',
+            'description': 'IATA code (e.g. NYC, LON)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

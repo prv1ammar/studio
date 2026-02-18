@@ -5,8 +5,8 @@ Batch 54: Social Engagement & Influence
 from typing import Any, Dict, Optional, List
 import aiohttp
 import asyncio
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("instagram_node")
 class InstagramNode(BaseNode):
@@ -18,6 +18,44 @@ class InstagramNode(BaseNode):
     category = "social"
     credentials_required = ["instagram_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'publish_photo',
+            'options': [
+                {'name': 'Publish Photo', 'value': 'publish_photo'},
+                {'name': 'Publish Video', 'value': 'publish_video'},
+                {'name': 'Get Account Info', 'value': 'get_account_info'},
+            ],
+            'description': 'Instagram action',
+        },
+        {
+            'displayName': 'Caption',
+            'name': 'caption',
+            'type': 'string',
+            'default': '',
+            'description': 'Post caption',
+        },
+        {
+            'displayName': 'Image Url',
+            'name': 'image_url',
+            'type': 'string',
+            'default': '',
+            'description': 'URL of the image/video to publish',
+            'required': True,
+        },
+        {
+            'displayName': 'Instagram Business Id',
+            'name': 'instagram_business_id',
+            'type': 'string',
+            'default': '',
+            'description': 'The ID of the Instagram Business account',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 109: Analytics & Support
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("posthog_node")
 class PostHogNode(BaseNode):
@@ -17,6 +17,38 @@ class PostHogNode(BaseNode):
     category = "analytics"
     credentials_required = ["posthog_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'capture_event',
+            'options': [
+                {'name': 'Capture Event', 'value': 'capture_event'},
+                {'name': 'Identify User', 'value': 'identify_user'},
+            ],
+            'description': 'PostHog action',
+        },
+        {
+            'displayName': 'Distinct Id',
+            'name': 'distinct_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Event',
+            'name': 'event',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Properties',
+            'name': 'properties',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -11,6 +11,7 @@ class NodeSchema(BaseModel):
     category: str  # trigger, action, logic, ai
     inputs: Dict[str, Any] = Field(default_factory=dict)
     outputs: Dict[str, Any] = Field(default_factory=dict)
+    properties: List[Dict[str, Any]] = Field(default_factory=list) # n8n-style properties
     credentials_required: List[str] = Field(default_factory=list)
     deprecated: bool = False
 
@@ -29,6 +30,7 @@ class BaseNode(ABC):
     category: str = "custom"
     inputs: Dict[str, Any] = {}
     outputs: Dict[str, Any] = {}
+    properties: List[Dict[str, Any]] = [] # n8n-style properties
     credentials_required: List[str] = []
     deprecated: bool = False
 
@@ -65,6 +67,7 @@ class BaseNode(ABC):
                 category=self.category,
                 inputs=self.inputs,
                 outputs=self.outputs,
+                properties=self.properties,
                 credentials_required=self.credentials_required,
                 deprecated=self.deprecated
             )
@@ -114,21 +117,40 @@ class BaseNode(ABC):
         return input_data
 
     def get_config(self, key: str, default: Any = None) -> Any:
-        """Retrieves a config value with fallback to environment variables."""
-        # Check Pydantic model first
-        if isinstance(self.config, BaseModel):
-            val = getattr(self.config, key, None)
-        else:
-            val = self.config.get(key)
-            
-        if val is not None and val != "":
-            return val
+        """Retrieves a config value with fallback to environment variables and properties defaults."""
+        keys_to_check = [key]
         
-        import os
-        env_val = os.getenv(key.upper())
-        if env_val:
-            return env_val
+        # 1. Alias handling for action/operation compatibility
+        if key == "action":
+            keys_to_check.append("operation")
+        elif key == "operation":
+            keys_to_check.append("action")
             
+        # 2. Check config for keys
+        for k in keys_to_check:
+            if isinstance(self.config, BaseModel):
+                val = getattr(self.config, k, None)
+            else:
+                val = self.config.get(k)
+                
+            if val is not None and val != "":
+                return val
+        
+        # 3. Check Environment Variables
+        import os
+        for k in keys_to_check:
+            env_val = os.getenv(k.upper())
+            if env_val:
+                return env_val
+
+        # 4. Check Default in Properties (n8n-style)
+        for k in keys_to_check:
+            for prop in self.properties:
+                if prop.get("name") == k:
+                    default_val = prop.get("default")
+                    if default_val is not None:
+                        return default_val
+
         return default
 
     async def get_credential(self, key: str = "credentials_id") -> Optional[Dict[str, Any]]:

@@ -4,8 +4,8 @@ Batch 86: E-commerce Core
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("magento_node")
 class MagentoNode(BaseNode):
@@ -17,6 +17,30 @@ class MagentoNode(BaseNode):
     category = "commerce"
     credentials_required = ["magento_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_orders',
+            'options': [
+                {'name': 'List Orders', 'value': 'list_orders'},
+                {'name': 'List Products', 'value': 'list_products'},
+                {'name': 'Get Product Details', 'value': 'get_product_details'},
+                {'name': 'Get Order Details', 'value': 'get_order_details'},
+            ],
+            'description': 'Magento action',
+        },
+        {
+            'displayName': 'Base Url',
+            'name': 'base_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Magento Base URL (e.g. https://yourstore.com)',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

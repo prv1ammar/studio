@@ -4,8 +4,8 @@ Batch 73: Real Estate & MLS
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("realtor_node")
 class RealtorNode(BaseNode):
@@ -17,6 +17,40 @@ class RealtorNode(BaseNode):
     category = "real_estate"
     credentials_required = ["realtor_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_for_sale',
+            'options': [
+                {'name': 'List For Sale', 'value': 'list_for_sale'},
+                {'name': 'List For Rent', 'value': 'list_for_rent'},
+                {'name': 'Get Property Detail', 'value': 'get_property_detail'},
+            ],
+            'description': 'Realtor.com action',
+        },
+        {
+            'displayName': 'City',
+            'name': 'city',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Property Id',
+            'name': 'property_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'State Code',
+            'name': 'state_code',
+            'type': 'string',
+            'default': '',
+            'description': 'Two-letter state code (e.g. CA, NY)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

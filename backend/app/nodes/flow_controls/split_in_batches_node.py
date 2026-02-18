@@ -3,8 +3,8 @@ Split In Batches Node - Studio Standard (Universal Method)
 Batch 103: Core Workflow Nodes
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("split_in_batches_node")
 class SplitInBatchesNode(BaseNode):
@@ -16,6 +16,30 @@ class SplitInBatchesNode(BaseNode):
     category = "flow_controls"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Batch Size',
+            'name': 'batch_size',
+            'type': 'string',
+            'default': 10,
+            'description': 'Number of items per batch',
+        },
+        {
+            'displayName': 'Items',
+            'name': 'items',
+            'type': 'string',
+            'default': '',
+            'description': 'Items to split into batches',
+        },
+        {
+            'displayName': 'Reset',
+            'name': 'reset',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Reset batch counter',
+        },
+    ]
     inputs = {
         "batch_size": {
             "type": "number",

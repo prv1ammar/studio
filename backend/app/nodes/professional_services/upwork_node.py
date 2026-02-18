@@ -4,8 +4,8 @@ Batch 74: Professional Services
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("upwork_node")
 class UpworkNode(BaseNode):
@@ -17,6 +17,36 @@ class UpworkNode(BaseNode):
     category = "professional_services"
     credentials_required = ["upwork_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_jobs',
+            'options': [
+                {'name': 'Search Jobs', 'value': 'search_jobs'},
+                {'name': 'Get User Info', 'value': 'get_user_info'},
+                {'name': 'List Teams', 'value': 'list_teams'},
+                {'name': 'Get Job Details', 'value': 'get_job_details'},
+            ],
+            'description': 'Upwork action',
+        },
+        {
+            'displayName': 'Job Key',
+            'name': 'job_key',
+            'type': 'string',
+            'default': '',
+            'description': 'ID/Key of the job',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query for jobs',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 43: Code Execution
 """
 from typing import Any, Dict, Optional
 import asyncio
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("shell_command")
 class ShellCommandNode(BaseNode):
@@ -18,6 +18,31 @@ class ShellCommandNode(BaseNode):
     category = "code"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Command',
+            'name': 'command',
+            'type': 'string',
+            'default': '',
+            'description': 'Shell command to execute',
+            'required': True,
+        },
+        {
+            'displayName': 'Cwd',
+            'name': 'cwd',
+            'type': 'string',
+            'default': '',
+            'description': 'Current working directory',
+        },
+        {
+            'displayName': 'Timeout',
+            'name': 'timeout',
+            'type': 'string',
+            'default': 30,
+            'description': 'Timeout in seconds',
+        },
+    ]
     inputs = {
         "command": {
             "type": "string",

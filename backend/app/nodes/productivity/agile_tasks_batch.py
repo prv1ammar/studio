@@ -4,8 +4,8 @@ Batch 105: Productivity Suite
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # ============================================
 # LINEAR NODE
@@ -20,6 +20,59 @@ class LinearNode(BaseNode):
     category = "productivity"
     credentials_required = ["linear_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_issue',
+            'options': [
+                {'name': 'Create Issue', 'value': 'create_issue'},
+                {'name': 'List Issues', 'value': 'list_issues'},
+                {'name': 'Update Issue', 'value': 'update_issue'},
+                {'name': 'Get Team', 'value': 'get_team'},
+                {'name': 'List Teams', 'value': 'list_teams'},
+            ],
+            'description': 'Linear action',
+        },
+        {
+            'displayName': 'Assignee Id',
+            'name': 'assignee_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Issue Id',
+            'name': 'issue_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'State Id',
+            'name': 'state_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Team Id',
+            'name': 'team_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 90: CRM & Marketing (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("monday_node")
 class MondayNode(BaseNode):
@@ -17,6 +17,35 @@ class MondayNode(BaseNode):
     category = "collaboration"
     credentials_required = ["monday_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_item',
+            'options': [
+                {'name': 'Create Item', 'value': 'create_item'},
+                {'name': 'Get Boards', 'value': 'get_boards'},
+                {'name': 'Get Items', 'value': 'get_items'},
+                {'name': 'Update Item', 'value': 'update_item'},
+                {'name': 'Create Update', 'value': 'create_update'},
+            ],
+            'description': 'Monday.com action',
+        },
+        {
+            'displayName': 'Board Id',
+            'name': 'board_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Item Name',
+            'name': 'item_name',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

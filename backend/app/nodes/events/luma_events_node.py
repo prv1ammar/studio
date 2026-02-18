@@ -4,8 +4,8 @@ Batch 68: Event Management
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("luma_events_node")
 class LumaEventsNode(BaseNode):
@@ -17,6 +17,28 @@ class LumaEventsNode(BaseNode):
     category = "events"
     credentials_required = ["luma_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_events',
+            'options': [
+                {'name': 'List Events', 'value': 'list_events'},
+                {'name': 'Get Event', 'value': 'get_event'},
+                {'name': 'List Guests', 'value': 'list_guests'},
+            ],
+            'description': 'Luma action',
+        },
+        {
+            'displayName': 'Event Api Id',
+            'name': 'event_api_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique API ID of the event',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

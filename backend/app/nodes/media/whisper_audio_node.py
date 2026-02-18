@@ -5,8 +5,8 @@ Batch 42: Image & Audio
 from typing import Any, Dict, Optional
 import os
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("whisper_transcribe")
 class WhisperTranscribeNode(BaseNode):
@@ -19,6 +19,54 @@ class WhisperTranscribeNode(BaseNode):
     category = "media"
     credentials_required = ["openai_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'File Path',
+            'name': 'file_path',
+            'type': 'string',
+            'default': '',
+            'description': 'Path to local audio file or URL',
+        },
+        {
+            'displayName': 'Language',
+            'name': 'language',
+            'type': 'string',
+            'default': '',
+            'description': 'ISO-639-1 language code (e.g. 'en', 'fr')',
+        },
+        {
+            'displayName': 'Model',
+            'name': 'model',
+            'type': 'options',
+            'default': 'whisper-1',
+            'options': [
+                {'name': 'Whisper-1', 'value': 'whisper-1'},
+            ],
+            'description': 'Model version',
+        },
+        {
+            'displayName': 'Response Format',
+            'name': 'response_format',
+            'type': 'options',
+            'default': 'text',
+            'options': [
+                {'name': 'Json', 'value': 'json'},
+                {'name': 'Text', 'value': 'text'},
+                {'name': 'Srt', 'value': 'srt'},
+                {'name': 'Verbose Json', 'value': 'verbose_json'},
+                {'name': 'Vtt', 'value': 'vtt'},
+            ],
+            'description': 'Output format',
+        },
+        {
+            'displayName': 'Temperature',
+            'name': 'temperature',
+            'type': 'string',
+            'default': 0,
+            'description': 'Sampling temperature (0-1)',
+        },
+    ]
     inputs = {
         "file_path": {
             "type": "string",

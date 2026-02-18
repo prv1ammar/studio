@@ -4,8 +4,8 @@ Batch 105: Productivity Suite
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # ============================================
 # GOOGLE CALENDAR NODE
@@ -20,6 +20,70 @@ class GoogleCalendarNode(BaseNode):
     category = "productivity"
     credentials_required = ["google_calendar_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_events',
+            'options': [
+                {'name': 'List Events', 'value': 'list_events'},
+                {'name': 'Create Event', 'value': 'create_event'},
+                {'name': 'Update Event', 'value': 'update_event'},
+                {'name': 'Delete Event', 'value': 'delete_event'},
+                {'name': 'Get Event', 'value': 'get_event'},
+                {'name': 'List Calendars', 'value': 'list_calendars'},
+            ],
+            'description': 'Calendar action',
+        },
+        {
+            'displayName': 'Attendees',
+            'name': 'attendees',
+            'type': 'string',
+            'default': '',
+            'description': 'Comma separated emails',
+        },
+        {
+            'displayName': 'Calendar Id',
+            'name': 'calendar_id',
+            'type': 'string',
+            'default': 'primary',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'End Time',
+            'name': 'end_time',
+            'type': 'string',
+            'default': '',
+            'description': 'ISO 8601 format',
+        },
+        {
+            'displayName': 'Event Id',
+            'name': 'event_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Start Time',
+            'name': 'start_time',
+            'type': 'string',
+            'default': '',
+            'description': 'ISO 8601 format (e.g. 2024-01-01T10:00:00Z)',
+        },
+        {
+            'displayName': 'Summary',
+            'name': 'summary',
+            'type': 'string',
+            'default': '',
+            'description': 'Event title',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

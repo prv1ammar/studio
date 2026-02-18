@@ -4,8 +4,8 @@ Batch 95: Database Connectors (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import snowflake.connector
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("snowflake_node")
 class SnowflakeNode(BaseNode):
@@ -17,6 +17,27 @@ class SnowflakeNode(BaseNode):
     category = "database"
     credentials_required = ["snowflake_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'execute_query',
+            'options': [
+                {'name': 'Execute Query', 'value': 'execute_query'},
+                {'name': 'Insert Rows', 'value': 'insert_rows'},
+            ],
+            'description': 'Snowflake action',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'SQL query to execute',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

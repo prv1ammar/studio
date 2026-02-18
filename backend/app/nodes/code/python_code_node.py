@@ -7,8 +7,8 @@ import sys
 import io
 import contextlib
 import traceback
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("python_code")
 class PythonCodeNode(BaseNode):
@@ -21,6 +21,31 @@ class PythonCodeNode(BaseNode):
     category = "code"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Code',
+            'name': 'code',
+            'type': 'json',
+            'default': 'def main(inputs):
+    return inputs',
+            'description': 'Python code to execute',
+        },
+        {
+            'displayName': 'Imports',
+            'name': 'imports',
+            'type': 'string',
+            'default': '',
+            'description': 'Comma-separated list of modules to import (e.g., 'math, json')',
+        },
+        {
+            'displayName': 'Inputs',
+            'name': 'inputs',
+            'type': 'string',
+            'default': '',
+            'description': 'Input data available as 'inputs' variable',
+        },
+    ]
     inputs = {
         "code": {
             "type": "code",

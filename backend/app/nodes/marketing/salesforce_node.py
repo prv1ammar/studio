@@ -4,8 +4,8 @@ Batch 108: Marketing & CRM
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("salesforce_node")
 class SalesforceNode(BaseNode):
@@ -17,6 +17,49 @@ class SalesforceNode(BaseNode):
     category = "marketing"
     credentials_required = ["salesforce_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_record',
+            'options': [
+                {'name': 'Create Record', 'value': 'create_record'},
+                {'name': 'Get Record', 'value': 'get_record'},
+                {'name': 'Update Record', 'value': 'update_record'},
+                {'name': 'Search', 'value': 'search'},
+            ],
+            'description': 'Salesforce action',
+        },
+        {
+            'displayName': 'Data Json',
+            'name': 'data_json',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON body for record creation/update',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'SOQL Query',
+        },
+        {
+            'displayName': 'Record Id',
+            'name': 'record_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Sobject',
+            'name': 'sobject',
+            'type': 'string',
+            'default': 'Account',
+            'description': 'Object type (e.g. Account, Contact, Lead)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

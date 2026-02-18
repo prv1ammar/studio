@@ -4,8 +4,8 @@ Batch 101: Automation Bridges (Interoperability)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("make_node")
 class MakeNode(BaseNode):
@@ -17,6 +17,25 @@ class MakeNode(BaseNode):
     category = "bridges"
     credentials_required = [] # Often just a webhook URL, or auth header if protected
 
+
+    properties = [
+        {
+            'displayName': 'Payload',
+            'name': 'payload',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON payload to send',
+            'required': True,
+        },
+        {
+            'displayName': 'Webhook Url',
+            'name': 'webhook_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Make Custom Webhook URL',
+            'required': True,
+        },
+    ]
     inputs = {
         "webhook_url": {
             "type": "string",

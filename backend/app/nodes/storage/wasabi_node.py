@@ -4,8 +4,8 @@ Batch 107: Cloud Storage
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # Wasabi is S3 compatible. This implementation could often leverage boto3 or generic S3 requests.
 # For consistency with other nodes (async/aiohttp), using REST signature logic or simplified presigned assumption.
@@ -27,6 +27,32 @@ class WasabiNode(BaseNode):
     category = "storage"
     credentials_required = ["wasabi_s3_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_buckets',
+            'options': [
+                {'name': 'List Buckets', 'value': 'list_buckets'},
+                {'name': 'Get Object', 'value': 'get_object'},
+            ],
+            'description': 'Wasabi S3 action',
+        },
+        {
+            'displayName': 'Bucket',
+            'name': 'bucket',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Key',
+            'name': 'key',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

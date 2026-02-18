@@ -13,6 +13,57 @@ class SupportTicketingNode(BaseNode):
     category = "integrations"
     credentials_required = ["support_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'get_tickets',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Params',
+            'name': 'params',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Platform',
+            'name': 'platform',
+            'type': 'string',
+            'default': 'zendesk',
+        },
+        {
+            'displayName': 'Priority',
+            'name': 'priority',
+            'type': 'string',
+            'default': 'normal',
+        },
+        {
+            'displayName': 'Status',
+            'name': 'status',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Ticket Id',
+            'name': 'ticket_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "platform": {"type": "string", "default": "zendesk", "enum": ["zendesk", "intercom", "freshdesk", "helpscout"]},
         "action": {"type": "string", "default": "get_tickets", "enum": ["get_tickets", "create_ticket", "update_ticket", "get_user", "send_message"]},

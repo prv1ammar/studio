@@ -12,6 +12,27 @@ class VertexAIEmbeddingsNode(BaseNode):
     category = "embeddings"
     credentials_required = ["gcp_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Location',
+            'name': 'location',
+            'type': 'string',
+            'default': 'us-central1',
+        },
+        {
+            'displayName': 'Model',
+            'name': 'model',
+            'type': 'string',
+            'default': 'textembedding-gecko',
+        },
+        {
+            'displayName': 'Project',
+            'name': 'project',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "model": {"type": "string", "default": "textembedding-gecko"},
         "project": {"type": "string", "optional": True},

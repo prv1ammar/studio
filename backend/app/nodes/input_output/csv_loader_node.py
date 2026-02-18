@@ -4,8 +4,8 @@ Batch 35: Document Loaders
 """
 from typing import Any, Dict, Optional, List
 import pandas as pd
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("csv_loader")
 class CSVLoaderNode(BaseNode):
@@ -18,6 +18,52 @@ class CSVLoaderNode(BaseNode):
     category = "input_output"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Csv String',
+            'name': 'csv_string',
+            'type': 'string',
+            'default': '',
+            'description': 'Raw CSV content string',
+        },
+        {
+            'displayName': 'Delimiter',
+            'name': 'delimiter',
+            'type': 'string',
+            'default': ',',
+            'description': 'CSV delimiter character',
+        },
+        {
+            'displayName': 'Encoding',
+            'name': 'encoding',
+            'type': 'string',
+            'default': 'utf-8',
+            'description': 'File encoding (utf-8, latin-1, etc.)',
+        },
+        {
+            'displayName': 'File Path',
+            'name': 'file_path',
+            'type': 'string',
+            'default': '',
+            'description': 'Path to the CSV file',
+            'required': True,
+        },
+        {
+            'displayName': 'Header',
+            'name': 'header',
+            'type': 'string',
+            'default': 0,
+            'description': 'Row number to use as header (0-indexed)',
+        },
+        {
+            'displayName': 'Text Column',
+            'name': 'text_column',
+            'type': 'string',
+            'default': '',
+            'description': 'Column to use as primary text content (optional)',
+        },
+    ]
     inputs = {
         "file_path": {
             "type": "string",

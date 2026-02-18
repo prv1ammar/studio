@@ -14,6 +14,28 @@ class DiscordNode(BaseNode):
     category = "communication"
     credentials_required = ["discord_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Channel Id',
+            'name': 'channel_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Required for Bot Token mode',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Webhook Url',
+            'name': 'webhook_url',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "webhook_url": {"type": "string", "optional": True},
         "channel_id": {"type": "string", "optional": True, "description": "Required for Bot Token mode"},

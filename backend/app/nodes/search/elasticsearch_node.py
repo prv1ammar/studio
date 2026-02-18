@@ -3,8 +3,8 @@ ElasticSearch Node - Studio Standard
 Batch 56: Enterprise Search & Discovery
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 import aiohttp
 import json
 
@@ -19,6 +19,67 @@ class ElasticSearchNode(BaseNode):
     category = "search"
     credentials_required = ["elasticsearch_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search',
+            'options': [
+                {'name': 'Search', 'value': 'search'},
+                {'name': 'Index Document', 'value': 'index_document'},
+                {'name': 'Delete Document', 'value': 'delete_document'},
+                {'name': 'Create Index', 'value': 'create_index'},
+                {'name': 'List Indices', 'value': 'list_indices'},
+            ],
+            'description': 'ElasticSearch action to perform',
+        },
+        {
+            'displayName': 'Document',
+            'name': 'document',
+            'type': 'string',
+            'default': '',
+            'description': 'Document JSON for indexing',
+        },
+        {
+            'displayName': 'Document Id',
+            'name': 'document_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Specific document ID',
+        },
+        {
+            'displayName': 'Index Name',
+            'name': 'index_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Index to operate on',
+            'required': True,
+        },
+        {
+            'displayName': 'Limit',
+            'name': 'limit',
+            'type': 'string',
+            'default': 10,
+            'description': 'Max results to return',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query or DSL JSON string',
+        },
+        {
+            'displayName': 'Url',
+            'name': 'url',
+            'type': 'string',
+            'default': '',
+            'description': 'ElasticSearch URL (e.g., 'http://localhost:9200' or Elastic Cloud ID)',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

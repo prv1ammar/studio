@@ -4,8 +4,8 @@ Batch 85: SMB Finance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("ramp_node")
 class RampNode(BaseNode):
@@ -17,6 +17,22 @@ class RampNode(BaseNode):
     category = "finance"
     credentials_required = ["ramp_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_transactions',
+            'options': [
+                {'name': 'List Transactions', 'value': 'list_transactions'},
+                {'name': 'List Cards', 'value': 'list_cards'},
+                {'name': 'Get Business Info', 'value': 'get_business_info'},
+                {'name': 'List Departments', 'value': 'list_departments'},
+            ],
+            'description': 'Ramp action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

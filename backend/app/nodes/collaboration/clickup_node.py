@@ -4,8 +4,8 @@ Batch 69: Project Collaboration
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("clickup_node")
 class ClickUpNode(BaseNode):
@@ -17,6 +17,55 @@ class ClickUpNode(BaseNode):
     category = "collaboration"
     credentials_required = ["clickup_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_tasks',
+            'options': [
+                {'name': 'List Tasks', 'value': 'list_tasks'},
+                {'name': 'Create Task', 'value': 'create_task'},
+                {'name': 'List Folders', 'value': 'list_folders'},
+                {'name': 'List Lists', 'value': 'list_lists'},
+                {'name': 'Get Teams', 'value': 'get_teams'},
+            ],
+            'description': 'ClickUp action',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'List Id',
+            'name': 'list_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Name',
+            'name': 'name',
+            'type': 'string',
+            'default': '',
+            'description': 'Task name',
+        },
+        {
+            'displayName': 'Space Id',
+            'name': 'space_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Team Id',
+            'name': 'team_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the team/workspace',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

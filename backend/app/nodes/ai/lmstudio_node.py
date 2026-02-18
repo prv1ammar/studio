@@ -4,8 +4,8 @@ Batch 118: AI Essentials & Local Inference
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("lmstudio_node")
 class LMStudioNode(BaseNode):
@@ -17,6 +17,44 @@ class LMStudioNode(BaseNode):
     category = "ai"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Base Url',
+            'name': 'base_url',
+            'type': 'string',
+            'default': 'http://localhost:1234/v1',
+            'description': 'LM Studio server URL',
+        },
+        {
+            'displayName': 'Max Tokens',
+            'name': 'max_tokens',
+            'type': 'string',
+            'default': 1024,
+        },
+        {
+            'displayName': 'Model Name',
+            'name': 'model_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Model ID as loaded in LM Studio',
+            'required': True,
+        },
+        {
+            'displayName': 'Prompt',
+            'name': 'prompt',
+            'type': 'string',
+            'default': '',
+            'description': 'The prompt to send to the model',
+            'required': True,
+        },
+        {
+            'displayName': 'Temperature',
+            'name': 'temperature',
+            'type': 'string',
+            'default': 0.1,
+        },
+    ]
     inputs = {
         "model_name": {
             "type": "string",

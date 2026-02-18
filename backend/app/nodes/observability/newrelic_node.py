@@ -4,8 +4,8 @@ Batch 83: Observability & SRE
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("newrelic_node")
 class NewRelicNode(BaseNode):

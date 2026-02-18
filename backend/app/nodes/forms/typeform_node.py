@@ -4,8 +4,8 @@ Batch 57: Forms & Surveys
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("typeform_node")
 class TypeformNode(BaseNode):
@@ -17,6 +17,43 @@ class TypeformNode(BaseNode):
     category = "forms"
     credentials_required = ["typeform_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_responses',
+            'options': [
+                {'name': 'List Forms', 'value': 'list_forms'},
+                {'name': 'Get Form', 'value': 'get_form'},
+                {'name': 'List Responses', 'value': 'list_responses'},
+                {'name': 'Get Latest Response', 'value': 'get_latest_response'},
+            ],
+            'description': 'Typeform action to perform',
+        },
+        {
+            'displayName': 'Form Id',
+            'name': 'form_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the form',
+        },
+        {
+            'displayName': 'Page Size',
+            'name': 'page_size',
+            'type': 'string',
+            'default': 10,
+            'description': 'Number of results to return',
+        },
+        {
+            'displayName': 'Since',
+            'name': 'since',
+            'type': 'string',
+            'default': '',
+            'description': 'ISO 8601 date string to filter responses',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

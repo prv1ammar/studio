@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional
 import hashlib
 import hmac
 import base64
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("crypto_node")
 class CryptoNode(BaseNode):
@@ -19,6 +19,48 @@ class CryptoNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'hash',
+            'options': [
+                {'name': 'Hash', 'value': 'hash'},
+                {'name': 'Hmac', 'value': 'hmac'},
+                {'name': 'Base64 Encode', 'value': 'base64_encode'},
+                {'name': 'Base64 Decode', 'value': 'base64_decode'},
+            ],
+            'description': 'Crypto action',
+        },
+        {
+            'displayName': 'Algorithm',
+            'name': 'algorithm',
+            'type': 'options',
+            'default': 'sha256',
+            'options': [
+                {'name': 'Md5', 'value': 'md5'},
+                {'name': 'Sha1', 'value': 'sha1'},
+                {'name': 'Sha256', 'value': 'sha256'},
+                {'name': 'Sha512', 'value': 'sha512'},
+            ],
+        },
+        {
+            'displayName': 'Secret',
+            'name': 'secret',
+            'type': 'string',
+            'default': '',
+            'description': 'Key for HMAC',
+        },
+        {
+            'displayName': 'Value',
+            'name': 'value',
+            'type': 'string',
+            'default': '',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

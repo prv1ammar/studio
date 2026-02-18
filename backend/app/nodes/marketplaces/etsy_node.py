@@ -4,8 +4,8 @@ Batch 87: Retail & Marketplaces
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("etsy_node")
 class EtsyNode(BaseNode):
@@ -17,6 +17,29 @@ class EtsyNode(BaseNode):
     category = "marketplaces"
     credentials_required = ["etsy_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_shop_receipts',
+            'options': [
+                {'name': 'Get Shop Receipts', 'value': 'get_shop_receipts'},
+                {'name': 'List Listings By Shop', 'value': 'list_listings_by_shop'},
+                {'name': 'Get Shop Details', 'value': 'get_shop_details'},
+            ],
+            'description': 'Etsy API action',
+        },
+        {
+            'displayName': 'Shop Id',
+            'name': 'shop_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of your Etsy shop',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

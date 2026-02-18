@@ -4,8 +4,8 @@ Batch 62: Marketing Automation
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("klaviyo_node")
 class KlaviyoNode(BaseNode):
@@ -18,6 +18,43 @@ class KlaviyoNode(BaseNode):
     category = "marketing"
     credentials_required = ["klaviyo_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_profiles',
+            'options': [
+                {'name': 'Get Profiles', 'value': 'get_profiles'},
+                {'name': 'Create Profile', 'value': 'create_profile'},
+                {'name': 'Create Event', 'value': 'create_event'},
+                {'name': 'Get Metrics', 'value': 'get_metrics'},
+            ],
+            'description': 'Klaviyo action',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+            'description': 'Customer email',
+        },
+        {
+            'displayName': 'Event Name',
+            'name': 'event_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Metric name for event (e.g. 'Viewed Product')',
+        },
+        {
+            'displayName': 'Properties',
+            'name': 'properties',
+            'type': 'string',
+            'default': '',
+            'description': 'Properties for profile or event',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

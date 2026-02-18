@@ -4,8 +4,8 @@ Batch 79: Media Production
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("wistia_node")
 class WistiaNode(BaseNode):
@@ -17,6 +17,36 @@ class WistiaNode(BaseNode):
     category = "media"
     credentials_required = ["wistia_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_projects',
+            'options': [
+                {'name': 'List Projects', 'value': 'list_projects'},
+                {'name': 'List Medias', 'value': 'list_medias'},
+                {'name': 'Get Media Stats', 'value': 'get_media_stats'},
+                {'name': 'Get Media Details', 'value': 'get_media_details'},
+            ],
+            'description': 'Wistia action',
+        },
+        {
+            'displayName': 'Media Id',
+            'name': 'media_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique hashed ID for the media',
+        },
+        {
+            'displayName': 'Project Id',
+            'name': 'project_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique hashed ID for the project',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

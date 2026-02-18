@@ -5,8 +5,8 @@ Batch 90: CRM & Marketing (n8n Critical)
 from typing import Any, Dict, Optional, List
 import aiohttp
 import uuid
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("square_node")
 class SquareNode(BaseNode):
@@ -18,6 +18,34 @@ class SquareNode(BaseNode):
     category = "commerce"
     credentials_required = ["square_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_payments',
+            'options': [
+                {'name': 'List Payments', 'value': 'list_payments'},
+                {'name': 'Create Payment', 'value': 'create_payment'},
+                {'name': 'List Orders', 'value': 'list_orders'},
+                {'name': 'Get Location', 'value': 'get_location'},
+            ],
+            'description': 'Square action',
+        },
+        {
+            'displayName': 'Amount',
+            'name': 'amount',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Currency',
+            'name': 'currency',
+            'type': 'string',
+            'default': 'USD',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

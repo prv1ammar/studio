@@ -3,8 +3,8 @@ Redis Chat Memory Node - Studio Standard
 Batch 39: Memory & History
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("redis_chat_memory")
 class RedisChatMemoryNode(BaseNode):
@@ -17,6 +17,59 @@ class RedisChatMemoryNode(BaseNode):
     category = "memory"
     credentials_required = ["redis_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Input Key',
+            'name': 'input_key',
+            'type': 'string',
+            'default': 'input',
+            'description': 'Key for user input',
+        },
+        {
+            'displayName': 'K',
+            'name': 'k',
+            'type': 'string',
+            'default': 10,
+            'description': 'Number of recent messages to keep in active buffer',
+        },
+        {
+            'displayName': 'Output Key',
+            'name': 'output_key',
+            'type': 'string',
+            'default': 'output',
+            'description': 'Key for AI output',
+        },
+        {
+            'displayName': 'Redis Url',
+            'name': 'redis_url',
+            'type': 'string',
+            'default': 'redis://localhost:6379',
+            'description': 'Redis connection URL',
+        },
+        {
+            'displayName': 'Return Messages',
+            'name': 'return_messages',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Return messages list or string history',
+        },
+        {
+            'displayName': 'Session Id',
+            'name': 'session_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique session identifier',
+            'required': True,
+        },
+        {
+            'displayName': 'Ttl',
+            'name': 'ttl',
+            'type': 'string',
+            'default': '',
+            'description': 'Time-to-live in seconds (optional)',
+        },
+    ]
     inputs = {
         "redis_url": {
             "type": "string",

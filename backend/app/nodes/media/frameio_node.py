@@ -4,8 +4,8 @@ Batch 79: Media Production
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("frameio_node")
 class FrameioNode(BaseNode):
@@ -17,6 +17,41 @@ class FrameioNode(BaseNode):
     category = "media"
     credentials_required = ["frameio_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_me',
+            'options': [
+                {'name': 'Get Me', 'value': 'get_me'},
+                {'name': 'List Projects', 'value': 'list_projects'},
+                {'name': 'List Assets', 'value': 'list_assets'},
+                {'name': 'Get Asset Comments', 'value': 'get_asset_comments'},
+                {'name': 'Create Comment', 'value': 'create_comment'},
+            ],
+            'description': 'Frame.io action',
+        },
+        {
+            'displayName': 'Asset Id',
+            'name': 'asset_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Comment',
+            'name': 'comment',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Project Id',
+            'name': 'project_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

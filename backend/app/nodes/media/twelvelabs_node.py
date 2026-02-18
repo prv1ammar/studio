@@ -5,8 +5,8 @@ Batch 116: Specialized Toolkits
 from typing import Any, Dict, Optional, List
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("twelvelabs_node")
 class TwelveLabsNode(BaseNode):
@@ -18,6 +18,43 @@ class TwelveLabsNode(BaseNode):
     category = "media"
     credentials_required = ["twelvelabs_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search',
+            'options': [
+                {'name': 'Search', 'value': 'search'},
+                {'name': 'Index Video', 'value': 'index_video'},
+                {'name': 'Generate Text', 'value': 'generate_text'},
+            ],
+            'description': 'TwelveLabs service to use',
+        },
+        {
+            'displayName': 'Index Id',
+            'name': 'index_id',
+            'type': 'string',
+            'default': '',
+            'description': 'The ID of the video index',
+            'required': True,
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query or question about the video',
+        },
+        {
+            'displayName': 'Video Url',
+            'name': 'video_url',
+            'type': 'string',
+            'default': '',
+            'description': 'URL of the video to index',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

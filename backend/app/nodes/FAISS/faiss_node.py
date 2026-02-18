@@ -4,8 +4,8 @@ Batch 32: Vector Store Nodes
 """
 from typing import Any, Dict, Optional, List
 from pathlib import Path
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("faiss_vectorstore")
 class FAISSNode(BaseNode):
@@ -18,6 +18,51 @@ class FAISSNode(BaseNode):
     category = "vectorstores"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Allow Dangerous Deserialization',
+            'name': 'allow_dangerous_deserialization',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Allow loading pickle files (only if you trust the source)',
+        },
+        {
+            'displayName': 'Documents',
+            'name': 'documents',
+            'type': 'string',
+            'default': '',
+            'description': 'Documents to ingest into the vector store',
+        },
+        {
+            'displayName': 'Index Name',
+            'name': 'index_name',
+            'type': 'string',
+            'default': 'studio_index',
+            'description': 'Name of the FAISS index',
+        },
+        {
+            'displayName': 'Persist Directory',
+            'name': 'persist_directory',
+            'type': 'string',
+            'default': '',
+            'description': 'Directory to save/load the FAISS index',
+        },
+        {
+            'displayName': 'Search Query',
+            'name': 'search_query',
+            'type': 'string',
+            'default': '',
+            'description': 'Query text for similarity search',
+        },
+        {
+            'displayName': 'Top K',
+            'name': 'top_k',
+            'type': 'string',
+            'default': 4,
+            'description': 'Number of results to return',
+        },
+    ]
     inputs = {
         "index_name": {
             "type": "string",

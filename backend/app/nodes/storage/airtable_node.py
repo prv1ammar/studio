@@ -14,6 +14,36 @@ class AirtableNode(BaseNode):
     category = "storage"
     credentials_required = ["airtable_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'read_records',
+        },
+        {
+            'displayName': 'Base Id',
+            'name': 'base_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Airtable Base ID',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+            'description': 'Fields for writing',
+        },
+        {
+            'displayName': 'Table Name',
+            'name': 'table_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Table Name or ID',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "read_records", "enum": ["read_records", "write_record"]},
         "base_id": {"type": "string", "description": "Airtable Base ID"},

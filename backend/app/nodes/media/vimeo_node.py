@@ -4,8 +4,8 @@ Batch 79: Media Production
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("vimeo_node")
 class VimeoNode(BaseNode):
@@ -17,6 +17,36 @@ class VimeoNode(BaseNode):
     category = "media"
     credentials_required = ["vimeo_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_videos',
+            'options': [
+                {'name': 'List Videos', 'value': 'list_videos'},
+                {'name': 'Get Video Details', 'value': 'get_video_details'},
+                {'name': 'List Projects', 'value': 'list_projects'},
+                {'name': 'Get Upload Quota', 'value': 'get_upload_quota'},
+            ],
+            'description': 'Vimeo action',
+        },
+        {
+            'displayName': 'Project Id',
+            'name': 'project_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the folder/project',
+        },
+        {
+            'displayName': 'Video Id',
+            'name': 'video_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the video',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 83: Observability & SRE
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("kubernetes_node")
 class KubernetesNode(BaseNode):
@@ -17,6 +17,45 @@ class KubernetesNode(BaseNode):
     category = "infrastructure"
     credentials_required = ["kubernetes_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_pods',
+            'options': [
+                {'name': 'List Pods', 'value': 'list_pods'},
+                {'name': 'Get Pod Logs', 'value': 'get_pod_logs'},
+                {'name': 'List Services', 'value': 'list_services'},
+                {'name': 'List Deployments', 'value': 'list_deployments'},
+                {'name': 'Patch Deployment', 'value': 'patch_deployment'},
+            ],
+            'description': 'Kubernetes action',
+        },
+        {
+            'displayName': 'Api Server',
+            'name': 'api_server',
+            'type': 'string',
+            'default': '',
+            'description': 'K8s API Server URL (e.g., https://1.2.3.4)',
+            'required': True,
+        },
+        {
+            'displayName': 'Name',
+            'name': 'name',
+            'type': 'string',
+            'default': '',
+            'description': 'Name of the resource (pod, deployment, etc.)',
+        },
+        {
+            'displayName': 'Namespace',
+            'name': 'namespace',
+            'type': 'string',
+            'default': 'default',
+            'description': 'Target namespace',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

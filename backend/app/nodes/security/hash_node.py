@@ -4,8 +4,8 @@ Batch 51: Security & Utilities
 """
 import hashlib
 from typing import Any, Dict, Optional
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("hash_node")
 class HashNode(BaseNode):
@@ -17,6 +17,37 @@ class HashNode(BaseNode):
     version = "1.0.0"
     category = "security"
 
+
+    properties = [
+        {
+            'displayName': 'Algorithm',
+            'name': 'algorithm',
+            'type': 'options',
+            'default': 'sha256',
+            'options': [
+                {'name': 'Md5', 'value': 'md5'},
+                {'name': 'Sha1', 'value': 'sha1'},
+                {'name': 'Sha256', 'value': 'sha256'},
+                {'name': 'Sha512', 'value': 'sha512'},
+            ],
+            'description': 'Hashing algorithm',
+        },
+        {
+            'displayName': 'Salt',
+            'name': 'salt',
+            'type': 'string',
+            'default': '',
+            'description': 'Optional salt to append before hashing',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+            'description': 'Text to hash',
+            'required': True,
+        },
+    ]
     inputs = {
         "algorithm": {
             "type": "dropdown",

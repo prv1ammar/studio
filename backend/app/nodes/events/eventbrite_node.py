@@ -4,8 +4,8 @@ Batch 68: Event Management
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("eventbrite_node")
 class EventbriteNode(BaseNode):
@@ -17,6 +17,35 @@ class EventbriteNode(BaseNode):
     category = "events"
     credentials_required = ["eventbrite_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_events',
+            'options': [
+                {'name': 'List Events', 'value': 'list_events'},
+                {'name': 'Get Event', 'value': 'get_event'},
+                {'name': 'List Organizations', 'value': 'list_organizations'},
+                {'name': 'Search Events', 'value': 'search_events'},
+            ],
+            'description': 'Eventbrite action',
+        },
+        {
+            'displayName': 'Event Id',
+            'name': 'event_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Organization Id',
+            'name': 'organization_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the organization',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

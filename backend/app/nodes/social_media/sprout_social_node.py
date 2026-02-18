@@ -4,8 +4,8 @@ Batch 106: Social Media
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("sprout_social_node")
 class SproutSocialNode(BaseNode):
@@ -17,6 +17,26 @@ class SproutSocialNode(BaseNode):
     category = "social_media"
     credentials_required = ["sprout_social_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_customer_metrics',
+            'options': [
+                {'name': 'Get Customer Metrics', 'value': 'get_customer_metrics'},
+                {'name': 'Get Metadata', 'value': 'get_metadata'},
+            ],
+            'description': 'Sprout Social action',
+        },
+        {
+            'displayName': 'Customer Id',
+            'name': 'customer_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

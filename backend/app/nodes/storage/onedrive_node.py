@@ -4,8 +4,8 @@ Batch 107: Cloud Storage
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("onedrive_node")
 class OneDriveNode(BaseNode):
@@ -17,6 +17,41 @@ class OneDriveNode(BaseNode):
     category = "storage"
     credentials_required = ["microsoft_graph_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'upload_file',
+            'options': [
+                {'name': 'Upload File', 'value': 'upload_file'},
+                {'name': 'List Drive', 'value': 'list_drive'},
+                {'name': 'List Children', 'value': 'list_children'},
+                {'name': 'Create Folder', 'value': 'create_folder'},
+            ],
+            'description': 'OneDrive action',
+        },
+        {
+            'displayName': 'File Content',
+            'name': 'file_content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'File Name',
+            'name': 'file_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Path',
+            'name': 'path',
+            'type': 'string',
+            'default': '',
+            'description': 'Path or item ID',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

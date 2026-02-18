@@ -4,8 +4,8 @@ Batch 113: Intelligent Infrastructure & IoT
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("clickhouse_node")
 class ClickhouseNode(BaseNode):
@@ -17,6 +17,24 @@ class ClickhouseNode(BaseNode):
     category = "database"
     credentials_required = ["clickhouse_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Database',
+            'name': 'database',
+            'type': 'string',
+            'default': 'default',
+            'description': 'Database name',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'SQL query to execute',
+            'required': True,
+        },
+    ]
     inputs = {
         "query": {
             "type": "string",

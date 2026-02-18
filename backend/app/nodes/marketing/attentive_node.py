@@ -4,8 +4,8 @@ Batch 62: Marketing Automation
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("attentive_node")
 class AttentiveNode(BaseNode):
@@ -18,6 +18,43 @@ class AttentiveNode(BaseNode):
     category = "marketing"
     credentials_required = ["attentive_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_subscribers',
+            'options': [
+                {'name': 'List Subscribers', 'value': 'list_subscribers'},
+                {'name': 'Get Subscriber', 'value': 'get_subscriber'},
+                {'name': 'Create Subscriber', 'value': 'create_subscriber'},
+                {'name': 'Trigger Event', 'value': 'trigger_event'},
+            ],
+            'description': 'Attentive action',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+            'description': 'Subscriber email',
+        },
+        {
+            'displayName': 'Event Type',
+            'name': 'event_type',
+            'type': 'string',
+            'default': '',
+            'description': 'Event type (e.g. 'purchase')',
+        },
+        {
+            'displayName': 'Phone',
+            'name': 'phone',
+            'type': 'string',
+            'default': '',
+            'description': 'Subscriber phone number (E.164 format)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

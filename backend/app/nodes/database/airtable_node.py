@@ -4,8 +4,8 @@ Batch 91: Productivity Suite (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("airtable_node")
 class AirtableNode(BaseNode):
@@ -17,6 +17,50 @@ class AirtableNode(BaseNode):
     category = "database"
     credentials_required = ["airtable_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_records',
+            'options': [
+                {'name': 'List Records', 'value': 'list_records'},
+                {'name': 'Get Record', 'value': 'get_record'},
+                {'name': 'Create Record', 'value': 'create_record'},
+                {'name': 'Update Record', 'value': 'update_record'},
+                {'name': 'Delete Record', 'value': 'delete_record'},
+            ],
+            'description': 'Airtable action',
+        },
+        {
+            'displayName': 'Base Id',
+            'name': 'base_id',
+            'type': 'string',
+            'default': '',
+            'required': True,
+        },
+        {
+            'displayName': 'Fields',
+            'name': 'fields',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON object of fields',
+        },
+        {
+            'displayName': 'Record Id',
+            'name': 'record_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Table Name',
+            'name': 'table_name',
+            'type': 'string',
+            'default': '',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

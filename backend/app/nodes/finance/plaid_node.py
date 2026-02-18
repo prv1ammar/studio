@@ -4,8 +4,8 @@ Batch 102: E-commerce & Payments Expansion
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("plaid_node")
 class PlaidNode(BaseNode):
@@ -17,6 +17,59 @@ class PlaidNode(BaseNode):
     category = "finance"
     credentials_required = ["plaid_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_link_token',
+            'options': [
+                {'name': 'Create Link Token', 'value': 'create_link_token'},
+                {'name': 'Exchange Public Token', 'value': 'exchange_public_token'},
+                {'name': 'Get Accounts', 'value': 'get_accounts'},
+                {'name': 'Get Transactions', 'value': 'get_transactions'},
+                {'name': 'Get Balance', 'value': 'get_balance'},
+                {'name': 'Get Identity', 'value': 'get_identity'},
+            ],
+            'description': 'Plaid action',
+        },
+        {
+            'displayName': 'Access Token',
+            'name': 'access_token',
+            'type': 'string',
+            'default': '',
+            'description': 'Access token for API calls',
+        },
+        {
+            'displayName': 'End Date',
+            'name': 'end_date',
+            'type': 'string',
+            'default': '',
+            'description': 'End date for transactions (YYYY-MM-DD)',
+        },
+        {
+            'displayName': 'Public Token',
+            'name': 'public_token',
+            'type': 'string',
+            'default': '',
+            'description': 'Public token from Plaid Link',
+        },
+        {
+            'displayName': 'Start Date',
+            'name': 'start_date',
+            'type': 'string',
+            'default': '',
+            'description': 'Start date for transactions (YYYY-MM-DD)',
+        },
+        {
+            'displayName': 'User Id',
+            'name': 'user_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique user ID for link token',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

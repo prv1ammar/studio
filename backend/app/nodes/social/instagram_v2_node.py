@@ -4,8 +4,8 @@ Batch 92: Social Media Integration (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("instagram_v2_node")
 class InstagramV2Node(BaseNode):
@@ -17,6 +17,41 @@ class InstagramV2Node(BaseNode):
     category = "social"
     credentials_required = ["facebook_auth"]  # Uses Facebook OAuth
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_media',
+            'options': [
+                {'name': 'Get Media', 'value': 'get_media'},
+                {'name': 'Publish Media', 'value': 'publish_media'},
+                {'name': 'Get Account Info', 'value': 'get_account_info'},
+                {'name': 'Get Comments', 'value': 'get_comments'},
+            ],
+            'description': 'Instagram action',
+        },
+        {
+            'displayName': 'Caption',
+            'name': 'caption',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Ig User Id',
+            'name': 'ig_user_id',
+            'type': 'string',
+            'default': '',
+            'required': True,
+        },
+        {
+            'displayName': 'Image Url',
+            'name': 'image_url',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

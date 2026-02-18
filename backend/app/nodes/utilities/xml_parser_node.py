@@ -5,8 +5,8 @@ Batch 99: Web & Utilities (Deepening Parity)
 from typing import Any, Dict, Optional, List
 import json
 import xmltodict
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("xml_parser_node")
 class XMLParserNode(BaseNode):
@@ -18,6 +18,28 @@ class XMLParserNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Options',
+            'name': 'options',
+            'type': 'options',
+            'default': 'parse',
+            'options': [
+                {'name': 'Parse', 'value': 'parse'},
+                {'name': 'Unparse', 'value': 'unparse'},
+            ],
+            'description': 'Parse (XML -> JSON) or Unparse (JSON -> XML)',
+        },
+        {
+            'displayName': 'Xml Content',
+            'name': 'xml_content',
+            'type': 'string',
+            'default': '',
+            'description': 'XML string to parse',
+            'required': True,
+        },
+    ]
     inputs = {
         "xml_content": {
             "type": "string",

@@ -13,6 +13,40 @@ class MarketingAdsNode(BaseNode):
     category = "integrations"
     credentials_required = ["marketing_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'get_campaigns',
+        },
+        {
+            'displayName': 'Account Id',
+            'name': 'account_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Ad Account ID',
+        },
+        {
+            'displayName': 'Campaign Id',
+            'name': 'campaign_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Params',
+            'name': 'params',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Platform',
+            'name': 'platform',
+            'type': 'string',
+            'default': 'facebook',
+        },
+    ]
     inputs = {
         "platform": {"type": "string", "default": "facebook", "enum": ["facebook", "google_ads", "linkedin", "tiktok"]},
         "action": {"type": "string", "default": "get_campaigns", "enum": ["get_campaigns", "create_ad", "update_budget", "fetch_insights"]},

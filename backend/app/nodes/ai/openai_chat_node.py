@@ -5,8 +5,8 @@ Batch 100: AI & LLM (The Grande Finale)
 from typing import Any, Dict, Optional, List
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("openai_chat_node")
 class OpenAIChatNode(BaseNode):
@@ -18,6 +18,50 @@ class OpenAIChatNode(BaseNode):
     category = "ai"
     credentials_required = ["openai_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Max Tokens',
+            'name': 'max_tokens',
+            'type': 'string',
+            'default': 1000,
+            'description': 'Max tokens to generate',
+        },
+        {
+            'displayName': 'Model',
+            'name': 'model',
+            'type': 'options',
+            'default': 'gpt-4o',
+            'options': [
+                {'name': 'Gpt-4O', 'value': 'gpt-4o'},
+                {'name': 'Gpt-4-Turbo', 'value': 'gpt-4-turbo'},
+                {'name': 'Gpt-3.5-Turbo', 'value': 'gpt-3.5-turbo'},
+            ],
+            'description': 'Model to use',
+        },
+        {
+            'displayName': 'System Message',
+            'name': 'system_message',
+            'type': 'string',
+            'default': 'You are a helpful assistant.',
+            'description': 'System context',
+        },
+        {
+            'displayName': 'Temperature',
+            'name': 'temperature',
+            'type': 'string',
+            'default': 0.7,
+            'description': 'Randomness (0.0 to 2.0)',
+        },
+        {
+            'displayName': 'User Message',
+            'name': 'user_message',
+            'type': 'string',
+            'default': '',
+            'description': 'User prompt',
+            'required': True,
+        },
+    ]
     inputs = {
         "model": {
             "type": "dropdown",

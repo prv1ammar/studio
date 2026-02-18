@@ -4,8 +4,8 @@ Batch 108: Marketing & CRM
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("mailchimp_node")
 class MailchimpNode(BaseNode):
@@ -17,6 +17,46 @@ class MailchimpNode(BaseNode):
     category = "marketing"
     credentials_required = ["mailchimp_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'add_subscriber',
+            'options': [
+                {'name': 'Add Subscriber', 'value': 'add_subscriber'},
+                {'name': 'List Audiences', 'value': 'list_audiences'},
+                {'name': 'Create Campaign', 'value': 'create_campaign'},
+            ],
+            'description': 'Mailchimp action',
+        },
+        {
+            'displayName': 'Email Address',
+            'name': 'email_address',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'List Id',
+            'name': 'list_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Status',
+            'name': 'status',
+            'type': 'options',
+            'default': 'subscribed',
+            'options': [
+                {'name': 'Subscribed', 'value': 'subscribed'},
+                {'name': 'Unsubscribed', 'value': 'unsubscribed'},
+                {'name': 'Cleaned', 'value': 'cleaned'},
+                {'name': 'Pending', 'value': 'pending'},
+            ],
+            'description': 'Subscriber status',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

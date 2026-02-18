@@ -4,8 +4,8 @@ Batch 116: Data & Warehouse
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("google_bigquery_node")
 class BigQueryNode(BaseNode):
@@ -17,6 +17,49 @@ class BigQueryNode(BaseNode):
     category = "database"
     credentials_required = ["google_bigquery_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'query',
+            'options': [
+                {'name': 'Query', 'value': 'query'},
+                {'name': 'List Datasets', 'value': 'list_datasets'},
+                {'name': 'List Tables', 'value': 'list_tables'},
+                {'name': 'Get Table Info', 'value': 'get_table_info'},
+            ],
+            'description': 'BigQuery action',
+        },
+        {
+            'displayName': 'Dataset Id',
+            'name': 'dataset_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Project Id',
+            'name': 'project_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Google Cloud Project ID',
+            'required': True,
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'SQL query to execute',
+        },
+        {
+            'displayName': 'Table Id',
+            'name': 'table_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

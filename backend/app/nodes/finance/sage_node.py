@@ -4,8 +4,8 @@ Batch 84: Enterprise Finance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("sage_node")
 class SageNode(BaseNode):
@@ -17,6 +17,21 @@ class SageNode(BaseNode):
     category = "finance"
     credentials_required = ["sage_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_sales_invoices',
+            'options': [
+                {'name': 'Get Sales Invoices', 'value': 'get_sales_invoices'},
+                {'name': 'Get Contacts', 'value': 'get_contacts'},
+                {'name': 'List Ledger Accounts', 'value': 'list_ledger_accounts'},
+            ],
+            'description': 'Sage action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

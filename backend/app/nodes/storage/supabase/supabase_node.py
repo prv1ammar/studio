@@ -13,6 +13,29 @@ class SupabaseActionNode(BaseNode):
     category = "storage"
     credentials_required = ["supabase_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'select',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+            'description': 'Query or record data',
+        },
+        {
+            'displayName': 'Table Name',
+            'name': 'table_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Database table name',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "select", "enum": ["select", "insert"]},
         "table_name": {"type": "string", "description": "Database table name"},

@@ -13,6 +13,36 @@ class SmtpEmailNode(BaseNode):
     category = "communication"
     credentials_required = ["smtp_creds"]
 
+
+    properties = [
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+            'description': 'Email body content',
+        },
+        {
+            'displayName': 'Html',
+            'name': 'html',
+            'type': 'boolean',
+            'default': False,
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+            'description': 'Email subject line',
+        },
+        {
+            'displayName': 'To',
+            'name': 'to',
+            'type': 'string',
+            'default': '',
+            'description': 'Recipient email address',
+        },
+    ]
     inputs = {
         "to": {"type": "string", "description": "Recipient email address"},
         "subject": {"type": "string", "description": "Email subject line"},

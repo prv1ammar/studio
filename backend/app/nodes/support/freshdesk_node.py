@@ -4,8 +4,8 @@ Batch 109: Analytics & Support
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("freshdesk_node")
 class FreshdeskNode(BaseNode):
@@ -17,6 +17,54 @@ class FreshdeskNode(BaseNode):
     category = "support"
     credentials_required = ["freshdesk_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_ticket',
+            'options': [
+                {'name': 'Create Ticket', 'value': 'create_ticket'},
+                {'name': 'List Tickets', 'value': 'list_tickets'},
+                {'name': 'Get Ticket', 'value': 'get_ticket'},
+                {'name': 'Update Ticket', 'value': 'update_ticket'},
+            ],
+            'description': 'Freshdesk action',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Priority',
+            'name': 'priority',
+            'type': 'string',
+            'default': 1,
+            'description': '1 (low) - 4 (urgent)',
+        },
+        {
+            'displayName': 'Status',
+            'name': 'status',
+            'type': 'string',
+            'default': 2,
+            'description': '2 (open), 3 (pending), etc.',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

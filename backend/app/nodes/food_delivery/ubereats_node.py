@@ -4,8 +4,8 @@ Batch 80: Industrial & Service Ops
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("ubereats_node")
 class UberEatsNode(BaseNode):
@@ -17,6 +17,28 @@ class UberEatsNode(BaseNode):
     category = "food_delivery"
     credentials_required = ["ubereats_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_active_orders',
+            'options': [
+                {'name': 'Get Active Orders', 'value': 'get_active_orders'},
+                {'name': 'Get Order Details', 'value': 'get_order_details'},
+                {'name': 'Update Order Status', 'value': 'update_order_status'},
+                {'name': 'Get Store Status', 'value': 'get_store_status'},
+            ],
+            'description': 'Uber Eats action',
+        },
+        {
+            'displayName': 'Order Id',
+            'name': 'order_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

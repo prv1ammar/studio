@@ -4,8 +4,8 @@ Batch 80: Industrial & Service Ops
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("fleetio_node")
 class FleetioNode(BaseNode):
@@ -17,6 +17,21 @@ class FleetioNode(BaseNode):
     category = "fleet"
     credentials_required = ["fleetio_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_vehicles',
+            'options': [
+                {'name': 'Get Vehicles', 'value': 'get_vehicles'},
+                {'name': 'Get Fuel Entries', 'value': 'get_fuel_entries'},
+                {'name': 'Get Service Reminders', 'value': 'get_service_reminders'},
+            ],
+            'description': 'Fleetio action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

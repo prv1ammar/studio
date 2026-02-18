@@ -14,6 +14,29 @@ class AIExtractorNode(BaseNode):
     version = "1.0.0"
     category = "processing"
 
+
+    properties = [
+        {
+            'displayName': 'Instruction',
+            'name': 'instruction',
+            'type': 'string',
+            'default': 'Extract the following information from the text.',
+        },
+        {
+            'displayName': 'Schema',
+            'name': 'schema',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON schema for extraction (dict or string)',
+        },
+        {
+            'displayName': 'Text Content',
+            'name': 'text_content',
+            'type': 'string',
+            'default': '',
+            'description': 'Text to extract from',
+        },
+    ]
     inputs = {
         "text_content": {"type": "string", "description": "Text to extract from"},
         "schema": {"type": "string", "description": "JSON schema for extraction (dict or string)"},

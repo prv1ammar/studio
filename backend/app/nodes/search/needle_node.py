@@ -4,8 +4,8 @@ Batch 115: Specialized Tools
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("needle_node")
 class NeedleNode(BaseNode):
@@ -17,6 +17,32 @@ class NeedleNode(BaseNode):
     category = "search"
     credentials_required = ["needle_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Collection Id',
+            'name': 'collection_id',
+            'type': 'string',
+            'default': '',
+            'description': 'The ID of the Needle collection to search',
+            'required': True,
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Enter your search query here',
+            'required': True,
+        },
+        {
+            'displayName': 'Top K',
+            'name': 'top_k',
+            'type': 'string',
+            'default': 20,
+            'description': 'Number of results to return (min: 20)',
+        },
+    ]
     inputs = {
         "query": {
             "type": "string",

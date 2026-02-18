@@ -4,8 +4,8 @@ Batch 80: Industrial & Service Ops
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("doordash_node")
 class DoorDashNode(BaseNode):
@@ -17,6 +17,28 @@ class DoorDashNode(BaseNode):
     category = "food_delivery"
     credentials_required = ["doordash_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_delivery',
+            'options': [
+                {'name': 'Create Delivery', 'value': 'create_delivery'},
+                {'name': 'Get Delivery Status', 'value': 'get_delivery_status'},
+                {'name': 'Cancel Delivery', 'value': 'cancel_delivery'},
+                {'name': 'Quote Delivery', 'value': 'quote_delivery'},
+            ],
+            'description': 'DoorDash Drive action',
+        },
+        {
+            'displayName': 'External Delivery Id',
+            'name': 'external_delivery_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -5,8 +5,8 @@ Batch 64: HR & Recruiting
 from typing import Any, Dict, Optional, List
 import aiohttp
 import base64
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("bamboohr_node")
 class BambooHRNode(BaseNode):
@@ -18,6 +18,37 @@ class BambooHRNode(BaseNode):
     category = "hr"
     credentials_required = ["bamboohr_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_employee_directory',
+            'options': [
+                {'name': 'Get Employee Directory', 'value': 'get_employee_directory'},
+                {'name': 'Get Employee', 'value': 'get_employee'},
+                {'name': 'Get Time Off Requests', 'value': 'get_time_off_requests'},
+                {'name': 'Get Company Report', 'value': 'get_company_report'},
+            ],
+            'description': 'BambooHR action to perform',
+        },
+        {
+            'displayName': 'Employee Id',
+            'name': 'employee_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the specific employee',
+        },
+        {
+            'displayName': 'Subdomain',
+            'name': 'subdomain',
+            'type': 'string',
+            'default': '',
+            'description': 'Your BambooHR subdomain (e.g. 'company' in company.bamboohr.com)',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

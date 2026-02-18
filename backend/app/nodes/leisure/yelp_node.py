@@ -4,8 +4,8 @@ Batch 81: Leisure, Health & Education
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("yelp_node")
 class YelpNode(BaseNode):
@@ -17,6 +17,33 @@ class YelpNode(BaseNode):
     category = "leisure"
     credentials_required = ["yelp_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_business',
+            'options': [
+                {'name': 'Search Business', 'value': 'search_business'},
+                {'name': 'Get Reviews', 'value': 'get_reviews'},
+                {'name': 'Get Business Details', 'value': 'get_business_details'},
+            ],
+            'description': 'Yelp action',
+        },
+        {
+            'displayName': 'Location',
+            'name': 'location',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Term',
+            'name': 'term',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

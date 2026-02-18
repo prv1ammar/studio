@@ -4,8 +4,8 @@ Batch 108: Marketing & CRM
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("hubspot_node")
 class HubSpotNode(BaseNode):
@@ -17,6 +17,47 @@ class HubSpotNode(BaseNode):
     category = "marketing"
     credentials_required = ["hubspot_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_contact',
+            'options': [
+                {'name': 'Create Contact', 'value': 'create_contact'},
+                {'name': 'List Contacts', 'value': 'list_contacts'},
+                {'name': 'Update Contact', 'value': 'update_contact'},
+                {'name': 'Search', 'value': 'search'},
+            ],
+            'description': 'HubSpot action',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Firstname',
+            'name': 'firstname',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Lastname',
+            'name': 'lastname',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Properties',
+            'name': 'properties',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON object of properties',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

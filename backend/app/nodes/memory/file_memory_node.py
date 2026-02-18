@@ -5,8 +5,8 @@ Batch 39: Memory & History
 from typing import Any, Dict, Optional, List
 import json
 import os
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("file_chat_memory")
 class FileChatMemoryNode(BaseNode):
@@ -19,6 +19,32 @@ class FileChatMemoryNode(BaseNode):
     category = "memory"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'File Path',
+            'name': 'file_path',
+            'type': 'string',
+            'default': '',
+            'description': 'Path to the JSON file for storing history',
+            'required': True,
+        },
+        {
+            'displayName': 'K',
+            'name': 'k',
+            'type': 'string',
+            'default': 10,
+            'description': 'Number of recent messages to keep in active buffer',
+        },
+        {
+            'displayName': 'Session Id',
+            'name': 'session_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique session identifier',
+            'required': True,
+        },
+    ]
     inputs = {
         "file_path": {
             "type": "string",

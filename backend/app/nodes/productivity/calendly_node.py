@@ -4,8 +4,8 @@ Batch 91: Productivity Suite (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("calendly_node")
 class CalendlyNode(BaseNode):
@@ -17,6 +17,28 @@ class CalendlyNode(BaseNode):
     category = "productivity"
     credentials_required = ["calendly_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_events',
+            'options': [
+                {'name': 'List Events', 'value': 'list_events'},
+                {'name': 'Get Event', 'value': 'get_event'},
+                {'name': 'List Event Types', 'value': 'list_event_types'},
+                {'name': 'Get User', 'value': 'get_user'},
+            ],
+            'description': 'Calendly action',
+        },
+        {
+            'displayName': 'Event Uuid',
+            'name': 'event_uuid',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

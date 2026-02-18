@@ -4,8 +4,8 @@ Batch 108: Marketing & CRM
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("activecampaign_node")
 class ActiveCampaignNode(BaseNode):
@@ -17,6 +17,33 @@ class ActiveCampaignNode(BaseNode):
     category = "marketing"
     credentials_required = ["activecampaign_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_contact',
+            'options': [
+                {'name': 'Create Contact', 'value': 'create_contact'},
+                {'name': 'List Contacts', 'value': 'list_contacts'},
+                {'name': 'Create Deal', 'value': 'create_deal'},
+            ],
+            'description': 'ActiveCampaign action',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'First Name',
+            'name': 'first_name',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

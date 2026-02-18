@@ -14,6 +14,21 @@ class ZohoNode(BaseNode):
     category = "integrations"
     credentials_required = ["zoho_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'fetch_leads',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "fetch_leads", "enum": ["fetch_leads", "create_deal"]},
         "data": {"type": "object", "optional": True}

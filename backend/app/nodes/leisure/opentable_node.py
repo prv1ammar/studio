@@ -4,8 +4,8 @@ Batch 81: Leisure, Health & Education
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("opentable_node")
 class OpenTableNode(BaseNode):
@@ -17,6 +17,28 @@ class OpenTableNode(BaseNode):
     category = "leisure"
     credentials_required = ["opentable_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_restaurants',
+            'options': [
+                {'name': 'Search Restaurants', 'value': 'search_restaurants'},
+                {'name': 'Get Availability', 'value': 'get_availability'},
+                {'name': 'Create Booking', 'value': 'create_booking'},
+            ],
+            'description': 'OpenTable action',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'City or Restaurant name',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

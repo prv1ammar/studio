@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional, List
 import json
 import re
 from datetime import datetime
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("set_node")
 class SetNode(BaseNode):
@@ -19,6 +19,35 @@ class SetNode(BaseNode):
     category = "flow_controls"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Keep Only Set',
+            'name': 'keep_only_set',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Keep only the set values, remove others',
+        },
+        {
+            'displayName': 'Mode',
+            'name': 'mode',
+            'type': 'options',
+            'default': 'manual',
+            'options': [
+                {'name': 'Manual', 'value': 'manual'},
+                {'name': 'Json', 'value': 'json'},
+                {'name': 'Expression', 'value': 'expression'},
+            ],
+            'description': 'How to set values',
+        },
+        {
+            'displayName': 'Values',
+            'name': 'values',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON object of key-value pairs to set',
+        },
+    ]
     inputs = {
         "mode": {
             "type": "dropdown",

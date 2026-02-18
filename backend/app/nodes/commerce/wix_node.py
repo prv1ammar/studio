@@ -4,8 +4,8 @@ Batch 86: E-commerce Core
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("wix_node")
 class WixNode(BaseNode):
@@ -17,6 +17,29 @@ class WixNode(BaseNode):
     category = "commerce"
     credentials_required = ["wix_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'query_orders',
+            'options': [
+                {'name': 'Query Orders', 'value': 'query_orders'},
+                {'name': 'List Products', 'value': 'list_products'},
+                {'name': 'Get Site Details', 'value': 'get_site_details'},
+            ],
+            'description': 'Wix action',
+        },
+        {
+            'displayName': 'Site Id',
+            'name': 'site_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Wix Site ID',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

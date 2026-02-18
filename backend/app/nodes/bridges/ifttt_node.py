@@ -4,8 +4,8 @@ Batch 101: Automation Bridges (Interoperability)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("ifttt_node")
 class IFTTTNode(BaseNode):
@@ -17,6 +17,38 @@ class IFTTTNode(BaseNode):
     category = "bridges"
     credentials_required = ["ifttt_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Event Name',
+            'name': 'event_name',
+            'type': 'string',
+            'default': '',
+            'description': 'The Event Name defined in IFTTT',
+            'required': True,
+        },
+        {
+            'displayName': 'Value1',
+            'name': 'value1',
+            'type': 'string',
+            'default': '',
+            'description': 'Value 1',
+        },
+        {
+            'displayName': 'Value2',
+            'name': 'value2',
+            'type': 'string',
+            'default': '',
+            'description': 'Value 2',
+        },
+        {
+            'displayName': 'Value3',
+            'name': 'value3',
+            'type': 'string',
+            'default': '',
+            'description': 'Value 3',
+        },
+    ]
     inputs = {
         "event_name": {
             "type": "string",

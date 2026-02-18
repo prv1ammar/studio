@@ -4,8 +4,8 @@ Batch 61: Identity & Security
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("auth0_node")
 class Auth0Node(BaseNode):
@@ -17,6 +17,44 @@ class Auth0Node(BaseNode):
     category = "security"
     credentials_required = ["auth0_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_users',
+            'options': [
+                {'name': 'Get Users', 'value': 'get_users'},
+                {'name': 'Get User', 'value': 'get_user'},
+                {'name': 'Get Logs', 'value': 'get_logs'},
+                {'name': 'Create User', 'value': 'create_user'},
+            ],
+            'description': 'Auth0 action',
+        },
+        {
+            'displayName': 'Domain',
+            'name': 'domain',
+            'type': 'string',
+            'default': '',
+            'description': 'Your Auth0 Domain (e.g. 'dev-123.us.auth0.com')',
+            'required': True,
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+            'description': 'User email for creation',
+        },
+        {
+            'displayName': 'User Id',
+            'name': 'user_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Target User ID',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

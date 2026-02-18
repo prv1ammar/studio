@@ -4,8 +4,8 @@ Batch 82: Agile & DevOps
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("terraform_node")
 class TerraformNode(BaseNode):
@@ -17,6 +17,36 @@ class TerraformNode(BaseNode):
     category = "devops"
     credentials_required = ["terraform_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_workspaces',
+            'options': [
+                {'name': 'List Workspaces', 'value': 'list_workspaces'},
+                {'name': 'Get Workspace', 'value': 'get_workspace'},
+                {'name': 'Create Run', 'value': 'create_run'},
+                {'name': 'List Runs', 'value': 'list_runs'},
+            ],
+            'description': 'Terraform action',
+        },
+        {
+            'displayName': 'Organization',
+            'name': 'organization',
+            'type': 'string',
+            'default': '',
+            'description': 'Terraform organization name',
+            'required': True,
+        },
+        {
+            'displayName': 'Workspace Id',
+            'name': 'workspace_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

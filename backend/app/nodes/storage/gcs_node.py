@@ -4,8 +4,8 @@ Batch 94: Cloud Storage (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("gcs_node")
 class GCSNode(BaseNode):
@@ -17,6 +17,41 @@ class GCSNode(BaseNode):
     category = "storage"
     credentials_required = ["google_cloud_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_buckets',
+            'options': [
+                {'name': 'List Buckets', 'value': 'list_buckets'},
+                {'name': 'List Objects', 'value': 'list_objects'},
+                {'name': 'Get Object', 'value': 'get_object'},
+                {'name': 'Upload Object', 'value': 'upload_object'},
+                {'name': 'Delete Object', 'value': 'delete_object'},
+            ],
+            'description': 'GCS action',
+        },
+        {
+            'displayName': 'Bucket Name',
+            'name': 'bucket_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Object Name',
+            'name': 'object_name',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

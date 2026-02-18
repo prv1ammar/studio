@@ -5,8 +5,8 @@ Part of Phase 6: Rewriting Existing Nodes to remove Composio
 import json
 import httpx
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("github_node")
 class GitHubNode(BaseNode):
@@ -19,6 +19,74 @@ class GitHubNode(BaseNode):
     category = "productivity"
     credentials_required = ["github_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_repository',
+            'options': [
+                {'name': 'Get Repository', 'value': 'get_repository'},
+                {'name': 'List Issues', 'value': 'list_issues'},
+                {'name': 'Create Issue', 'value': 'create_issue'},
+                {'name': 'List Pull Requests', 'value': 'list_pull_requests'},
+                {'name': 'Create Pull Request', 'value': 'create_pull_request'},
+                {'name': 'Get Contents', 'value': 'get_contents'},
+            ],
+            'description': 'Action to perform',
+        },
+        {
+            'displayName': 'Base Branch',
+            'name': 'base_branch',
+            'type': 'string',
+            'default': 'main',
+            'description': 'Base branch for PRs',
+        },
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+            'description': 'Body content for Issue or PR',
+        },
+        {
+            'displayName': 'Head Branch',
+            'name': 'head_branch',
+            'type': 'string',
+            'default': '',
+            'description': 'Head branch for PRs',
+        },
+        {
+            'displayName': 'Issue Number',
+            'name': 'issue_number',
+            'type': 'string',
+            'default': '',
+            'description': 'Issue or Pull Request number',
+        },
+        {
+            'displayName': 'Path',
+            'name': 'path',
+            'type': 'string',
+            'default': '',
+            'description': 'File path (for get_contents)',
+        },
+        {
+            'displayName': 'Repository',
+            'name': 'repository',
+            'type': 'string',
+            'default': '',
+            'description': 'Full repository name (e.g., owner/repo)',
+            'required': True,
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+            'description': 'Title for Issue or PR',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

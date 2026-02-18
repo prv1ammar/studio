@@ -4,8 +4,8 @@ Batch 107: Cloud Storage
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("backblaze_b2_node")
 class BackblazeB2Node(BaseNode):
@@ -17,6 +17,39 @@ class BackblazeB2Node(BaseNode):
     category = "storage"
     credentials_required = ["backblaze_b2_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'upload_file',
+            'options': [
+                {'name': 'Upload File', 'value': 'upload_file'},
+                {'name': 'List Buckets', 'value': 'list_buckets'},
+                {'name': 'Download File', 'value': 'download_file'},
+            ],
+            'description': 'B2 action',
+        },
+        {
+            'displayName': 'Bucket Id',
+            'name': 'bucket_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'File Content',
+            'name': 'file_content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'File Name',
+            'name': 'file_name',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

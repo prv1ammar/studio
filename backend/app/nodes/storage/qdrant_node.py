@@ -13,6 +13,39 @@ class QdrantNode(BaseNode):
     category = "storage"
     credentials_required = ["qdrant_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'search',
+        },
+        {
+            'displayName': 'Collection Name',
+            'name': 'collection_name',
+            'type': 'string',
+            'default': 'studio_qdrant',
+        },
+        {
+            'displayName': 'Query Text',
+            'name': 'query_text',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Query Vector',
+            'name': 'query_vector',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Top K',
+            'name': 'top_k',
+            'type': 'string',
+            'default': 4,
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "search", "enum": ["ingest", "search", "list_collections"]},
         "collection_name": {"type": "string", "default": "studio_qdrant"},

@@ -4,8 +4,8 @@ Batch 84: Enterprise Finance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("xero_node")
 class XeroNode(BaseNode):
@@ -17,6 +17,30 @@ class XeroNode(BaseNode):
     category = "finance"
     credentials_required = ["xero_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_invoices',
+            'options': [
+                {'name': 'Get Invoices', 'value': 'get_invoices'},
+                {'name': 'Get Accounts', 'value': 'get_accounts'},
+                {'name': 'List Contacts', 'value': 'list_contacts'},
+                {'name': 'Create Invoice', 'value': 'create_invoice'},
+            ],
+            'description': 'Xero action',
+        },
+        {
+            'displayName': 'Tenant Id',
+            'name': 'tenant_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Xero Tenant ID',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

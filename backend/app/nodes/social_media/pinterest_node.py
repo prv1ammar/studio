@@ -4,8 +4,8 @@ Batch 106: Social Media
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("pinterest_node")
 class PinterestNode(BaseNode):
@@ -17,6 +17,45 @@ class PinterestNode(BaseNode):
     category = "social_media"
     credentials_required = ["pinterest_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_pin',
+            'options': [
+                {'name': 'Create Pin', 'value': 'create_pin'},
+                {'name': 'Create Board', 'value': 'create_board'},
+                {'name': 'List Boards', 'value': 'list_boards'},
+            ],
+            'description': 'Pinterest action',
+        },
+        {
+            'displayName': 'Board Id',
+            'name': 'board_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Image Url',
+            'name': 'image_url',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

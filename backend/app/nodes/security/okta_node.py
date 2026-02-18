@@ -4,8 +4,8 @@ Batch 61: Identity & Security
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("okta_node")
 class OktaNode(BaseNode):
@@ -18,6 +18,36 @@ class OktaNode(BaseNode):
     category = "security"
     credentials_required = ["okta_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_users',
+            'options': [
+                {'name': 'List Users', 'value': 'list_users'},
+                {'name': 'Get User', 'value': 'get_user'},
+                {'name': 'List Groups', 'value': 'list_groups'},
+                {'name': 'Get Logs', 'value': 'get_logs'},
+            ],
+            'description': 'Okta action',
+        },
+        {
+            'displayName': 'Domain',
+            'name': 'domain',
+            'type': 'string',
+            'default': '',
+            'description': 'Your Okta Domain (e.g. 'company.okta.com')',
+            'required': True,
+        },
+        {
+            'displayName': 'User Id',
+            'name': 'user_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

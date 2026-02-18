@@ -4,8 +4,8 @@ Batch 96: Developer Tools (n8n Critical - The Final Push)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("circleci_node")
 class CircleCINode(BaseNode):
@@ -17,6 +17,34 @@ class CircleCINode(BaseNode):
     category = "developer_tools"
     credentials_required = ["circleci_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'trigger_pipeline',
+            'options': [
+                {'name': 'Trigger Pipeline', 'value': 'trigger_pipeline'},
+                {'name': 'Get Pipelines', 'value': 'get_pipelines'},
+                {'name': 'Get Project Slug', 'value': 'get_project_slug'},
+            ],
+            'description': 'CircleCI action',
+        },
+        {
+            'displayName': 'Branch',
+            'name': 'branch',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Project Slug',
+            'name': 'project_slug',
+            'type': 'string',
+            'default': '',
+            'description': 'Project Slug (e.g. gh/org/repo)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

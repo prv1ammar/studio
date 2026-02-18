@@ -4,8 +4,8 @@ Batch 57: Forms & Surveys
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("surveymonkey_node")
 class SurveyMonkeyNode(BaseNode):
@@ -17,6 +17,35 @@ class SurveyMonkeyNode(BaseNode):
     category = "forms"
     credentials_required = ["surveymonkey_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_surveys',
+            'options': [
+                {'name': 'List Surveys', 'value': 'list_surveys'},
+                {'name': 'Get Survey Details', 'value': 'get_survey_details'},
+                {'name': 'Get Responses', 'value': 'get_responses'},
+                {'name': 'Get Survey Summary', 'value': 'get_survey_summary'},
+            ],
+            'description': 'SurveyMonkey action to perform',
+        },
+        {
+            'displayName': 'Page Size',
+            'name': 'page_size',
+            'type': 'string',
+            'default': 10,
+        },
+        {
+            'displayName': 'Survey Id',
+            'name': 'survey_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the survey',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

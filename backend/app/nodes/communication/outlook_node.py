@@ -4,8 +4,8 @@ Batch 91: Productivity Suite (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("outlook_node")
 class OutlookNode(BaseNode):
@@ -17,6 +17,40 @@ class OutlookNode(BaseNode):
     category = "communication"
     credentials_required = ["microsoft_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'send_email',
+            'options': [
+                {'name': 'Send Email', 'value': 'send_email'},
+                {'name': 'List Messages', 'value': 'list_messages'},
+                {'name': 'Get Message', 'value': 'get_message'},
+                {'name': 'Create Calendar Event', 'value': 'create_calendar_event'},
+            ],
+            'description': 'Outlook action',
+        },
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'To Email',
+            'name': 'to_email',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

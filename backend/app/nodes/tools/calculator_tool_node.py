@@ -4,8 +4,8 @@ Batch 37: Tools & Utilities
 """
 import math
 from typing import Any, Dict, Optional
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("calculator_tool")
 class CalculatorToolNode(BaseNode):
@@ -18,6 +18,24 @@ class CalculatorToolNode(BaseNode):
     category = "tools"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Expression',
+            'name': 'expression',
+            'type': 'string',
+            'default': '',
+            'description': 'Mathematical expression to evaluate (e.g., '10 * 5 + sqrt(16)')',
+            'required': True,
+        },
+        {
+            'displayName': 'Precision',
+            'name': 'precision',
+            'type': 'string',
+            'default': 4,
+            'description': 'Number of decimal places for the result',
+        },
+    ]
     inputs = {
         "expression": {
             "type": "string",

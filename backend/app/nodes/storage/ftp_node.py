@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional
 import aiohttp
 import ftplib
 import io
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # Note: SFTP requires Paramiko or asyncssh. FTP is standard lib.
 # For simplicity with available dependencies, implemented FTP first.
@@ -23,6 +23,35 @@ class FTPNode(BaseNode):
     category = "storage"
     credentials_required = ["ftp_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_files',
+            'options': [
+                {'name': 'List Files', 'value': 'list_files'},
+                {'name': 'Upload File', 'value': 'upload_file'},
+                {'name': 'Download File', 'value': 'download_file'},
+                {'name': 'Delete File', 'value': 'delete_file'},
+            ],
+            'description': 'FTP action',
+        },
+        {
+            'displayName': 'File Content',
+            'name': 'file_content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Path',
+            'name': 'path',
+            'type': 'string',
+            'default': '',
+            'description': 'Remote path',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 110: Developer Tools & Databases
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("docker_node")
 class DockerNode(BaseNode):
@@ -17,6 +17,28 @@ class DockerNode(BaseNode):
     category = "developer_tools"
     credentials_required = ["docker_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_containers',
+            'options': [
+                {'name': 'List Containers', 'value': 'list_containers'},
+                {'name': 'Inspect Container', 'value': 'inspect_container'},
+                {'name': 'Start Container', 'value': 'start_container'},
+                {'name': 'Stop Container', 'value': 'stop_container'},
+            ],
+            'description': 'Docker action',
+        },
+        {
+            'displayName': 'Container Id',
+            'name': 'container_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

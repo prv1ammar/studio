@@ -4,8 +4,8 @@ Batch 108: Marketing & CRM
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("keap_node")
 class KeapNode(BaseNode):
@@ -17,6 +17,40 @@ class KeapNode(BaseNode):
     category = "marketing"
     credentials_required = ["keap_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_contact',
+            'options': [
+                {'name': 'Create Contact', 'value': 'create_contact'},
+                {'name': 'List Contacts', 'value': 'list_contacts'},
+                {'name': 'Add Tag', 'value': 'add_tag'},
+                {'name': 'Create Company', 'value': 'create_company'},
+            ],
+            'description': 'Keap action',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Family Name',
+            'name': 'family_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Given Name',
+            'name': 'given_name',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

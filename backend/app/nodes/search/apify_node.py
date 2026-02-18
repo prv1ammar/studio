@@ -4,8 +4,8 @@ Batch 48: Browsing & Search
 """
 from typing import Any, Dict, Optional, List
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("apify_node")
 class ApifyNode(BaseNode):
@@ -17,6 +17,32 @@ class ApifyNode(BaseNode):
     category = "search"
     credentials_required = ["apify_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Actor Id',
+            'name': 'actor_id',
+            'type': 'string',
+            'default': 'apify/website-content-crawler',
+            'description': 'Full ID of the actor (e.g., apify/instagram-scraper)',
+            'required': True,
+        },
+        {
+            'displayName': 'Run Input',
+            'name': 'run_input',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON input for the actor',
+            'required': True,
+        },
+        {
+            'displayName': 'Wait For Finish',
+            'name': 'wait_for_finish',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Wait for actor to complete before returning',
+        },
+    ]
     inputs = {
         "actor_id": {
             "type": "string",

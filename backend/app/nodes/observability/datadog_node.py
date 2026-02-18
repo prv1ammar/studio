@@ -5,8 +5,8 @@ Batch 83: Observability & SRE
 from typing import Any, Dict, Optional, List
 import aiohttp
 import time
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("datadog_node")
 class DatadogNode(BaseNode):
@@ -18,6 +18,43 @@ class DatadogNode(BaseNode):
     category = "observability"
     credentials_required = ["datadog_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_monitors',
+            'options': [
+                {'name': 'List Monitors', 'value': 'list_monitors'},
+                {'name': 'Query Metrics', 'value': 'query_metrics'},
+                {'name': 'List Events', 'value': 'list_events'},
+                {'name': 'Create Event', 'value': 'create_event'},
+            ],
+            'description': 'Datadog action',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Metric query or search term',
+        },
+        {
+            'displayName': 'Region',
+            'name': 'region',
+            'type': 'options',
+            'default': 'us1',
+            'options': [
+                {'name': 'Us1', 'value': 'us1'},
+                {'name': 'Us3', 'value': 'us3'},
+                {'name': 'Us5', 'value': 'us5'},
+                {'name': 'Eu1', 'value': 'eu1'},
+                {'name': 'Us1-Fed', 'value': 'us1-fed'},
+            ],
+            'description': 'Datadog site region',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

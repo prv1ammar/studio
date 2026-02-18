@@ -12,6 +12,23 @@ class RegexNode(BaseNode):
     version = "1.0.0"
     category = "processing"
 
+
+    properties = [
+        {
+            'displayName': 'Pattern',
+            'name': 'pattern',
+            'type': 'string',
+            'default': '',
+            'description': 'Regex pattern to match',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+            'description': 'Text to analyze',
+        },
+    ]
     inputs = {
         "text": {"type": "string", "description": "Text to analyze"},
         "pattern": {"type": "string", "description": "Regex pattern to match"}

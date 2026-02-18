@@ -4,8 +4,8 @@ Batch 49: Analytics & Monitoring
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("sentry_node")
 class SentryNode(BaseNode):
@@ -17,6 +17,44 @@ class SentryNode(BaseNode):
     category = "analytics"
     credentials_required = ["sentry_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Dsn',
+            'name': 'dsn',
+            'type': 'string',
+            'default': '',
+            'description': 'Sentry DSN (if not in credentials)',
+        },
+        {
+            'displayName': 'Extra Data',
+            'name': 'extra_data',
+            'type': 'string',
+            'default': '',
+            'description': 'Contextual data for the event',
+        },
+        {
+            'displayName': 'Level',
+            'name': 'level',
+            'type': 'options',
+            'default': 'error',
+            'options': [
+                {'name': 'Error', 'value': 'error'},
+                {'name': 'Warning', 'value': 'warning'},
+                {'name': 'Info', 'value': 'info'},
+                {'name': 'Debug', 'value': 'debug'},
+            ],
+            'description': 'Log level',
+        },
+        {
+            'displayName': 'Message',
+            'name': 'message',
+            'type': 'string',
+            'default': '',
+            'description': 'Error or log message',
+            'required': True,
+        },
+    ]
     inputs = {
         "level": {
             "type": "dropdown",

@@ -3,8 +3,8 @@ Notion Integration Node - Studio Standard
 Batch 40: Productivity Integrations
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("notion_node")
 class NotionNode(BaseNode):
@@ -17,6 +17,44 @@ class NotionNode(BaseNode):
     category = "productivity"
     credentials_required = ["notion_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'query_database',
+            'options': [
+                {'name': 'Query Database', 'value': 'query_database'},
+                {'name': 'Create Page', 'value': 'create_page'},
+                {'name': 'Append Content', 'value': 'append_content'},
+                {'name': 'Search', 'value': 'search'},
+                {'name': 'Get Page', 'value': 'get_page'},
+            ],
+            'description': 'Action to perform',
+        },
+        {
+            'displayName': 'Content Data',
+            'name': 'content_data',
+            'type': 'string',
+            'default': '',
+            'description': 'Properties or content blocks (for Create/Append)',
+        },
+        {
+            'displayName': 'Query Filter',
+            'name': 'query_filter',
+            'type': 'string',
+            'default': '',
+            'description': 'Filter object for Query Database',
+        },
+        {
+            'displayName': 'Target Id',
+            'name': 'target_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Database ID or Page ID (depending on action)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

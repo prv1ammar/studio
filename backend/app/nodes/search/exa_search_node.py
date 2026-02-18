@@ -4,8 +4,8 @@ Batch 112: Advanced Search & Knowledge
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("exa_search_node")
 class ExaSearchNode(BaseNode):
@@ -17,6 +17,42 @@ class ExaSearchNode(BaseNode):
     category = "search"
     credentials_required = ["exa_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search',
+            'options': [
+                {'name': 'Search', 'value': 'search'},
+                {'name': 'Find Similar', 'value': 'find_similar'},
+                {'name': 'Get Contents', 'value': 'get_contents'},
+            ],
+            'description': 'Exa action to perform',
+        },
+        {
+            'displayName': 'Num Results',
+            'name': 'num_results',
+            'type': 'string',
+            'default': 5,
+            'description': 'Number of results to return',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'The search query or URL',
+        },
+        {
+            'displayName': 'Use Autoprompt',
+            'name': 'use_autoprompt',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Use Exa's autoprompt feature',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

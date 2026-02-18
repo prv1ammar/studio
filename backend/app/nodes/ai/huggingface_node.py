@@ -4,8 +4,8 @@ Batch 118: AI Essentials & Local Inference
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("huggingface_node")
 class HuggingFaceNode(BaseNode):
@@ -17,6 +17,38 @@ class HuggingFaceNode(BaseNode):
     category = "ai"
     credentials_required = ["huggingface_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Inputs',
+            'name': 'inputs',
+            'type': 'string',
+            'default': '',
+            'description': 'Input text for the model',
+            'required': True,
+        },
+        {
+            'displayName': 'Model Id',
+            'name': 'model_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Hugging Face model ID (e.g. 'gpt2' or 'facebook/bart-large-cnn')',
+            'required': True,
+        },
+        {
+            'displayName': 'Task',
+            'name': 'task',
+            'type': 'options',
+            'default': 'text-generation',
+            'options': [
+                {'name': 'Text-Generation', 'value': 'text-generation'},
+                {'name': 'Summarization', 'value': 'summarization'},
+                {'name': 'Translation', 'value': 'translation'},
+                {'name': 'Feature-Extraction', 'value': 'feature-extraction'},
+            ],
+            'description': 'The task to perform',
+        },
+    ]
     inputs = {
         "model_id": {
             "type": "string",

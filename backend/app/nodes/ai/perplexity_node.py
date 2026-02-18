@@ -4,8 +4,8 @@ Batch 114: Advanced AI Frameworks & Memory
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("perplexity_node")
 class PerplexityNode(BaseNode):
@@ -17,6 +17,31 @@ class PerplexityNode(BaseNode):
     category = "ai"
     credentials_required = ["perplexity_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Model Name',
+            'name': 'model_name',
+            'type': 'options',
+            'default': 'llama-3.1-sonar-small-128k-online',
+            'options': [
+                {'name': 'Llama-3.1-Sonar-Small-128K-Online', 'value': 'llama-3.1-sonar-small-128k-online'},
+                {'name': 'Llama-3.1-Sonar-Large-128K-Online', 'value': 'llama-3.1-sonar-large-128k-online'},
+                {'name': 'Llama-3.1-Sonar-Huge-128K-Online', 'value': 'llama-3.1-sonar-huge-128k-online'},
+                {'name': 'Llama-3.1-Sonar-Small-128K-Chat', 'value': 'llama-3.1-sonar-small-128k-chat'},
+                {'name': 'Llama-3.1-Sonar-Large-128K-Chat', 'value': 'llama-3.1-sonar-large-128k-chat'},
+            ],
+            'description': 'Perplexity model to use',
+        },
+        {
+            'displayName': 'Prompt',
+            'name': 'prompt',
+            'type': 'string',
+            'default': '',
+            'description': 'The search query or prompt',
+            'required': True,
+        },
+    ]
     inputs = {
         "model_name": {
             "type": "dropdown",

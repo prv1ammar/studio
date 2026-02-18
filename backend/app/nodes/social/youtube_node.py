@@ -4,8 +4,8 @@ Batch 92: Social Media Integration (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("youtube_node")
 class YouTubeNode(BaseNode):
@@ -17,6 +17,40 @@ class YouTubeNode(BaseNode):
     category = "social"
     credentials_required = ["google_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_channel_stats',
+            'options': [
+                {'name': 'Get Channel Stats', 'value': 'get_channel_stats'},
+                {'name': 'Search Videos', 'value': 'search_videos'},
+                {'name': 'Get Video Details', 'value': 'get_video_details'},
+                {'name': 'Insert Comment', 'value': 'insert_comment'},
+            ],
+            'description': 'YouTube action',
+        },
+        {
+            'displayName': 'Comment Text',
+            'name': 'comment_text',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Video Id',
+            'name': 'video_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

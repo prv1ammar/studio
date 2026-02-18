@@ -14,6 +14,33 @@ class TrelloNode(BaseNode):
     category = "integrations"
     credentials_required = ["trello_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'create_card',
+        },
+        {
+            'displayName': 'Board Id',
+            'name': 'board_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'List Id',
+            'name': 'list_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Name',
+            'name': 'name',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "create_card", "enum": ["create_card", "get_board_info", "list_cards"]},
         "board_id": {"type": "string", "optional": True},

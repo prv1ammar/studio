@@ -6,8 +6,8 @@ import json
 import base64
 import httpx
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("jira_node")
 class JiraNode(BaseNode):
@@ -21,6 +21,80 @@ class JiraNode(BaseNode):
     category = "productivity"
     credentials_required = ["jira_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_issue',
+            'options': [
+                {'name': 'Get Issue', 'value': 'get_issue'},
+                {'name': 'Create Issue', 'value': 'create_issue'},
+                {'name': 'List Projects', 'value': 'list_projects'},
+                {'name': 'Add Comment', 'value': 'add_comment'},
+                {'name': 'Transition Issue', 'value': 'transition_issue'},
+            ],
+            'description': 'Action to perform',
+        },
+        {
+            'displayName': 'Comment Body',
+            'name': 'comment_body',
+            'type': 'string',
+            'default': '',
+            'description': 'Comment text',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+            'description': 'Issue description',
+        },
+        {
+            'displayName': 'Domain',
+            'name': 'domain',
+            'type': 'string',
+            'default': '',
+            'description': 'Jira domain (e.g., your-domain.atlassian.net)',
+            'required': True,
+        },
+        {
+            'displayName': 'Issue Key',
+            'name': 'issue_key',
+            'type': 'string',
+            'default': '',
+            'description': 'Issue key (e.g., PROJ-123)',
+        },
+        {
+            'displayName': 'Issue Type',
+            'name': 'issue_type',
+            'type': 'string',
+            'default': 'Task',
+            'description': 'Issue type (Task, Bug, Story, etc.)',
+        },
+        {
+            'displayName': 'Project Key',
+            'name': 'project_key',
+            'type': 'string',
+            'default': '',
+            'description': 'Project key for creating issues',
+        },
+        {
+            'displayName': 'Summary',
+            'name': 'summary',
+            'type': 'string',
+            'default': '',
+            'description': 'Issue summary',
+        },
+        {
+            'displayName': 'Transition Id',
+            'name': 'transition_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Transition ID for status changes',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 48: Browsing & Search
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("web_search")
 class WebSearchNode(BaseNode):
@@ -18,6 +18,47 @@ class WebSearchNode(BaseNode):
     category = "search"
     credentials_required = ["search_auth"] # Optional key
 
+
+    properties = [
+        {
+            'displayName': 'Engine',
+            'name': 'engine',
+            'type': 'options',
+            'default': 'tavily',
+            'options': [
+                {'name': 'Tavily', 'value': 'tavily'},
+                {'name': 'Duckduckgo', 'value': 'duckduckgo'},
+                {'name': 'Google Serper', 'value': 'google_serper'},
+            ],
+            'description': 'Search engine to use',
+        },
+        {
+            'displayName': 'Max Results',
+            'name': 'max_results',
+            'type': 'string',
+            'default': 5,
+            'description': 'Maximum number of results to return',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'The search query',
+            'required': True,
+        },
+        {
+            'displayName': 'Search Depth',
+            'name': 'search_depth',
+            'type': 'options',
+            'default': 'basic',
+            'options': [
+                {'name': 'Basic', 'value': 'basic'},
+                {'name': 'Advanced', 'value': 'advanced'},
+            ],
+            'description': 'Depth of search (Tavily specific)',
+        },
+    ]
     inputs = {
         "engine": {
             "type": "dropdown",

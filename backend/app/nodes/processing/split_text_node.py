@@ -3,8 +3,8 @@ Split Text Node - Studio Standard
 Batch 34: Text Processing Nodes
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("split_text")
 class SplitTextNode(BaseNode):
@@ -17,6 +17,52 @@ class SplitTextNode(BaseNode):
     category = "text_processing"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Chunk Overlap',
+            'name': 'chunk_overlap',
+            'type': 'string',
+            'default': 200,
+            'description': 'Number of characters to overlap between chunks',
+        },
+        {
+            'displayName': 'Chunk Size',
+            'name': 'chunk_size',
+            'type': 'string',
+            'default': 1000,
+            'description': 'Maximum length of each chunk',
+        },
+        {
+            'displayName': 'Keep Separator',
+            'name': 'keep_separator',
+            'type': 'options',
+            'default': 'False',
+            'options': [
+                {'name': 'False', 'value': 'False'},
+                {'name': 'True', 'value': 'True'},
+                {'name': 'Start', 'value': 'Start'},
+                {'name': 'End', 'value': 'End'},
+            ],
+            'description': 'Whether to keep the separator and where to place it',
+        },
+        {
+            'displayName': 'Separator',
+            'name': 'separator',
+            'type': 'string',
+            'default': '
+',
+            'description': 'Character to split on (\n for newline, \n\n for paragraphs)',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+            'description': 'Text to split into chunks',
+            'required': True,
+        },
+    ]
     inputs = {
         "text": {
             "type": "string",

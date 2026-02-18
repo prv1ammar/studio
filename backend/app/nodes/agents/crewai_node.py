@@ -3,8 +3,8 @@ CrewAI Node - Studio Standard (Universal Method)
 Batch 114: Advanced AI Frameworks & Memory
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("crewai_agent_node")
 class CrewAIAgentNode(BaseNode):
@@ -16,6 +16,42 @@ class CrewAIAgentNode(BaseNode):
     category = "agents"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Allow Delegation',
+            'name': 'allow_delegation',
+            'type': 'boolean',
+            'default': True,
+        },
+        {
+            'displayName': 'Backstory',
+            'name': 'backstory',
+            'type': 'string',
+            'default': '',
+            'required': True,
+        },
+        {
+            'displayName': 'Goal',
+            'name': 'goal',
+            'type': 'string',
+            'default': '',
+            'required': True,
+        },
+        {
+            'displayName': 'Role',
+            'name': 'role',
+            'type': 'string',
+            'default': '',
+            'required': True,
+        },
+        {
+            'displayName': 'Verbose',
+            'name': 'verbose',
+            'type': 'boolean',
+            'default': True,
+        },
+    ]
     inputs = {
         "role": {"type": "string", "required": True},
         "goal": {"type": "string", "required": True},

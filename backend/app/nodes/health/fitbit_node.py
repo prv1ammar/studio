@@ -4,8 +4,8 @@ Batch 77: Health & Fitness
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("fitbit_node")
 class FitbitNode(BaseNode):
@@ -17,6 +17,28 @@ class FitbitNode(BaseNode):
     category = "health"
     credentials_required = ["fitbit_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_profile',
+            'options': [
+                {'name': 'Get Profile', 'value': 'get_profile'},
+                {'name': 'Get Sleep Logs', 'value': 'get_sleep_logs'},
+                {'name': 'Get Heart Rate', 'value': 'get_heart_rate'},
+            ],
+            'description': 'Fitbit action',
+        },
+        {
+            'displayName': 'Date',
+            'name': 'date',
+            'type': 'string',
+            'default': '',
+            'description': 'YYYY-MM-DD',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

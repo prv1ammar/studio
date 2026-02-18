@@ -13,6 +13,33 @@ class GoogleCloudNode(BaseNode):
     category = "infrastructure"
     credentials_required = ["gcp_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'query',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Resource Id',
+            'name': 'resource_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Service',
+            'name': 'service',
+            'type': 'string',
+            'default': 'bigquery',
+        },
+    ]
     inputs = {
         "service": {"type": "string", "default": "bigquery", "enum": ["bigquery", "storage", "compute"]},
         "action": {"type": "string", "default": "query", "enum": ["query", "upload", "stop_instance", "list_resources"]},

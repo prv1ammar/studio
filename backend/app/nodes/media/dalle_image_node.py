@@ -3,8 +3,8 @@ OpenAI Dall-E Image Generation Node - Studio Standard
 Batch 42: Image & Audio
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("dalle_image_gen")
 class DallEImageGenNode(BaseNode):
@@ -17,6 +17,71 @@ class DallEImageGenNode(BaseNode):
     category = "media"
     credentials_required = ["openai_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Model',
+            'name': 'model',
+            'type': 'options',
+            'default': 'dall-e-3',
+            'options': [
+                {'name': 'Dall-E-3', 'value': 'dall-e-3'},
+                {'name': 'Dall-E-2', 'value': 'dall-e-2'},
+            ],
+            'description': 'Model version',
+        },
+        {
+            'displayName': 'N',
+            'name': 'n',
+            'type': 'string',
+            'default': 1,
+            'description': 'Number of images (DALL-E 2 only)',
+        },
+        {
+            'displayName': 'Prompt',
+            'name': 'prompt',
+            'type': 'string',
+            'default': '',
+            'description': 'Image description prompt',
+            'required': True,
+        },
+        {
+            'displayName': 'Quality',
+            'name': 'quality',
+            'type': 'options',
+            'default': 'standard',
+            'options': [
+                {'name': 'Standard', 'value': 'standard'},
+                {'name': 'Hd', 'value': 'hd'},
+            ],
+            'description': 'Quality mode (DALL-E 3 only)',
+        },
+        {
+            'displayName': 'Size',
+            'name': 'size',
+            'type': 'options',
+            'default': '1024x1024',
+            'options': [
+                {'name': '1024X1024', 'value': '1024x1024'},
+                {'name': '1024X1792', 'value': '1024x1792'},
+                {'name': '1792X1024', 'value': '1792x1024'},
+                {'name': '512X512', 'value': '512x512'},
+                {'name': '256X256', 'value': '256x256'},
+            ],
+            'description': 'Image resolution (availability depends on model)',
+        },
+        {
+            'displayName': 'Style',
+            'name': 'style',
+            'type': 'options',
+            'default': 'vivid',
+            'options': [
+                {'name': 'Vivid', 'value': 'vivid'},
+                {'name': 'Natural', 'value': 'natural'},
+            ],
+            'description': 'Style mode (DALL-E 3 only)',
+        },
+    ]
     inputs = {
         "prompt": {
             "type": "string",

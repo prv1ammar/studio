@@ -4,8 +4,8 @@ Batch 107: Cloud Storage
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("box_node")
 class BoxNode(BaseNode):
@@ -17,6 +17,42 @@ class BoxNode(BaseNode):
     category = "storage"
     credentials_required = ["box_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'upload_file',
+            'options': [
+                {'name': 'Upload File', 'value': 'upload_file'},
+                {'name': 'List Folder', 'value': 'list_folder'},
+                {'name': 'Create Folder', 'value': 'create_folder'},
+                {'name': 'Get File Info', 'value': 'get_file_info'},
+            ],
+            'description': 'Box action',
+        },
+        {
+            'displayName': 'File Content',
+            'name': 'file_content',
+            'type': 'string',
+            'default': '',
+            'description': 'Content to upload',
+        },
+        {
+            'displayName': 'File Name',
+            'name': 'file_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Folder Id',
+            'name': 'folder_id',
+            'type': 'string',
+            'default': '0',
+            'description': 'Root folder ID is 0',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

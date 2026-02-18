@@ -4,8 +4,8 @@ Batch 51: Security & Utilities
 """
 import base64
 from typing import Any, Dict, Optional
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("base64_node")
 class Base64Node(BaseNode):
@@ -16,6 +16,28 @@ class Base64Node(BaseNode):
     version = "1.0.0"
     category = "security"
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'encode',
+            'options': [
+                {'name': 'Encode', 'value': 'encode'},
+                {'name': 'Decode', 'value': 'decode'},
+            ],
+            'description': 'Base64 operation',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+            'description': 'Text to process',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

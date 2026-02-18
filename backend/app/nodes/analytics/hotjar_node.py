@@ -4,8 +4,8 @@ Batch 109: Analytics & Support
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("hotjar_node")
 class HotjarNode(BaseNode):
@@ -17,6 +17,32 @@ class HotjarNode(BaseNode):
     category = "analytics"
     credentials_required = ["hotjar_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_surveys',
+            'options': [
+                {'name': 'Get Surveys', 'value': 'get_surveys'},
+                {'name': 'Get Survey Responses', 'value': 'get_survey_responses'},
+            ],
+            'description': 'Hotjar action',
+        },
+        {
+            'displayName': 'Site Id',
+            'name': 'site_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Survey Id',
+            'name': 'survey_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

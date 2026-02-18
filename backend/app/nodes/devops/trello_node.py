@@ -5,8 +5,8 @@ Batch 47: Developer Tools & Ops
 from typing import Any, Dict, Optional, List
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("trello_node")
 class TrelloNode(BaseNode):
@@ -19,6 +19,50 @@ class TrelloNode(BaseNode):
     category = "devops"
     credentials_required = ["trello_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_card',
+            'options': [
+                {'name': 'Create Card', 'value': 'create_card'},
+                {'name': 'Get Board', 'value': 'get_board'},
+                {'name': 'List Cards', 'value': 'list_cards'},
+                {'name': 'Add Comment', 'value': 'add_comment'},
+            ],
+            'description': 'Trello action to perform',
+        },
+        {
+            'displayName': 'Board Id',
+            'name': 'board_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the Trello board',
+        },
+        {
+            'displayName': 'Card Id',
+            'name': 'card_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of a specific card',
+        },
+        {
+            'displayName': 'List Id',
+            'name': 'list_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the Trello list',
+        },
+        {
+            'displayName': 'Payload',
+            'name': 'payload',
+            'type': 'string',
+            'default': '',
+            'description': 'Structured data (name, description, etc.)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

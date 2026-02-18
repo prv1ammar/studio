@@ -4,8 +4,8 @@ Batch 109: Analytics & Support
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("google_analytics_node")
 class GoogleAnalyticsNode(BaseNode):
@@ -17,6 +17,48 @@ class GoogleAnalyticsNode(BaseNode):
     category = "analytics"
     credentials_required = ["google_analytics_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'run_report',
+            'options': [
+                {'name': 'Run Report', 'value': 'run_report'},
+                {'name': 'Get Metadata', 'value': 'get_metadata'},
+            ],
+            'description': 'GA4 action',
+        },
+        {
+            'displayName': 'Date Ranges',
+            'name': 'date_ranges',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON list of date ranges',
+        },
+        {
+            'displayName': 'Dimensions',
+            'name': 'dimensions',
+            'type': 'string',
+            'default': '',
+            'description': 'Comma separated dimensions',
+        },
+        {
+            'displayName': 'Metrics',
+            'name': 'metrics',
+            'type': 'string',
+            'default': '',
+            'description': 'Comma separated metrics',
+        },
+        {
+            'displayName': 'Property Id',
+            'name': 'property_id',
+            'type': 'string',
+            'default': '',
+            'description': 'GA4 Property ID',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

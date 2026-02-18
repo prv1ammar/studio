@@ -4,8 +4,8 @@ Batch 108: Marketing & CRM
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("freshsales_node")
 class FreshsalesNode(BaseNode):
@@ -17,6 +17,33 @@ class FreshsalesNode(BaseNode):
     category = "marketing"
     credentials_required = ["freshsales_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_contact',
+            'options': [
+                {'name': 'Create Contact', 'value': 'create_contact'},
+                {'name': 'List Contacts', 'value': 'list_contacts'},
+                {'name': 'Create Lead', 'value': 'create_lead'},
+            ],
+            'description': 'Freshsales action',
+        },
+        {
+            'displayName': 'First Name',
+            'name': 'first_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Last Name',
+            'name': 'last_name',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

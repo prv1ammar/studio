@@ -3,8 +3,8 @@ Healthcare Intelligence Node - Studio Standard
 Batch 55: Industry Specific (Healthcare)
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 import os
 
 @register_node("healthcare_node")
@@ -19,6 +19,42 @@ class HealthcareNode(BaseNode):
     category = "verticals"
     credentials_required = ["healthcare_ai_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'patient_triage',
+            'options': [
+                {'name': 'Patient Triage', 'value': 'patient_triage'},
+                {'name': 'Intake Summary', 'value': 'intake_summary'},
+                {'name': 'Scheduling Logic', 'value': 'scheduling_logic'},
+                {'name': 'Medical Coding Assistance', 'value': 'medical_coding_assistance'},
+            ],
+            'description': 'Healthcare action',
+        },
+        {
+            'displayName': 'Input Text',
+            'name': 'input_text',
+            'type': 'string',
+            'default': '',
+            'description': 'Patient description, symptoms, or intake notes',
+            'required': True,
+        },
+        {
+            'displayName': 'Priority Level',
+            'name': 'priority_level',
+            'type': 'options',
+            'default': 'standard',
+            'options': [
+                {'name': 'Routine', 'value': 'routine'},
+                {'name': 'Urgent', 'value': 'urgent'},
+                {'name': 'Emergency', 'value': 'emergency'},
+            ],
+            'description': 'Pre-determined priority if available',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 77: Health & Fitness
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("strava_node")
 class StravaNode(BaseNode):
@@ -17,6 +17,28 @@ class StravaNode(BaseNode):
     category = "health"
     credentials_required = ["strava_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_activities',
+            'options': [
+                {'name': 'List Activities', 'value': 'list_activities'},
+                {'name': 'Get Athlete Profile', 'value': 'get_athlete_profile'},
+                {'name': 'Get Stats', 'value': 'get_stats'},
+            ],
+            'description': 'Strava action',
+        },
+        {
+            'displayName': 'Athlete Id',
+            'name': 'athlete_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Required for stats',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

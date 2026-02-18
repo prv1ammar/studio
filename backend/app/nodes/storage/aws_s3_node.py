@@ -5,8 +5,8 @@ Batch 94: Cloud Storage (n8n Critical)
 from typing import Any, Dict, Optional, List
 import boto3
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("aws_s3_node")
 class AWSS3Node(BaseNode):
@@ -18,6 +18,42 @@ class AWSS3Node(BaseNode):
     category = "storage"
     credentials_required = ["aws_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_buckets',
+            'options': [
+                {'name': 'List Buckets', 'value': 'list_buckets'},
+                {'name': 'List Objects', 'value': 'list_objects'},
+                {'name': 'Get Object', 'value': 'get_object'},
+                {'name': 'Put Object', 'value': 'put_object'},
+                {'name': 'Delete Object', 'value': 'delete_object'},
+            ],
+            'description': 'S3 action',
+        },
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+            'description': 'Content for PutObject',
+        },
+        {
+            'displayName': 'Bucket Name',
+            'name': 'bucket_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Key',
+            'name': 'key',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

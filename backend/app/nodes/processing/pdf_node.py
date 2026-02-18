@@ -17,6 +17,28 @@ class PDFParserNode(BaseNode):
     version = "1.0.0"
     category = "processing"
     
+
+    properties = [
+        {
+            'displayName': 'Extract Images',
+            'name': 'extract_images',
+            'type': 'boolean',
+            'default': True,
+        },
+        {
+            'displayName': 'File Path',
+            'name': 'file_path',
+            'type': 'string',
+            'default': '',
+            'description': 'Absolute path to the document',
+        },
+        {
+            'displayName': 'Ocr Engine',
+            'name': 'ocr_engine',
+            'type': 'string',
+            'default': 'standard',
+        },
+    ]
     inputs = {
         "file_path": {"type": "string", "description": "Absolute path to the document"},
         "ocr_engine": {"type": "string", "enum": ["standard", "easyocr"], "default": "standard"},

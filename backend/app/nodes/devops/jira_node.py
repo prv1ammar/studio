@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional, List
 import aiohttp
 import base64
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("jira_node")
 class JiraNode(BaseNode):
@@ -20,6 +20,51 @@ class JiraNode(BaseNode):
     category = "devops"
     credentials_required = ["jira_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_issue',
+            'options': [
+                {'name': 'Create Issue', 'value': 'create_issue'},
+                {'name': 'Get Issue', 'value': 'get_issue'},
+                {'name': 'List Projects', 'value': 'list_projects'},
+                {'name': 'Add Comment', 'value': 'add_comment'},
+            ],
+            'description': 'Jira action to perform',
+        },
+        {
+            'displayName': 'Domain',
+            'name': 'domain',
+            'type': 'string',
+            'default': '',
+            'description': 'Atlassian domain (e.g., 'company.atlassian.net')',
+            'required': True,
+        },
+        {
+            'displayName': 'Issue Key',
+            'name': 'issue_key',
+            'type': 'string',
+            'default': '',
+            'description': 'Issue Key (e.g., 'PROJ-123')',
+        },
+        {
+            'displayName': 'Payload',
+            'name': 'payload',
+            'type': 'string',
+            'default': '',
+            'description': 'Structured data for creation or comments',
+        },
+        {
+            'displayName': 'Project Key',
+            'name': 'project_key',
+            'type': 'string',
+            'default': '',
+            'description': 'Project Key (e.g., 'PROJ')',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

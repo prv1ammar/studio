@@ -5,8 +5,8 @@ Batch 100: AI & LLM (The Grande Finale)
 from typing import Any, Dict, Optional, List
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("anthropic_chat_node")
 class AnthropicChatNode(BaseNode):
@@ -18,6 +18,43 @@ class AnthropicChatNode(BaseNode):
     category = "ai"
     credentials_required = ["anthropic_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Max Tokens',
+            'name': 'max_tokens',
+            'type': 'string',
+            'default': 1024,
+            'description': 'Max output tokens',
+        },
+        {
+            'displayName': 'Model',
+            'name': 'model',
+            'type': 'options',
+            'default': 'claude-3-5-sonnet-20240620',
+            'options': [
+                {'name': 'Claude-3-5-Sonnet-20240620', 'value': 'claude-3-5-sonnet-20240620'},
+                {'name': 'Claude-3-Opus-20240229', 'value': 'claude-3-opus-20240229'},
+                {'name': 'Claude-3-Haiku-20240307', 'value': 'claude-3-haiku-20240307'},
+            ],
+            'description': 'Model to use',
+        },
+        {
+            'displayName': 'System Message',
+            'name': 'system_message',
+            'type': 'string',
+            'default': 'You are a helpful assistant.',
+            'description': 'System context',
+        },
+        {
+            'displayName': 'User Message',
+            'name': 'user_message',
+            'type': 'string',
+            'default': '',
+            'description': 'User prompt',
+            'required': True,
+        },
+    ]
     inputs = {
         "model": {
             "type": "dropdown",

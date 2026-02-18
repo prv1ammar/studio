@@ -5,8 +5,8 @@ Batch 115: Specialized Tools
 from typing import Any, Dict, Optional, List
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("glean_search_node")
 class GleanSearchNode(BaseNode):
@@ -18,6 +18,31 @@ class GleanSearchNode(BaseNode):
     category = "search"
     credentials_required = ["glean_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Act As',
+            'name': 'act_as',
+            'type': 'string',
+            'default': '',
+            'description': 'Email or ID to act as (X-Scio-ActAs header)',
+        },
+        {
+            'displayName': 'Page Size',
+            'name': 'page_size',
+            'type': 'string',
+            'default': 10,
+            'description': 'Maximum number of results to return',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'The search query',
+            'required': True,
+        },
+    ]
     inputs = {
         "query": {
             "type": "string",

@@ -4,8 +4,8 @@ Batch 118: AI Essentials & Local Inference
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("upstash_node")
 class UpstashNode(BaseNode):
@@ -17,6 +17,43 @@ class UpstashNode(BaseNode):
     category = "storage"
     credentials_required = ["upstash_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'vec_search',
+            'options': [
+                {'name': 'Vec Search', 'value': 'vec_search'},
+                {'name': 'Vec Upsert', 'value': 'vec_upsert'},
+                {'name': 'Redis Get', 'value': 'redis_get'},
+                {'name': 'Redis Set', 'value': 'redis_set'},
+            ],
+            'description': 'The action to perform',
+        },
+        {
+            'displayName': 'Index Url',
+            'name': 'index_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Upstash Index or Redis URL',
+            'required': True,
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query or value to set',
+        },
+        {
+            'displayName': 'Top K',
+            'name': 'top_k',
+            'type': 'string',
+            'default': 10,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

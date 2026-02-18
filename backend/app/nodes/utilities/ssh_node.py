@@ -4,8 +4,8 @@ Batch 111: Utilities & Data Processing
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # Requires `asyncssh` for async SSH
 # We'll implement structure for asyncssh.
@@ -20,6 +20,27 @@ class SSHNode(BaseNode):
     category = "utilities"
     credentials_required = ["ssh_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'execute_command',
+            'options': [
+                {'name': 'Execute Command', 'value': 'execute_command'},
+                {'name': 'Upload File', 'value': 'upload_file'},
+                {'name': 'Download File', 'value': 'download_file'},
+            ],
+            'description': 'SSH action',
+        },
+        {
+            'displayName': 'Command',
+            'name': 'command',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

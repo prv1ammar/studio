@@ -4,8 +4,8 @@ Batch 106: Social Media
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("tumblr_node")
 class TumblrNode(BaseNode):
@@ -17,6 +17,68 @@ class TumblrNode(BaseNode):
     category = "social_media"
     credentials_required = ["tumblr_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_post',
+            'options': [
+                {'name': 'Create Post', 'value': 'create_post'},
+                {'name': 'Get Posts', 'value': 'get_posts'},
+                {'name': 'Get User Info', 'value': 'get_user_info'},
+            ],
+            'description': 'Tumblr action',
+        },
+        {
+            'displayName': 'Blog Identifier',
+            'name': 'blog_identifier',
+            'type': 'string',
+            'default': '',
+            'description': 'e.g. myblog.tumblr.com',
+        },
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Source',
+            'name': 'source',
+            'type': 'string',
+            'default': '',
+            'description': 'URL for photo/video content',
+        },
+        {
+            'displayName': 'Tags',
+            'name': 'tags',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Type',
+            'name': 'type',
+            'type': 'options',
+            'default': 'text',
+            'options': [
+                {'name': 'Text', 'value': 'text'},
+                {'name': 'Photo', 'value': 'photo'},
+                {'name': 'Quote', 'value': 'quote'},
+                {'name': 'Link', 'value': 'link'},
+                {'name': 'Chat', 'value': 'chat'},
+                {'name': 'Audio', 'value': 'audio'},
+                {'name': 'Video', 'value': 'video'},
+            ],
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

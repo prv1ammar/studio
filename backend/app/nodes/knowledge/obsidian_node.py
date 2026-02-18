@@ -5,8 +5,8 @@ Batch 60: Knowledge Management
 from typing import Any, Dict, Optional, List
 import os
 import glob
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("obsidian_node")
 class ObsidianNode(BaseNode):
@@ -18,6 +18,51 @@ class ObsidianNode(BaseNode):
     version = "1.0.0"
     category = "knowledge"
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'read_note',
+            'options': [
+                {'name': 'Read Note', 'value': 'read_note'},
+                {'name': 'Write Note', 'value': 'write_note'},
+                {'name': 'Search Vault', 'value': 'search_vault'},
+                {'name': 'List Folders', 'value': 'list_folders'},
+            ],
+            'description': 'Obsidian action',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+            'description': 'Content for writing',
+        },
+        {
+            'displayName': 'Note Path',
+            'name': 'note_path',
+            'type': 'string',
+            'default': '',
+            'description': 'Path to the note (e.g. 'Project/Planning.md')',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query',
+        },
+        {
+            'displayName': 'Vault Path',
+            'name': 'vault_path',
+            'type': 'string',
+            'default': '',
+            'description': 'Local path to the Obsidian Vault',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

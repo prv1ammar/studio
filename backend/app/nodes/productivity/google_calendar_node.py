@@ -5,8 +5,8 @@ Batch 90: CRM & Marketing (n8n Critical)
 from typing import Any, Dict, Optional, List
 import aiohttp
 from datetime import datetime, timedelta
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("google_calendar_node")
 class GoogleCalendarNode(BaseNode):
@@ -18,6 +18,42 @@ class GoogleCalendarNode(BaseNode):
     category = "productivity"
     credentials_required = ["google_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_event',
+            'options': [
+                {'name': 'Create Event', 'value': 'create_event'},
+                {'name': 'List Events', 'value': 'list_events'},
+                {'name': 'Get Event', 'value': 'get_event'},
+                {'name': 'Update Event', 'value': 'update_event'},
+                {'name': 'Delete Event', 'value': 'delete_event'},
+            ],
+            'description': 'Google Calendar action',
+        },
+        {
+            'displayName': 'Calendar Id',
+            'name': 'calendar_id',
+            'type': 'string',
+            'default': 'primary',
+            'description': 'Calendar ID (default: primary)',
+        },
+        {
+            'displayName': 'Start Time',
+            'name': 'start_time',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Summary',
+            'name': 'summary',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

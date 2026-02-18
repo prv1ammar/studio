@@ -4,8 +4,8 @@ Batch 83: Observability & SRE
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("splunk_node")
 class SplunkNode(BaseNode):
@@ -17,6 +17,36 @@ class SplunkNode(BaseNode):
     category = "observability"
     credentials_required = ["splunk_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_logs',
+            'options': [
+                {'name': 'Search Logs', 'value': 'search_logs'},
+                {'name': 'List Indexes', 'value': 'list_indexes'},
+                {'name': 'Send Hec Event', 'value': 'send_hec_event'},
+            ],
+            'description': 'Splunk action',
+        },
+        {
+            'displayName': 'Base Url',
+            'name': 'base_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Splunk Management API URL (e.g. https://splunk.example.com:8089)',
+            'required': True,
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Splunk search query (e.g. 'search index=_internal | head 10')',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

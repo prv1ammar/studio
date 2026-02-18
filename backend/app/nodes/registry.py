@@ -32,18 +32,15 @@ class NodeRegistry:
         if cls._is_scanned:
             return
         
-        print("DEBUG: NodeRegistry scan starting...", flush=True)
         # Start scanning from the app.nodes directory
         nodes_dir = os.path.dirname(os.path.abspath(__file__))
         package_root = os.path.abspath(os.path.join(nodes_dir, "..", ".."))
-        print(f"DEBUG: nodes_dir={nodes_dir}, package_root={package_root}", flush=True)
         
         if package_root not in sys.path:
             sys.path.append(package_root)
         
         # Add agents directory for legacy agent imports
         agents_path = os.path.join(package_root, "app", "agents")
-        print(f"DEBUG: agents_path={agents_path}", flush=True)
         if agents_path not in sys.path:
             sys.path.append(agents_path)
 

@@ -3,8 +3,8 @@ Amazon Bedrock Converse Node - Studio Standard
 Batch 30: AI Provider Nodes
 """
 from typing import Any, Dict, Optional
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("amazon_bedrock_converse")
 class AmazonBedrockConverseNode(BaseNode):
@@ -17,6 +17,74 @@ class AmazonBedrockConverseNode(BaseNode):
     category = "ai_providers"
     credentials_required = ["aws_bedrock"]
 
+
+    properties = [
+        {
+            'displayName': 'Disable Streaming',
+            'name': 'disable_streaming',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Disable streaming responses',
+        },
+        {
+            'displayName': 'Max Tokens',
+            'name': 'max_tokens',
+            'type': 'string',
+            'default': 4096,
+            'description': 'Maximum tokens to generate',
+        },
+        {
+            'displayName': 'Model Id',
+            'name': 'model_id',
+            'type': 'options',
+            'default': 'anthropic.claude-3-5-sonnet-20241022-v2:0',
+            'options': [
+                {'name': 'Anthropic.Claude-3-5-Sonnet-20241022-V2:0', 'value': 'anthropic.claude-3-5-sonnet-20241022-v2:0'},
+                {'name': 'Anthropic.Claude-3-Haiku-20240307-V1:0', 'value': 'anthropic.claude-3-haiku-20240307-v1:0'},
+                {'name': 'Anthropic.Claude-3-Opus-20240229-V1:0', 'value': 'anthropic.claude-3-opus-20240229-v1:0'},
+                {'name': 'Amazon.Titan-Text-Express-V1', 'value': 'amazon.titan-text-express-v1'},
+                {'name': 'Amazon.Titan-Text-Lite-V1', 'value': 'amazon.titan-text-lite-v1'},
+                {'name': 'Meta.Llama3-70B-Instruct-V1:0', 'value': 'meta.llama3-70b-instruct-v1:0'},
+                {'name': 'Mistral.Mistral-7B-Instruct-V0:2', 'value': 'mistral.mistral-7b-instruct-v0:2'},
+            ],
+            'description': 'Bedrock model to use',
+        },
+        {
+            'displayName': 'Prompt',
+            'name': 'prompt',
+            'type': 'string',
+            'default': '',
+            'description': 'Input prompt for the model',
+            'required': True,
+        },
+        {
+            'displayName': 'Region Name',
+            'name': 'region_name',
+            'type': 'options',
+            'default': 'us-east-1',
+            'options': [
+                {'name': 'Us-East-1', 'value': 'us-east-1'},
+                {'name': 'Us-West-2', 'value': 'us-west-2'},
+                {'name': 'Eu-West-1', 'value': 'eu-west-1'},
+                {'name': 'Ap-Southeast-1', 'value': 'ap-southeast-1'},
+            ],
+            'description': 'AWS region',
+        },
+        {
+            'displayName': 'Temperature',
+            'name': 'temperature',
+            'type': 'string',
+            'default': 0.7,
+            'description': 'Controls randomness (0=deterministic, 1=creative)',
+        },
+        {
+            'displayName': 'Top P',
+            'name': 'top_p',
+            'type': 'string',
+            'default': 0.9,
+            'description': 'Nucleus sampling parameter',
+        },
+    ]
     inputs = {
         "model_id": {
             "type": "dropdown",

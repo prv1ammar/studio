@@ -4,8 +4,8 @@ Batch 109: Analytics & Support
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("mixpanel_node")
 class MixpanelNode(BaseNode):
@@ -17,6 +17,33 @@ class MixpanelNode(BaseNode):
     category = "analytics"
     credentials_required = ["mixpanel_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'track_event',
+            'options': [
+                {'name': 'Track Event', 'value': 'track_event'},
+                {'name': 'Profile Set', 'value': 'profile_set'},
+                {'name': 'Profile Delete', 'value': 'profile_delete'},
+            ],
+            'description': 'Mixpanel action',
+        },
+        {
+            'displayName': 'Distinct Id',
+            'name': 'distinct_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Event Name',
+            'name': 'event_name',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

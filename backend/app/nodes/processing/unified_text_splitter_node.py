@@ -3,8 +3,8 @@ Text Splitter Node - Studio Standard
 Batch 34: Text Processing Nodes
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("text_splitter")
 class TextSplitterNode(BaseNode):
@@ -17,6 +17,53 @@ class TextSplitterNode(BaseNode):
     category = "text_processing"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Chunk Overlap',
+            'name': 'chunk_overlap',
+            'type': 'string',
+            'default': 200,
+            'description': 'Overlap between chunks to maintain context',
+        },
+        {
+            'displayName': 'Chunk Size',
+            'name': 'chunk_size',
+            'type': 'string',
+            'default': 1000,
+            'description': 'Maximum size of each chunk',
+        },
+        {
+            'displayName': 'Separator',
+            'name': 'separator',
+            'type': 'string',
+            'default': '
+
+',
+            'description': 'Primary separator (for Character splitter)',
+        },
+        {
+            'displayName': 'Splitter Type',
+            'name': 'splitter_type',
+            'type': 'options',
+            'default': 'Recursive Character',
+            'options': [
+                {'name': 'Recursive Character', 'value': 'Recursive Character'},
+                {'name': 'Character', 'value': 'Character'},
+                {'name': 'Token', 'value': 'Token'},
+                {'name': 'Markdown', 'value': 'Markdown'},
+            ],
+            'description': 'Strategy for splitting text',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+            'description': 'Text or documents to split',
+            'required': True,
+        },
+    ]
     inputs = {
         "text": {
             "type": "string",

@@ -4,8 +4,8 @@ Batch 84: Enterprise Finance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("sap_node")
 class SAPNode(BaseNode):
@@ -17,6 +17,30 @@ class SAPNode(BaseNode):
     category = "finance"
     credentials_required = ["sap_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_purchase_orders',
+            'options': [
+                {'name': 'Get Purchase Orders', 'value': 'get_purchase_orders'},
+                {'name': 'Get Sales Orders', 'value': 'get_sales_orders'},
+                {'name': 'Get Supplier Info', 'value': 'get_supplier_info'},
+                {'name': 'Create Purchase Order', 'value': 'create_purchase_order'},
+            ],
+            'description': 'SAP OData action',
+        },
+        {
+            'displayName': 'Base Url',
+            'name': 'base_url',
+            'type': 'string',
+            'default': '',
+            'description': 'SAP S/4HANA or Business One OData URL',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

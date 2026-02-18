@@ -5,8 +5,8 @@ Batch 70: Advanced Analytics
 from typing import Any, Dict, Optional, List
 import aiohttp
 import base64
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("amplitude_node")
 class AmplitudeNode(BaseNode):
@@ -18,6 +18,36 @@ class AmplitudeNode(BaseNode):
     category = "analytics"
     credentials_required = ["amplitude_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_user_profile',
+            'options': [
+                {'name': 'Get User Profile', 'value': 'get_user_profile'},
+                {'name': 'Track Event', 'value': 'track_event'},
+                {'name': 'Get Active Users', 'value': 'get_active_users'},
+                {'name': 'List Cohorts', 'value': 'list_cohorts'},
+            ],
+            'description': 'Amplitude action',
+        },
+        {
+            'displayName': 'Event Type',
+            'name': 'event_type',
+            'type': 'string',
+            'default': '',
+            'description': 'Type/Name of the event to track',
+        },
+        {
+            'displayName': 'User Id',
+            'name': 'user_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the user',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

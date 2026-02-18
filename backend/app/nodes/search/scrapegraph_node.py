@@ -4,8 +4,8 @@ Batch 117: Advanced Document Processing
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("scrapegraph_node")
 class ScrapeGraphNode(BaseNode):
@@ -17,6 +17,37 @@ class ScrapeGraphNode(BaseNode):
     category = "search"
     credentials_required = ["scrapegraph_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'smart_scraper',
+            'options': [
+                {'name': 'Smart Scraper', 'value': 'smart_scraper'},
+                {'name': 'Search', 'value': 'search'},
+                {'name': 'Markdownify', 'value': 'markdownify'},
+            ],
+            'description': 'ScrapeGraphAI service to use',
+        },
+        {
+            'displayName': 'Prompt',
+            'name': 'prompt',
+            'type': 'string',
+            'default': '',
+            'description': 'What data should be extracted? (e.g. 'Extract all product names and prices')',
+            'required': True,
+        },
+        {
+            'displayName': 'Url',
+            'name': 'url',
+            'type': 'string',
+            'default': '',
+            'description': 'The URL to scrape or search',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

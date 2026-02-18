@@ -5,8 +5,8 @@ Batch 111: Utilities & Data Processing
 from typing import Any, Dict, Optional
 import base64
 import mimetypes
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("binary_data_node")
 class BinaryDataNode(BaseNode):
@@ -18,6 +18,34 @@ class BinaryDataNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_file_metadata',
+            'options': [
+                {'name': 'Get File Metadata', 'value': 'get_file_metadata'},
+                {'name': 'Base64 Encode', 'value': 'base64_encode'},
+                {'name': 'Base64 Decode', 'value': 'base64_decode'},
+                {'name': 'Guess Mime Type', 'value': 'guess_mime_type'},
+            ],
+            'description': 'Binary Data action',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Filename',
+            'name': 'filename',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

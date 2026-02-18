@@ -4,8 +4,8 @@ Batch 96: Developer Tools (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("jenkins_node")
 class JenkinsNode(BaseNode):
@@ -17,6 +17,43 @@ class JenkinsNode(BaseNode):
     category = "developer_tools"
     credentials_required = ["jenkins_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'trigger_build',
+            'options': [
+                {'name': 'Trigger Build', 'value': 'trigger_build'},
+                {'name': 'Get Job Info', 'value': 'get_job_info'},
+                {'name': 'Get Build Info', 'value': 'get_build_info'},
+                {'name': 'Get Last Build', 'value': 'get_last_build'},
+            ],
+            'description': 'Jenkins action',
+        },
+        {
+            'displayName': 'Base Url',
+            'name': 'base_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Jenkins Server URL (e.g. http://jenkins.example.com)',
+        },
+        {
+            'displayName': 'Build Number',
+            'name': 'build_number',
+            'type': 'string',
+            'default': '',
+            'description': 'Build number',
+        },
+        {
+            'displayName': 'Job Name',
+            'name': 'job_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Name of the job',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -5,8 +5,8 @@ Batch 103: Core Workflow Nodes
 from typing import Any, Dict, Optional
 import asyncio
 from datetime import datetime, timedelta
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("wait_node")
 class WaitNode(BaseNode):
@@ -18,6 +18,55 @@ class WaitNode(BaseNode):
     category = "flow_controls"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Duration',
+            'name': 'duration',
+            'type': 'string',
+            'default': 1,
+            'description': 'Duration to wait',
+        },
+        {
+            'displayName': 'Mode',
+            'name': 'mode',
+            'type': 'options',
+            'default': 'duration',
+            'options': [
+                {'name': 'Duration', 'value': 'duration'},
+                {'name': 'Until Time', 'value': 'until_time'},
+                {'name': 'Until Date', 'value': 'until_date'},
+            ],
+            'description': 'Wait mode',
+        },
+        {
+            'displayName': 'Unit',
+            'name': 'unit',
+            'type': 'options',
+            'default': 'seconds',
+            'options': [
+                {'name': 'Seconds', 'value': 'seconds'},
+                {'name': 'Minutes', 'value': 'minutes'},
+                {'name': 'Hours', 'value': 'hours'},
+                {'name': 'Days', 'value': 'days'},
+            ],
+            'description': 'Time unit',
+        },
+        {
+            'displayName': 'Until Date',
+            'name': 'until_date',
+            'type': 'string',
+            'default': '',
+            'description': 'Wait until this date (YYYY-MM-DD HH:MM format)',
+        },
+        {
+            'displayName': 'Until Time',
+            'name': 'until_time',
+            'type': 'string',
+            'default': '',
+            'description': 'Wait until this time (HH:MM format)',
+        },
+    ]
     inputs = {
         "mode": {
             "type": "dropdown",

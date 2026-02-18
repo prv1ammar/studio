@@ -4,8 +4,8 @@ Batch 106: Social Media
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("later_node")
 class LaterNode(BaseNode):
@@ -17,6 +17,26 @@ class LaterNode(BaseNode):
     category = "social_media"
     credentials_required = ["later_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'upload_media',
+            'options': [
+                {'name': 'Upload Media', 'value': 'upload_media'},
+                {'name': 'Get User', 'value': 'get_user'},
+            ],
+            'description': 'Later action',
+        },
+        {
+            'displayName': 'Image Url',
+            'name': 'image_url',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional, List
 import aiohttp
 import json
 import base64
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("github_devops")
 class GitHubDevOpsNode(BaseNode):
@@ -19,6 +19,53 @@ class GitHubDevOpsNode(BaseNode):
     category = "devops"
     credentials_required = ["github_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_repo_info',
+            'options': [
+                {'name': 'Get Repo Info', 'value': 'get_repo_info'},
+                {'name': 'Create Issue', 'value': 'create_issue'},
+                {'name': 'Create Pull Request', 'value': 'create_pull_request'},
+                {'name': 'List Repo Contents', 'value': 'list_repo_contents'},
+                {'name': 'Get File Content', 'value': 'get_file_content'},
+            ],
+            'description': 'Action to perform on GitHub',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+            'description': 'Structured data for creation (Issues/PRs)',
+        },
+        {
+            'displayName': 'Path',
+            'name': 'path',
+            'type': 'string',
+            'default': '',
+            'description': 'File or directory path (for file actions)',
+        },
+        {
+            'displayName': 'Repo Name',
+            'name': 'repo_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Name of the repository (e.g., 'Hello-World')',
+            'required': True,
+        },
+        {
+            'displayName': 'Repo Owner',
+            'name': 'repo_owner',
+            'type': 'string',
+            'default': '',
+            'description': 'Owner of the repository (e.g., 'octocat')',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

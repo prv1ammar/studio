@@ -4,8 +4,8 @@ Batch 81: Leisure, Health & Education
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("garmin_node")
 class GarminNode(BaseNode):
@@ -17,6 +17,21 @@ class GarminNode(BaseNode):
     category = "health"
     credentials_required = ["garmin_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_daily_summary',
+            'options': [
+                {'name': 'Get Daily Summary', 'value': 'get_daily_summary'},
+                {'name': 'Get Sleep Data', 'value': 'get_sleep_data'},
+                {'name': 'Get Activity Data', 'value': 'get_activity_data'},
+            ],
+            'description': 'Garmin action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

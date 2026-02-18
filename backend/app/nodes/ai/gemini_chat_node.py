@@ -5,8 +5,8 @@ Batch 100: AI & LLM (The Grande Finale)
 from typing import Any, Dict, Optional, List
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("gemini_chat_node")
 class GeminiChatNode(BaseNode):
@@ -18,6 +18,36 @@ class GeminiChatNode(BaseNode):
     category = "ai"
     credentials_required = ["google_ai_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Contents',
+            'name': 'contents',
+            'type': 'string',
+            'default': '',
+            'description': 'User prompt or JSON contents array',
+            'required': True,
+        },
+        {
+            'displayName': 'Model',
+            'name': 'model',
+            'type': 'options',
+            'default': 'gemini-1.5-flash',
+            'options': [
+                {'name': 'Gemini-1.5-Flash', 'value': 'gemini-1.5-flash'},
+                {'name': 'Gemini-1.5-Pro', 'value': 'gemini-1.5-pro'},
+                {'name': 'Gemini-1.0-Pro', 'value': 'gemini-1.0-pro'},
+            ],
+            'description': 'Model to use',
+        },
+        {
+            'displayName': 'System Instruction',
+            'name': 'system_instruction',
+            'type': 'string',
+            'default': '',
+            'description': 'System instruction',
+        },
+    ]
     inputs = {
         "model": {
             "type": "dropdown",

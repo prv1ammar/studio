@@ -4,8 +4,8 @@ Batch 115: Productivity Suite
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("google_tasks_node")
 class GoogleTasksNode(BaseNode):
@@ -17,6 +17,57 @@ class GoogleTasksNode(BaseNode):
     category = "productivity"
     credentials_required = ["google_tasks_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_tasks',
+            'options': [
+                {'name': 'List Tasks', 'value': 'list_tasks'},
+                {'name': 'Create Task', 'value': 'create_task'},
+                {'name': 'Complete Task', 'value': 'complete_task'},
+                {'name': 'List Tasklists', 'value': 'list_tasklists'},
+                {'name': 'Create Tasklist', 'value': 'create_tasklist'},
+            ],
+            'description': 'Google Tasks action',
+        },
+        {
+            'displayName': 'Due',
+            'name': 'due',
+            'type': 'string',
+            'default': '',
+            'description': 'RFC 3339 timestamp (e.g., 2024-12-31T23:59:59.000Z)',
+        },
+        {
+            'displayName': 'Notes',
+            'name': 'notes',
+            'type': 'string',
+            'default': '',
+            'description': 'Task notes/description',
+        },
+        {
+            'displayName': 'Task Id',
+            'name': 'task_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Tasklist Id',
+            'name': 'tasklist_id',
+            'type': 'string',
+            'default': '@default',
+            'description': 'Tasklist ID (use @default for the primary list)',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+            'description': 'Task title',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

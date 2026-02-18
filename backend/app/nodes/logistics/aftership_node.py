@@ -4,8 +4,8 @@ Batch 65: Logistics & Shipping
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("aftership_node")
 class AfterShipNode(BaseNode):
@@ -17,6 +17,35 @@ class AfterShipNode(BaseNode):
     category = "logistics"
     credentials_required = ["aftership_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_trackings',
+            'options': [
+                {'name': 'List Trackings', 'value': 'list_trackings'},
+                {'name': 'Create Tracking', 'value': 'create_tracking'},
+                {'name': 'Get Tracking', 'value': 'get_tracking'},
+                {'name': 'List Couriers', 'value': 'list_couriers'},
+            ],
+            'description': 'AfterShip action',
+        },
+        {
+            'displayName': 'Slug',
+            'name': 'slug',
+            'type': 'string',
+            'default': '',
+            'description': 'Courier slug (e.g. 'fedex', 'ups')',
+        },
+        {
+            'displayName': 'Tracking Number',
+            'name': 'tracking_number',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

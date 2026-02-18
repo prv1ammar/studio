@@ -4,8 +4,8 @@ Batch 110: Developer Tools & Databases
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # MySQL typically requires 'aiomysql'.
 # Since we are implementing parity without guaranteed drivers installed,
@@ -23,6 +23,35 @@ class MySQLNode(BaseNode):
     category = "database"
     credentials_required = ["mysql_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'execute_query',
+            'options': [
+                {'name': 'Execute Query', 'value': 'execute_query'},
+                {'name': 'Insert Row', 'value': 'insert_row'},
+                {'name': 'Update Row', 'value': 'update_row'},
+                {'name': 'Delete Row', 'value': 'delete_row'},
+            ],
+            'description': 'MySQL action',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'SQL Query',
+        },
+        {
+            'displayName': 'Table',
+            'name': 'table',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

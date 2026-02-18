@@ -4,8 +4,8 @@ Batch 80: Industrial & Service Ops
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("zomato_node")
 class ZomatoNode(BaseNode):
@@ -17,6 +17,27 @@ class ZomatoNode(BaseNode):
     category = "food_delivery"
     credentials_required = ["zomato_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_restaurants',
+            'options': [
+                {'name': 'Search Restaurants', 'value': 'search_restaurants'},
+                {'name': 'Get Reviews', 'value': 'get_reviews'},
+                {'name': 'Get Daily Menu', 'value': 'get_daily_menu'},
+            ],
+            'description': 'Zomato action',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

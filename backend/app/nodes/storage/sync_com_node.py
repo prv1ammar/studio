@@ -4,8 +4,8 @@ Batch 107: Cloud Storage
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # Sync.com does not offer a public API (officially) for third-party automation in the same way.
 # However, for parity we can implement a placeholder or use the 'Email to Sync' feature logic if applicable.
@@ -24,6 +24,32 @@ class SyncComNode(BaseNode):
     category = "storage"
     credentials_required = ["sync_com_webdav_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_folder',
+            'options': [
+                {'name': 'List Folder', 'value': 'list_folder'},
+                {'name': 'Upload File', 'value': 'upload_file'},
+            ],
+            'description': 'WebDAV action',
+        },
+        {
+            'displayName': 'File Content',
+            'name': 'file_content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Path',
+            'name': 'path',
+            'type': 'string',
+            'default': '/',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

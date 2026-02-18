@@ -15,6 +15,33 @@ class WordPressNode(BaseNode):
     category = "integrations"
     credentials_required = ["wordpress_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'create_post',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Post Status',
+            'name': 'post_status',
+            'type': 'string',
+            'default': 'publish',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "create_post", "enum": ["create_post", "list_posts"]},
         "title": {"type": "string", "optional": True},

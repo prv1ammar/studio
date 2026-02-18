@@ -4,8 +4,8 @@ Batch 98: Analytics (Enterprise Expansion)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("heap_node")
 class HeapNode(BaseNode):
@@ -17,6 +17,41 @@ class HeapNode(BaseNode):
     category = "analytics"
     credentials_required = ["heap_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'track_event',
+            'options': [
+                {'name': 'Track Event', 'value': 'track_event'},
+                {'name': 'Add User Properties', 'value': 'add_user_properties'},
+            ],
+            'description': 'Heap action',
+        },
+        {
+            'displayName': 'Event Name',
+            'name': 'event_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Identity',
+            'name': 'identity',
+            'type': 'string',
+            'default': '',
+            'description': 'User Identity',
+            'required': True,
+        },
+        {
+            'displayName': 'Properties',
+            'name': 'properties',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON properties',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

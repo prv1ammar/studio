@@ -4,8 +4,8 @@ Batch 102: E-commerce & Payments Expansion
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("mollie_node")
 class MollieNode(BaseNode):
@@ -17,6 +17,90 @@ class MollieNode(BaseNode):
     category = "finance"
     credentials_required = ["mollie_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_payment',
+            'options': [
+                {'name': 'Create Payment', 'value': 'create_payment'},
+                {'name': 'Get Payment', 'value': 'get_payment'},
+                {'name': 'List Payments', 'value': 'list_payments'},
+                {'name': 'Create Customer', 'value': 'create_customer'},
+                {'name': 'Create Subscription', 'value': 'create_subscription'},
+                {'name': 'List Methods', 'value': 'list_methods'},
+            ],
+            'description': 'Mollie action',
+        },
+        {
+            'displayName': 'Amount',
+            'name': 'amount',
+            'type': 'string',
+            'default': '',
+            'description': 'Amount (e.g., '10.00')',
+        },
+        {
+            'displayName': 'Currency',
+            'name': 'currency',
+            'type': 'string',
+            'default': 'EUR',
+        },
+        {
+            'displayName': 'Customer Email',
+            'name': 'customer_email',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Customer Name',
+            'name': 'customer_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Method',
+            'name': 'method',
+            'type': 'options',
+            'default': '',
+            'options': [
+                {'name': 'Ideal', 'value': 'ideal'},
+                {'name': 'Creditcard', 'value': 'creditcard'},
+                {'name': 'Bancontact', 'value': 'bancontact'},
+                {'name': 'Sofort', 'value': 'sofort'},
+                {'name': 'Paypal', 'value': 'paypal'},
+                {'name': 'Banktransfer', 'value': 'banktransfer'},
+                {'name': 'Directdebit', 'value': 'directdebit'},
+            ],
+        },
+        {
+            'displayName': 'Payment Id',
+            'name': 'payment_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Redirect Url',
+            'name': 'redirect_url',
+            'type': 'string',
+            'default': '',
+            'description': 'URL to redirect after payment',
+        },
+        {
+            'displayName': 'Webhook Url',
+            'name': 'webhook_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Webhook URL for payment updates',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

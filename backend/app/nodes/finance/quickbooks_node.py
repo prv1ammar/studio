@@ -4,8 +4,8 @@ Batch 58: Financial Services
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("quickbooks_node")
 class QuickBooksNode(BaseNode):
@@ -17,6 +17,37 @@ class QuickBooksNode(BaseNode):
     category = "finance"
     credentials_required = ["quickbooks_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_customers',
+            'options': [
+                {'name': 'List Customers', 'value': 'list_customers'},
+                {'name': 'List Invoices', 'value': 'list_invoices'},
+                {'name': 'Create Customer', 'value': 'create_customer'},
+                {'name': 'Get Company Info', 'value': 'get_company_info'},
+                {'name': 'List Accounts', 'value': 'list_accounts'},
+            ],
+            'description': 'QuickBooks action to perform',
+        },
+        {
+            'displayName': 'Is Sandbox',
+            'name': 'is_sandbox',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Use QuickBooks Sandbox environment',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Custom SQL-like query (e.g., 'SELECT * FROM Item WHERE Active = true')',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

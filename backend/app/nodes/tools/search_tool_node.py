@@ -3,8 +3,8 @@ Search Tool Node - Studio Standard
 Batch 37: Tools & Utilities
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("search_tool")
 class SearchToolNode(BaseNode):
@@ -17,6 +17,44 @@ class SearchToolNode(BaseNode):
     category = "tools"
     credentials_required = ["tavily_auth", "serpapi_auth", "google_serper_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Api Key',
+            'name': 'api_key',
+            'type': 'string',
+            'default': '',
+            'description': 'API Key for chosen provider (overrides credential)',
+        },
+        {
+            'displayName': 'K',
+            'name': 'k',
+            'type': 'string',
+            'default': 4,
+            'description': 'Number of results to return',
+        },
+        {
+            'displayName': 'Provider',
+            'name': 'provider',
+            'type': 'options',
+            'default': 'DuckDuckGo',
+            'options': [
+                {'name': 'Duckduckgo', 'value': 'DuckDuckGo'},
+                {'name': 'Tavily', 'value': 'Tavily'},
+                {'name': 'Serpapi', 'value': 'SerpAPI'},
+                {'name': 'Googleserper', 'value': 'GoogleSerper'},
+            ],
+            'description': 'Search provider to use',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query',
+            'required': True,
+        },
+    ]
     inputs = {
         "query": {
             "type": "string",

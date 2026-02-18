@@ -4,8 +4,8 @@ Batch 106: Social Media
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("linkedin_node")
 class LinkedInNode(BaseNode):
@@ -17,6 +17,39 @@ class LinkedInNode(BaseNode):
     category = "social_media"
     credentials_required = ["linkedin_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_post',
+            'options': [
+                {'name': 'Create Post', 'value': 'create_post'},
+                {'name': 'Get Profile', 'value': 'get_profile'},
+            ],
+            'description': 'LinkedIn action',
+        },
+        {
+            'displayName': 'Article Url',
+            'name': 'article_url',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Author Urn',
+            'name': 'author_urn',
+            'type': 'string',
+            'default': '',
+            'description': 'URN of person or organization (e.g., urn:li:person:123)',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

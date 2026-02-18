@@ -4,8 +4,8 @@ Batch 104: Communication Essentials
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("zoom_node")
 class ZoomNode(BaseNode):
@@ -17,6 +17,48 @@ class ZoomNode(BaseNode):
     category = "communication"
     credentials_required = ["zoom_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_meeting',
+            'options': [
+                {'name': 'Create Meeting', 'value': 'create_meeting'},
+                {'name': 'List Meetings', 'value': 'list_meetings'},
+                {'name': 'Get Meeting', 'value': 'get_meeting'},
+                {'name': 'Delete Meeting', 'value': 'delete_meeting'},
+                {'name': 'List Users', 'value': 'list_users'},
+                {'name': 'Create Webinar', 'value': 'create_webinar'},
+            ],
+            'description': 'Zoom action',
+        },
+        {
+            'displayName': 'Duration',
+            'name': 'duration',
+            'type': 'string',
+            'default': 60,
+        },
+        {
+            'displayName': 'Meeting Id',
+            'name': 'meeting_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Start Time',
+            'name': 'start_time',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Topic',
+            'name': 'topic',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

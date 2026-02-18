@@ -4,8 +4,8 @@ Batch 106: Social Media
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("reddit_node")
 class RedditNode(BaseNode):
@@ -17,6 +17,53 @@ class RedditNode(BaseNode):
     category = "social_media"
     credentials_required = ["reddit_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'submit_post',
+            'options': [
+                {'name': 'Submit Post', 'value': 'submit_post'},
+                {'name': 'Get Subreddit Posts', 'value': 'get_subreddit_posts'},
+                {'name': 'Get User Info', 'value': 'get_user_info'},
+            ],
+            'description': 'Reddit action',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+            'description': 'Text body or URL',
+        },
+        {
+            'displayName': 'Kind',
+            'name': 'kind',
+            'type': 'options',
+            'default': 'self',
+            'options': [
+                {'name': 'Self', 'value': 'self'},
+                {'name': 'Link', 'value': 'link'},
+                {'name': 'Image', 'value': 'image'},
+            ],
+            'description': 'Post type (self=text)',
+        },
+        {
+            'displayName': 'Subreddit',
+            'name': 'subreddit',
+            'type': 'string',
+            'default': '',
+            'description': 'Subreddit name without r/',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

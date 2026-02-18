@@ -21,6 +21,30 @@ class GmailSendMessageNode(BaseNode):
     category = "communication"
     credentials_required = ["google_oauth"]
 
+
+    properties = [
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+            'description': 'Email content body',
+        },
+        {
+            'displayName': 'Recipient',
+            'name': 'recipient',
+            'type': 'string',
+            'default': '',
+            'description': 'Recipient email address',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+            'description': 'Email subject line',
+        },
+    ]
     inputs = {
         "recipient": {"type": "string", "description": "Recipient email address"},
         "subject": {"type": "string", "description": "Email subject line"},

@@ -4,8 +4,8 @@ Batch 62: Marketing Automation
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("brevo_node")
 class BrevoNode(BaseNode):
@@ -18,6 +18,50 @@ class BrevoNode(BaseNode):
     category = "marketing"
     credentials_required = ["brevo_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_contacts',
+            'options': [
+                {'name': 'Get Contacts', 'value': 'get_contacts'},
+                {'name': 'Create Contact', 'value': 'create_contact'},
+                {'name': 'Send Transactional Email', 'value': 'send_transactional_email'},
+                {'name': 'Get Account', 'value': 'get_account'},
+            ],
+            'description': 'Brevo action',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+            'description': 'HTML or Text content',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+            'description': 'Contact email',
+        },
+        {
+            'displayName': 'List Ids',
+            'name': 'list_ids',
+            'type': 'string',
+            'default': '',
+            'description': 'List IDs to add contact to',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+            'description': 'Email subject',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

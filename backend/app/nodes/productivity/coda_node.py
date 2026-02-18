@@ -4,8 +4,8 @@ Batch 113: Productivity & Docs
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("coda_node")
 class CodaNode(BaseNode):
@@ -17,6 +17,51 @@ class CodaNode(BaseNode):
     category = "productivity"
     credentials_required = ["coda_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_docs',
+            'options': [
+                {'name': 'List Docs', 'value': 'list_docs'},
+                {'name': 'Get Doc', 'value': 'get_doc'},
+                {'name': 'List Tables', 'value': 'list_tables'},
+                {'name': 'List Rows', 'value': 'list_rows'},
+                {'name': 'Insert Row', 'value': 'insert_row'},
+                {'name': 'Update Row', 'value': 'update_row'},
+            ],
+            'description': 'Coda action',
+        },
+        {
+            'displayName': 'Doc Id',
+            'name': 'doc_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Coda Doc ID',
+        },
+        {
+            'displayName': 'Payload',
+            'name': 'payload',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON for row data/updates',
+        },
+        {
+            'displayName': 'Row Id',
+            'name': 'row_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Table Id',
+            'name': 'table_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Table ID or Name',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 118: AI Essentials & Local Inference
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("cohere_rerank_node")
 class CohereRerankNode(BaseNode):
@@ -17,6 +17,44 @@ class CohereRerankNode(BaseNode):
     category = "processing"
     credentials_required = ["cohere_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Documents',
+            'name': 'documents',
+            'type': 'string',
+            'default': '',
+            'description': 'List of strings or objects to rerank',
+            'required': True,
+        },
+        {
+            'displayName': 'Model',
+            'name': 'model',
+            'type': 'options',
+            'default': 'rerank-english-v3.0',
+            'options': [
+                {'name': 'Rerank-English-V3.0', 'value': 'rerank-english-v3.0'},
+                {'name': 'Rerank-Multilingual-V3.0', 'value': 'rerank-multilingual-v3.0'},
+                {'name': 'Rerank-English-V2.0', 'value': 'rerank-english-v2.0'},
+                {'name': 'Rerank-Multilingual-V2.0', 'value': 'rerank-multilingual-v2.0'},
+            ],
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'The search query used to find the documents',
+            'required': True,
+        },
+        {
+            'displayName': 'Top N',
+            'name': 'top_n',
+            'type': 'string',
+            'default': 3,
+            'description': 'Number of top results to return',
+        },
+    ]
     inputs = {
         "query": {
             "type": "string",

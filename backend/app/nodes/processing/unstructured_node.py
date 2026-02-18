@@ -4,8 +4,8 @@ Batch 117: Advanced Document Processing
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("unstructured_node")
 class UnstructuredNode(BaseNode):
@@ -17,6 +17,36 @@ class UnstructuredNode(BaseNode):
     category = "processing"
     credentials_required = ["unstructured_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Api Url',
+            'name': 'api_url',
+            'type': 'string',
+            'default': 'https://api.unstructured.io/general/v0/general',
+        },
+        {
+            'displayName': 'Chunking Strategy',
+            'name': 'chunking_strategy',
+            'type': 'options',
+            'default': 'by_title',
+            'options': [
+                {'name': 'Basic', 'value': 'basic'},
+                {'name': 'By Title', 'value': 'by_title'},
+                {'name': 'By Page', 'value': 'by_page'},
+                {'name': 'By Similarity', 'value': 'by_similarity'},
+            ],
+            'description': 'Strategy for breaking down documents',
+        },
+        {
+            'displayName': 'File Path',
+            'name': 'file_path',
+            'type': 'string',
+            'default': '',
+            'description': 'Local path or URL to the document',
+            'required': True,
+        },
+    ]
     inputs = {
         "file_path": {
             "type": "string",

@@ -4,8 +4,8 @@ Batch 69: Project Collaboration
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("linear_node")
 class LinearNode(BaseNode):
@@ -17,6 +17,42 @@ class LinearNode(BaseNode):
     category = "collaboration"
     credentials_required = ["linear_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_issues',
+            'options': [
+                {'name': 'List Issues', 'value': 'list_issues'},
+                {'name': 'Create Issue', 'value': 'create_issue'},
+                {'name': 'List Teams', 'value': 'list_teams'},
+                {'name': 'Get Viewer', 'value': 'get_viewer'},
+            ],
+            'description': 'Linear action',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Team Id',
+            'name': 'team_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the team',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+            'description': 'Issue title',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

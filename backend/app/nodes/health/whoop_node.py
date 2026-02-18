@@ -4,8 +4,8 @@ Batch 81: Leisure, Health & Education
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("whoop_node")
 class WhoopNode(BaseNode):
@@ -17,6 +17,22 @@ class WhoopNode(BaseNode):
     category = "health"
     credentials_required = ["whoop_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_recovery_data',
+            'options': [
+                {'name': 'Get Recovery Data', 'value': 'get_recovery_data'},
+                {'name': 'Get Sleep Data', 'value': 'get_sleep_data'},
+                {'name': 'Get Cycle Data', 'value': 'get_cycle_data'},
+                {'name': 'Get Profile', 'value': 'get_profile'},
+            ],
+            'description': 'Whoop action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

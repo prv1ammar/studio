@@ -4,8 +4,8 @@ Batch 116: Specialized Toolkits
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("jigsawstack_node")
 class JigsawStackNode(BaseNode):
@@ -17,6 +17,39 @@ class JigsawStackNode(BaseNode):
     category = "ai"
     credentials_required = ["jigsawstack_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'ai_scrape',
+            'options': [
+                {'name': 'Ai Scrape', 'value': 'ai_scrape'},
+                {'name': 'Ai Web Search', 'value': 'ai_web_search'},
+                {'name': 'Translate', 'value': 'translate'},
+                {'name': 'Sentiment', 'value': 'sentiment'},
+                {'name': 'Object Detection', 'value': 'object_detection'},
+                {'name': 'Image Generation', 'value': 'image_generation'},
+                {'name': 'Vocr', 'value': 'vocr'},
+            ],
+            'description': 'JigsawStack service to use',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+            'description': 'Text or URL for processing',
+        },
+        {
+            'displayName': 'Url',
+            'name': 'url',
+            'type': 'string',
+            'default': '',
+            'description': 'URL for scraping or search',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

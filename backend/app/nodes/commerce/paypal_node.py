@@ -13,6 +13,28 @@ class PayPalNode(BaseNode):
     category = "integrations"
     credentials_required = ["paypal_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'create_order',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+            'description': 'Order amount or full data dict',
+        },
+        {
+            'displayName': 'Mode',
+            'name': 'mode',
+            'type': 'string',
+            'default': 'sandbox',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "enum": ["create_order", "list_payouts"], "default": "create_order"},
         "mode": {"type": "string", "enum": ["sandbox", "live"], "default": "sandbox"},

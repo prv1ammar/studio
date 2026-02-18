@@ -7,8 +7,8 @@ import json
 import asyncio
 import os
 import tempfile
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("javascript_code")
 class JavaScriptCodeNode(BaseNode):
@@ -22,6 +22,31 @@ class JavaScriptCodeNode(BaseNode):
     category = "code"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Code',
+            'name': 'code',
+            'type': 'json',
+            'default': 'const result = inputs;
+console.log(JSON.stringify(result));',
+            'description': 'JavaScript code to execute',
+        },
+        {
+            'displayName': 'Inputs',
+            'name': 'inputs',
+            'type': 'string',
+            'default': '',
+            'description': 'Input data available as 'inputs'',
+        },
+        {
+            'displayName': 'Packages',
+            'name': 'packages',
+            'type': 'string',
+            'default': '',
+            'description': 'NPM packages to simulate (not supported in simple mode yet)',
+        },
+    ]
     inputs = {
         "code": {
             "type": "code",

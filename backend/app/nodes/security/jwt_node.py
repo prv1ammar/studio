@@ -4,8 +4,8 @@ Batch 51: Security & Utilities
 """
 from typing import Any, Dict, Optional
 import time
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("jwt_node")
 class JWTNode(BaseNode):
@@ -16,6 +16,54 @@ class JWTNode(BaseNode):
     version = "1.0.0"
     category = "security"
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'sign',
+            'options': [
+                {'name': 'Sign', 'value': 'sign'},
+                {'name': 'Verify', 'value': 'verify'},
+                {'name': 'Decode Unverified', 'value': 'decode_unverified'},
+            ],
+            'description': 'JWT operation',
+        },
+        {
+            'displayName': 'Algorithm',
+            'name': 'algorithm',
+            'type': 'options',
+            'default': 'HS256',
+            'options': [
+                {'name': 'Hs256', 'value': 'HS256'},
+                {'name': 'Hs512', 'value': 'HS512'},
+            ],
+            'description': 'Signing algorithm',
+        },
+        {
+            'displayName': 'Payload',
+            'name': 'payload',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON payload to sign',
+        },
+        {
+            'displayName': 'Secret',
+            'name': 'secret',
+            'type': 'string',
+            'default': '',
+            'description': 'JWT Secret key',
+            'required': True,
+        },
+        {
+            'displayName': 'Token',
+            'name': 'token',
+            'type': 'string',
+            'default': '',
+            'description': 'JWT Token to verify/decode',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

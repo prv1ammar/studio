@@ -5,8 +5,8 @@ Batch 111: Utilities & Data Processing
 from typing import Any, Dict, Optional
 import math
 import random
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("math_node")
 class MathNode(BaseNode):
@@ -18,6 +18,47 @@ class MathNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'expression',
+            'options': [
+                {'name': 'Expression', 'value': 'expression'},
+                {'name': 'Random Number', 'value': 'random_number'},
+                {'name': 'Round', 'value': 'round'},
+                {'name': 'Min Max', 'value': 'min_max'},
+            ],
+            'description': 'Math action',
+        },
+        {
+            'displayName': 'Expression',
+            'name': 'expression',
+            'type': 'string',
+            'default': '',
+            'description': 'Python expression (safe subset)',
+        },
+        {
+            'displayName': 'Max',
+            'name': 'max',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Min',
+            'name': 'min',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Value',
+            'name': 'value',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

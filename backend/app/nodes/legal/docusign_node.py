@@ -4,8 +4,8 @@ Batch 67: Legal & Compliance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("docusign_node")
 class DocuSignNode(BaseNode):
@@ -17,6 +17,49 @@ class DocuSignNode(BaseNode):
     category = "legal"
     credentials_required = ["docusign_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_envelopes',
+            'options': [
+                {'name': 'List Envelopes', 'value': 'list_envelopes'},
+                {'name': 'Get Envelope', 'value': 'get_envelope'},
+                {'name': 'List Templates', 'value': 'list_templates'},
+                {'name': 'Create Envelope', 'value': 'create_envelope'},
+            ],
+            'description': 'DocuSign action',
+        },
+        {
+            'displayName': 'Account Id',
+            'name': 'account_id',
+            'type': 'string',
+            'default': '',
+            'description': 'DocuSign Account ID',
+            'required': True,
+        },
+        {
+            'displayName': 'Base Url',
+            'name': 'base_url',
+            'type': 'string',
+            'default': 'https://demo.docusign.net/restapi/v2.1',
+            'description': 'API Base URL (e.g. demo vs production)',
+        },
+        {
+            'displayName': 'Envelope Id',
+            'name': 'envelope_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Template Id',
+            'name': 'template_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

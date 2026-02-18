@@ -3,8 +3,8 @@ Home Assistant Control Node - Studio Standard (Universal Method)
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("homeassistant_control")
 class HomeAssistantControlNode(BaseNode):
@@ -16,6 +16,29 @@ class HomeAssistantControlNode(BaseNode):
     category = "iot"
     credentials_required = ["homeassistant_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'toggle',
+            'options': [
+                {'name': 'Turn On', 'value': 'turn_on'},
+                {'name': 'Turn Off', 'value': 'turn_off'},
+                {'name': 'Toggle', 'value': 'toggle'},
+            ],
+            'description': 'Service action to perform',
+        },
+        {
+            'displayName': 'Entity Id',
+            'name': 'entity_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Entity ID to control (e.g., switch.living_room, light.kitchen)',
+            'required': True,
+        },
+    ]
     inputs = {
         "entity_id": {
             "type": "string",

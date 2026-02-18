@@ -4,8 +4,8 @@ Batch 55: Industry Specific (Legal)
 """
 from typing import Any, Dict, Optional, List
 import os
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("legal_intelligence")
 class LegalIntelligenceNode(BaseNode):
@@ -18,6 +18,53 @@ class LegalIntelligenceNode(BaseNode):
     category = "verticals"
     credentials_required = ["legal_ai_auth"] # Maps to OpenAI/Claude/Perplexity
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'contract_analysis',
+            'options': [
+                {'name': 'Contract Analysis', 'value': 'contract_analysis'},
+                {'name': 'Compliance Audit', 'value': 'compliance_audit'},
+                {'name': 'Legal Research', 'value': 'legal_research'},
+                {'name': 'Document Drafting', 'value': 'document_drafting'},
+                {'name': 'Risk Identification', 'value': 'risk_identification'},
+            ],
+            'description': 'Specific legal action',
+        },
+        {
+            'displayName': 'Jurisdiction',
+            'name': 'jurisdiction',
+            'type': 'options',
+            'default': 'Global',
+            'options': [
+                {'name': 'Us-Federal', 'value': 'US-Federal'},
+                {'name': 'Us-State', 'value': 'US-State'},
+                {'name': 'Eu-General', 'value': 'EU-General'},
+                {'name': 'Uk', 'value': 'UK'},
+                {'name': 'Middle-East', 'value': 'Middle-East'},
+                {'name': 'Global', 'value': 'Global'},
+            ],
+            'description': 'Applicable legal jurisdiction',
+        },
+        {
+            'displayName': 'Specific Clauses',
+            'name': 'specific_clauses',
+            'type': 'string',
+            'default': '',
+            'description': 'List of specific clauses to focus on (e.g. Indemnification, Force Majeure)',
+        },
+        {
+            'displayName': 'Text Content',
+            'name': 'text_content',
+            'type': 'string',
+            'default': '',
+            'description': 'Legal document or research query',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

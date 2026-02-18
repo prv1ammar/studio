@@ -4,8 +4,8 @@ Batch 110: Developer Tools & Databases
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("gitlab_node")
 class GitLabNode(BaseNode):
@@ -17,6 +17,40 @@ class GitLabNode(BaseNode):
     category = "developer_tools"
     credentials_required = ["gitlab_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_issue',
+            'options': [
+                {'name': 'Create Issue', 'value': 'create_issue'},
+                {'name': 'List Projects', 'value': 'list_projects'},
+                {'name': 'Create Mr', 'value': 'create_mr'},
+                {'name': 'Get File', 'value': 'get_file'},
+            ],
+            'description': 'GitLab action',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Project Id',
+            'name': 'project_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -3,8 +3,8 @@ URL Loader Node - Studio Standard
 Batch 35: Document Loaders
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("url_loader")
 class URLLoaderNode(BaseNode):
@@ -17,6 +17,37 @@ class URLLoaderNode(BaseNode):
     category = "input_output"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Loader Type',
+            'name': 'loader_type',
+            'type': 'options',
+            'default': 'WebBaseLoader',
+            'options': [
+                {'name': 'Webbaseloader', 'value': 'WebBaseLoader'},
+                {'name': 'Selenium', 'value': 'Selenium'},
+                {'name': 'Firecrawl', 'value': 'Firecrawl'},
+                {'name': 'Playwright', 'value': 'Playwright'},
+            ],
+            'description': 'Method to load the URL',
+        },
+        {
+            'displayName': 'Max Depth',
+            'name': 'max_depth',
+            'type': 'string',
+            'default': 1,
+            'description': 'Maximum depth for crawling (Firecrawl only)',
+        },
+        {
+            'displayName': 'Url',
+            'name': 'url',
+            'type': 'string',
+            'default': '',
+            'description': 'URL to scrape',
+            'required': True,
+        },
+    ]
     inputs = {
         "url": {
             "type": "string",

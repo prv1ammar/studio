@@ -4,8 +4,8 @@ Batch 76: Gaming & Meta
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("twitch_node")
 class TwitchNode(BaseNode):
@@ -17,6 +17,36 @@ class TwitchNode(BaseNode):
     category = "gaming"
     credentials_required = ["twitch_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_streams',
+            'options': [
+                {'name': 'Get Streams', 'value': 'get_streams'},
+                {'name': 'Get Channel Info', 'value': 'get_channel_info'},
+                {'name': 'Get Clips', 'value': 'get_clips'},
+                {'name': 'Search Channels', 'value': 'search_channels'},
+            ],
+            'description': 'Twitch action',
+        },
+        {
+            'displayName': 'Broadcaster Id',
+            'name': 'broadcaster_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the broadcaster',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query or channel name',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

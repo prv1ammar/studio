@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional, List
 import aiohttp
 import base64
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("confluence_node")
 class ConfluenceNode(BaseNode):
@@ -20,6 +20,59 @@ class ConfluenceNode(BaseNode):
     category = "knowledge"
     credentials_required = ["confluence_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_page',
+            'options': [
+                {'name': 'Get Page', 'value': 'get_page'},
+                {'name': 'Create Page', 'value': 'create_page'},
+                {'name': 'List Spaces', 'value': 'list_spaces'},
+                {'name': 'Search Content', 'value': 'search_content'},
+                {'name': 'Add Comment', 'value': 'add_comment'},
+            ],
+            'description': 'Confluence action',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+            'description': 'Page body (XHTML/Storage format)',
+        },
+        {
+            'displayName': 'Domain',
+            'name': 'domain',
+            'type': 'string',
+            'default': '',
+            'description': 'Atlassian Cloud Domain (e.g. company.atlassian.net)',
+            'required': True,
+        },
+        {
+            'displayName': 'Page Id',
+            'name': 'page_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the specific page',
+        },
+        {
+            'displayName': 'Space Key',
+            'name': 'space_key',
+            'type': 'string',
+            'default': '',
+            'description': 'Space key (e.g. 'DEV')',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+            'description': 'Page or comment title',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

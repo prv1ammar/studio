@@ -5,8 +5,8 @@ Batch 40: Productivity Integrations
 from typing import Any, Dict, Optional, List
 import base64
 from email.message import EmailMessage
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("gmail_node")
 class GmailNode(BaseNode):
@@ -20,6 +20,56 @@ class GmailNode(BaseNode):
     category = "productivity"
     credentials_required = ["google_oauth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'read_emails',
+            'options': [
+                {'name': 'Read Emails', 'value': 'read_emails'},
+                {'name': 'Send Email', 'value': 'send_email'},
+                {'name': 'Create Draft', 'value': 'create_draft'},
+            ],
+            'description': 'Action to perform',
+        },
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+            'description': 'Email body content',
+        },
+        {
+            'displayName': 'Max Results',
+            'name': 'max_results',
+            'type': 'string',
+            'default': 5,
+            'description': 'Max emails to retrieve',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query for reading emails (e.g., 'is:unread')',
+        },
+        {
+            'displayName': 'Recipient',
+            'name': 'recipient',
+            'type': 'string',
+            'default': '',
+            'description': 'Recipient email address',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+            'description': 'Email subject',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -5,8 +5,8 @@ Batch 53: Advanced AI (Visual & Generative)
 from typing import Any, Dict, Optional, List
 import aiohttp
 import asyncio
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("leonardo_ai")
 class LeonardoAINode(BaseNode):
@@ -18,6 +18,57 @@ class LeonardoAINode(BaseNode):
     category = "media"
     credentials_required = ["leonardo_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'generate',
+            'options': [
+                {'name': 'Generate', 'value': 'generate'},
+                {'name': 'Upscale', 'value': 'upscale'},
+                {'name': 'Inpainting', 'value': 'inpainting'},
+                {'name': 'Motion', 'value': 'motion'},
+            ],
+            'description': 'Leonardo AI action',
+        },
+        {
+            'displayName': 'Image Url',
+            'name': 'image_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Source image for inpainting, motion, or upscaling',
+        },
+        {
+            'displayName': 'Mask Url',
+            'name': 'mask_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Mask image for inpainting',
+        },
+        {
+            'displayName': 'Model Id',
+            'name': 'model_id',
+            'type': 'string',
+            'default': '6bef9f11-99ad-4fd8-bccb-483927653cb2',
+            'description': 'Specific model UID',
+        },
+        {
+            'displayName': 'Prompt',
+            'name': 'prompt',
+            'type': 'string',
+            'default': '',
+            'description': 'Image description',
+            'required': True,
+        },
+        {
+            'displayName': 'Wait For Completion',
+            'name': 'wait_for_completion',
+            'type': 'boolean',
+            'default': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

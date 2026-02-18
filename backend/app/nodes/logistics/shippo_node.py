@@ -4,8 +4,8 @@ Batch 65: Logistics & Shipping
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("shippo_node")
 class ShippoNode(BaseNode):
@@ -17,6 +17,22 @@ class ShippoNode(BaseNode):
     category = "logistics"
     credentials_required = ["shippo_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_shipments',
+            'options': [
+                {'name': 'List Shipments', 'value': 'list_shipments'},
+                {'name': 'Create Shipment', 'value': 'create_shipment'},
+                {'name': 'Get Rates', 'value': 'get_rates'},
+                {'name': 'Create Label', 'value': 'create_label'},
+            ],
+            'description': 'Shippo action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 76: Gaming & Meta
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("steam_node")
 class SteamNode(BaseNode):
@@ -17,6 +17,36 @@ class SteamNode(BaseNode):
     category = "gaming"
     credentials_required = ["steam_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_player_summary',
+            'options': [
+                {'name': 'Get Player Summary', 'value': 'get_player_summary'},
+                {'name': 'List Games', 'value': 'list_games'},
+                {'name': 'Get Achievements', 'value': 'get_achievements'},
+                {'name': 'Search User', 'value': 'search_user'},
+            ],
+            'description': 'Steam action',
+        },
+        {
+            'displayName': 'App Id',
+            'name': 'app_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the game/app',
+        },
+        {
+            'displayName': 'Steam Id',
+            'name': 'steam_id',
+            'type': 'string',
+            'default': '',
+            'description': '64-bit Steam community ID',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

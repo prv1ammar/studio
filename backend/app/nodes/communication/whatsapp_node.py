@@ -5,8 +5,8 @@ Batch 46: Communication & Marketing
 from typing import Any, Dict, Optional
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("whatsapp_meta")
 class WhatsAppMetaNode(BaseNode):
@@ -19,6 +19,46 @@ class WhatsAppMetaNode(BaseNode):
     category = "communication"
     credentials_required = ["whatsapp_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Language Code',
+            'name': 'language_code',
+            'type': 'string',
+            'default': 'en_US',
+            'description': 'Template language code',
+        },
+        {
+            'displayName': 'Message',
+            'name': 'message',
+            'type': 'string',
+            'default': '',
+            'description': 'Message body for direct text',
+        },
+        {
+            'displayName': 'Phone Number Id',
+            'name': 'phone_number_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Meta Phone Number ID',
+            'required': True,
+        },
+        {
+            'displayName': 'Template Name',
+            'name': 'template_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Meta Template Name',
+        },
+        {
+            'displayName': 'To',
+            'name': 'to',
+            'type': 'string',
+            'default': '',
+            'description': 'Recipient phone number (with country code, no +)',
+            'required': True,
+        },
+    ]
     inputs = {
         "phone_number_id": {
             "type": "string",

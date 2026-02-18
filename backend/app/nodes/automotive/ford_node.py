@@ -4,8 +4,8 @@ Batch 88: Automotive & Fleet
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("ford_node")
 class FordNode(BaseNode):
@@ -17,6 +17,30 @@ class FordNode(BaseNode):
     category = "automotive"
     credentials_required = ["ford_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_vehicle_status',
+            'options': [
+                {'name': 'Get Vehicle Status', 'value': 'get_vehicle_status'},
+                {'name': 'Get Vehicle Location', 'value': 'get_vehicle_location'},
+                {'name': 'Lock Vehicle', 'value': 'lock_vehicle'},
+                {'name': 'Unlock Vehicle', 'value': 'unlock_vehicle'},
+            ],
+            'description': 'Ford action',
+        },
+        {
+            'displayName': 'Vin',
+            'name': 'vin',
+            'type': 'string',
+            'default': '',
+            'description': 'Vehicle Identification Number',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

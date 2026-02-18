@@ -3,8 +3,8 @@ Cassandra Node - Studio Standard (Universal Method)
 Batch 113: Intelligent Infrastructure & IoT
 """
 from typing import Any, Dict, Optional
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("cassandra_node")
 class CassandraNode(BaseNode):
@@ -16,6 +16,23 @@ class CassandraNode(BaseNode):
     category = "database"
     credentials_required = ["cassandra_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Keyspace',
+            'name': 'keyspace',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'CQL query to execute',
+            'required': True,
+        },
+    ]
     inputs = {
         "query": {
             "type": "string",

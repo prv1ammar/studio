@@ -5,8 +5,8 @@ Batch 64: HR & Recruiting
 from typing import Any, Dict, Optional, List
 import aiohttp
 import base64
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("greenhouse_node")
 class GreenhouseNode(BaseNode):
@@ -18,6 +18,35 @@ class GreenhouseNode(BaseNode):
     category = "hr"
     credentials_required = ["greenhouse_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_candidates',
+            'options': [
+                {'name': 'List Candidates', 'value': 'list_candidates'},
+                {'name': 'Get Candidate', 'value': 'get_candidate'},
+                {'name': 'List Jobs', 'value': 'list_jobs'},
+                {'name': 'List Applications', 'value': 'list_applications'},
+            ],
+            'description': 'Greenhouse action to perform',
+        },
+        {
+            'displayName': 'Candidate Id',
+            'name': 'candidate_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the candidate',
+        },
+        {
+            'displayName': 'Per Page',
+            'name': 'per_page',
+            'type': 'string',
+            'default': 100,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

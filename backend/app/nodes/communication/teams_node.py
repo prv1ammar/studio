@@ -4,8 +4,8 @@ Batch 89: Core Workflow Nodes
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("teams_node")
 class TeamsNode(BaseNode):
@@ -17,6 +17,40 @@ class TeamsNode(BaseNode):
     category = "communication"
     credentials_required = ["teams_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'send_message',
+            'options': [
+                {'name': 'Send Message', 'value': 'send_message'},
+                {'name': 'List Channels', 'value': 'list_channels'},
+                {'name': 'List Teams', 'value': 'list_teams'},
+                {'name': 'Create Channel', 'value': 'create_channel'},
+            ],
+            'description': 'Teams action',
+        },
+        {
+            'displayName': 'Channel Id',
+            'name': 'channel_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Message',
+            'name': 'message',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Team Id',
+            'name': 'team_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

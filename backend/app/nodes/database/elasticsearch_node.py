@@ -4,8 +4,8 @@ Batch 113: Intelligent Infrastructure & IoT
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("elasticsearch_node")
 class ElasticsearchNode(BaseNode):
@@ -17,6 +17,51 @@ class ElasticsearchNode(BaseNode):
     category = "database"
     credentials_required = ["elasticsearch_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search',
+            'options': [
+                {'name': 'Search', 'value': 'search'},
+                {'name': 'Index Document', 'value': 'index_document'},
+                {'name': 'Get Document', 'value': 'get_document'},
+                {'name': 'Delete Document', 'value': 'delete_document'},
+                {'name': 'List Indices', 'value': 'list_indices'},
+            ],
+            'description': 'Elasticsearch action to perform',
+        },
+        {
+            'displayName': 'Document',
+            'name': 'document',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON document to index',
+        },
+        {
+            'displayName': 'Document Id',
+            'name': 'document_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Index Name',
+            'name': 'index_name',
+            'type': 'string',
+            'default': '',
+            'description': 'The index name',
+            'required': True,
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON search query or Search string',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

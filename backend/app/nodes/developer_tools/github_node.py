@@ -4,8 +4,8 @@ Batch 110: Developer Tools & Databases
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("github_node")
 class GitHubNode(BaseNode):
@@ -17,6 +17,46 @@ class GitHubNode(BaseNode):
     category = "developer_tools"
     credentials_required = ["github_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_issue',
+            'options': [
+                {'name': 'Create Issue', 'value': 'create_issue'},
+                {'name': 'List Issues', 'value': 'list_issues'},
+                {'name': 'Create Pr', 'value': 'create_pr'},
+                {'name': 'List Repos', 'value': 'list_repos'},
+            ],
+            'description': 'GitHub action',
+        },
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Owner',
+            'name': 'owner',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Repo',
+            'name': 'repo',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

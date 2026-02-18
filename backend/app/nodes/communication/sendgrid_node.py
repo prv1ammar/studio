@@ -4,8 +4,8 @@ Batch 104: Communication Essentials
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("sendgrid_node")
 class SendGridNode(BaseNode):
@@ -17,6 +17,61 @@ class SendGridNode(BaseNode):
     category = "communication"
     credentials_required = ["sendgrid_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'send_email',
+            'options': [
+                {'name': 'Send Email', 'value': 'send_email'},
+                {'name': 'Send Template', 'value': 'send_template'},
+                {'name': 'Add Contact', 'value': 'add_contact'},
+                {'name': 'List Contacts', 'value': 'list_contacts'},
+                {'name': 'Create List', 'value': 'create_list'},
+                {'name': 'Get Stats', 'value': 'get_stats'},
+            ],
+            'description': 'SendGrid action',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Dynamic Data',
+            'name': 'dynamic_data',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON for template variables',
+        },
+        {
+            'displayName': 'From Email',
+            'name': 'from_email',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Template Id',
+            'name': 'template_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'To Email',
+            'name': 'to_email',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

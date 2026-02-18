@@ -4,8 +4,8 @@ Batch 107: Cloud Storage
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("azure_blob_storage_node")
 class AzureBlobStorageNode(BaseNode):
@@ -17,6 +17,39 @@ class AzureBlobStorageNode(BaseNode):
     category = "storage"
     credentials_required = ["azure_storage_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'upload_blob',
+            'options': [
+                {'name': 'Upload Blob', 'value': 'upload_blob'},
+                {'name': 'List Containers', 'value': 'list_containers'},
+                {'name': 'Download Blob', 'value': 'download_blob'},
+            ],
+            'description': 'Azure Blob action',
+        },
+        {
+            'displayName': 'Blob Name',
+            'name': 'blob_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Container Name',
+            'name': 'container_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'File Content',
+            'name': 'file_content',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 61: Identity & Security
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("clerk_node")
 class ClerkNode(BaseNode):
@@ -18,6 +18,28 @@ class ClerkNode(BaseNode):
     category = "security"
     credentials_required = ["clerk_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_users',
+            'options': [
+                {'name': 'List Users', 'value': 'list_users'},
+                {'name': 'Get User', 'value': 'get_user'},
+                {'name': 'List Organizations', 'value': 'list_organizations'},
+                {'name': 'List Sessions', 'value': 'list_sessions'},
+            ],
+            'description': 'Clerk action',
+        },
+        {
+            'displayName': 'User Id',
+            'name': 'user_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

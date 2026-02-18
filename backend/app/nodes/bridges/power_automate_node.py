@@ -4,8 +4,8 @@ Batch 101: Automation Bridges (Interoperability)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("power_automate_node")
 class PowerAutomateNode(BaseNode):
@@ -17,6 +17,25 @@ class PowerAutomateNode(BaseNode):
     category = "bridges"
     credentials_required = [] # URL usually contains the SAS token
 
+
+    properties = [
+        {
+            'displayName': 'Payload',
+            'name': 'payload',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON payload',
+            'required': True,
+        },
+        {
+            'displayName': 'Webhook Url',
+            'name': 'webhook_url',
+            'type': 'string',
+            'default': '',
+            'description': 'The HTTP POST URL from Power Automate Flow',
+            'required': True,
+        },
+    ]
     inputs = {
         "webhook_url": {
             "type": "string",

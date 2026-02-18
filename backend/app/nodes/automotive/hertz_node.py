@@ -4,8 +4,8 @@ Batch 88: Automotive & Fleet
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("hertz_node")
 class HertzNode(BaseNode):
@@ -17,6 +17,28 @@ class HertzNode(BaseNode):
     category = "automotive"
     credentials_required = ["hertz_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_vehicles',
+            'options': [
+                {'name': 'Search Vehicles', 'value': 'search_vehicles'},
+                {'name': 'Get Reservation', 'value': 'get_reservation'},
+                {'name': 'Create Reservation', 'value': 'create_reservation'},
+                {'name': 'Cancel Reservation', 'value': 'cancel_reservation'},
+            ],
+            'description': 'Hertz action',
+        },
+        {
+            'displayName': 'Location',
+            'name': 'location',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

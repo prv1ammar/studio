@@ -3,8 +3,8 @@ Algolia Search Node - Studio Standard
 Batch 56: Enterprise Search & Discovery
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 import aiohttp
 import json
 
@@ -19,6 +19,58 @@ class AlgoliaNode(BaseNode):
     category = "search"
     credentials_required = ["algolia_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search',
+            'options': [
+                {'name': 'Search', 'value': 'search'},
+                {'name': 'Add Object', 'value': 'add_object'},
+                {'name': 'Delete Object', 'value': 'delete_object'},
+                {'name': 'List Indices', 'value': 'list_indices'},
+            ],
+            'description': 'Algolia action',
+        },
+        {
+            'displayName': 'App Id',
+            'name': 'app_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Algolia Application ID',
+            'required': True,
+        },
+        {
+            'displayName': 'Hits Per Page',
+            'name': 'hits_per_page',
+            'type': 'string',
+            'default': 10,
+        },
+        {
+            'displayName': 'Index Name',
+            'name': 'index_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Index to operate on',
+            'required': True,
+        },
+        {
+            'displayName': 'Object',
+            'name': 'object',
+            'type': 'string',
+            'default': '',
+            'description': 'Object to index',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search term',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

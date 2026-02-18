@@ -4,8 +4,8 @@ Batch 105: Productivity Suite
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # ============================================
 # MICROSOFT OUTLOOK NODE
@@ -20,6 +20,54 @@ class MicrosoftOutlookNode(BaseNode):
     category = "productivity"
     credentials_required = ["microsoft_graph_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'send_email',
+            'options': [
+                {'name': 'Send Email', 'value': 'send_email'},
+                {'name': 'Create Event', 'value': 'create_event'},
+                {'name': 'List Events', 'value': 'list_events'},
+                {'name': 'List Messages', 'value': 'list_messages'},
+                {'name': 'List Contacts', 'value': 'list_contacts'},
+            ],
+            'description': 'Outlook action',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'End Time',
+            'name': 'end_time',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Start Time',
+            'name': 'start_time',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'To Recipients',
+            'name': 'to_recipients',
+            'type': 'string',
+            'default': '',
+            'description': 'Comma separated emails',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

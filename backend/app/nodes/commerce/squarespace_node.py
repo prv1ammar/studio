@@ -4,8 +4,8 @@ Batch 86: E-commerce Core
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("squarespace_node")
 class SquarespaceNode(BaseNode):
@@ -17,6 +17,21 @@ class SquarespaceNode(BaseNode):
     category = "commerce"
     credentials_required = ["squarespace_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_orders',
+            'options': [
+                {'name': 'List Orders', 'value': 'list_orders'},
+                {'name': 'List Inventory', 'value': 'list_inventory'},
+                {'name': 'List Transactions', 'value': 'list_transactions'},
+            ],
+            'description': 'Squarespace action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

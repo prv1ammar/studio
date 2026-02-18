@@ -1,0 +1,1092 @@
+Pre-scan registry size: 0
+DEBUG: NodeRegistry scan starting...
+DEBUG: nodes_dir=C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\nodes, package_root=C:\Users\info\Downloads\studio-V3.0.0-main\backend
+DEBUG: agents_path=C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\agents
+DEBUG: Importing app.nodes.factory
+DEBUG: Importing app.nodes.generic_node
+DEBUG: Importing app.nodes.private_registry
+DEBUG: Importing app.nodes.ai.anthropic_chat_node
+DEBUG: Import error for app.nodes.ai.anthropic_chat_node: No module named 'app.base'
+DEBUG: Importing app.nodes.ai.cohere_chat_node
+DEBUG: Import error for app.nodes.ai.cohere_chat_node: No module named 'app.base'
+DEBUG: Importing app.nodes.ai.gemini_chat_node
+DEBUG: Import error for app.nodes.ai.gemini_chat_node: No module named 'app.base'
+DEBUG: Importing app.nodes.ai.huggingface_inference_node
+DEBUG: Import error for app.nodes.ai.huggingface_inference_node: No module named 'app.base'
+DEBUG: Importing app.nodes.ai.huggingface_node
+DEBUG: Import error for app.nodes.ai.huggingface_node: No module named 'app.base'
+DEBUG: Importing app.nodes.ai.jigsawstack_node
+DEBUG: Import error for app.nodes.ai.jigsawstack_node: No module named 'app.base'
+DEBUG: Importing app.nodes.ai.lmstudio_node
+DEBUG: Import error for app.nodes.ai.lmstudio_node: No module named 'app.base'
+DEBUG: Importing app.nodes.ai.ollama_node
+DEBUG: Import error for app.nodes.ai.ollama_node: No module named 'app.base'
+DEBUG: Importing app.nodes.ai.openai_chat_node
+DEBUG: Import error for app.nodes.ai.openai_chat_node: No module named 'app.base'
+DEBUG: Importing app.nodes.ai.perplexity_node
+DEBUG: Import error for app.nodes.ai.perplexity_node: No module named 'app.base'
+DEBUG: Importing app.nodes.amazon.amazon_bedrock_converse
+DEBUG: Error processing app.nodes.amazon.amazon_bedrock_converse: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.amazon.amazon_bedrock_embedding
+DEBUG: Error processing app.nodes.amazon.amazon_bedrock_embedding: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.amazon.amazon_bedrock_model
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\sqlmodel\main.py:682: SAWarning: This declarative base already contains a class with the same class name and module name as langflow.services.database.models.api_key.model.ApiKey, and will be replaced in the string-lookup table.
+  DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
+DEBUG: Error processing app.nodes.amazon.amazon_bedrock_model: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.amazon.aws_node
+DEBUG: Importing app.nodes.amazon.bedrock_converse_node
+DEBUG: Import error for app.nodes.amazon.bedrock_converse_node: No module named 'app.base'
+DEBUG: Importing app.nodes.amazon.bedrock_embeddings_node
+DEBUG: Import error for app.nodes.amazon.bedrock_embeddings_node: No module named 'app.base'
+DEBUG: Importing app.nodes.amazon.s3_bucket_uploader
+DEBUG: Error processing app.nodes.amazon.s3_bucket_uploader: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.analytics.amplitude_node
+DEBUG: Import error for app.nodes.analytics.amplitude_node: No module named 'app.base'
+DEBUG: Importing app.nodes.analytics.analytics_node
+DEBUG: Importing app.nodes.analytics.drift_node
+DEBUG: Import error for app.nodes.analytics.drift_node: No module named 'app.base'
+DEBUG: Importing app.nodes.analytics.fathom_node
+DEBUG: Import error for app.nodes.analytics.fathom_node: No module named 'app.base'
+DEBUG: Importing app.nodes.analytics.google_analytics_node
+DEBUG: Import error for app.nodes.analytics.google_analytics_node: No module named 'app.base'
+DEBUG: Importing app.nodes.analytics.heap_node
+DEBUG: Import error for app.nodes.analytics.heap_node: No module named 'app.base'
+DEBUG: Importing app.nodes.analytics.hotjar_node
+DEBUG: Import error for app.nodes.analytics.hotjar_node: No module named 'app.base'
+DEBUG: Importing app.nodes.analytics.mixpanel_node
+DEBUG: Import error for app.nodes.analytics.mixpanel_node: No module named 'app.base'
+DEBUG: Importing app.nodes.analytics.posthog_node
+DEBUG: Import error for app.nodes.analytics.posthog_node: No module named 'app.base'
+DEBUG: Importing app.nodes.analytics.segment_node
+DEBUG: Import error for app.nodes.analytics.segment_node: No module named 'app.base'
+DEBUG: Importing app.nodes.analytics.sentry_node
+DEBUG: Import error for app.nodes.analytics.sentry_node: No module named 'app.base'
+DEBUG: Importing app.nodes.anthropic.anthropic
+DEBUG: Error processing app.nodes.anthropic.anthropic: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.anthropic.anthropic_model_node
+DEBUG: Import error for app.nodes.anthropic.anthropic_model_node: No module named 'app.base'
+DEBUG: Importing app.nodes.assemblyai.assemblyai_get_subtitles
+DEBUG: Import error for app.nodes.assemblyai.assemblyai_get_subtitles: No module named 'assemblyai'
+DEBUG: Importing app.nodes.assemblyai.assemblyai_lemur
+DEBUG: Import error for app.nodes.assemblyai.assemblyai_lemur: No module named 'assemblyai'
+DEBUG: Importing app.nodes.assemblyai.assemblyai_list_transcripts
+DEBUG: Import error for app.nodes.assemblyai.assemblyai_list_transcripts: No module named 'assemblyai'
+DEBUG: Importing app.nodes.assemblyai.assemblyai_poll_transcript
+DEBUG: Import error for app.nodes.assemblyai.assemblyai_poll_transcript: No module named 'assemblyai'
+DEBUG: Importing app.nodes.assemblyai.assemblyai_start_transcript
+DEBUG: Import error for app.nodes.assemblyai.assemblyai_start_transcript: No module named 'assemblyai'
+DEBUG: Importing app.nodes.automotive.avis_node
+DEBUG: Import error for app.nodes.automotive.avis_node: No module named 'app.base'
+DEBUG: Importing app.nodes.automotive.budget_node
+DEBUG: Import error for app.nodes.automotive.budget_node: No module named 'app.base'
+DEBUG: Importing app.nodes.automotive.ford_node
+DEBUG: Import error for app.nodes.automotive.ford_node: No module named 'app.base'
+DEBUG: Importing app.nodes.automotive.hertz_node
+DEBUG: Import error for app.nodes.automotive.hertz_node: No module named 'app.base'
+DEBUG: Importing app.nodes.automotive.tesla_node
+DEBUG: Import error for app.nodes.automotive.tesla_node: No module named 'app.base'
+DEBUG: Importing app.nodes.bridges.ifttt_node
+DEBUG: Import error for app.nodes.bridges.ifttt_node: No module named 'app.base'
+DEBUG: Importing app.nodes.bridges.make_node
+DEBUG: Import error for app.nodes.bridges.make_node: No module named 'app.base'
+DEBUG: Importing app.nodes.bridges.power_automate_node
+DEBUG: Import error for app.nodes.bridges.power_automate_node: No module named 'app.base'
+DEBUG: Importing app.nodes.bridges.workato_node
+DEBUG: Import error for app.nodes.bridges.workato_node: No module named 'app.base'
+DEBUG: Importing app.nodes.bridges.zapier_nla_node
+DEBUG: Import error for app.nodes.bridges.zapier_nla_node: No module named 'app.base'
+DEBUG: Importing app.nodes.cms.ghost_node
+DEBUG: Import error for app.nodes.cms.ghost_node: No module named 'app.base'
+DEBUG: Importing app.nodes.cms.sanity_node
+DEBUG: Import error for app.nodes.cms.sanity_node: No module named 'app.base'
+DEBUG: Importing app.nodes.cms.webflow_node
+DEBUG: Import error for app.nodes.cms.webflow_node: No module named 'app.base'
+DEBUG: Importing app.nodes.cms.wordpress_node
+DEBUG: Importing app.nodes.code.javascript_code_node
+DEBUG: Import error for app.nodes.code.javascript_code_node: No module named 'app.base'
+DEBUG: Importing app.nodes.codethon_code_node
+DEBUG: Import error for app.nodes.codethon_code_node: No module named 'app.nodes.codethon_code_node'
+DEBUG: Importing app.nodes.code.shell_command_node
+DEBUG: Import error for app.nodes.code.shell_command_node: No module named 'app.base'
+DEBUG: Importing app.nodes.cohere.cohere_embeddings
+DEBUG: Import error for app.nodes.cohere.cohere_embeddings: No module named 'cohere'
+DEBUG: Importing app.nodes.cohere.cohere_embeddings_node
+DEBUG: Import error for app.nodes.cohere.cohere_embeddings_node: No module named 'app.base'
+DEBUG: Importing app.nodes.cohere.cohere_models
+DEBUG: Import error for app.nodes.cohere.cohere_models: No module named 'langchain_cohere'
+DEBUG: Importing app.nodes.cohere.cohere_rerank
+DEBUG: Error processing app.nodes.cohere.cohere_rerank: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.collaboration.asana_node
+DEBUG: Import error for app.nodes.collaboration.asana_node: No module named 'app.base'
+DEBUG: Importing app.nodes.collaboration.clickup_node
+DEBUG: Import error for app.nodes.collaboration.clickup_node: No module named 'app.base'
+DEBUG: Importing app.nodes.collaboration.linear_node
+DEBUG: Import error for app.nodes.collaboration.linear_node: No module named 'app.base'
+DEBUG: Importing app.nodes.collaboration.monday_node
+DEBUG: Import error for app.nodes.collaboration.monday_node: No module named 'app.base'
+DEBUG: Importing app.nodes.commerce.bigcommerce_node
+DEBUG: Import error for app.nodes.commerce.bigcommerce_node: No module named 'app.base'
+DEBUG: Importing app.nodes.commerce.lemonsqueezy_node
+DEBUG: Import error for app.nodes.commerce.lemonsqueezy_node: No module named 'app.base'
+DEBUG: Importing app.nodes.commerce.magento_node
+DEBUG: Import error for app.nodes.commerce.magento_node: No module named 'app.base'
+DEBUG: Importing app.nodes.commerce.paypal_node
+DEBUG: Importing app.nodes.commerce.shopify_node
+DEBUG: Import error for app.nodes.commerce.shopify_node: No module named 'app.base'
+DEBUG: Importing app.nodes.commerce.squarespace_node
+DEBUG: Import error for app.nodes.commerce.squarespace_node: No module named 'app.base'
+DEBUG: Importing app.nodes.commerce.square_node
+DEBUG: Import error for app.nodes.commerce.square_node: No module named 'app.base'
+DEBUG: Importing app.nodes.commerce.stripe_node
+DEBUG: Import error for app.nodes.commerce.stripe_node: No module named 'stripe'
+DEBUG: Importing app.nodes.commerce.wix_node
+DEBUG: Import error for app.nodes.commerce.wix_node: No module named 'app.base'
+DEBUG: Importing app.nodes.commerce.woocommerce_node
+DEBUG: Import error for app.nodes.commerce.woocommerce_node: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.aws_ses_node
+DEBUG: Import error for app.nodes.communication.aws_ses_node: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.discord_node
+DEBUG: Importing app.nodes.communication.email_services_batch
+DEBUG: Import error for app.nodes.communication.email_services_batch: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.mailchimp_node
+DEBUG: Import error for app.nodes.communication.mailchimp_node: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.mattermost_node
+DEBUG: Import error for app.nodes.communication.mattermost_node: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.microsoft_teams_node
+DEBUG: Import error for app.nodes.communication.microsoft_teams_node: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.outlook_node
+DEBUG: Import error for app.nodes.communication.outlook_node: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.sendgrid_node
+DEBUG: Import error for app.nodes.communication.sendgrid_node: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.slack_node
+DEBUG: Import error for app.nodes.communication.slack_node: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.smtp_node
+DEBUG: Importing app.nodes.communication.teams_node
+DEBUG: Import error for app.nodes.communication.teams_node: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.telegram_node
+DEBUG: Importing app.nodes.communication.twilio_node
+DEBUG: Import error for app.nodes.communication.twilio_node: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.whatsapp_node
+DEBUG: Import error for app.nodes.communication.whatsapp_node: No module named 'app.base'
+DEBUG: Importing app.nodes.communication.zoom_node
+DEBUG: Import error for app.nodes.communication.zoom_node: No module named 'app.base'
+DEBUG: Importing app.nodes.core.file_nodes
+DEBUG: Importing app.nodes.core.memory_node
+DEBUG: Importing app.nodes.core.webhook_node
+DEBUG: Importing app.nodes.core.chat_input.chat_input_node
+DEBUG: Importing app.nodes.core.chat_output.chat_output_node
+DEBUG: Importing app.nodes.database.airtable_node
+DEBUG: Import error for app.nodes.database.airtable_node: No module named 'app.base'
+DEBUG: Importing app.nodes.database.cassandra_node
+DEBUG: Import error for app.nodes.database.cassandra_node: No module named 'app.base'
+DEBUG: Importing app.nodes.database.clickhouse_node
+DEBUG: Import error for app.nodes.database.clickhouse_node: No module named 'app.base'
+DEBUG: Importing app.nodes.database.elasticsearch_node
+DEBUG: Import error for app.nodes.database.elasticsearch_node: No module named 'app.base'
+DEBUG: Importing app.nodes.database.google_bigquery_node
+DEBUG: Import error for app.nodes.database.google_bigquery_node: No module named 'app.base'
+DEBUG: Importing app.nodes.database.mongodb_node
+DEBUG: Import error for app.nodes.database.mongodb_node: No module named 'app.base'
+DEBUG: Importing app.nodes.database.mysql_node
+DEBUG: Import error for app.nodes.database.mysql_node: No module named 'app.base'
+DEBUG: Importing app.nodes.database.postgresql_node
+DEBUG: Import error for app.nodes.database.postgresql_node: No module named 'app.base'
+DEBUG: Importing app.nodes.database.postgres_node
+DEBUG: Import error for app.nodes.database.postgres_node: No module named 'app.base'
+DEBUG: Importing app.nodes.database.redis_node
+DEBUG: Import error for app.nodes.database.redis_node: No module named 'app.base'
+DEBUG: Importing app.nodes.database.snowflake_node
+DEBUG: Import error for app.nodes.database.snowflake_node: No module named 'snowflake'
+DEBUG: Importing app.nodes.database.sql_node
+DEBUG: Import error for app.nodes.database.sql_node: No module named 'app.base'
+DEBUG: Importing app.nodes.database.supabase_node
+DEBUG: Import error for app.nodes.database.supabase_node: No module named 'app.base'
+DEBUG: Importing app.nodes.data_source.api_request
+DEBUG: Error processing app.nodes.data_source.api_request: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.csv_to_data
+DEBUG: Error processing app.nodes.data_source.csv_to_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.json_to_data
+DEBUG: Import error for app.nodes.data_source.json_to_data: No module named 'json_repair'
+DEBUG: Importing app.nodes.data_source.mock_data
+DEBUG: Error processing app.nodes.data_source.mock_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.news_search
+DEBUG: Error processing app.nodes.data_source.news_search: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.rss
+DEBUG: Error processing app.nodes.data_source.rss: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.sql_executor
+DEBUG: Error processing app.nodes.data_source.sql_executor: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.url
+DEBUG: Error processing app.nodes.data_source.url: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.web_search
+DEBUG: Error processing app.nodes.data_source.web_search: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.developer_tools.aws_lambda_node
+DEBUG: Import error for app.nodes.developer_tools.aws_lambda_node: No module named 'app.base'
+DEBUG: Importing app.nodes.developer_tools.bitbucket_node
+DEBUG: Import error for app.nodes.developer_tools.bitbucket_node: No module named 'app.base'
+DEBUG: Importing app.nodes.developer_tools.circleci_node
+DEBUG: Import error for app.nodes.developer_tools.circleci_node: No module named 'app.base'
+DEBUG: Importing app.nodes.developer_tools.docker_node
+DEBUG: Import error for app.nodes.developer_tools.docker_node: No module named 'app.base'
+DEBUG: Importing app.nodes.developer_tools.github_node
+DEBUG: Import error for app.nodes.developer_tools.github_node: No module named 'app.base'
+DEBUG: Importing app.nodes.developer_tools.gitlab_node
+DEBUG: Import error for app.nodes.developer_tools.gitlab_node: No module named 'app.base'
+DEBUG: Importing app.nodes.developer_tools.jenkins_node
+DEBUG: Import error for app.nodes.developer_tools.jenkins_node: No module named 'app.base'
+DEBUG: Importing app.nodes.developer_tools.jira_node
+DEBUG: Import error for app.nodes.developer_tools.jira_node: No module named 'app.base'
+DEBUG: Importing app.nodes.devops.ansible_node
+DEBUG: Import error for app.nodes.devops.ansible_node: No module named 'app.base'
+DEBUG: Importing app.nodes.devops.confluence_node
+DEBUG: Import error for app.nodes.devops.confluence_node: No module named 'app.base'
+DEBUG: Importing app.nodes.devops.github_node
+DEBUG: Import error for app.nodes.devops.github_node: No module named 'app.base'
+DEBUG: Importing app.nodes.devops.gitlab_node
+DEBUG: Import error for app.nodes.devops.gitlab_node: No module named 'app.base'
+DEBUG: Importing app.nodes.devops.jira_node
+DEBUG: Import error for app.nodes.devops.jira_node: No module named 'app.base'
+DEBUG: Importing app.nodes.devops.terraform_node
+DEBUG: Import error for app.nodes.devops.terraform_node: No module named 'app.base'
+DEBUG: Importing app.nodes.devops.trello_node
+DEBUG: Import error for app.nodes.devops.trello_node: No module named 'app.base'
+DEBUG: Importing app.nodes.discord.webhook
+DEBUG: Importing app.nodes.education.blackboard_node
+DEBUG: Import error for app.nodes.education.blackboard_node: No module named 'app.base'
+DEBUG: Importing app.nodes.education.canvas_node
+DEBUG: Import error for app.nodes.education.canvas_node: No module named 'app.base'
+DEBUG: Importing app.nodes.education.coursera_node
+DEBUG: Import error for app.nodes.education.coursera_node: No module named 'app.base'
+DEBUG: Importing app.nodes.education.duolingo_node
+DEBUG: Import error for app.nodes.education.duolingo_node: No module named 'app.base'
+DEBUG: Importing app.nodes.education.skillshare_node
+DEBUG: Import error for app.nodes.education.skillshare_node: No module named 'app.base'
+DEBUG: Importing app.nodes.education.udemy_node
+DEBUG: Import error for app.nodes.education.udemy_node: No module named 'app.base'
+DEBUG: Importing app.nodes.embeddings.similarity
+DEBUG: Error processing app.nodes.embeddings.similarity: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.embeddings.text_embedder
+DEBUG: Error processing app.nodes.embeddings.text_embedder: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.events.eventbrite_node
+DEBUG: Import error for app.nodes.events.eventbrite_node: No module named 'app.base'
+DEBUG: Importing app.nodes.events.luma_events_node
+DEBUG: Import error for app.nodes.events.luma_events_node: No module named 'app.base'
+DEBUG: Importing app.nodes.events.meetup_node
+DEBUG: Import error for app.nodes.events.meetup_node: No module named 'app.base'
+DEBUG: Importing app.nodes.FAISS.faiss
+DEBUG: Error processing app.nodes.FAISS.faiss: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.FAISS.faiss_node
+DEBUG: Import error for app.nodes.FAISS.faiss_node: No module named 'app.base'
+DEBUG: Importing app.nodes.field_service.jobber_node
+DEBUG: Import error for app.nodes.field_service.jobber_node: No module named 'app.base'
+DEBUG: Importing app.nodes.field_service.servicetitan_node
+DEBUG: Import error for app.nodes.field_service.servicetitan_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.brex_node
+DEBUG: Import error for app.nodes.finance.brex_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.expensify_node
+DEBUG: Import error for app.nodes.finance.expensify_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.freshbooks_node
+DEBUG: Import error for app.nodes.finance.freshbooks_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.mollie_node
+DEBUG: Import error for app.nodes.finance.mollie_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.netsuite_node
+DEBUG: Import error for app.nodes.finance.netsuite_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.oracle_node
+DEBUG: Import error for app.nodes.finance.oracle_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.plaid_node
+DEBUG: Import error for app.nodes.finance.plaid_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.quickbooks_node
+DEBUG: Import error for app.nodes.finance.quickbooks_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.ramp_node
+DEBUG: Import error for app.nodes.finance.ramp_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.sage_node
+DEBUG: Import error for app.nodes.finance.sage_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.sap_node
+DEBUG: Import error for app.nodes.finance.sap_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.square_node
+DEBUG: Import error for app.nodes.finance.square_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.wave_node
+DEBUG: Import error for app.nodes.finance.wave_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.wise_node
+DEBUG: Import error for app.nodes.finance.wise_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.xero_node
+DEBUG: Import error for app.nodes.finance.xero_node: No module named 'app.base'
+DEBUG: Importing app.nodes.finance.yahoo_finance_node
+DEBUG: Import error for app.nodes.finance.yahoo_finance_node: No module named 'yfinance'
+DEBUG: Importing app.nodes.fleet.fleetio_node
+DEBUG: Import error for app.nodes.fleet.fleetio_node: No module named 'app.base'
+DEBUG: Importing app.nodes.fleet.motive_node
+DEBUG: Import error for app.nodes.fleet.motive_node: No module named 'app.base'
+DEBUG: Importing app.nodes.fleet.samsara_node
+DEBUG: Import error for app.nodes.fleet.samsara_node: No module named 'app.base'
+DEBUG: Importing app.nodes.flow_controls.conditional_router
+DEBUG: Error processing app.nodes.flow_controls.conditional_router: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.data_conditional_router
+DEBUG: Error processing app.nodes.flow_controls.data_conditional_router: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.filter_node
+DEBUG: Import error for app.nodes.flow_controls.filter_node: No module named 'app.base'
+DEBUG: Importing app.nodes.flow_controls.flow_tool
+DEBUG: Error processing app.nodes.flow_controls.flow_tool: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.item_lists_node
+DEBUG: Import error for app.nodes.flow_controls.item_lists_node: No module named 'app.base'
+DEBUG: Importing app.nodes.flow_controls.listen
+DEBUG: Error processing app.nodes.flow_controls.listen: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.loop
+DEBUG: Error processing app.nodes.flow_controls.loop: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.loop_node
+DEBUG: Import error for app.nodes.flow_controls.loop_node: No module named 'app.base'
+DEBUG: Importing app.nodes.flow_controls.map_node
+DEBUG: Import error for app.nodes.flow_controls.map_node: No module named 'app.base'
+DEBUG: Importing app.nodes.flow_controls.merge_node
+DEBUG: Import error for app.nodes.flow_controls.merge_node: No module named 'app.base'
+DEBUG: Importing app.nodes.flow_controls.notify
+DEBUG: Error processing app.nodes.flow_controls.notify: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.pass_message
+DEBUG: Error processing app.nodes.flow_controls.pass_message: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.router_node
+DEBUG: Importing app.nodes.flow_controls.run_flow
+DEBUG: Error processing app.nodes.flow_controls.run_flow: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.set_node
+DEBUG: Import error for app.nodes.flow_controls.set_node: No module named 'app.base'
+DEBUG: Importing app.nodes.flow_controls.split_batches_node
+DEBUG: Import error for app.nodes.flow_controls.split_batches_node: No module named 'app.base'
+DEBUG: Importing app.nodes.flow_controls.split_in_batches_node
+DEBUG: Import error for app.nodes.flow_controls.split_in_batches_node: No module named 'app.base'
+DEBUG: Importing app.nodes.flow_controls.sub_flow
+DEBUG: Error processing app.nodes.flow_controls.sub_flow: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.wait_node
+DEBUG: Import error for app.nodes.flow_controls.wait_node: No module named 'app.base'
+DEBUG: Importing app.nodes.food_delivery.doordash_node
+DEBUG: Import error for app.nodes.food_delivery.doordash_node: No module named 'app.base'
+DEBUG: Importing app.nodes.food_delivery.grubhub_node
+DEBUG: Import error for app.nodes.food_delivery.grubhub_node: No module named 'app.base'
+DEBUG: Importing app.nodes.food_delivery.ubereats_node
+DEBUG: Import error for app.nodes.food_delivery.ubereats_node: No module named 'app.base'
+DEBUG: Importing app.nodes.food_delivery.zomato_node
+DEBUG: Import error for app.nodes.food_delivery.zomato_node: No module named 'app.base'
+DEBUG: Importing app.nodes.forms.jotform_node
+DEBUG: Import error for app.nodes.forms.jotform_node: No module named 'app.base'
+DEBUG: Importing app.nodes.forms.surveymonkey_node
+DEBUG: Import error for app.nodes.forms.surveymonkey_node: No module named 'app.base'
+DEBUG: Importing app.nodes.forms.typeform_node
+DEBUG: Import error for app.nodes.forms.typeform_node: No module named 'app.base'
+DEBUG: Importing app.nodes.gaming.roblox_node
+DEBUG: Import error for app.nodes.gaming.roblox_node: No module named 'app.base'
+DEBUG: Importing app.nodes.gaming.steam_node
+DEBUG: Import error for app.nodes.gaming.steam_node: No module named 'app.base'
+DEBUG: Importing app.nodes.gaming.twitch_node
+DEBUG: Import error for app.nodes.gaming.twitch_node: No module named 'app.base'
+DEBUG: Importing app.nodes.git.git
+DEBUG: Error processing app.nodes.git.git: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.git.gitextractor
+DEBUG: Import error for app.nodes.git.gitextractor: No module named 'git'
+DEBUG: Importing app.nodes.google.gmail
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\google\api_core\_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.3) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.
+  warnings.warn(message, FutureWarning)
+DEBUG: Importing app.nodes.google.google_bq_sql_executor
+DEBUG: Import error for app.nodes.google.google_bq_sql_executor: cannot import name 'bigquery' from 'google.cloud' (unknown location)
+DEBUG: Importing app.nodes.google.google_cloud_node
+DEBUG: Importing app.nodes.google.google_drive
+DEBUG: Importing app.nodes.google.google_drive_search
+DEBUG: Error processing app.nodes.google.google_drive_search: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.google.google_generative_ai
+DEBUG: Error processing app.nodes.google.google_generative_ai: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.google.google_generative_ai_embeddings
+DEBUG: Import error for app.nodes.google.google_generative_ai_embeddings: No module named 'langchain_google_genai'
+DEBUG: Importing app.nodes.google.google_oauth_token
+DEBUG: Error processing app.nodes.google.google_oauth_token: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.google.google_search_api_core
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\google\api_core\_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.3) which Google will stop supporting in new releases of google.cloud.modelarmor_v1 once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.cloud.modelarmor_v1 past that date.
+  warnings.warn(message, FutureWarning)
+DEBUG: Import error for app.nodes.google.google_search_api_core: No module named 'langchain.agents.middleware'
+DEBUG: Importing app.nodes.google.google_serper_api_core
+DEBUG: Error processing app.nodes.google.google_serper_api_core: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.google.google_sheets
+DEBUG: Import error for app.nodes.google.google_sheets: No module named 'gspread'
+DEBUG: Importing app.nodes.google.youtube
+DEBUG: Importing app.nodes.health.fitbit_node
+DEBUG: Import error for app.nodes.health.fitbit_node: No module named 'app.base'
+DEBUG: Importing app.nodes.health.garmin_node
+DEBUG: Import error for app.nodes.health.garmin_node: No module named 'app.base'
+DEBUG: Importing app.nodes.health.mindbody_node
+DEBUG: Import error for app.nodes.health.mindbody_node: No module named 'app.base'
+DEBUG: Importing app.nodes.health.myfitnesspal_node
+DEBUG: Import error for app.nodes.health.myfitnesspal_node: No module named 'app.base'
+DEBUG: Importing app.nodes.health.peloton_node
+DEBUG: Import error for app.nodes.health.peloton_node: No module named 'app.base'
+DEBUG: Importing app.nodes.health.strava_node
+DEBUG: Import error for app.nodes.health.strava_node: No module named 'app.base'
+DEBUG: Importing app.nodes.health.whoop_node
+DEBUG: Import error for app.nodes.health.whoop_node: No module named 'app.base'
+DEBUG: Importing app.nodes.health.zenplanner_node
+DEBUG: Import error for app.nodes.health.zenplanner_node: No module named 'app.base'
+DEBUG: Importing app.nodes.hr.bamboohr_node
+DEBUG: Import error for app.nodes.hr.bamboohr_node: No module named 'app.base'
+DEBUG: Importing app.nodes.hr.greenhouse_node
+DEBUG: Import error for app.nodes.hr.greenhouse_node: No module named 'app.base'
+DEBUG: Importing app.nodes.hr.lever_node
+DEBUG: Import error for app.nodes.hr.lever_node: No module named 'app.base'
+DEBUG: Importing app.nodes.infrastructure.cloudflare_node
+DEBUG: Import error for app.nodes.infrastructure.cloudflare_node: No module named 'app.base'
+DEBUG: Importing app.nodes.infrastructure.digitalocean_node
+DEBUG: Import error for app.nodes.infrastructure.digitalocean_node: No module named 'app.base'
+DEBUG: Importing app.nodes.infrastructure.docker_node
+DEBUG: Import error for app.nodes.infrastructure.docker_node: No module named 'app.base'
+DEBUG: Importing app.nodes.infrastructure.kubernetes_node
+DEBUG: Import error for app.nodes.infrastructure.kubernetes_node: No module named 'app.base'
+DEBUG: Importing app.nodes.infrastructure.linode_node
+DEBUG: Import error for app.nodes.infrastructure.linode_node: No module named 'app.base'
+DEBUG: Importing app.nodes.infrastructure.vultr_node
+DEBUG: Import error for app.nodes.infrastructure.vultr_node: No module named 'app.base'
+DEBUG: Importing app.nodes.input_output.chat
+DEBUG: Error processing app.nodes.input_output.chat: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.input_output.chat_output
+DEBUG: Error processing app.nodes.input_output.chat_output: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.input_output.csv_loader_node
+DEBUG: Import error for app.nodes.input_output.csv_loader_node: No module named 'app.base'
+DEBUG: Importing app.nodes.input_output.pdf_loader_node
+DEBUG: Import error for app.nodes.input_output.pdf_loader_node: No module named 'app.base'
+DEBUG: Importing app.nodes.input_output.text
+DEBUG: Error processing app.nodes.input_output.text: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.input_output.text_output
+DEBUG: Error processing app.nodes.input_output.text_output: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.input_output.url_loader_node
+DEBUG: Import error for app.nodes.input_output.url_loader_node: No module named 'app.base'
+DEBUG: Importing app.nodes.input_output.webhook
+DEBUG: Error processing app.nodes.input_output.webhook: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.iot.homeassistant_node
+DEBUG: Import error for app.nodes.iot.homeassistant_node: No module named 'app.base'
+DEBUG: Importing app.nodes.jigsawstack.ai_scrape
+DEBUG: Error processing app.nodes.jigsawstack.ai_scrape: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.ai_web_search
+DEBUG: Error processing app.nodes.jigsawstack.ai_web_search: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.file_read
+DEBUG: Error processing app.nodes.jigsawstack.file_read: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.file_upload
+DEBUG: Error processing app.nodes.jigsawstack.file_upload: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.image_generation
+DEBUG: Error processing app.nodes.jigsawstack.image_generation: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.nsfw
+DEBUG: Error processing app.nodes.jigsawstack.nsfw: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.object_detection
+DEBUG: Error processing app.nodes.jigsawstack.object_detection: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.sentiment
+DEBUG: Error processing app.nodes.jigsawstack.sentiment: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.text_to_sql
+DEBUG: Error processing app.nodes.jigsawstack.text_to_sql: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.text_translate
+DEBUG: Error processing app.nodes.jigsawstack.text_translate: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.vocr
+DEBUG: Error processing app.nodes.jigsawstack.vocr: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.knowledge.confluence_node
+DEBUG: Import error for app.nodes.knowledge.confluence_node: No module named 'app.base'
+DEBUG: Importing app.nodes.knowledge.gitbook_node
+DEBUG: Import error for app.nodes.knowledge.gitbook_node: No module named 'app.base'
+DEBUG: Importing app.nodes.knowledge.obsidian_node
+DEBUG: Import error for app.nodes.knowledge.obsidian_node: No module named 'app.base'
+DEBUG: Importing app.nodes.langchain_utilities.character
+DEBUG: Error processing app.nodes.langchain_utilities.character: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.conversation
+DEBUG: Error processing app.nodes.langchain_utilities.conversation: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.csv_agent
+DEBUG: Error processing app.nodes.langchain_utilities.csv_agent: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.fake_embeddings
+DEBUG: Error processing app.nodes.langchain_utilities.fake_embeddings: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.html_link_extractor
+DEBUG: Error processing app.nodes.langchain_utilities.html_link_extractor: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.json_agent
+DEBUG: Error processing app.nodes.langchain_utilities.json_agent: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.langchain_hub
+DEBUG: Error processing app.nodes.langchain_utilities.langchain_hub: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.language_recursive
+DEBUG: Error processing app.nodes.langchain_utilities.language_recursive: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.language_semantic
+DEBUG: Import error for app.nodes.langchain_utilities.language_semantic: No module named 'langchain_experimental'
+DEBUG: Importing app.nodes.langchain_utilities.llm_checker
+DEBUG: Error processing app.nodes.langchain_utilities.llm_checker: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.llm_math
+DEBUG: Error processing app.nodes.langchain_utilities.llm_math: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.natural_language
+DEBUG: Error processing app.nodes.langchain_utilities.natural_language: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.openai_tools
+DEBUG: Error processing app.nodes.langchain_utilities.openai_tools: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.openapi
+DEBUG: Error processing app.nodes.langchain_utilities.openapi: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.recursive_character
+DEBUG: Error processing app.nodes.langchain_utilities.recursive_character: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.retrieval_qa
+DEBUG: Error processing app.nodes.langchain_utilities.retrieval_qa: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.runnable_executor
+DEBUG: Error processing app.nodes.langchain_utilities.runnable_executor: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.self_query
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\sqlmodel\main.py:682: SAWarning: This declarative base already contains a class with the same class name and module name as langflow.services.database.models.api_key.model.ApiKey, and will be replaced in the string-lookup table.
+  DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
+DEBUG: Error processing app.nodes.langchain_utilities.self_query: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.spider
+DEBUG: Import error for app.nodes.langchain_utilities.spider: No module named 'spider'
+DEBUG: Importing app.nodes.langchain_utilities.sql
+DEBUG: Error processing app.nodes.langchain_utilities.sql: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.sql_database
+DEBUG: Error processing app.nodes.langchain_utilities.sql_database: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.sql_generator
+DEBUG: Error processing app.nodes.langchain_utilities.sql_generator: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.tool_calling
+DEBUG: Error processing app.nodes.langchain_utilities.tool_calling: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.vector_store_info
+DEBUG: Error processing app.nodes.langchain_utilities.vector_store_info: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.vector_store_router
+DEBUG: Error processing app.nodes.langchain_utilities.vector_store_router: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.xml_agent
+DEBUG: Error processing app.nodes.langchain_utilities.xml_agent: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.legal.clio_node
+DEBUG: Import error for app.nodes.legal.clio_node: No module named 'app.base'
+DEBUG: Importing app.nodes.legal.docusign_node
+DEBUG: Import error for app.nodes.legal.docusign_node: No module named 'app.base'
+DEBUG: Importing app.nodes.legal.ironclad_node
+DEBUG: Import error for app.nodes.legal.ironclad_node: No module named 'app.base'
+DEBUG: Importing app.nodes.leisure.opentable_node
+DEBUG: Import error for app.nodes.leisure.opentable_node: No module named 'app.base'
+DEBUG: Importing app.nodes.leisure.yelp_node
+DEBUG: Import error for app.nodes.leisure.yelp_node: No module named 'app.base'
+DEBUG: Importing app.nodes.llm_operations.batch_run
+DEBUG: Import error for app.nodes.llm_operations.batch_run: No module named 'toml'
+DEBUG: Importing app.nodes.llm_operations.lambda_filter
+DEBUG: Error processing app.nodes.llm_operations.lambda_filter: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.llm_operations.llm_conditional_router
+DEBUG: Error processing app.nodes.llm_operations.llm_conditional_router: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.llm_operations.llm_selector
+DEBUG: Error processing app.nodes.llm_operations.llm_selector: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.llm_operations.structured_output
+DEBUG: Import error for app.nodes.llm_operations.structured_output: No module named 'trustcall'
+DEBUG: Importing app.nodes.logic.translation_node
+DEBUG: Import error for app.nodes.logic.translation_node: cannot import name 'register_node' from 'app.nodes.factory' (C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\nodes\factory.py)
+DEBUG: Importing app.nodes.logistics.aftership_node
+DEBUG: Import error for app.nodes.logistics.aftership_node: No module named 'app.base'
+DEBUG: Importing app.nodes.logistics.shippo_node
+DEBUG: Import error for app.nodes.logistics.shippo_node: No module named 'app.base'
+DEBUG: Importing app.nodes.logistics.shipstation_node
+DEBUG: Import error for app.nodes.logistics.shipstation_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.activecampaign_node
+DEBUG: Import error for app.nodes.marketing.activecampaign_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.attentive_node
+DEBUG: Import error for app.nodes.marketing.attentive_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.brevo_node
+DEBUG: Import error for app.nodes.marketing.brevo_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.copper_node
+DEBUG: Import error for app.nodes.marketing.copper_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.freshsales_node
+DEBUG: Import error for app.nodes.marketing.freshsales_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.hubspot_node
+DEBUG: Import error for app.nodes.marketing.hubspot_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.insightly_node
+DEBUG: Import error for app.nodes.marketing.insightly_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.keap_node
+DEBUG: Import error for app.nodes.marketing.keap_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.klaviyo_node
+DEBUG: Import error for app.nodes.marketing.klaviyo_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.mailchimp_node
+DEBUG: Import error for app.nodes.marketing.mailchimp_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.marketing_ads_node
+DEBUG: Importing app.nodes.marketing.pipedrive_node
+DEBUG: Import error for app.nodes.marketing.pipedrive_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.salesforce_node
+DEBUG: Import error for app.nodes.marketing.salesforce_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.zoho_crm_node
+DEBUG: Import error for app.nodes.marketing.zoho_crm_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketing.zoho_node
+DEBUG: Importing app.nodes.marketplaces.amazon_sp_node
+DEBUG: Import error for app.nodes.marketplaces.amazon_sp_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketplaces.ebay_node
+DEBUG: Import error for app.nodes.marketplaces.ebay_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketplaces.etsy_node
+DEBUG: Import error for app.nodes.marketplaces.etsy_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketplaces.target_node
+DEBUG: Import error for app.nodes.marketplaces.target_node: No module named 'app.base'
+DEBUG: Importing app.nodes.marketplaces.walmart_node
+DEBUG: Import error for app.nodes.marketplaces.walmart_node: No module named 'app.base'
+DEBUG: Importing app.nodes.media.dalle_image_node
+DEBUG: Import error for app.nodes.media.dalle_image_node: No module named 'app.base'
+DEBUG: Importing app.nodes.media.elevenlabs_tts_node
+DEBUG: Import error for app.nodes.media.elevenlabs_tts_node: No module named 'app.base'
+DEBUG: Importing app.nodes.media.frameio_node
+DEBUG: Import error for app.nodes.media.frameio_node: No module named 'app.base'
+DEBUG: Importing app.nodes.media.heygen_node
+DEBUG: Import error for app.nodes.media.heygen_node: No module named 'app.base'
+DEBUG: Importing app.nodes.media.leonardo_ai_node
+DEBUG: Import error for app.nodes.media.leonardo_ai_node: No module named 'app.base'
+DEBUG: Importing app.nodes.media.luma_video_node
+DEBUG: Import error for app.nodes.media.luma_video_node: No module named 'app.base'
+DEBUG: Importing app.nodes.media.stability_ultra_node
+DEBUG: Import error for app.nodes.media.stability_ultra_node: No module named 'app.base'
+DEBUG: Importing app.nodes.media.twelvelabs_node
+DEBUG: Import error for app.nodes.media.twelvelabs_node: No module named 'app.base'
+DEBUG: Importing app.nodes.media.vimeo_node
+DEBUG: Import error for app.nodes.media.vimeo_node: No module named 'app.base'
+DEBUG: Importing app.nodes.media.whisper_audio_node
+DEBUG: Import error for app.nodes.media.whisper_audio_node: No module named 'app.base'
+DEBUG: Importing app.nodes.media.wistia_node
+DEBUG: Import error for app.nodes.media.wistia_node: No module named 'app.base'
+DEBUG: Importing app.nodes.memory.chat_memory_node
+DEBUG: Import error for app.nodes.memory.chat_memory_node: No module named 'app.base'
+DEBUG: Importing app.nodes.memory.file_memory_node
+DEBUG: Import error for app.nodes.memory.file_memory_node: No module named 'app.base'
+DEBUG: Importing app.nodes.memory.mem0_node
+DEBUG: Import error for app.nodes.memory.mem0_node: No module named 'app.base'
+DEBUG: Importing app.nodes.memory.redis_memory_node
+DEBUG: Import error for app.nodes.memory.redis_memory_node: No module named 'app.base'
+DEBUG: Importing app.nodes.memory.zep_node
+DEBUG: Import error for app.nodes.memory.zep_node: No module named 'app.base'
+DEBUG: Importing app.nodes.nvidia.nvidia
+DEBUG: Error processing app.nodes.nvidia.nvidia: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.nvidia.nvidia_embedding
+DEBUG: Error processing app.nodes.nvidia.nvidia_embedding: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.nvidia.nvidia_ingest
+DEBUG: Error processing app.nodes.nvidia.nvidia_ingest: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.nvidia.nvidia_rerank
+DEBUG: Error processing app.nodes.nvidia.nvidia_rerank: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.nvidia.system_assist
+DEBUG: Error processing app.nodes.nvidia.system_assist: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.observability.datadog_node
+DEBUG: Import error for app.nodes.observability.datadog_node: No module named 'app.base'
+DEBUG: Importing app.nodes.observability.newrelic_node
+DEBUG: Import error for app.nodes.observability.newrelic_node: No module named 'app.base'
+DEBUG: Importing app.nodes.observability.pagerduty_node
+DEBUG: Import error for app.nodes.observability.pagerduty_node: No module named 'app.base'
+DEBUG: Importing app.nodes.observability.splunk_node
+DEBUG: Import error for app.nodes.observability.splunk_node: No module named 'app.base'
+DEBUG: Importing app.nodes.orchestration.parallel_map_node
+DEBUG: Import error for app.nodes.orchestration.parallel_map_node: cannot import name 'register_node' from 'app.nodes.factory' (C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\nodes\factory.py)
+DEBUG: Importing app.nodes.orchestration.sub_workflow_node
+DEBUG: Import error for app.nodes.orchestration.sub_workflow_node: cannot import name 'register_node' from 'app.nodes.factory' (C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\nodes\factory.py)
+DEBUG: Importing app.nodes.processing.ai_extractor
+DEBUG: Import error for app.nodes.processing.ai_extractor: No module named 'app.nodes.models'
+DEBUG: Importing app.nodes.processing.alter_metadata
+DEBUG: Error processing app.nodes.processing.alter_metadata: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.cohere_rerank_node
+DEBUG: Import error for app.nodes.processing.cohere_rerank_node: No module named 'app.base'
+DEBUG: Importing app.nodes.processing.combine_text
+DEBUG: Error processing app.nodes.processing.combine_text: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.combine_text_node
+DEBUG: Import error for app.nodes.processing.combine_text_node: No module named 'app.base'
+DEBUG: Importing app.nodes.processing.create_data
+DEBUG: Error processing app.nodes.processing.create_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.create_list
+DEBUG: Error processing app.nodes.processing.create_list: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.dataframe_operations
+DEBUG: Error processing app.nodes.processing.dataframe_operations: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.data_operations
+DEBUG: Import error for app.nodes.processing.data_operations: No module named 'jq'
+DEBUG: Importing app.nodes.processing.data_to_dataframe
+DEBUG: Error processing app.nodes.processing.data_to_dataframe: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.document_processing_node
+DEBUG: Importing app.nodes.processing.dynamic_create_data
+DEBUG: Error processing app.nodes.processing.dynamic_create_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.extract_key
+DEBUG: Error processing app.nodes.processing.extract_key: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.filter_data
+DEBUG: Error processing app.nodes.processing.filter_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.filter_data_values
+DEBUG: Error processing app.nodes.processing.filter_data_values: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.json_cleaner
+DEBUG: Error processing app.nodes.processing.json_cleaner: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.json_cleaner_node
+DEBUG: Import error for app.nodes.processing.json_cleaner_node: No module named 'app.base'
+DEBUG: Importing app.nodes.processing.merge_data
+DEBUG: Error processing app.nodes.processing.merge_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.message_to_data
+DEBUG: Error processing app.nodes.processing.message_to_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.output_parser
+DEBUG: Error processing app.nodes.processing.output_parser: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.parser
+DEBUG: Importing app.nodes.processing.parse_data
+DEBUG: Error processing app.nodes.processing.parse_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.parse_dataframe
+DEBUG: Error processing app.nodes.processing.parse_dataframe: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.parse_json_data
+DEBUG: Import error for app.nodes.processing.parse_json_data: No module named 'jq'
+DEBUG: Importing app.nodes.processing.parse_json_data_node
+DEBUG: Import error for app.nodes.processing.parse_json_data_node: No module named 'app.base'
+DEBUG: Importing app.nodes.processing.parse_node
+DEBUG: Importing app.nodes.processing.pdf_node
+DEBUG: Importing app.nodes.processing.regex
+DEBUG: Importing app.nodes.processing.select_data
+DEBUG: Error processing app.nodes.processing.select_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.split_node
+DEBUG: Importing app.nodes.processing.split_text
+DEBUG: Error processing app.nodes.processing.split_text: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.split_text_node
+DEBUG: Import error for app.nodes.processing.split_text_node: No module named 'app.base'
+DEBUG: Importing app.nodes.processing.store_message
+DEBUG: Error processing app.nodes.processing.store_message: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.unified_text_splitter_node
+DEBUG: Import error for app.nodes.processing.unified_text_splitter_node: No module named 'app.base'
+DEBUG: Importing app.nodes.processing.unstructured_node
+DEBUG: Import error for app.nodes.processing.unstructured_node: No module named 'app.base'
+DEBUG: Importing app.nodes.processing.update_data
+DEBUG: Error processing app.nodes.processing.update_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.productivity.agile_tasks_batch
+DEBUG: Import error for app.nodes.productivity.agile_tasks_batch: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.asana_node
+DEBUG: Import error for app.nodes.productivity.asana_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.calendly_node
+DEBUG: Import error for app.nodes.productivity.calendly_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.coda_node
+DEBUG: Import error for app.nodes.productivity.coda_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.excel_node
+DEBUG: Import error for app.nodes.productivity.excel_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.github_node
+DEBUG: Import error for app.nodes.productivity.github_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.gmail_node
+DEBUG: Import error for app.nodes.productivity.gmail_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.google_calendar_node
+DEBUG: Import error for app.nodes.productivity.google_calendar_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.google_docs_node
+DEBUG: Import error for app.nodes.productivity.google_docs_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.google_sheets_node
+DEBUG: Import error for app.nodes.productivity.google_sheets_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.google_tasks_node
+DEBUG: Import error for app.nodes.productivity.google_tasks_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.google_workspace_batch
+DEBUG: Import error for app.nodes.productivity.google_workspace_batch: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.jira_node
+DEBUG: Import error for app.nodes.productivity.jira_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.microsoft_office_batch
+DEBUG: Import error for app.nodes.productivity.microsoft_office_batch: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.miro_node
+DEBUG: Import error for app.nodes.productivity.miro_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.notion_node
+DEBUG: Import error for app.nodes.productivity.notion_node: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.project_management_batch
+DEBUG: Import error for app.nodes.productivity.project_management_batch: No module named 'app.base'
+DEBUG: Importing app.nodes.productivity.trello_node
+DEBUG: Importing app.nodes.professional_services.fiverr_node
+DEBUG: Import error for app.nodes.professional_services.fiverr_node: No module named 'app.base'
+DEBUG: Importing app.nodes.professional_services.toptal_node
+DEBUG: Import error for app.nodes.professional_services.toptal_node: No module named 'app.base'
+DEBUG: Importing app.nodes.professional_services.upwork_node
+DEBUG: Import error for app.nodes.professional_services.upwork_node: No module named 'app.base'
+DEBUG: Importing app.nodes.real_estate.realtor_node
+DEBUG: Import error for app.nodes.real_estate.realtor_node: No module named 'app.base'
+DEBUG: Importing app.nodes.real_estate.redfin_node
+DEBUG: Import error for app.nodes.real_estate.redfin_node: No module named 'app.base'
+DEBUG: Importing app.nodes.real_estate.zillow_node
+DEBUG: Import error for app.nodes.real_estate.zillow_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.algolia_node
+DEBUG: Import error for app.nodes.search.algolia_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.apify_node
+DEBUG: Import error for app.nodes.search.apify_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.arxiv_node
+DEBUG: Import error for app.nodes.search.arxiv_node: No module named 'defusedxml'
+DEBUG: Importing app.nodes.search.bing_search_node
+DEBUG: Import error for app.nodes.search.bing_search_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.elasticsearch_node
+DEBUG: Import error for app.nodes.search.elasticsearch_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.exa_search_node
+DEBUG: Import error for app.nodes.search.exa_search_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.firecrawl_node
+DEBUG: Import error for app.nodes.search.firecrawl_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.glean_node
+DEBUG: Import error for app.nodes.search.glean_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.google_search_node
+DEBUG: Import error for app.nodes.search.google_search_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.needle_node
+DEBUG: Import error for app.nodes.search.needle_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.opensearch_node
+DEBUG: Import error for app.nodes.search.opensearch_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.scrapegraph_node
+DEBUG: Import error for app.nodes.search.scrapegraph_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.searchapi_node
+DEBUG: Import error for app.nodes.search.searchapi_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.serper_search_node
+DEBUG: Import error for app.nodes.search.serper_search_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.web_search_node
+DEBUG: Import error for app.nodes.search.web_search_node: No module named 'app.base'
+DEBUG: Importing app.nodes.search.wolframalpha_node
+DEBUG: Import error for app.nodes.search.wolframalpha_node: No module named 'app.base'
+DEBUG: Importing app.nodes.security.auth0_node
+DEBUG: Import error for app.nodes.security.auth0_node: No module named 'app.base'
+DEBUG: Importing app.nodes.security.base64_node
+DEBUG: Import error for app.nodes.security.base64_node: No module named 'app.base'
+DEBUG: Importing app.nodes.security.clerk_node
+DEBUG: Import error for app.nodes.security.clerk_node: No module named 'app.base'
+DEBUG: Importing app.nodes.security.hash_node
+DEBUG: Import error for app.nodes.security.hash_node: No module named 'app.base'
+DEBUG: Importing app.nodes.security.jwt_node
+DEBUG: Import error for app.nodes.security.jwt_node: No module named 'app.base'
+DEBUG: Importing app.nodes.security.okta_node
+DEBUG: Import error for app.nodes.security.okta_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social.facebook_node
+DEBUG: Import error for app.nodes.social.facebook_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social.instagram_node
+DEBUG: Import error for app.nodes.social.instagram_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social.instagram_v2_node
+DEBUG: Import error for app.nodes.social.instagram_v2_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social.linkedin_node
+DEBUG: Import error for app.nodes.social.linkedin_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social.twitter
+DEBUG: Importing app.nodes.social.twitter_v2_node
+DEBUG: Import error for app.nodes.social.twitter_v2_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social.x_node
+DEBUG: Import error for app.nodes.social.x_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social.youtube_node
+DEBUG: Import error for app.nodes.social.youtube_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.blogging_batch
+DEBUG: Import error for app.nodes.social_media.blogging_batch: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.buffer_node
+DEBUG: Import error for app.nodes.social_media.buffer_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.core_social_batch
+DEBUG: Import error for app.nodes.social_media.core_social_batch: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.facebook_pages_node
+DEBUG: Import error for app.nodes.social_media.facebook_pages_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.hootsuite_node
+DEBUG: Import error for app.nodes.social_media.hootsuite_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.later_node
+DEBUG: Import error for app.nodes.social_media.later_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.linkedin_node
+DEBUG: Import error for app.nodes.social_media.linkedin_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.medium_node
+DEBUG: Import error for app.nodes.social_media.medium_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.pinterest_node
+DEBUG: Import error for app.nodes.social_media.pinterest_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.reddit_node
+DEBUG: Import error for app.nodes.social_media.reddit_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.sprout_social_node
+DEBUG: Import error for app.nodes.social_media.sprout_social_node: No module named 'app.base'
+DEBUG: Importing app.nodes.social_media.tumblr_node
+DEBUG: Import error for app.nodes.social_media.tumblr_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.airtable_node
+DEBUG: Importing app.nodes.storage.aws_s3_node
+DEBUG: Import error for app.nodes.storage.aws_s3_node: No module named 'boto3'
+DEBUG: Importing app.nodes.storage.azure_blob_storage_node
+DEBUG: Import error for app.nodes.storage.azure_blob_storage_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.backblaze_b2_node
+DEBUG: Import error for app.nodes.storage.backblaze_b2_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.box_node
+DEBUG: Import error for app.nodes.storage.box_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.database_nodes
+DEBUG: Importing app.nodes.storage.dropbox_node
+DEBUG: Import error for app.nodes.storage.dropbox_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.dual_ingestor
+DEBUG: Importing app.nodes.storage.ftp_node
+DEBUG: Import error for app.nodes.storage.ftp_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.gcs_node
+DEBUG: Import error for app.nodes.storage.gcs_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.google_cloud_storage_node
+DEBUG: Import error for app.nodes.storage.google_cloud_storage_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.milvus_node
+DEBUG: Importing app.nodes.storage.onedrive_node
+DEBUG: Import error for app.nodes.storage.onedrive_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.pcloud_node
+DEBUG: Import error for app.nodes.storage.pcloud_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.qdrant_node
+DEBUG: Importing app.nodes.storage.sync_com_node
+DEBUG: Import error for app.nodes.storage.sync_com_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.upstash_node
+DEBUG: Import error for app.nodes.storage.upstash_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.vectara_node
+DEBUG: Import error for app.nodes.storage.vectara_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.wasabi_node
+DEBUG: Import error for app.nodes.storage.wasabi_node: No module named 'app.base'
+DEBUG: Importing app.nodes.storage.weaviate_node
+DEBUG: Importing app.nodes.storage.nocodb.nocodb_node
+DEBUG: Importing app.nodes.storage.supabase.supabase_node
+DEBUG: Import error for app.nodes.storage.supabase.supabase_node: No module named 'app.nodes.storage.base'
+DEBUG: Importing app.nodes.support.freshdesk_node
+DEBUG: Import error for app.nodes.support.freshdesk_node: No module named 'app.base'
+DEBUG: Importing app.nodes.support.help_scout_node
+DEBUG: Import error for app.nodes.support.help_scout_node: No module named 'app.base'
+DEBUG: Importing app.nodes.support.hubspot_service_node
+DEBUG: Import error for app.nodes.support.hubspot_service_node: No module named 'app.base'
+DEBUG: Importing app.nodes.support.intercom_node
+DEBUG: Import error for app.nodes.support.intercom_node: No module named 'app.base'
+DEBUG: Importing app.nodes.support.servicenow_node
+DEBUG: Import error for app.nodes.support.servicenow_node: No module named 'app.base'
+DEBUG: Importing app.nodes.support.support_ticketing_node
+DEBUG: Importing app.nodes.support.zendesk_node
+DEBUG: Import error for app.nodes.support.zendesk_node: No module named 'app.base'
+DEBUG: Importing app.nodes.tools.api_tool_node
+DEBUG: Import error for app.nodes.tools.api_tool_node: No module named 'app.base'
+DEBUG: Importing app.nodes.tools.calculator
+DEBUG: Import error for app.nodes.tools.calculator: No module named 'pytest'
+DEBUG: Importing app.nodes.tools.calculator_tool_node
+DEBUG: Import error for app.nodes.tools.calculator_tool_node: No module named 'app.base'
+DEBUG: Importing app.nodes.tools.google_search_api
+DEBUG: Error processing app.nodes.tools.google_search_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.google_serper_api
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\sqlmodel\main.py:682: SAWarning: This declarative base already contains a class with the same class name and module name as langflow.services.database.models.api_key.model.ApiKey, and will be replaced in the string-lookup table.
+  DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
+DEBUG: Error processing app.nodes.tools.google_serper_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.toolsthon_code_structured_tool
+DEBUG: Import error for app.nodes.toolsthon_code_structured_tool: No module named 'app.nodes.toolsthon_code_structured_tool'
+DEBUG: Importing app.nodes.toolsthon_repl
+DEBUG: Import error for app.nodes.toolsthon_repl: No module named 'app.nodes.toolsthon_repl'
+DEBUG: Importing app.nodes.tools.search_api
+DEBUG: Error processing app.nodes.tools.search_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.search_tool_node
+DEBUG: Import error for app.nodes.tools.search_tool_node: No module named 'app.base'
+DEBUG: Importing app.nodes.tools.searxng
+DEBUG: Error processing app.nodes.tools.searxng: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.serp_api
+DEBUG: Error processing app.nodes.tools.serp_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.tavily_search_tool
+DEBUG: Error processing app.nodes.tools.tavily_search_tool: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.wikidata_api
+DEBUG: Error processing app.nodes.tools.wikidata_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.wikipedia_api
+DEBUG: Error processing app.nodes.tools.wikipedia_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.yahoo_finance
+DEBUG: Error processing app.nodes.tools.yahoo_finance: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.code_executor.code_executor_node
+DEBUG: Importing app.nodes.tools.docling.chunk_node
+DEBUG: Importing app.nodes.tools.docling.docling_node
+DEBUG: Importing app.nodes.tools.file_reader.file_reader_node
+DEBUG: Importing app.nodes.travel.airbnb_node
+DEBUG: Import error for app.nodes.travel.airbnb_node: No module named 'app.base'
+DEBUG: Importing app.nodes.travel.amadeus_node
+DEBUG: Import error for app.nodes.travel.amadeus_node: No module named 'app.base'
+DEBUG: Importing app.nodes.travel.expedia_node
+DEBUG: Import error for app.nodes.travel.expedia_node: No module named 'app.base'
+DEBUG: Importing app.nodes.triggers.webhook_node
+DEBUG: Import error for app.nodes.triggers.webhook_node: cannot import name 'register_node' from 'app.nodes.factory' (C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\nodes\factory.py)
+DEBUG: Importing app.nodes.utilities.binary_data_node
+DEBUG: Import error for app.nodes.utilities.binary_data_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilities.calculator_core
+DEBUG: Error processing app.nodes.utilities.calculator_core: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.utilities.compression_node
+DEBUG: Import error for app.nodes.utilities.compression_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilities.crypto_node
+DEBUG: Import error for app.nodes.utilities.crypto_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilities.current_date
+DEBUG: Error processing app.nodes.utilities.current_date: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.utilities.data_transformation_node
+DEBUG: Import error for app.nodes.utilities.data_transformation_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilities.date_time_node
+DEBUG: Import error for app.nodes.utilities.date_time_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilities.html_parser_node
+DEBUG: Import error for app.nodes.utilities.html_parser_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilities.http_request_node
+DEBUG: Import error for app.nodes.utilities.http_request_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilities.id_generator
+DEBUG: Error processing app.nodes.utilities.id_generator: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.utilities.markdown_node
+DEBUG: Import error for app.nodes.utilities.markdown_node: No module named 'markdown'
+DEBUG: Importing app.nodes.utilities.math_node
+DEBUG: Import error for app.nodes.utilities.math_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilitiesthon_repl_core
+DEBUG: Import error for app.nodes.utilitiesthon_repl_core: No module named 'app.nodes.utilitiesthon_repl_core'
+DEBUG: Importing app.nodes.utilities.rss_feed_node
+DEBUG: Import error for app.nodes.utilities.rss_feed_node: No module named 'feedparser'
+DEBUG: Importing app.nodes.utilities.spreadsheet_parser_node
+DEBUG: Import error for app.nodes.utilities.spreadsheet_parser_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilities.ssh_node
+DEBUG: Import error for app.nodes.utilities.ssh_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilities.universal_api_node
+DEBUG: Importing app.nodes.utilities.wait_for_webhook_node
+DEBUG: Import error for app.nodes.utilities.wait_for_webhook_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilities.webhook_response_node
+DEBUG: Import error for app.nodes.utilities.webhook_response_node: No module named 'app.base'
+DEBUG: Importing app.nodes.utilities.xml_parser_node
+DEBUG: Import error for app.nodes.utilities.xml_parser_node: No module named 'xmltodict'
+DEBUG: Importing app.nodes.vertexai.vertexai
+DEBUG: Error processing app.nodes.vertexai.vertexai: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.vertexai.vertexai_embeddings
+DEBUG: Importing app.nodes.verticals.ecommerce_node
+DEBUG: Importing app.nodes.verticals.healthcare_node
+DEBUG: Import error for app.nodes.verticals.healthcare_node: No module named 'app.base'
+DEBUG: Importing app.nodes.verticals.legal_intelligence_node
+DEBUG: Import error for app.nodes.verticals.legal_intelligence_node: No module named 'app.base'
+DEBUG: Importing app.nodes.verticals.legal_node
+DEBUG: Importing app.nodes.verticals.medtech_node
+DEBUG: Importing app.nodes.verticals.real_estate_node
+DEBUG: Import error for app.nodes.verticals.real_estate_node: No module named 'app.base'
+DEBUG: Importing app.nodes.youtube.channel
+DEBUG: Error processing app.nodes.youtube.channel: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.youtube.comments
+DEBUG: Error processing app.nodes.youtube.comments: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.youtube.playlist
+DEBUG: Import error for app.nodes.youtube.playlist: No module named 'pytube'
+DEBUG: Importing app.nodes.youtube.search
+DEBUG: Error processing app.nodes.youtube.search: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.youtube.trending
+DEBUG: Error processing app.nodes.youtube.trending: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.youtube.video_details
+DEBUG: Error processing app.nodes.youtube.video_details: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.youtube.youtube_transcripts
+DEBUG: Import error for app.nodes.youtube.youtube_transcripts: No module named 'youtube_transcript_api'
+NodeRegistry: Scanned 48 modules. Registered 71 nodes.
+Post-scan registry size: 71
+Processing node: GenericNode (Class: GenericNode)
+  Could not instantiate GenericNode: GenericNode.__init__() missing 2 required positional arguments: 'node_type' and 'config'
+Processing node: aws_s3_action (Class: AWSS3Node)
+Processing node: analytics_action (Class: AnalyticsNode)
+Processing node: wordpress_action (Class: WordPressNode)
+Processing node: paypal_action (Class: PayPalNode)
+Processing node: discord_action (Class: DiscordNode)
+Processing node: email_smtp_send (Class: SmtpEmailNode)
+Processing node: telegram_action (Class: TelegramNode)
+Processing node: read_file (Class: ReadFileNode)
+Processing node: write_file (Class: WriteFileNode)
+Processing node: delete_file (Class: DeleteFileNode)
+Processing node: FileBaseNode (Class: FileBaseNode)
+  Could not instantiate FileBaseNode: Can't instantiate abstract class FileBaseNode with abstract method execute
+Processing node: memoryNode (Class: MemoryNode)
+  Could not instantiate memoryNode: MemoryNode.__init__() missing 1 required positional argument: 'config'
+Processing node: webhook_trigger (Class: WebhookTriggerNode)
+Processing node: chatInput (Class: ChatInputNode)
+Processing node: chatOutput (Class: ChatOutputNode)
+Processing node: discord_webhook (Class: DiscordWebhookNode)
+Processing node: RouterNode (Class: RouterNode)
+Processing node: gmail_send (Class: GmailSendMessageNode)
+Processing node: gmail_message_fetch (Class: GmailFetchMessagesNode)
+Processing node: google_cloud_action (Class: GoogleCloudNode)
+Processing node: google_drive_loader (Class: GoogleDriveLoaderNode)
+Processing node: google_drive_search (Class: GoogleDriveSearchNode)
+Processing node: google_drive_uploader (Class: GoogleDriveUploaderNode)
+Processing node: google_drive_list (Class: GoogleDriveListNode)
+Processing node: youtube_action (Class: YouTubeNode)
+Processing node: marketing_ads_action (Class: MarketingAdsNode)
+Processing node: zoho_action (Class: ZohoNode)
+Processing node: document_processing_action (Class: DocumentProcessingNode)
+Processing node: text_parser (Class: TextParserNode)
+Processing node: ParseDataNode (Class: ParseDataNode)
+Processing node: pdf_parser (Class: PDFParserNode)
+Processing node: regex_extract (Class: RegexNode)
+Processing node: text_splitter (Class: SplitTextNode)
+Processing node: trello_action (Class: TrelloNode)
+Processing node: twitter_action (Class: TwitterNode)
+Processing node: airtable_action (Class: AirtableNode)
+Processing node: database_query (Class: DatabaseQueryNode)
+Processing node: database_insert (Class: DatabaseInsertNode)
+Processing node: database_update (Class: DatabaseUpdateNode)
+Processing node: DatabaseBaseNode (Class: DatabaseBaseNode)
+  Could not instantiate DatabaseBaseNode: Can't instantiate abstract class DatabaseBaseNode with abstract method execute
+Processing node: dualIngestorNode (Class: DualIngestorNode)
+Processing node: milvus_vector_action (Class: MilvusNode)
+Processing node: qdrant_vector_action (Class: QdrantNode)
+Processing node: weaviate_vector_action (Class: WeaviateNode)
+Processing node: smartDB (Class: SmartDBNode)
+Processing node: support_ticketing_action (Class: SupportTicketingNode)
+Processing node: CodeExecutorNode (Class: CodeExecutorNode)
+Processing node: ChunkDoclingNode (Class: ChunkDoclingNode)
+Processing node: DoclingNode (Class: DoclingNode)
+Processing node: FileReaderNode (Class: FileReaderNode)
+Processing node: universal_api_node (Class: UniversalAPIConnectorNode)
+Processing node: sageNode (Class: UniversalAPIConnectorNode)
+Processing node: odooNode (Class: UniversalAPIConnectorNode)
+Processing node: dolibarrNode (Class: UniversalAPIConnectorNode)
+Processing node: salesforceNode (Class: UniversalAPIConnectorNode)
+Processing node: hubspotNode (Class: UniversalAPIConnectorNode)
+Processing node: zohoNode (Class: UniversalAPIConnectorNode)
+Processing node: sugarcrmNode (Class: UniversalAPIConnectorNode)
+Processing node: vtigerNode (Class: UniversalAPIConnectorNode)
+Processing node: zapierNode (Class: UniversalAPIConnectorNode)
+Processing node: githubNode (Class: UniversalAPIConnectorNode)
+Processing node: gitlabNode (Class: UniversalAPIConnectorNode)
+Processing node: trelloNode (Class: UniversalAPIConnectorNode)
+Processing node: glpiNode (Class: UniversalAPIConnectorNode)
+Processing node: btrixNode (Class: UniversalAPIConnectorNode)
+Processing node: unicaNode (Class: UniversalAPIConnectorNode)
+Processing node: vertexai_embeddings (Class: VertexAIEmbeddingsNode)
+Processing node: ecommerce_action (Class: EcommerceNode)
+Processing node: legal_action (Class: LegalNode)
+Processing node: medtech_action (Class: MedTechNode)
+Finished writing 67 nodes to C:\Users\info\Downloads\studio-V3.0.0-main\backend\data\migrated_nodes.json

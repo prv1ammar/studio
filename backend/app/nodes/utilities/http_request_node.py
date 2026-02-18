@@ -5,8 +5,8 @@ Batch 99: Web & Utilities (Deepening Parity)
 from typing import Any, Dict, Optional, List
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("http_request_node")
 class HTTPRequestNode(BaseNode):
@@ -18,6 +18,71 @@ class HTTPRequestNode(BaseNode):
     category = "utilities"
     credentials_required = [] # Auth can be passed in headers/auth inputs or generic creds
 
+
+    properties = [
+        {
+            'displayName': 'Authentication',
+            'name': 'authentication',
+            'type': 'options',
+            'default': 'none',
+            'options': [
+                {'name': 'None', 'value': 'none'},
+                {'name': 'Basic', 'value': 'basic'},
+                {'name': 'Bearer', 'value': 'bearer'},
+                {'name': 'Header', 'value': 'header'},
+            ],
+        },
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+            'description': 'Request Body (JSON or string)',
+        },
+        {
+            'displayName': 'Body Content Type',
+            'name': 'body_content_type',
+            'type': 'options',
+            'default': 'json',
+            'options': [
+                {'name': 'Json', 'value': 'json'},
+                {'name': 'Form-Data', 'value': 'form-data'},
+                {'name': 'X-Www-Form-Urlencoded', 'value': 'x-www-form-urlencoded'},
+                {'name': 'Raw', 'value': 'raw'},
+            ],
+            'description': 'Body Content Type',
+        },
+        {
+            'displayName': 'Headers',
+            'name': 'headers',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON headers',
+        },
+        {
+            'displayName': 'Method',
+            'name': 'method',
+            'type': 'options',
+            'default': 'GET',
+            'options': [
+                {'name': 'Get', 'value': 'GET'},
+                {'name': 'Post', 'value': 'POST'},
+                {'name': 'Put', 'value': 'PUT'},
+                {'name': 'Patch', 'value': 'PATCH'},
+                {'name': 'Delete', 'value': 'DELETE'},
+                {'name': 'Head', 'value': 'HEAD'},
+            ],
+            'description': 'HTTP Method',
+        },
+        {
+            'displayName': 'Url',
+            'name': 'url',
+            'type': 'string',
+            'default': '',
+            'description': 'Target URL',
+            'required': True,
+        },
+    ]
     inputs = {
         "method": {
             "type": "dropdown",

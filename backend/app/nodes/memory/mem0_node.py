@@ -3,8 +3,8 @@ Mem0 Node - Studio Standard (Universal Method)
 Batch 114: Advanced AI Frameworks & Memory
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("mem0_node")
 class Mem0Node(BaseNode):
@@ -16,6 +16,37 @@ class Mem0Node(BaseNode):
     category = "memory"
     credentials_required = ["mem0_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'add',
+            'options': [
+                {'name': 'Add', 'value': 'add'},
+                {'name': 'Search', 'value': 'search'},
+                {'name': 'Get All', 'value': 'get_all'},
+                {'name': 'Delete All', 'value': 'delete_all'},
+            ],
+            'description': 'Action to perform',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'The message to store or search for',
+        },
+        {
+            'displayName': 'User Id',
+            'name': 'user_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique identifier for the user',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

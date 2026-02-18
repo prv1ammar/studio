@@ -4,8 +4,8 @@ Batch 109: Analytics & Support
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("zendesk_node")
 class ZendeskNode(BaseNode):
@@ -17,6 +17,40 @@ class ZendeskNode(BaseNode):
     category = "support"
     credentials_required = ["zendesk_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_ticket',
+            'options': [
+                {'name': 'Create Ticket', 'value': 'create_ticket'},
+                {'name': 'Get Ticket', 'value': 'get_ticket'},
+                {'name': 'Update Ticket', 'value': 'update_ticket'},
+                {'name': 'List Tickets', 'value': 'list_tickets'},
+            ],
+            'description': 'Zendesk action',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Ticket Id',
+            'name': 'ticket_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

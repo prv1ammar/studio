@@ -4,8 +4,8 @@ Batch 66: DevOps & Cloud Infrastructure
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("vultr_node")
 class VultrNode(BaseNode):
@@ -17,6 +17,47 @@ class VultrNode(BaseNode):
     category = "infrastructure"
     credentials_required = ["vultr_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_instances',
+            'options': [
+                {'name': 'List Instances', 'value': 'list_instances'},
+                {'name': 'Get Account', 'value': 'get_account'},
+                {'name': 'List Plans', 'value': 'list_plans'},
+                {'name': 'Create Instance', 'value': 'create_instance'},
+            ],
+            'description': 'Vultr action',
+        },
+        {
+            'displayName': 'Label',
+            'name': 'label',
+            'type': 'string',
+            'default': '',
+            'description': 'Instance label',
+        },
+        {
+            'displayName': 'Os Id',
+            'name': 'os_id',
+            'type': 'string',
+            'default': 387,
+        },
+        {
+            'displayName': 'Plan',
+            'name': 'plan',
+            'type': 'string',
+            'default': 'vc2-1c-1gb',
+        },
+        {
+            'displayName': 'Region',
+            'name': 'region',
+            'type': 'string',
+            'default': 'ewr',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

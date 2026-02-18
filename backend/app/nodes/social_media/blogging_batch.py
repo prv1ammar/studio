@@ -4,8 +4,8 @@ Batch 106: Social Media
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # ============================================
 # MEDIUM NODE
@@ -20,6 +20,73 @@ class MediumNode(BaseNode):
     category = "social_media"
     credentials_required = ["medium_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_post',
+            'options': [
+                {'name': 'Create Post', 'value': 'create_post'},
+                {'name': 'Get User', 'value': 'get_user'},
+                {'name': 'List Publications', 'value': 'list_publications'},
+            ],
+            'description': 'Medium action',
+        },
+        {
+            'displayName': 'Author Id',
+            'name': 'author_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Content Format',
+            'name': 'content_format',
+            'type': 'options',
+            'default': 'html',
+            'options': [
+                {'name': 'Html', 'value': 'html'},
+                {'name': 'Markdown', 'value': 'markdown'},
+            ],
+        },
+        {
+            'displayName': 'Publication Id',
+            'name': 'publication_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Publish Status',
+            'name': 'publish_status',
+            'type': 'options',
+            'default': 'public',
+            'options': [
+                {'name': 'Public', 'value': 'public'},
+                {'name': 'Draft', 'value': 'draft'},
+                {'name': 'Unlisted', 'value': 'unlisted'},
+            ],
+        },
+        {
+            'displayName': 'Tags',
+            'name': 'tags',
+            'type': 'string',
+            'default': '',
+            'description': 'Comma separated tags',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

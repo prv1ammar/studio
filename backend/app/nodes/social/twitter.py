@@ -14,6 +14,28 @@ class TwitterNode(BaseNode):
     category = "social"
     credentials_required = ["twitter_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'search',
+        },
+        {
+            'displayName': 'Max Results',
+            'name': 'max_results',
+            'type': 'string',
+            'default': 10,
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Twitter search query',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "search", "enum": ["search"]},
         "query": {"type": "string", "description": "Twitter search query"},

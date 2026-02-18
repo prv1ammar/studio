@@ -4,8 +4,8 @@ Batch 85: SMB Finance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("brex_node")
 class BrexNode(BaseNode):
@@ -17,6 +17,22 @@ class BrexNode(BaseNode):
     category = "finance"
     credentials_required = ["brex_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_accounts',
+            'options': [
+                {'name': 'List Accounts', 'value': 'list_accounts'},
+                {'name': 'List Transfers', 'value': 'list_transfers'},
+                {'name': 'List Cards', 'value': 'list_cards'},
+                {'name': 'Get Company', 'value': 'get_company'},
+            ],
+            'description': 'Brex action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

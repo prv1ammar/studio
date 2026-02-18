@@ -4,8 +4,8 @@ Batch 73: Real Estate & MLS
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("redfin_node")
 class RedfinNode(BaseNode):
@@ -17,6 +17,34 @@ class RedfinNode(BaseNode):
     category = "real_estate"
     credentials_required = ["redfin_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_properties',
+            'options': [
+                {'name': 'Search Properties', 'value': 'search_properties'},
+                {'name': 'Get Property Details', 'value': 'get_property_details'},
+                {'name': 'Get Market Stats', 'value': 'get_market_stats'},
+            ],
+            'description': 'Redfin action',
+        },
+        {
+            'displayName': 'Location',
+            'name': 'location',
+            'type': 'string',
+            'default': '',
+            'description': 'City, State or Zip',
+        },
+        {
+            'displayName': 'Property Id',
+            'name': 'property_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

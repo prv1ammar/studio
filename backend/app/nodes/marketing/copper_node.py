@@ -4,8 +4,8 @@ Batch 108: Marketing & CRM
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("copper_node")
 class CopperNode(BaseNode):
@@ -17,6 +17,34 @@ class CopperNode(BaseNode):
     category = "marketing"
     credentials_required = ["copper_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_person',
+            'options': [
+                {'name': 'Create Person', 'value': 'create_person'},
+                {'name': 'Create Lead', 'value': 'create_lead'},
+                {'name': 'Create Opportunity', 'value': 'create_opportunity'},
+                {'name': 'Search', 'value': 'search'},
+            ],
+            'description': 'Copper action',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Name',
+            'name': 'name',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 95: Database Connectors (n8n Critical - Enhanced)
 """
 from typing import Any, Dict, Optional, List
 import asyncpg
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("postgres_node")
 class PostgresNode(BaseNode):
@@ -17,6 +17,37 @@ class PostgresNode(BaseNode):
     category = "database"
     credentials_required = ["postgres_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'execute_query',
+            'options': [
+                {'name': 'Execute Query', 'value': 'execute_query'},
+                {'name': 'Insert Rows', 'value': 'insert_rows'},
+                {'name': 'Update Rows', 'value': 'update_rows'},
+                {'name': 'Delete Rows', 'value': 'delete_rows'},
+            ],
+            'description': 'Postgres action',
+        },
+        {
+            'displayName': 'Params',
+            'name': 'params',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON array of parameters',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'SQL query with parameters ($1, $2, etc.)',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

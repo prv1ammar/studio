@@ -3,8 +3,8 @@ Item Lists Node - Studio Standard (Universal Method)
 Batch 103: Core Workflow Nodes
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("item_lists_node")
 class ItemListsNode(BaseNode):
@@ -16,6 +16,62 @@ class ItemListsNode(BaseNode):
     category = "flow_controls"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Field To Split',
+            'name': 'field_to_split',
+            'type': 'string',
+            'default': '',
+            'description': 'Field containing array to split (for split_out)',
+        },
+        {
+            'displayName': 'Limit',
+            'name': 'limit',
+            'type': 'string',
+            'default': '',
+            'description': 'Maximum number of items to keep',
+        },
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'split_out',
+            'options': [
+                {'name': 'Split Out', 'value': 'split_out'},
+                {'name': 'Aggregate', 'value': 'aggregate'},
+                {'name': 'Remove Duplicates', 'value': 'remove_duplicates'},
+                {'name': 'Sort', 'value': 'sort'},
+                {'name': 'Limit', 'value': 'limit'},
+                {'name': 'Summarize', 'value': 'summarize'},
+            ],
+            'description': 'List operation to perform',
+        },
+        {
+            'displayName': 'Sort Field',
+            'name': 'sort_field',
+            'type': 'string',
+            'default': '',
+            'description': 'Field to sort by',
+        },
+        {
+            'displayName': 'Sort Order',
+            'name': 'sort_order',
+            'type': 'options',
+            'default': 'asc',
+            'options': [
+                {'name': 'Asc', 'value': 'asc'},
+                {'name': 'Desc', 'value': 'desc'},
+            ],
+        },
+        {
+            'displayName': 'Unique Field',
+            'name': 'unique_field',
+            'type': 'string',
+            'default': '',
+            'description': 'Field to check for duplicates',
+        },
+    ]
     inputs = {
         "operation": {
             "type": "dropdown",

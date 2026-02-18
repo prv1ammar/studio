@@ -13,6 +13,29 @@ class WebhookTriggerNode(BaseNode):
     version = "1.0.0"
     category = "trigger"
     
+
+    properties = [
+        {
+            'displayName': 'Expected Auth Header',
+            'name': 'expected_auth_header',
+            'type': 'string',
+            'default': '',
+            'description': 'Optional API Key to expect in headers',
+        },
+        {
+            'displayName': 'Method',
+            'name': 'method',
+            'type': 'string',
+            'default': 'POST',
+        },
+        {
+            'displayName': 'Path',
+            'name': 'path',
+            'type': 'string',
+            'default': '',
+            'description': 'Custom sub-path (optional)',
+        },
+    ]
     inputs = {
         "method": {"type": "string", "default": "POST", "enum": ["GET", "POST"]},
         "expected_auth_header": {"type": "string", "description": "Optional API Key to expect in headers"},

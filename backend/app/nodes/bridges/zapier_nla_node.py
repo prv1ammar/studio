@@ -4,8 +4,8 @@ Batch 101: Automation Bridges (Interoperability)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("zapier_nla_node")
 class ZapierNLANode(BaseNode):
@@ -18,6 +18,32 @@ class ZapierNLANode(BaseNode):
     category = "bridges"
     credentials_required = ["zapier_nla_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Action Id',
+            'name': 'action_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Action ID from Zapier NLA',
+            'required': True,
+        },
+        {
+            'displayName': 'Instructions',
+            'name': 'instructions',
+            'type': 'string',
+            'default': '',
+            'description': 'Natural Language input (e.g. 'Send a slack message to @alice saying hello')',
+            'required': True,
+        },
+        {
+            'displayName': 'Preview Only',
+            'name': 'preview_only',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Preview execution without running?',
+        },
+    ]
     inputs = {
         "action_id": {
             "type": "string",

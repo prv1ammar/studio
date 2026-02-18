@@ -4,8 +4,8 @@ Batch 66: DevOps & Cloud Infrastructure
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("digitalocean_node")
 class DigitalOceanNode(BaseNode):
@@ -17,6 +17,47 @@ class DigitalOceanNode(BaseNode):
     category = "infrastructure"
     credentials_required = ["do_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_droplets',
+            'options': [
+                {'name': 'List Droplets', 'value': 'list_droplets'},
+                {'name': 'Get Account', 'value': 'get_account'},
+                {'name': 'List Images', 'value': 'list_images'},
+                {'name': 'Create Droplet', 'value': 'create_droplet'},
+            ],
+            'description': 'DigitalOcean action',
+        },
+        {
+            'displayName': 'Image',
+            'name': 'image',
+            'type': 'string',
+            'default': 'ubuntu-20-04-x64',
+        },
+        {
+            'displayName': 'Name',
+            'name': 'name',
+            'type': 'string',
+            'default': '',
+            'description': 'Droplet name',
+        },
+        {
+            'displayName': 'Region',
+            'name': 'region',
+            'type': 'string',
+            'default': 'nyc3',
+        },
+        {
+            'displayName': 'Size',
+            'name': 'size',
+            'type': 'string',
+            'default': 's-1vcpu-1gb',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

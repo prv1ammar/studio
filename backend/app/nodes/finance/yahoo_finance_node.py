@@ -4,8 +4,8 @@ Batch 112: Advanced Search & Knowledge
 """
 from typing import Any, Dict, Optional, List
 import yfinance as yf
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("yahoo_finance_node")
 class YahooFinanceNode(BaseNode):
@@ -17,6 +17,49 @@ class YahooFinanceNode(BaseNode):
     category = "finance"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Method',
+            'name': 'method',
+            'type': 'options',
+            'default': 'get_info',
+            'options': [
+                {'name': 'Get Info', 'value': 'get_info'},
+                {'name': 'Get News', 'value': 'get_news'},
+                {'name': 'Get Actions', 'value': 'get_actions'},
+                {'name': 'Get Analysis', 'value': 'get_analysis'},
+                {'name': 'Get Balance Sheet', 'value': 'get_balance_sheet'},
+                {'name': 'Get Calendar', 'value': 'get_calendar'},
+                {'name': 'Get Cashflow', 'value': 'get_cashflow'},
+                {'name': 'Get Institutional Holders', 'value': 'get_institutional_holders'},
+                {'name': 'Get Recommendations', 'value': 'get_recommendations'},
+                {'name': 'Get Sustainability', 'value': 'get_sustainability'},
+                {'name': 'Get Major Holders', 'value': 'get_major_holders'},
+                {'name': 'Get Dividends', 'value': 'get_dividends'},
+                {'name': 'Get Splits', 'value': 'get_splits'},
+                {'name': 'Get Shares', 'value': 'get_shares'},
+                {'name': 'Get Fast Info', 'value': 'get_fast_info'},
+                {'name': 'Get Income Stmt', 'value': 'get_income_stmt'},
+            ],
+            'description': 'The type of data to retrieve',
+        },
+        {
+            'displayName': 'Num News',
+            'name': 'num_news',
+            'type': 'string',
+            'default': 5,
+            'description': 'Number of news articles to retrieve (if method is get_news)',
+        },
+        {
+            'displayName': 'Symbol',
+            'name': 'symbol',
+            'type': 'string',
+            'default': '',
+            'description': 'The stock symbol to retrieve data for (e.g., AAPL, GOOG)',
+            'required': True,
+        },
+    ]
     inputs = {
         "symbol": {
             "type": "string",

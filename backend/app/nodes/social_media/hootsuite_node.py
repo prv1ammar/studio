@@ -4,8 +4,8 @@ Batch 106: Social Media
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("hootsuite_node")
 class HootsuiteNode(BaseNode):
@@ -17,6 +17,33 @@ class HootsuiteNode(BaseNode):
     category = "social_media"
     credentials_required = ["hootsuite_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_message',
+            'options': [
+                {'name': 'Create Message', 'value': 'create_message'},
+                {'name': 'Get Profiles', 'value': 'get_profiles'},
+            ],
+            'description': 'Hootsuite action',
+        },
+        {
+            'displayName': 'Social Profile Ids',
+            'name': 'social_profile_ids',
+            'type': 'string',
+            'default': '',
+            'description': 'Comma separated profile IDs',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 87: Retail & Marketplaces
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("amazon_sp_node")
 class AmazonSPNode(BaseNode):
@@ -17,6 +17,29 @@ class AmazonSPNode(BaseNode):
     category = "marketplaces"
     credentials_required = ["amazon_sp_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_orders',
+            'options': [
+                {'name': 'Get Orders', 'value': 'get_orders'},
+                {'name': 'Get Catalog Item', 'value': 'get_catalog_item'},
+                {'name': 'List Financial Events', 'value': 'list_financial_events'},
+                {'name': 'Get Marketplace Participations', 'value': 'get_marketplace_participations'},
+            ],
+            'description': 'Amazon SP-API action',
+        },
+        {
+            'displayName': 'Marketplace Id',
+            'name': 'marketplace_id',
+            'type': 'string',
+            'default': 'ATVPDKIKX0DER',
+            'description': 'Amazon Marketplace ID',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

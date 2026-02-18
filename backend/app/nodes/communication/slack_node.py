@@ -4,8 +4,8 @@ Batch 40: Productivity Integrations
 """
 from typing import Any, Dict, Optional, List
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("slack_node")
 class SlackNode(BaseNode):
@@ -18,6 +18,42 @@ class SlackNode(BaseNode):
     category = "productivity"
     credentials_required = ["slack_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'send_message',
+            'options': [
+                {'name': 'Send Message', 'value': 'send_message'},
+                {'name': 'Read History', 'value': 'read_history'},
+                {'name': 'List Users', 'value': 'list_users'},
+            ],
+            'description': 'Action to perform',
+        },
+        {
+            'displayName': 'Channel Id',
+            'name': 'channel_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Channel ID or Name (e.g., #general, C12345)',
+        },
+        {
+            'displayName': 'Limit',
+            'name': 'limit',
+            'type': 'string',
+            'default': 10,
+            'description': 'Number of messages to retrieve',
+        },
+        {
+            'displayName': 'Message Text',
+            'name': 'message_text',
+            'type': 'string',
+            'default': '',
+            'description': 'Message content (supports markdown)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

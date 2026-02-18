@@ -4,8 +4,8 @@ Batch 35: Document Loaders
 """
 from typing import Any, Dict, Optional, List
 import os
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("pdf_loader")
 class PDFLoaderNode(BaseNode):
@@ -18,6 +18,36 @@ class PDFLoaderNode(BaseNode):
     category = "input_output"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Extract Images',
+            'name': 'extract_images',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Extract images from the PDF (Unstructured only)',
+        },
+        {
+            'displayName': 'File Path',
+            'name': 'file_path',
+            'type': 'string',
+            'default': '',
+            'description': 'Path to the PDF file',
+            'required': True,
+        },
+        {
+            'displayName': 'Loader Type',
+            'name': 'loader_type',
+            'type': 'options',
+            'default': 'PyPDF',
+            'options': [
+                {'name': 'Pypdf', 'value': 'PyPDF'},
+                {'name': 'Unstructured', 'value': 'Unstructured'},
+                {'name': 'Pymupdf', 'value': 'PyMuPDF'},
+            ],
+            'description': 'Library to use for PDF parsing',
+        },
+    ]
     inputs = {
         "file_path": {
             "type": "string",

@@ -4,8 +4,8 @@ Batch 112: AI Video & Media
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("heygen_node")
 class HeygenNode(BaseNode):
@@ -17,6 +17,50 @@ class HeygenNode(BaseNode):
     category = "media"
     credentials_required = ["heygen_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'generate_video',
+            'options': [
+                {'name': 'Generate Video', 'value': 'generate_video'},
+                {'name': 'Get Video Status', 'value': 'get_video_status'},
+                {'name': 'List Avatars', 'value': 'list_avatars'},
+                {'name': 'List Voices', 'value': 'list_voices'},
+            ],
+            'description': 'Heygen action',
+        },
+        {
+            'displayName': 'Avatar Id',
+            'name': 'avatar_id',
+            'type': 'string',
+            'default': 'Daisy_public_2_20230913',
+            'description': 'The ID of the avatar to use',
+        },
+        {
+            'displayName': 'Input Text',
+            'name': 'input_text',
+            'type': 'string',
+            'default': '',
+            'description': 'Text for the avatar to speak',
+        },
+        {
+            'displayName': 'Video Id',
+            'name': 'video_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Required for get_video_status',
+        },
+        {
+            'displayName': 'Voice Id',
+            'name': 'voice_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Optional: Specific voice ID',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

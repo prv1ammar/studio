@@ -3,8 +3,8 @@ Filter Node - Studio Standard (Universal Method)
 Batch 93: Advanced Workflow (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("filter_node")
 class FilterNode(BaseNode):
@@ -16,6 +16,40 @@ class FilterNode(BaseNode):
     category = "flow_control"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Condition',
+            'name': 'condition',
+            'type': 'string',
+            'default': 'equals',
+            'options': [
+                {'name': 'Equals', 'value': 'equals'},
+                {'name': 'Not Equals', 'value': 'not_equals'},
+                {'name': 'Contains', 'value': 'contains'},
+                {'name': 'Not Contains', 'value': 'not_contains'},
+                {'name': 'Starts With', 'value': 'starts_with'},
+                {'name': 'Ends With', 'value': 'ends_with'},
+                {'name': 'Greater Than', 'value': 'greater_than'},
+                {'name': 'Less Than', 'value': 'less_than'},
+            ],
+            'description': 'Comparison operator',
+        },
+        {
+            'displayName': 'Key',
+            'name': 'key',
+            'type': 'string',
+            'default': '',
+            'description': 'Key to check in each item',
+        },
+        {
+            'displayName': 'Value',
+            'name': 'value',
+            'type': 'string',
+            'default': '',
+            'description': 'Value to compare against',
+        },
+    ]
     inputs = {
         "condition": {
             "type": "string",

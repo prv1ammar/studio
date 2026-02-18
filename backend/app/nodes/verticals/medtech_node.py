@@ -14,6 +14,28 @@ class MedTechNode(BaseNode):
     category = "verticals"
     credentials_required = ["healthcare_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+            'description': 'Patient data, notes, or lab results',
+        },
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'patient_summary',
+        },
+        {
+            'displayName': 'Specialty',
+            'name': 'specialty',
+            'type': 'string',
+            'default': 'General',
+        },
+    ]
     inputs = {
         "operation": {"type": "string", "default": "patient_summary", "enum": ["patient_summary", "icd_coding", "lab_interpretation"]},
         "specialty": {"type": "string", "default": "General"},

@@ -4,8 +4,8 @@ Batch 92: Social Media Integration (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("linkedin_node")
 class LinkedInNode(BaseNode):
@@ -17,6 +17,35 @@ class LinkedInNode(BaseNode):
     category = "social"
     credentials_required = ["linkedin_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'refresh_access_token',
+            'options': [
+                {'name': 'Create Text Share', 'value': 'create_text_share'},
+                {'name': 'Get Me', 'value': 'get_me'},
+                {'name': 'Refresh Access Token', 'value': 'refresh_access_token'},
+                {'name': 'Get Organization', 'value': 'get_organization'},
+            ],
+            'description': 'LinkedIn action',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Urn',
+            'name': 'urn',
+            'type': 'string',
+            'default': '',
+            'description': 'Person or Organization URN (e.g. urn:li:person:123)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

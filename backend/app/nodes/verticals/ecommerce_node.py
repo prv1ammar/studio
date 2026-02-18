@@ -14,6 +14,27 @@ class EcommerceNode(BaseNode):
     category = "verticals"
     credentials_required = ["ecommerce_platform_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'inventory_optimization',
+        },
+        {
+            'displayName': 'Platform',
+            'name': 'platform',
+            'type': 'string',
+            'default': 'Shopify',
+        },
+    ]
     inputs = {
         "operation": {"type": "string", "default": "inventory_optimization", "enum": ["inventory_optimization", "churn_prediction", "dynamic_pricing"]},
         "platform": {"type": "string", "default": "Shopify", "enum": ["Shopify", "WooCommerce", "Magento"]},

@@ -4,8 +4,8 @@ Batch 82: Agile & DevOps
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("ansible_node")
 class AnsibleNode(BaseNode):
@@ -17,6 +17,35 @@ class AnsibleNode(BaseNode):
     category = "devops"
     credentials_required = ["ansible_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_jobs',
+            'options': [
+                {'name': 'List Jobs', 'value': 'list_jobs'},
+                {'name': 'Launch Job', 'value': 'launch_job'},
+                {'name': 'Get Job Status', 'value': 'get_job_status'},
+            ],
+            'description': 'Ansible action',
+        },
+        {
+            'displayName': 'Base Url',
+            'name': 'base_url',
+            'type': 'string',
+            'default': '',
+            'description': 'AWX/Tower base URL (e.g., https://awx.example.com)',
+            'required': True,
+        },
+        {
+            'displayName': 'Job Template Id',
+            'name': 'job_template_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 106: Social Media
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("buffer_node")
 class BufferNode(BaseNode):
@@ -17,6 +17,53 @@ class BufferNode(BaseNode):
     category = "social_media"
     credentials_required = ["buffer_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_update',
+            'options': [
+                {'name': 'Create Update', 'value': 'create_update'},
+                {'name': 'Get Profiles', 'value': 'get_profiles'},
+                {'name': 'Get Pending Updates', 'value': 'get_pending_updates'},
+            ],
+            'description': 'Buffer action',
+        },
+        {
+            'displayName': 'Media Photo',
+            'name': 'media_photo',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Media Thumbnail',
+            'name': 'media_thumbnail',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Now',
+            'name': 'now',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Post immediately?',
+        },
+        {
+            'displayName': 'Profile Ids',
+            'name': 'profile_ids',
+            'type': 'string',
+            'default': '',
+            'description': 'Comma separated profile IDs',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

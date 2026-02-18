@@ -9,8 +9,8 @@ import io
 # import pandas as pd # Optional, but heavy. Using pure python libs for CSV.
 # For XLSX, openpyxl is needed. We will implement CSV support fully and placeholder for XLSX/Pandas if not installed.
 
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("spreadsheet_parser_node")
 class SpreadsheetParserNode(BaseNode):
@@ -22,6 +22,43 @@ class SpreadsheetParserNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'parse',
+            'options': [
+                {'name': 'Parse', 'value': 'parse'},
+                {'name': 'Stringify', 'value': 'stringify'},
+            ],
+            'description': 'Parse (String -> JSON) or Stringify (JSON -> String)',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Delimiter',
+            'name': 'delimiter',
+            'type': 'string',
+            'default': ',',
+        },
+        {
+            'displayName': 'Format',
+            'name': 'format',
+            'type': 'options',
+            'default': 'csv',
+            'options': [
+                {'name': 'Csv', 'value': 'csv'},
+                {'name': 'Json', 'value': 'json'},
+            ],
+            'description': 'Data Format',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

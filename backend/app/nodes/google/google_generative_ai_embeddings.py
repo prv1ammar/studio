@@ -13,6 +13,21 @@ class GoogleEmbeddingsNode(BaseNode):
     category = "embeddings"
     credentials_required = ["google_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Api Key',
+            'name': 'api_key',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Model',
+            'name': 'model',
+            'type': 'string',
+            'default': 'models/text-embedding-004',
+        },
+    ]
     inputs = {
         "model": {"type": "string", "default": "models/text-embedding-004"},
         "api_key": {"type": "string", "optional": True}

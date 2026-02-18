@@ -4,8 +4,8 @@ Batch 92: Social Media Integration (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("twitter_v2_node")
 class TwitterV2Node(BaseNode):
@@ -17,6 +17,28 @@ class TwitterV2Node(BaseNode):
     category = "social"
     credentials_required = ["twitter_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_tweet',
+            'options': [
+                {'name': 'Create Tweet', 'value': 'create_tweet'},
+                {'name': 'Get Me', 'value': 'get_me'},
+                {'name': 'Search Recent Tweets', 'value': 'search_recent_tweets'},
+                {'name': 'Get User', 'value': 'get_user'},
+            ],
+            'description': 'Twitter action',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -5,8 +5,8 @@ Part of Phase 6: Rewriting Existing Nodes to remove Composio
 import json
 import httpx
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("google_sheets_node")
 class GoogleSheetsNode(BaseNode):
@@ -20,6 +20,45 @@ class GoogleSheetsNode(BaseNode):
     category = "productivity"
     credentials_required = ["google_sheets_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'append_row',
+            'options': [
+                {'name': 'Get Spreadsheet', 'value': 'get_spreadsheet'},
+                {'name': 'Append Row', 'value': 'append_row'},
+                {'name': 'Update Range', 'value': 'update_range'},
+                {'name': 'Clear Range', 'value': 'clear_range'},
+                {'name': 'Get Values', 'value': 'get_values'},
+            ],
+            'description': 'Action to perform',
+        },
+        {
+            'displayName': 'Range',
+            'name': 'range',
+            'type': 'string',
+            'default': 'Sheet1!A1',
+            'description': 'Range (e.g., Sheet1!A1:B10)',
+        },
+        {
+            'displayName': 'Spreadsheet Id',
+            'name': 'spreadsheet_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Google Spreadsheet ID',
+            'required': True,
+        },
+        {
+            'displayName': 'Values',
+            'name': 'values',
+            'type': 'string',
+            'default': '',
+            'description': 'Array of arrays for values (e.g., [[val1, val2]])',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

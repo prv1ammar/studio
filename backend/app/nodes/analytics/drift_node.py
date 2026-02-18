@@ -4,8 +4,8 @@ Batch 109: Analytics & Support
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("drift_node")
 class DriftNode(BaseNode):
@@ -17,6 +17,26 @@ class DriftNode(BaseNode):
     category = "analytics"
     credentials_required = ["drift_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_contact',
+            'options': [
+                {'name': 'Create Contact', 'value': 'create_contact'},
+                {'name': 'Get Contact', 'value': 'get_contact'},
+            ],
+            'description': 'Drift action',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

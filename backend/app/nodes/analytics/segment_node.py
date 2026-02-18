@@ -4,8 +4,8 @@ Batch 109: Analytics & Support
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("segment_node")
 class SegmentNode(BaseNode):
@@ -17,6 +17,38 @@ class SegmentNode(BaseNode):
     category = "analytics"
     credentials_required = ["segment_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'track_event',
+            'options': [
+                {'name': 'Track Event', 'value': 'track_event'},
+                {'name': 'Identify User', 'value': 'identify_user'},
+            ],
+            'description': 'Segment action',
+        },
+        {
+            'displayName': 'Event',
+            'name': 'event',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Properties',
+            'name': 'properties',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'User Id',
+            'name': 'user_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

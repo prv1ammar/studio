@@ -14,6 +14,28 @@ class YouTubeNode(BaseNode):
     category = "media"
     credentials_required = ["google_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'search',
+        },
+        {
+            'displayName': 'Max Results',
+            'name': 'max_results',
+            'type': 'string',
+            'default': 5,
+        },
+        {
+            'displayName': 'Query Or Id',
+            'name': 'query_or_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query or Video ID',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "search", "enum": ["search", "video_details"]},
         "query_or_id": {"type": "string", "description": "Search query or Video ID"},

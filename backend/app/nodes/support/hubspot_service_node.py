@@ -4,8 +4,8 @@ Batch 97: Support & Ticketing (Deepening Parity)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("hubspot_service_node")
 class HubSpotServiceNode(BaseNode):
@@ -17,6 +17,54 @@ class HubSpotServiceNode(BaseNode):
     category = "support"
     credentials_required = ["hubspot_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_tickets',
+            'options': [
+                {'name': 'List Tickets', 'value': 'list_tickets'},
+                {'name': 'Get Ticket', 'value': 'get_ticket'},
+                {'name': 'Create Ticket', 'value': 'create_ticket'},
+                {'name': 'Update Ticket', 'value': 'update_ticket'},
+            ],
+            'description': 'HubSpot Service action',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Pipeline',
+            'name': 'pipeline',
+            'type': 'string',
+            'default': '0',
+            'description': 'Pipeline ID',
+        },
+        {
+            'displayName': 'Stage',
+            'name': 'stage',
+            'type': 'string',
+            'default': '1',
+            'description': 'Stage ID',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Ticket Id',
+            'name': 'ticket_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

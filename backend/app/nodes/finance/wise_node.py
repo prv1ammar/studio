@@ -4,8 +4,8 @@ Batch 58: Financial Services
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("wise_node")
 class WiseNode(BaseNode):
@@ -17,6 +17,36 @@ class WiseNode(BaseNode):
     category = "finance"
     credentials_required = ["wise_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_profiles',
+            'options': [
+                {'name': 'List Profiles', 'value': 'list_profiles'},
+                {'name': 'Get Accounts', 'value': 'get_accounts'},
+                {'name': 'Create Quote', 'value': 'create_quote'},
+                {'name': 'List Transfers', 'value': 'list_transfers'},
+            ],
+            'description': 'Wise action to perform',
+        },
+        {
+            'displayName': 'Is Sandbox',
+            'name': 'is_sandbox',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Use Wise Sandbox environment',
+        },
+        {
+            'displayName': 'Profile Id',
+            'name': 'profile_id',
+            'type': 'string',
+            'default': '',
+            'description': 'The specific Wise profile ID (Personal or Business)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -14,6 +14,28 @@ class TelegramNode(BaseNode):
     category = "communication"
     credentials_required = ["telegram_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Chat Id',
+            'name': 'chat_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Target Chat ID or @username',
+        },
+        {
+            'displayName': 'Parse Mode',
+            'name': 'parse_mode',
+            'type': 'string',
+            'default': 'Markdown',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "chat_id": {"type": "string", "description": "Target Chat ID or @username"},
         "text": {"type": "string", "optional": True},

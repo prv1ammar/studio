@@ -4,8 +4,8 @@ Batch 87: Retail & Marketplaces
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("target_node")
 class TargetNode(BaseNode):
@@ -17,6 +17,27 @@ class TargetNode(BaseNode):
     category = "marketplaces"
     credentials_required = ["target_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_products',
+            'options': [
+                {'name': 'Search Products', 'value': 'search_products'},
+                {'name': 'Get Store Inventory', 'value': 'get_store_inventory'},
+                {'name': 'Get Product Price', 'value': 'get_product_price'},
+            ],
+            'description': 'Target action',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 102: E-commerce & Payments Expansion
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("shopify_node")
 class ShopifyNode(BaseNode):
@@ -17,6 +17,54 @@ class ShopifyNode(BaseNode):
     category = "commerce"
     credentials_required = ["shopify_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_products',
+            'options': [
+                {'name': 'List Products', 'value': 'list_products'},
+                {'name': 'Create Product', 'value': 'create_product'},
+                {'name': 'Update Inventory', 'value': 'update_inventory'},
+                {'name': 'List Orders', 'value': 'list_orders'},
+                {'name': 'Create Order', 'value': 'create_order'},
+                {'name': 'Get Customer', 'value': 'get_customer'},
+            ],
+            'description': 'Shopify action',
+        },
+        {
+            'displayName': 'Customer Email',
+            'name': 'customer_email',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Inventory Quantity',
+            'name': 'inventory_quantity',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Price',
+            'name': 'price',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Product Id',
+            'name': 'product_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

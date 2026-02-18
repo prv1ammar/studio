@@ -5,8 +5,8 @@ Batch 42: Image & Audio
 from typing import Any, Dict, Optional
 import aiohttp
 import base64
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("elevenlabs_tts")
 class ElevenLabsNode(BaseNode):
@@ -19,6 +19,49 @@ class ElevenLabsNode(BaseNode):
     category = "media"
     credentials_required = ["elevenlabs_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Model Id',
+            'name': 'model_id',
+            'type': 'options',
+            'default': 'eleven_monolingual_v1',
+            'options': [
+                {'name': 'Eleven Monolingual V1', 'value': 'eleven_monolingual_v1'},
+                {'name': 'Eleven Multilingual V2', 'value': 'eleven_multilingual_v2'},
+            ],
+            'description': 'Speech synthesis model',
+        },
+        {
+            'displayName': 'Similarity Boost',
+            'name': 'similarity_boost',
+            'type': 'string',
+            'default': 0.75,
+            'description': 'Clarity + Similarity boost (0-1)',
+        },
+        {
+            'displayName': 'Stability',
+            'name': 'stability',
+            'type': 'string',
+            'default': 0.5,
+            'description': 'Voice stability (0-1)',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+            'description': 'Text to speak',
+            'required': True,
+        },
+        {
+            'displayName': 'Voice Id',
+            'name': 'voice_id',
+            'type': 'string',
+            'default': '21m00Tcm4TlvDq8ikWAM',
+            'description': 'Voice ID (e.g., specific character)',
+        },
+    ]
     inputs = {
         "text": {
             "type": "string",

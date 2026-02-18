@@ -13,6 +13,45 @@ class DocumentProcessingNode(BaseNode):
     category = "processing"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'parse_csv',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Delimiter',
+            'name': 'delimiter',
+            'type': 'string',
+            'default': ',',
+        },
+        {
+            'displayName': 'File Path',
+            'name': 'file_path',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Has Header',
+            'name': 'has_header',
+            'type': 'boolean',
+            'default': True,
+        },
+        {
+            'displayName': 'Transform Rules',
+            'name': 'transform_rules',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "parse_csv", "enum": ["parse_csv", "parse_json", "parse_excel", "transform_data"]},
         "file_path": {"type": "string", "optional": True},

@@ -5,8 +5,8 @@ Batch 53: Advanced AI (Visual & Generative)
 from typing import Any, Dict, Optional, List
 import aiohttp
 import base64
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("stability_ultra")
 class StabilityUltraNode(BaseNode):
@@ -19,6 +19,64 @@ class StabilityUltraNode(BaseNode):
     category = "media"
     credentials_required = ["stability_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'text_to_image',
+            'options': [
+                {'name': 'Text To Image', 'value': 'text_to_image'},
+                {'name': 'Image To Image', 'value': 'image_to_image'},
+                {'name': 'Inpainting', 'value': 'inpainting'},
+                {'name': 'Search And Replace', 'value': 'search_and_replace'},
+                {'name': 'Upscale', 'value': 'upscale'},
+            ],
+            'description': 'Stability action',
+        },
+        {
+            'displayName': 'Image Url',
+            'name': 'image_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Source image URL',
+        },
+        {
+            'displayName': 'Mask Url',
+            'name': 'mask_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Mask image URL (for inpainting)',
+        },
+        {
+            'displayName': 'Output Format',
+            'name': 'output_format',
+            'type': 'options',
+            'default': 'png',
+            'options': [
+                {'name': 'Png', 'value': 'png'},
+                {'name': 'Webp', 'value': 'webp'},
+                {'name': 'Jpg', 'value': 'jpg'},
+            ],
+            'description': 'Output file format',
+        },
+        {
+            'displayName': 'Prompt',
+            'name': 'prompt',
+            'type': 'string',
+            'default': '',
+            'description': 'Image description',
+            'required': True,
+        },
+        {
+            'displayName': 'Search Prompt',
+            'name': 'search_prompt',
+            'type': 'string',
+            'default': '',
+            'description': 'Object to find and replace (for search_and_replace)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

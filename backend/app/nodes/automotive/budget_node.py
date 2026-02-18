@@ -4,7 +4,7 @@ Batch 88: Automotive & Fleet
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
+from ..base import BaseNode
 from...registry import register_node
 
 @register_node("budget_node")
@@ -17,6 +17,27 @@ class BudgetNode(BaseNode):
     category = "automotive"
     credentials_required = ["budget_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_vehicles',
+            'options': [
+                {'name': 'Search Vehicles', 'value': 'search_vehicles'},
+                {'name': 'Get Rates', 'value': 'get_rates'},
+                {'name': 'Create Booking', 'value': 'create_booking'},
+            ],
+            'description': 'Budget action',
+        },
+        {
+            'displayName': 'Location Code',
+            'name': 'location_code',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

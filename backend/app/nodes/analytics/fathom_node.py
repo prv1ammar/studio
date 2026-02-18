@@ -4,8 +4,8 @@ Batch 70: Advanced Analytics
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("fathom_node")
 class FathomNode(BaseNode):
@@ -17,6 +17,34 @@ class FathomNode(BaseNode):
     category = "analytics"
     credentials_required = ["fathom_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_sites',
+            'options': [
+                {'name': 'List Sites', 'value': 'list_sites'},
+                {'name': 'Get Site', 'value': 'get_site'},
+                {'name': 'Get Aggregation', 'value': 'get_aggregation'},
+            ],
+            'description': 'Fathom action',
+        },
+        {
+            'displayName': 'Date From',
+            'name': 'date_from',
+            'type': 'string',
+            'default': '',
+            'description': 'YYYY-MM-DD',
+        },
+        {
+            'displayName': 'Site Id',
+            'name': 'site_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

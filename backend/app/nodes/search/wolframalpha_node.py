@@ -3,8 +3,8 @@ WolframAlpha Node - Studio Standard (Universal Method)
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("wolframalpha_node")
 class WolframAlphaNode(BaseNode):
@@ -16,6 +16,29 @@ class WolframAlphaNode(BaseNode):
     category = "search"
     credentials_required = ["wolframalpha_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Output Format',
+            'name': 'output_format',
+            'type': 'options',
+            'default': 'plaintext',
+            'options': [
+                {'name': 'Plaintext', 'value': 'plaintext'},
+                {'name': 'Image', 'value': 'image'},
+                {'name': 'Xml', 'value': 'xml'},
+            ],
+            'description': 'The format of the response',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'The mathematical or computational query',
+            'required': True,
+        },
+    ]
     inputs = {
         "query": {
             "type": "string",

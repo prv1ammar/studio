@@ -14,6 +14,28 @@ class LegalNode(BaseNode):
     category = "verticals"
     credentials_required = ["openai_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Document Text',
+            'name': 'document_text',
+            'type': 'string',
+            'default': '',
+            'description': 'Legal text to analyze',
+        },
+        {
+            'displayName': 'Jurisdiction',
+            'name': 'jurisdiction',
+            'type': 'string',
+            'default': 'US',
+        },
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'contract_analysis',
+        },
+    ]
     inputs = {
         "operation": {"type": "string", "default": "contract_analysis", "enum": ["contract_analysis", "compliance_check", "risk_assessment"]},
         "jurisdiction": {"type": "string", "default": "US", "enum": ["US", "EU", "UK", "Middle East"]},

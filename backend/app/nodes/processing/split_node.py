@@ -12,6 +12,28 @@ class SplitTextNode(BaseNode):
     version = "1.0.0"
     category = "processing"
 
+
+    properties = [
+        {
+            'displayName': 'Chunk Overlap',
+            'name': 'chunk_overlap',
+            'type': 'string',
+            'default': 200,
+        },
+        {
+            'displayName': 'Chunk Size',
+            'name': 'chunk_size',
+            'type': 'string',
+            'default': 1000,
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+            'description': 'Text to split',
+        },
+    ]
     inputs = {
         "chunk_size": {"type": "number", "default": 1000},
         "chunk_overlap": {"type": "number", "default": 200},

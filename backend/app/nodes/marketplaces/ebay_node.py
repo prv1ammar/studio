@@ -4,8 +4,8 @@ Batch 87: Retail & Marketplaces
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("ebay_node")
 class EbayNode(BaseNode):
@@ -17,6 +17,21 @@ class EbayNode(BaseNode):
     category = "marketplaces"
     credentials_required = ["ebay_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_orders',
+            'options': [
+                {'name': 'Get Orders', 'value': 'get_orders'},
+                {'name': 'Search Listings', 'value': 'search_listings'},
+                {'name': 'Get Account Details', 'value': 'get_account_details'},
+            ],
+            'description': 'eBay action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

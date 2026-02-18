@@ -5,8 +5,8 @@ Batch 85: SMB Finance
 from typing import Any, Dict, Optional, List
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("expensify_node")
 class ExpensifyNode(BaseNode):
@@ -18,6 +18,21 @@ class ExpensifyNode(BaseNode):
     category = "finance"
     credentials_required = ["expensify_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_reports',
+            'options': [
+                {'name': 'Get Reports', 'value': 'get_reports'},
+                {'name': 'Create Expense', 'value': 'create_expense'},
+                {'name': 'List Expenses', 'value': 'list_expenses'},
+            ],
+            'description': 'Expensify action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -1,0 +1,1084 @@
+Pre-scan registry size: 0
+DEBUG: NodeRegistry scan starting...
+DEBUG: nodes_dir=C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\nodes, package_root=C:\Users\info\Downloads\studio-V3.0.0-main\backend
+DEBUG: agents_path=C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\agents
+DEBUG: Importing app.nodes.factory
+DEBUG: Importing app.nodes.generic_node
+DEBUG: Importing app.nodes.private_registry
+DEBUG: Importing app.nodes.ai.anthropic_chat_node
+DEBUG: Importing app.nodes.ai.cohere_chat_node
+DEBUG: Importing app.nodes.ai.gemini_chat_node
+DEBUG: Importing app.nodes.ai.huggingface_inference_node
+DEBUG: Importing app.nodes.ai.huggingface_node
+DEBUG: Importing app.nodes.ai.jigsawstack_node
+DEBUG: Importing app.nodes.ai.lmstudio_node
+DEBUG: Importing app.nodes.ai.ollama_node
+DEBUG: Importing app.nodes.ai.openai_chat_node
+DEBUG: Importing app.nodes.ai.perplexity_node
+DEBUG: Importing app.nodes.amazon.amazon_bedrock_converse
+DEBUG: Error processing app.nodes.amazon.amazon_bedrock_converse: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.amazon.amazon_bedrock_embedding
+DEBUG: Error processing app.nodes.amazon.amazon_bedrock_embedding: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.amazon.amazon_bedrock_model
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\sqlmodel\main.py:682: SAWarning: This declarative base already contains a class with the same class name and module name as langflow.services.database.models.api_key.model.ApiKey, and will be replaced in the string-lookup table.
+  DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
+DEBUG: Error processing app.nodes.amazon.amazon_bedrock_model: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.amazon.aws_node
+DEBUG: Importing app.nodes.amazon.bedrock_converse_node
+DEBUG: Importing app.nodes.amazon.bedrock_embeddings_node
+DEBUG: Importing app.nodes.amazon.s3_bucket_uploader
+DEBUG: Error processing app.nodes.amazon.s3_bucket_uploader: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.analytics.amplitude_node
+DEBUG: Importing app.nodes.analytics.analytics_node
+DEBUG: Importing app.nodes.analytics.drift_node
+DEBUG: Importing app.nodes.analytics.fathom_node
+DEBUG: Importing app.nodes.analytics.google_analytics_node
+DEBUG: Importing app.nodes.analytics.heap_node
+DEBUG: Importing app.nodes.analytics.hotjar_node
+DEBUG: Importing app.nodes.analytics.mixpanel_node
+DEBUG: Importing app.nodes.analytics.posthog_node
+DEBUG: Importing app.nodes.analytics.segment_node
+DEBUG: Importing app.nodes.analytics.sentry_node
+DEBUG: Importing app.nodes.anthropic.anthropic
+DEBUG: Error processing app.nodes.anthropic.anthropic: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.anthropic.anthropic_model_node
+DEBUG: Importing app.nodes.assemblyai.assemblyai_get_subtitles
+DEBUG: Import error for app.nodes.assemblyai.assemblyai_get_subtitles: No module named 'assemblyai'
+DEBUG: Importing app.nodes.assemblyai.assemblyai_lemur
+DEBUG: Import error for app.nodes.assemblyai.assemblyai_lemur: No module named 'assemblyai'
+DEBUG: Importing app.nodes.assemblyai.assemblyai_list_transcripts
+DEBUG: Import error for app.nodes.assemblyai.assemblyai_list_transcripts: No module named 'assemblyai'
+DEBUG: Importing app.nodes.assemblyai.assemblyai_poll_transcript
+DEBUG: Import error for app.nodes.assemblyai.assemblyai_poll_transcript: No module named 'assemblyai'
+DEBUG: Importing app.nodes.assemblyai.assemblyai_start_transcript
+DEBUG: Import error for app.nodes.assemblyai.assemblyai_start_transcript: No module named 'assemblyai'
+DEBUG: Importing app.nodes.automotive.avis_node
+DEBUG: Importing app.nodes.automotive.budget_node
+DEBUG: Import error for app.nodes.automotive.budget_node: No module named 'app.registry'
+DEBUG: Importing app.nodes.automotive.ford_node
+DEBUG: Importing app.nodes.automotive.hertz_node
+DEBUG: Importing app.nodes.automotive.tesla_node
+DEBUG: Importing app.nodes.bridges.ifttt_node
+DEBUG: Importing app.nodes.bridges.make_node
+DEBUG: Importing app.nodes.bridges.power_automate_node
+DEBUG: Importing app.nodes.bridges.workato_node
+DEBUG: Importing app.nodes.bridges.zapier_nla_node
+DEBUG: Importing app.nodes.cms.ghost_node
+DEBUG: Importing app.nodes.cms.sanity_node
+DEBUG: Importing app.nodes.cms.webflow_node
+DEBUG: Importing app.nodes.cms.wordpress_node
+DEBUG: Importing app.nodes.code.javascript_code_node
+DEBUG: Importing app.nodes.codethon_code_node
+DEBUG: Import error for app.nodes.codethon_code_node: No module named 'app.nodes.codethon_code_node'
+DEBUG: Importing app.nodes.code.shell_command_node
+DEBUG: Importing app.nodes.cohere.cohere_embeddings
+DEBUG: Import error for app.nodes.cohere.cohere_embeddings: No module named 'cohere'
+DEBUG: Importing app.nodes.cohere.cohere_embeddings_node
+DEBUG: Importing app.nodes.cohere.cohere_models
+DEBUG: Import error for app.nodes.cohere.cohere_models: No module named 'langchain_cohere'
+DEBUG: Importing app.nodes.cohere.cohere_rerank
+DEBUG: Error processing app.nodes.cohere.cohere_rerank: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.collaboration.asana_node
+DEBUG: Importing app.nodes.collaboration.clickup_node
+DEBUG: Importing app.nodes.collaboration.linear_node
+DEBUG: Importing app.nodes.collaboration.monday_node
+DEBUG: Importing app.nodes.commerce.bigcommerce_node
+DEBUG: Importing app.nodes.commerce.lemonsqueezy_node
+DEBUG: Importing app.nodes.commerce.magento_node
+DEBUG: Importing app.nodes.commerce.paypal_node
+DEBUG: Importing app.nodes.commerce.shopify_node
+DEBUG: Importing app.nodes.commerce.squarespace_node
+DEBUG: Importing app.nodes.commerce.square_node
+DEBUG: Importing app.nodes.commerce.stripe_node
+DEBUG: Import error for app.nodes.commerce.stripe_node: No module named 'stripe'
+DEBUG: Importing app.nodes.commerce.wix_node
+DEBUG: Importing app.nodes.commerce.woocommerce_node
+DEBUG: Importing app.nodes.communication.aws_ses_node
+DEBUG: Importing app.nodes.communication.discord_node
+DEBUG: Importing app.nodes.communication.email_services_batch
+DEBUG: Importing app.nodes.communication.mailchimp_node
+DEBUG: Importing app.nodes.communication.mattermost_node
+DEBUG: Importing app.nodes.communication.microsoft_teams_node
+DEBUG: Importing app.nodes.communication.outlook_node
+DEBUG: Importing app.nodes.communication.sendgrid_node
+DEBUG: Importing app.nodes.communication.slack_node
+DEBUG: Importing app.nodes.communication.smtp_node
+DEBUG: Importing app.nodes.communication.teams_node
+DEBUG: Importing app.nodes.communication.telegram_node
+DEBUG: Importing app.nodes.communication.twilio_node
+DEBUG: Importing app.nodes.communication.whatsapp_node
+DEBUG: Importing app.nodes.communication.zoom_node
+DEBUG: Importing app.nodes.core.file_nodes
+DEBUG: Importing app.nodes.core.memory_node
+DEBUG: Importing app.nodes.core.webhook_node
+DEBUG: Importing app.nodes.core.chat_input.chat_input_node
+DEBUG: Importing app.nodes.core.chat_output.chat_output_node
+DEBUG: Importing app.nodes.database.airtable_node
+DEBUG: Importing app.nodes.database.cassandra_node
+DEBUG: Importing app.nodes.database.clickhouse_node
+DEBUG: Importing app.nodes.database.elasticsearch_node
+DEBUG: Importing app.nodes.database.google_bigquery_node
+DEBUG: Importing app.nodes.database.mongodb_node
+DEBUG: Importing app.nodes.database.mysql_node
+DEBUG: Importing app.nodes.database.postgresql_node
+DEBUG: Importing app.nodes.database.postgres_node
+DEBUG: Importing app.nodes.database.redis_node
+DEBUG: Importing app.nodes.database.snowflake_node
+DEBUG: Import error for app.nodes.database.snowflake_node: No module named 'snowflake'
+DEBUG: Importing app.nodes.database.sql_node
+DEBUG: Importing app.nodes.database.supabase_node
+DEBUG: Importing app.nodes.data_source.api_request
+DEBUG: Error processing app.nodes.data_source.api_request: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.csv_to_data
+DEBUG: Error processing app.nodes.data_source.csv_to_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.json_to_data
+DEBUG: Import error for app.nodes.data_source.json_to_data: No module named 'json_repair'
+DEBUG: Importing app.nodes.data_source.mock_data
+DEBUG: Error processing app.nodes.data_source.mock_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.news_search
+DEBUG: Error processing app.nodes.data_source.news_search: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.rss
+DEBUG: Error processing app.nodes.data_source.rss: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.sql_executor
+DEBUG: Error processing app.nodes.data_source.sql_executor: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.url
+DEBUG: Error processing app.nodes.data_source.url: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.data_source.web_search
+DEBUG: Error processing app.nodes.data_source.web_search: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.developer_tools.aws_lambda_node
+DEBUG: Importing app.nodes.developer_tools.bitbucket_node
+DEBUG: Importing app.nodes.developer_tools.circleci_node
+DEBUG: Importing app.nodes.developer_tools.docker_node
+DEBUG: Importing app.nodes.developer_tools.github_node
+DEBUG: Importing app.nodes.developer_tools.gitlab_node
+DEBUG: Importing app.nodes.developer_tools.jenkins_node
+DEBUG: Importing app.nodes.developer_tools.jira_node
+DEBUG: Importing app.nodes.devops.ansible_node
+DEBUG: Importing app.nodes.devops.confluence_node
+DEBUG: Importing app.nodes.devops.github_node
+DEBUG: Importing app.nodes.devops.gitlab_node
+DEBUG: Importing app.nodes.devops.jira_node
+DEBUG: Importing app.nodes.devops.terraform_node
+DEBUG: Importing app.nodes.devops.trello_node
+DEBUG: Importing app.nodes.discord.webhook
+DEBUG: Importing app.nodes.education.blackboard_node
+DEBUG: Importing app.nodes.education.canvas_node
+DEBUG: Importing app.nodes.education.coursera_node
+DEBUG: Importing app.nodes.education.duolingo_node
+DEBUG: Importing app.nodes.education.skillshare_node
+DEBUG: Importing app.nodes.education.udemy_node
+DEBUG: Importing app.nodes.embeddings.similarity
+DEBUG: Error processing app.nodes.embeddings.similarity: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.embeddings.text_embedder
+DEBUG: Error processing app.nodes.embeddings.text_embedder: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.events.eventbrite_node
+DEBUG: Importing app.nodes.events.luma_events_node
+DEBUG: Importing app.nodes.events.meetup_node
+DEBUG: Importing app.nodes.FAISS.faiss
+DEBUG: Error processing app.nodes.FAISS.faiss: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.FAISS.faiss_node
+DEBUG: Importing app.nodes.field_service.jobber_node
+DEBUG: Importing app.nodes.field_service.servicetitan_node
+DEBUG: Importing app.nodes.finance.brex_node
+DEBUG: Importing app.nodes.finance.expensify_node
+DEBUG: Importing app.nodes.finance.freshbooks_node
+DEBUG: Importing app.nodes.finance.mollie_node
+DEBUG: Importing app.nodes.finance.netsuite_node
+DEBUG: Importing app.nodes.finance.oracle_node
+DEBUG: Importing app.nodes.finance.plaid_node
+DEBUG: Importing app.nodes.finance.quickbooks_node
+DEBUG: Importing app.nodes.finance.ramp_node
+DEBUG: Importing app.nodes.finance.sage_node
+DEBUG: Importing app.nodes.finance.sap_node
+DEBUG: Importing app.nodes.finance.square_node
+DEBUG: Importing app.nodes.finance.wave_node
+DEBUG: Importing app.nodes.finance.wise_node
+DEBUG: Importing app.nodes.finance.xero_node
+DEBUG: Importing app.nodes.finance.yahoo_finance_node
+DEBUG: Import error for app.nodes.finance.yahoo_finance_node: No module named 'yfinance'
+DEBUG: Importing app.nodes.fleet.fleetio_node
+DEBUG: Importing app.nodes.fleet.motive_node
+DEBUG: Importing app.nodes.fleet.samsara_node
+DEBUG: Importing app.nodes.flow_controls.conditional_router
+DEBUG: Error processing app.nodes.flow_controls.conditional_router: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.data_conditional_router
+DEBUG: Error processing app.nodes.flow_controls.data_conditional_router: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.filter_node
+DEBUG: Importing app.nodes.flow_controls.flow_tool
+DEBUG: Error processing app.nodes.flow_controls.flow_tool: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.item_lists_node
+DEBUG: Importing app.nodes.flow_controls.listen
+DEBUG: Error processing app.nodes.flow_controls.listen: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.loop
+DEBUG: Error processing app.nodes.flow_controls.loop: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.loop_node
+DEBUG: Importing app.nodes.flow_controls.map_node
+DEBUG: Importing app.nodes.flow_controls.merge_node
+DEBUG: Importing app.nodes.flow_controls.notify
+DEBUG: Error processing app.nodes.flow_controls.notify: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.pass_message
+DEBUG: Error processing app.nodes.flow_controls.pass_message: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.router_node
+DEBUG: Importing app.nodes.flow_controls.run_flow
+DEBUG: Error processing app.nodes.flow_controls.run_flow: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.set_node
+DEBUG: Importing app.nodes.flow_controls.split_batches_node
+DEBUG: Importing app.nodes.flow_controls.split_in_batches_node
+DEBUG: Importing app.nodes.flow_controls.sub_flow
+DEBUG: Error processing app.nodes.flow_controls.sub_flow: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.flow_controls.wait_node
+DEBUG: Importing app.nodes.food_delivery.doordash_node
+DEBUG: Importing app.nodes.food_delivery.grubhub_node
+DEBUG: Importing app.nodes.food_delivery.ubereats_node
+DEBUG: Importing app.nodes.food_delivery.zomato_node
+DEBUG: Importing app.nodes.forms.jotform_node
+DEBUG: Importing app.nodes.forms.surveymonkey_node
+DEBUG: Importing app.nodes.forms.typeform_node
+DEBUG: Importing app.nodes.gaming.roblox_node
+DEBUG: Importing app.nodes.gaming.steam_node
+DEBUG: Importing app.nodes.gaming.twitch_node
+DEBUG: Importing app.nodes.git.git
+DEBUG: Error processing app.nodes.git.git: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.git.gitextractor
+DEBUG: Import error for app.nodes.git.gitextractor: No module named 'git'
+DEBUG: Importing app.nodes.google.gmail
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\google\api_core\_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.3) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.
+  warnings.warn(message, FutureWarning)
+DEBUG: Importing app.nodes.google.google_bq_sql_executor
+DEBUG: Import error for app.nodes.google.google_bq_sql_executor: cannot import name 'bigquery' from 'google.cloud' (unknown location)
+DEBUG: Importing app.nodes.google.google_cloud_node
+DEBUG: Importing app.nodes.google.google_drive
+DEBUG: Importing app.nodes.google.google_drive_search
+DEBUG: Error processing app.nodes.google.google_drive_search: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.google.google_generative_ai
+DEBUG: Error processing app.nodes.google.google_generative_ai: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.google.google_generative_ai_embeddings
+DEBUG: Import error for app.nodes.google.google_generative_ai_embeddings: No module named 'langchain_google_genai'
+DEBUG: Importing app.nodes.google.google_oauth_token
+DEBUG: Error processing app.nodes.google.google_oauth_token: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.google.google_search_api_core
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\google\api_core\_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.3) which Google will stop supporting in new releases of google.cloud.modelarmor_v1 once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.cloud.modelarmor_v1 past that date.
+  warnings.warn(message, FutureWarning)
+DEBUG: Import error for app.nodes.google.google_search_api_core: No module named 'langchain.agents.middleware'
+DEBUG: Importing app.nodes.google.google_serper_api_core
+DEBUG: Error processing app.nodes.google.google_serper_api_core: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.google.google_sheets
+DEBUG: Import error for app.nodes.google.google_sheets: No module named 'gspread'
+DEBUG: Importing app.nodes.google.youtube
+DEBUG: Importing app.nodes.health.fitbit_node
+DEBUG: Importing app.nodes.health.garmin_node
+DEBUG: Importing app.nodes.health.mindbody_node
+DEBUG: Importing app.nodes.health.myfitnesspal_node
+DEBUG: Importing app.nodes.health.peloton_node
+DEBUG: Importing app.nodes.health.strava_node
+DEBUG: Importing app.nodes.health.whoop_node
+DEBUG: Importing app.nodes.health.zenplanner_node
+DEBUG: Importing app.nodes.hr.bamboohr_node
+DEBUG: Importing app.nodes.hr.greenhouse_node
+DEBUG: Importing app.nodes.hr.lever_node
+DEBUG: Importing app.nodes.infrastructure.cloudflare_node
+DEBUG: Importing app.nodes.infrastructure.digitalocean_node
+DEBUG: Importing app.nodes.infrastructure.docker_node
+DEBUG: Importing app.nodes.infrastructure.kubernetes_node
+DEBUG: Importing app.nodes.infrastructure.linode_node
+DEBUG: Importing app.nodes.infrastructure.vultr_node
+DEBUG: Importing app.nodes.input_output.chat
+DEBUG: Error processing app.nodes.input_output.chat: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.input_output.chat_output
+DEBUG: Error processing app.nodes.input_output.chat_output: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.input_output.csv_loader_node
+DEBUG: Importing app.nodes.input_output.pdf_loader_node
+DEBUG: Importing app.nodes.input_output.text
+DEBUG: Error processing app.nodes.input_output.text: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.input_output.text_output
+DEBUG: Error processing app.nodes.input_output.text_output: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.input_output.url_loader_node
+DEBUG: Importing app.nodes.input_output.webhook
+DEBUG: Error processing app.nodes.input_output.webhook: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.iot.homeassistant_node
+DEBUG: Importing app.nodes.jigsawstack.ai_scrape
+DEBUG: Error processing app.nodes.jigsawstack.ai_scrape: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.ai_web_search
+DEBUG: Error processing app.nodes.jigsawstack.ai_web_search: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.file_read
+DEBUG: Error processing app.nodes.jigsawstack.file_read: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.file_upload
+DEBUG: Error processing app.nodes.jigsawstack.file_upload: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.image_generation
+DEBUG: Error processing app.nodes.jigsawstack.image_generation: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.nsfw
+DEBUG: Error processing app.nodes.jigsawstack.nsfw: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.object_detection
+DEBUG: Error processing app.nodes.jigsawstack.object_detection: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.sentiment
+DEBUG: Error processing app.nodes.jigsawstack.sentiment: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.text_to_sql
+DEBUG: Error processing app.nodes.jigsawstack.text_to_sql: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.text_translate
+DEBUG: Error processing app.nodes.jigsawstack.text_translate: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.jigsawstack.vocr
+DEBUG: Error processing app.nodes.jigsawstack.vocr: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.knowledge.confluence_node
+DEBUG: Importing app.nodes.knowledge.gitbook_node
+DEBUG: Importing app.nodes.knowledge.obsidian_node
+DEBUG: Importing app.nodes.langchain_utilities.character
+DEBUG: Error processing app.nodes.langchain_utilities.character: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.conversation
+DEBUG: Error processing app.nodes.langchain_utilities.conversation: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.csv_agent
+DEBUG: Error processing app.nodes.langchain_utilities.csv_agent: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.fake_embeddings
+DEBUG: Error processing app.nodes.langchain_utilities.fake_embeddings: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.html_link_extractor
+DEBUG: Error processing app.nodes.langchain_utilities.html_link_extractor: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.json_agent
+DEBUG: Error processing app.nodes.langchain_utilities.json_agent: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.langchain_hub
+DEBUG: Error processing app.nodes.langchain_utilities.langchain_hub: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.language_recursive
+DEBUG: Error processing app.nodes.langchain_utilities.language_recursive: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.language_semantic
+DEBUG: Import error for app.nodes.langchain_utilities.language_semantic: No module named 'langchain_experimental'
+DEBUG: Importing app.nodes.langchain_utilities.llm_checker
+DEBUG: Error processing app.nodes.langchain_utilities.llm_checker: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.llm_math
+DEBUG: Error processing app.nodes.langchain_utilities.llm_math: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.natural_language
+DEBUG: Error processing app.nodes.langchain_utilities.natural_language: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.openai_tools
+DEBUG: Error processing app.nodes.langchain_utilities.openai_tools: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.openapi
+DEBUG: Error processing app.nodes.langchain_utilities.openapi: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.recursive_character
+DEBUG: Error processing app.nodes.langchain_utilities.recursive_character: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.retrieval_qa
+DEBUG: Error processing app.nodes.langchain_utilities.retrieval_qa: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.runnable_executor
+DEBUG: Error processing app.nodes.langchain_utilities.runnable_executor: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.self_query
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\sqlmodel\main.py:682: SAWarning: This declarative base already contains a class with the same class name and module name as langflow.services.database.models.api_key.model.ApiKey, and will be replaced in the string-lookup table.
+  DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
+DEBUG: Error processing app.nodes.langchain_utilities.self_query: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.spider
+DEBUG: Import error for app.nodes.langchain_utilities.spider: No module named 'spider'
+DEBUG: Importing app.nodes.langchain_utilities.sql
+DEBUG: Error processing app.nodes.langchain_utilities.sql: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.sql_database
+DEBUG: Error processing app.nodes.langchain_utilities.sql_database: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.sql_generator
+DEBUG: Error processing app.nodes.langchain_utilities.sql_generator: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.tool_calling
+DEBUG: Error processing app.nodes.langchain_utilities.tool_calling: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.vector_store_info
+DEBUG: Error processing app.nodes.langchain_utilities.vector_store_info: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.vector_store_router
+DEBUG: Error processing app.nodes.langchain_utilities.vector_store_router: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.langchain_utilities.xml_agent
+DEBUG: Error processing app.nodes.langchain_utilities.xml_agent: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.legal.clio_node
+DEBUG: Importing app.nodes.legal.docusign_node
+DEBUG: Importing app.nodes.legal.ironclad_node
+DEBUG: Importing app.nodes.leisure.opentable_node
+DEBUG: Importing app.nodes.leisure.yelp_node
+DEBUG: Importing app.nodes.llm_operations.batch_run
+DEBUG: Import error for app.nodes.llm_operations.batch_run: No module named 'toml'
+DEBUG: Importing app.nodes.llm_operations.lambda_filter
+DEBUG: Error processing app.nodes.llm_operations.lambda_filter: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.llm_operations.llm_conditional_router
+DEBUG: Error processing app.nodes.llm_operations.llm_conditional_router: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.llm_operations.llm_selector
+DEBUG: Error processing app.nodes.llm_operations.llm_selector: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.llm_operations.structured_output
+DEBUG: Import error for app.nodes.llm_operations.structured_output: No module named 'trustcall'
+DEBUG: Importing app.nodes.logic.translation_node
+DEBUG: Import error for app.nodes.logic.translation_node: cannot import name 'register_node' from 'app.nodes.factory' (C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\nodes\factory.py)
+DEBUG: Importing app.nodes.logistics.aftership_node
+DEBUG: Importing app.nodes.logistics.shippo_node
+DEBUG: Importing app.nodes.logistics.shipstation_node
+DEBUG: Importing app.nodes.marketing.activecampaign_node
+DEBUG: Importing app.nodes.marketing.attentive_node
+DEBUG: Importing app.nodes.marketing.brevo_node
+DEBUG: Importing app.nodes.marketing.copper_node
+DEBUG: Importing app.nodes.marketing.freshsales_node
+DEBUG: Importing app.nodes.marketing.hubspot_node
+DEBUG: Importing app.nodes.marketing.insightly_node
+DEBUG: Importing app.nodes.marketing.keap_node
+DEBUG: Importing app.nodes.marketing.klaviyo_node
+DEBUG: Importing app.nodes.marketing.mailchimp_node
+DEBUG: Importing app.nodes.marketing.marketing_ads_node
+DEBUG: Importing app.nodes.marketing.pipedrive_node
+DEBUG: Importing app.nodes.marketing.salesforce_node
+DEBUG: Importing app.nodes.marketing.zoho_crm_node
+DEBUG: Importing app.nodes.marketing.zoho_node
+DEBUG: Importing app.nodes.marketplaces.amazon_sp_node
+DEBUG: Importing app.nodes.marketplaces.ebay_node
+DEBUG: Importing app.nodes.marketplaces.etsy_node
+DEBUG: Importing app.nodes.marketplaces.target_node
+DEBUG: Importing app.nodes.marketplaces.walmart_node
+DEBUG: Importing app.nodes.media.dalle_image_node
+DEBUG: Importing app.nodes.media.elevenlabs_tts_node
+DEBUG: Importing app.nodes.media.frameio_node
+DEBUG: Importing app.nodes.media.heygen_node
+DEBUG: Importing app.nodes.media.leonardo_ai_node
+DEBUG: Importing app.nodes.media.luma_video_node
+DEBUG: Importing app.nodes.media.stability_ultra_node
+DEBUG: Importing app.nodes.media.twelvelabs_node
+DEBUG: Importing app.nodes.media.vimeo_node
+DEBUG: Importing app.nodes.media.whisper_audio_node
+DEBUG: Importing app.nodes.media.wistia_node
+DEBUG: Importing app.nodes.memory.chat_memory_node
+DEBUG: Importing app.nodes.memory.file_memory_node
+DEBUG: Importing app.nodes.memory.mem0_node
+DEBUG: Importing app.nodes.memory.redis_memory_node
+DEBUG: Importing app.nodes.memory.zep_node
+DEBUG: Importing app.nodes.nvidia.nvidia
+DEBUG: Error processing app.nodes.nvidia.nvidia: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.nvidia.nvidia_embedding
+DEBUG: Error processing app.nodes.nvidia.nvidia_embedding: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.nvidia.nvidia_ingest
+DEBUG: Error processing app.nodes.nvidia.nvidia_ingest: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.nvidia.nvidia_rerank
+DEBUG: Error processing app.nodes.nvidia.nvidia_rerank: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.nvidia.system_assist
+DEBUG: Error processing app.nodes.nvidia.system_assist: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.observability.datadog_node
+DEBUG: Importing app.nodes.observability.newrelic_node
+DEBUG: Importing app.nodes.observability.pagerduty_node
+DEBUG: Importing app.nodes.observability.splunk_node
+DEBUG: Importing app.nodes.orchestration.parallel_map_node
+DEBUG: Import error for app.nodes.orchestration.parallel_map_node: cannot import name 'register_node' from 'app.nodes.factory' (C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\nodes\factory.py)
+DEBUG: Importing app.nodes.orchestration.sub_workflow_node
+DEBUG: Import error for app.nodes.orchestration.sub_workflow_node: cannot import name 'register_node' from 'app.nodes.factory' (C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\nodes\factory.py)
+DEBUG: Importing app.nodes.processing.ai_extractor
+DEBUG: Import error for app.nodes.processing.ai_extractor: No module named 'app.nodes.models'
+DEBUG: Importing app.nodes.processing.alter_metadata
+DEBUG: Error processing app.nodes.processing.alter_metadata: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.cohere_rerank_node
+DEBUG: Importing app.nodes.processing.combine_text
+DEBUG: Error processing app.nodes.processing.combine_text: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.combine_text_node
+DEBUG: Importing app.nodes.processing.create_data
+DEBUG: Error processing app.nodes.processing.create_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.create_list
+DEBUG: Error processing app.nodes.processing.create_list: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.dataframe_operations
+DEBUG: Error processing app.nodes.processing.dataframe_operations: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.data_operations
+DEBUG: Import error for app.nodes.processing.data_operations: No module named 'jq'
+DEBUG: Importing app.nodes.processing.data_to_dataframe
+DEBUG: Error processing app.nodes.processing.data_to_dataframe: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.document_processing_node
+DEBUG: Importing app.nodes.processing.dynamic_create_data
+DEBUG: Error processing app.nodes.processing.dynamic_create_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.extract_key
+DEBUG: Error processing app.nodes.processing.extract_key: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.filter_data
+DEBUG: Error processing app.nodes.processing.filter_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.filter_data_values
+DEBUG: Error processing app.nodes.processing.filter_data_values: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.json_cleaner
+DEBUG: Error processing app.nodes.processing.json_cleaner: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.json_cleaner_node
+DEBUG: Importing app.nodes.processing.merge_data
+DEBUG: Error processing app.nodes.processing.merge_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.message_to_data
+DEBUG: Error processing app.nodes.processing.message_to_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.output_parser
+DEBUG: Error processing app.nodes.processing.output_parser: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.parser
+DEBUG: Importing app.nodes.processing.parse_data
+DEBUG: Error processing app.nodes.processing.parse_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.parse_dataframe
+DEBUG: Error processing app.nodes.processing.parse_dataframe: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.parse_json_data
+DEBUG: Import error for app.nodes.processing.parse_json_data: No module named 'jq'
+DEBUG: Importing app.nodes.processing.parse_json_data_node
+DEBUG: Importing app.nodes.processing.parse_node
+DEBUG: Importing app.nodes.processing.pdf_node
+DEBUG: Importing app.nodes.processing.regex
+DEBUG: Importing app.nodes.processing.select_data
+DEBUG: Error processing app.nodes.processing.select_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.split_node
+DEBUG: Importing app.nodes.processing.split_text
+DEBUG: Error processing app.nodes.processing.split_text: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.split_text_node
+DEBUG: Importing app.nodes.processing.store_message
+DEBUG: Error processing app.nodes.processing.store_message: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.processing.unified_text_splitter_node
+DEBUG: Importing app.nodes.processing.unstructured_node
+DEBUG: Importing app.nodes.processing.update_data
+DEBUG: Error processing app.nodes.processing.update_data: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.productivity.agile_tasks_batch
+DEBUG: Importing app.nodes.productivity.asana_node
+DEBUG: Importing app.nodes.productivity.calendly_node
+DEBUG: Importing app.nodes.productivity.coda_node
+DEBUG: Importing app.nodes.productivity.excel_node
+DEBUG: Importing app.nodes.productivity.github_node
+DEBUG: Importing app.nodes.productivity.gmail_node
+DEBUG: Importing app.nodes.productivity.google_calendar_node
+DEBUG: Importing app.nodes.productivity.google_docs_node
+DEBUG: Importing app.nodes.productivity.google_sheets_node
+DEBUG: Importing app.nodes.productivity.google_tasks_node
+DEBUG: Importing app.nodes.productivity.google_workspace_batch
+DEBUG: Importing app.nodes.productivity.jira_node
+DEBUG: Importing app.nodes.productivity.microsoft_office_batch
+DEBUG: Importing app.nodes.productivity.miro_node
+DEBUG: Importing app.nodes.productivity.notion_node
+DEBUG: Importing app.nodes.productivity.project_management_batch
+DEBUG: Importing app.nodes.productivity.trello_node
+DEBUG: Importing app.nodes.professional_services.fiverr_node
+DEBUG: Importing app.nodes.professional_services.toptal_node
+DEBUG: Importing app.nodes.professional_services.upwork_node
+DEBUG: Importing app.nodes.real_estate.realtor_node
+DEBUG: Importing app.nodes.real_estate.redfin_node
+DEBUG: Importing app.nodes.real_estate.zillow_node
+DEBUG: Importing app.nodes.search.algolia_node
+DEBUG: Importing app.nodes.search.apify_node
+DEBUG: Importing app.nodes.search.arxiv_node
+DEBUG: Import error for app.nodes.search.arxiv_node: No module named 'defusedxml'
+DEBUG: Importing app.nodes.search.bing_search_node
+DEBUG: Importing app.nodes.search.elasticsearch_node
+DEBUG: Importing app.nodes.search.exa_search_node
+DEBUG: Importing app.nodes.search.firecrawl_node
+DEBUG: Importing app.nodes.search.glean_node
+DEBUG: Importing app.nodes.search.google_search_node
+DEBUG: Importing app.nodes.search.needle_node
+DEBUG: Importing app.nodes.search.opensearch_node
+DEBUG: Importing app.nodes.search.scrapegraph_node
+DEBUG: Importing app.nodes.search.searchapi_node
+DEBUG: Importing app.nodes.search.serper_search_node
+DEBUG: Importing app.nodes.search.web_search_node
+DEBUG: Importing app.nodes.search.wolframalpha_node
+DEBUG: Importing app.nodes.security.auth0_node
+DEBUG: Importing app.nodes.security.base64_node
+DEBUG: Importing app.nodes.security.clerk_node
+DEBUG: Importing app.nodes.security.hash_node
+DEBUG: Importing app.nodes.security.jwt_node
+DEBUG: Importing app.nodes.security.okta_node
+DEBUG: Importing app.nodes.social.facebook_node
+DEBUG: Importing app.nodes.social.instagram_node
+DEBUG: Importing app.nodes.social.instagram_v2_node
+DEBUG: Importing app.nodes.social.linkedin_node
+DEBUG: Importing app.nodes.social.twitter
+DEBUG: Importing app.nodes.social.twitter_v2_node
+DEBUG: Importing app.nodes.social.x_node
+DEBUG: Importing app.nodes.social.youtube_node
+DEBUG: Importing app.nodes.social_media.blogging_batch
+DEBUG: Importing app.nodes.social_media.buffer_node
+DEBUG: Importing app.nodes.social_media.core_social_batch
+DEBUG: Importing app.nodes.social_media.facebook_pages_node
+DEBUG: Importing app.nodes.social_media.hootsuite_node
+DEBUG: Importing app.nodes.social_media.later_node
+DEBUG: Importing app.nodes.social_media.linkedin_node
+DEBUG: Importing app.nodes.social_media.medium_node
+DEBUG: Importing app.nodes.social_media.pinterest_node
+DEBUG: Importing app.nodes.social_media.reddit_node
+DEBUG: Importing app.nodes.social_media.sprout_social_node
+DEBUG: Importing app.nodes.social_media.tumblr_node
+DEBUG: Importing app.nodes.storage.airtable_node
+DEBUG: Importing app.nodes.storage.aws_s3_node
+DEBUG: Import error for app.nodes.storage.aws_s3_node: No module named 'boto3'
+DEBUG: Importing app.nodes.storage.azure_blob_storage_node
+DEBUG: Importing app.nodes.storage.backblaze_b2_node
+DEBUG: Importing app.nodes.storage.box_node
+DEBUG: Importing app.nodes.storage.database_nodes
+DEBUG: Importing app.nodes.storage.dropbox_node
+DEBUG: Importing app.nodes.storage.dual_ingestor
+DEBUG: Importing app.nodes.storage.ftp_node
+DEBUG: Importing app.nodes.storage.gcs_node
+DEBUG: Importing app.nodes.storage.google_cloud_storage_node
+DEBUG: Importing app.nodes.storage.milvus_node
+DEBUG: Importing app.nodes.storage.onedrive_node
+DEBUG: Importing app.nodes.storage.pcloud_node
+DEBUG: Importing app.nodes.storage.qdrant_node
+DEBUG: Importing app.nodes.storage.sync_com_node
+DEBUG: Importing app.nodes.storage.upstash_node
+DEBUG: Importing app.nodes.storage.vectara_node
+DEBUG: Importing app.nodes.storage.wasabi_node
+DEBUG: Importing app.nodes.storage.weaviate_node
+DEBUG: Importing app.nodes.storage.nocodb.nocodb_node
+DEBUG: Importing app.nodes.storage.supabase.supabase_node
+DEBUG: Import error for app.nodes.storage.supabase.supabase_node: No module named 'app.nodes.storage.base'
+DEBUG: Importing app.nodes.support.freshdesk_node
+DEBUG: Importing app.nodes.support.help_scout_node
+DEBUG: Importing app.nodes.support.hubspot_service_node
+DEBUG: Importing app.nodes.support.intercom_node
+DEBUG: Importing app.nodes.support.servicenow_node
+DEBUG: Importing app.nodes.support.support_ticketing_node
+DEBUG: Importing app.nodes.support.zendesk_node
+DEBUG: Importing app.nodes.tools.api_tool_node
+DEBUG: Importing app.nodes.tools.calculator
+DEBUG: Import error for app.nodes.tools.calculator: No module named 'pytest'
+DEBUG: Importing app.nodes.tools.calculator_tool_node
+DEBUG: Importing app.nodes.tools.google_search_api
+DEBUG: Error processing app.nodes.tools.google_search_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.google_serper_api
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\sqlmodel\main.py:682: SAWarning: This declarative base already contains a class with the same class name and module name as langflow.services.database.models.api_key.model.ApiKey, and will be replaced in the string-lookup table.
+  DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
+DEBUG: Error processing app.nodes.tools.google_serper_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.toolsthon_code_structured_tool
+DEBUG: Import error for app.nodes.toolsthon_code_structured_tool: No module named 'app.nodes.toolsthon_code_structured_tool'
+DEBUG: Importing app.nodes.toolsthon_repl
+DEBUG: Import error for app.nodes.toolsthon_repl: No module named 'app.nodes.toolsthon_repl'
+DEBUG: Importing app.nodes.tools.search_api
+DEBUG: Error processing app.nodes.tools.search_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.search_tool_node
+DEBUG: Importing app.nodes.tools.searxng
+DEBUG: Error processing app.nodes.tools.searxng: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.serp_api
+DEBUG: Error processing app.nodes.tools.serp_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.tavily_search_tool
+DEBUG: Error processing app.nodes.tools.tavily_search_tool: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.wikidata_api
+DEBUG: Error processing app.nodes.tools.wikidata_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.wikipedia_api
+DEBUG: Error processing app.nodes.tools.wikipedia_api: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.yahoo_finance
+DEBUG: Error processing app.nodes.tools.yahoo_finance: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.tools.code_executor.code_executor_node
+DEBUG: Importing app.nodes.tools.docling.chunk_node
+DEBUG: Importing app.nodes.tools.docling.docling_node
+DEBUG: Importing app.nodes.tools.file_reader.file_reader_node
+DEBUG: Importing app.nodes.travel.airbnb_node
+DEBUG: Importing app.nodes.travel.amadeus_node
+DEBUG: Importing app.nodes.travel.expedia_node
+DEBUG: Importing app.nodes.triggers.webhook_node
+DEBUG: Import error for app.nodes.triggers.webhook_node: cannot import name 'register_node' from 'app.nodes.factory' (C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\nodes\factory.py)
+DEBUG: Importing app.nodes.utilities.binary_data_node
+DEBUG: Importing app.nodes.utilities.calculator_core
+DEBUG: Error processing app.nodes.utilities.calculator_core: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.utilities.compression_node
+DEBUG: Importing app.nodes.utilities.crypto_node
+DEBUG: Importing app.nodes.utilities.current_date
+DEBUG: Error processing app.nodes.utilities.current_date: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.utilities.data_transformation_node
+DEBUG: Importing app.nodes.utilities.date_time_node
+DEBUG: Importing app.nodes.utilities.html_parser_node
+DEBUG: Importing app.nodes.utilities.http_request_node
+DEBUG: Importing app.nodes.utilities.id_generator
+DEBUG: Error processing app.nodes.utilities.id_generator: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.utilities.markdown_node
+DEBUG: Import error for app.nodes.utilities.markdown_node: No module named 'markdown'
+DEBUG: Importing app.nodes.utilities.math_node
+DEBUG: Importing app.nodes.utilitiesthon_repl_core
+DEBUG: Import error for app.nodes.utilitiesthon_repl_core: No module named 'app.nodes.utilitiesthon_repl_core'
+DEBUG: Importing app.nodes.utilities.rss_feed_node
+DEBUG: Import error for app.nodes.utilities.rss_feed_node: No module named 'feedparser'
+DEBUG: Importing app.nodes.utilities.spreadsheet_parser_node
+DEBUG: Importing app.nodes.utilities.ssh_node
+DEBUG: Importing app.nodes.utilities.universal_api_node
+DEBUG: Importing app.nodes.utilities.wait_for_webhook_node
+DEBUG: Importing app.nodes.utilities.webhook_response_node
+DEBUG: Importing app.nodes.utilities.xml_parser_node
+DEBUG: Import error for app.nodes.utilities.xml_parser_node: No module named 'xmltodict'
+DEBUG: Importing app.nodes.vertexai.vertexai
+DEBUG: Error processing app.nodes.vertexai.vertexai: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.vertexai.vertexai_embeddings
+DEBUG: Importing app.nodes.verticals.ecommerce_node
+DEBUG: Importing app.nodes.verticals.healthcare_node
+DEBUG: Importing app.nodes.verticals.legal_intelligence_node
+DEBUG: Importing app.nodes.verticals.legal_node
+DEBUG: Importing app.nodes.verticals.medtech_node
+DEBUG: Importing app.nodes.verticals.real_estate_node
+DEBUG: Importing app.nodes.youtube.channel
+DEBUG: Error processing app.nodes.youtube.channel: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.youtube.comments
+DEBUG: Error processing app.nodes.youtube.comments: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.youtube.playlist
+DEBUG: Import error for app.nodes.youtube.playlist: No module named 'pytube'
+DEBUG: Importing app.nodes.youtube.search
+DEBUG: Error processing app.nodes.youtube.search: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.youtube.trending
+DEBUG: Error processing app.nodes.youtube.trending: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.youtube.video_details
+DEBUG: Error processing app.nodes.youtube.video_details: Table 'apikey' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+DEBUG: Importing app.nodes.youtube.youtube_transcripts
+DEBUG: Import error for app.nodes.youtube.youtube_transcripts: No module named 'youtube_transcript_api'
+NodeRegistry: Scanned 366 modules. Registered 381 nodes.
+Post-scan registry size: 381
+Processing node: GenericNode (Class: GenericNode)
+  Could not instantiate GenericNode: GenericNode.__init__() missing 2 required positional arguments: 'node_type' and 'config'
+Processing node: anthropic_chat_node (Class: AnthropicChatNode)
+Processing node: cohere_chat_node (Class: CohereChatNode)
+Processing node: gemini_chat_node (Class: GeminiChatNode)
+Processing node: huggingface_inference_node (Class: HuggingFaceInferenceNode)
+Processing node: huggingface_node (Class: HuggingFaceNode)
+Processing node: jigsawstack_node (Class: JigsawStackNode)
+Processing node: lmstudio_node (Class: LMStudioNode)
+Processing node: ollama_node (Class: OllamaNode)
+Processing node: openai_chat_node (Class: OpenAIChatNode)
+Processing node: perplexity_node (Class: PerplexityNode)
+Processing node: aws_s3_action (Class: AWSS3Node)
+Processing node: amazon_bedrock_converse (Class: AmazonBedrockConverseNode)
+Processing node: amazon_bedrock_embeddings (Class: AmazonBedrockEmbeddingsNode)
+Processing node: amplitude_node (Class: AmplitudeNode)
+Processing node: analytics_action (Class: AnalyticsNode)
+Processing node: drift_node (Class: DriftNode)
+Processing node: fathom_node (Class: FathomNode)
+Processing node: google_analytics_node (Class: GoogleAnalyticsNode)
+Processing node: heap_node (Class: HeapNode)
+Processing node: hotjar_node (Class: HotjarNode)
+Processing node: mixpanel_node (Class: MixpanelNode)
+Processing node: posthog_node (Class: PostHogNode)
+Processing node: segment_node (Class: SegmentNode)
+Processing node: sentry_node (Class: SentryNode)
+Processing node: anthropic_model (Class: AnthropicModelNode)
+Processing node: avis_node (Class: AvisNode)
+Processing node: ford_node (Class: FordNode)
+Processing node: hertz_node (Class: HertzNode)
+Processing node: tesla_node (Class: TeslaNode)
+Processing node: ifttt_node (Class: IFTTTNode)
+Processing node: make_node (Class: MakeNode)
+Processing node: power_automate_node (Class: PowerAutomateNode)
+Processing node: workato_node (Class: WorkatoNode)
+Processing node: zapier_nla_node (Class: ZapierNLANode)
+Processing node: ghost_node (Class: GhostNode)
+Processing node: sanity_node (Class: SanityNode)
+Processing node: webflow_node (Class: WebflowNode)
+Processing node: wordpress_action (Class: WordPressNode)
+Processing node: javascript_code (Class: JavaScriptCodeNode)
+Processing node: shell_command (Class: ShellCommandNode)
+Processing node: cohere_embeddings (Class: CohereEmbeddingsNode)
+Processing node: asana_node (Class: AsanaNode)
+Processing node: clickup_node (Class: ClickUpNode)
+Processing node: linear_node (Class: LinearNode)
+Processing node: monday_node (Class: MondayNode)
+Processing node: bigcommerce_node (Class: BigCommerceNode)
+Processing node: lemonsqueezy_node (Class: LemonSqueezyNode)
+Processing node: magento_node (Class: MagentoNode)
+Processing node: paypal_action (Class: PayPalNode)
+Processing node: shopify_node (Class: ShopifyNode)
+Processing node: squarespace_node (Class: SquarespaceNode)
+Processing node: square_node (Class: SquareNode)
+Processing node: wix_node (Class: WixNode)
+Processing node: woocommerce_node (Class: WooCommerceNode)
+Processing node: aws_ses_node (Class: AWSSESNode)
+Processing node: discord_action (Class: DiscordNode)
+Processing node: mailgun_node (Class: MailgunNode)
+Processing node: postmark_node (Class: PostmarkNode)
+Processing node: sparkpost_node (Class: SparkPostNode)
+Processing node: mandrill_node (Class: MandrillNode)
+Processing node: constant_contact_node (Class: ConstantContactNode)
+Processing node: mailchimp_node (Class: MailchimpNode)
+Processing node: mattermost_node (Class: MattermostNode)
+Processing node: microsoft_teams_node (Class: MicrosoftTeamsNode)
+Processing node: outlook_node (Class: OutlookNode)
+Processing node: sendgrid_node (Class: SendGridNode)
+Processing node: slack_node (Class: SlackNode)
+Processing node: email_smtp_send (Class: SmtpEmailNode)
+Processing node: teams_node (Class: TeamsNode)
+Processing node: telegram_action (Class: TelegramNode)
+Processing node: twilio_node (Class: TwilioNode)
+Processing node: whatsapp_meta (Class: WhatsAppMetaNode)
+Processing node: zoom_node (Class: ZoomNode)
+Processing node: read_file (Class: ReadFileNode)
+Processing node: write_file (Class: WriteFileNode)
+Processing node: delete_file (Class: DeleteFileNode)
+Processing node: FileBaseNode (Class: FileBaseNode)
+  Could not instantiate FileBaseNode: Can't instantiate abstract class FileBaseNode with abstract method execute
+Processing node: memoryNode (Class: MemoryNode)
+  Could not instantiate memoryNode: MemoryNode.__init__() missing 1 required positional argument: 'config'
+Processing node: webhook_trigger (Class: WebhookTriggerNode)
+Processing node: chatInput (Class: ChatInputNode)
+Processing node: chatOutput (Class: ChatOutputNode)
+Processing node: airtable_node (Class: AirtableNode)
+Processing node: cassandra_node (Class: CassandraNode)
+Processing node: clickhouse_node (Class: ClickhouseNode)
+Processing node: elasticsearch_node (Class: ElasticSearchNode)
+Processing node: google_bigquery_node (Class: BigQueryNode)
+Processing node: mongodb_node (Class: MongoDBNode)
+Processing node: mysql_node (Class: MySQLNode)
+Processing node: postgresql_node (Class: PostgreSQLNode)
+Processing node: postgres_node (Class: PostgresNode)
+Processing node: redis_node (Class: RedisNode)
+Processing node: sql_db (Class: SQLDatabaseNode)
+Processing node: supabase_db (Class: SupabaseDBNode)
+Processing node: aws_lambda_node (Class: AWSLambdaNode)
+Processing node: bitbucket_node (Class: BitbucketNode)
+Processing node: circleci_node (Class: CircleCINode)
+Processing node: docker_node (Class: DockerNode)
+Processing node: github_node (Class: GitHubNode)
+Processing node: gitlab_node (Class: GitLabNode)
+Processing node: jenkins_node (Class: JenkinsNode)
+Processing node: jira_node (Class: JiraNode)
+Processing node: ansible_node (Class: AnsibleNode)
+Processing node: confluence_node (Class: ConfluenceNode)
+Processing node: github_devops (Class: GitHubDevOpsNode)
+Processing node: gitlab_devops (Class: GitLabDevOpsNode)
+Processing node: terraform_node (Class: TerraformNode)
+Processing node: trello_node (Class: TrelloNode)
+Processing node: discord_webhook (Class: DiscordWebhookNode)
+Processing node: blackboard_node (Class: BlackboardNode)
+Processing node: canvas_node (Class: CanvasNode)
+Processing node: coursera_node (Class: CourseraNode)
+Processing node: duolingo_node (Class: DuolingoNode)
+Processing node: skillshare_node (Class: SkillshareNode)
+Processing node: udemy_node (Class: UdemyNode)
+Processing node: eventbrite_node (Class: EventbriteNode)
+Processing node: luma_events_node (Class: LumaEventsNode)
+Processing node: meetup_node (Class: MeetupNode)
+Processing node: faiss_vectorstore (Class: FAISSNode)
+Processing node: jobber_node (Class: JobberNode)
+Processing node: servicetitan_node (Class: ServiceTitanNode)
+Processing node: brex_node (Class: BrexNode)
+Processing node: expensify_node (Class: ExpensifyNode)
+Processing node: freshbooks_node (Class: FreshBooksNode)
+Processing node: mollie_node (Class: MollieNode)
+Processing node: netsuite_node (Class: NetSuiteNode)
+Processing node: oracle_node (Class: OracleNode)
+Processing node: plaid_node (Class: PlaidNode)
+Processing node: quickbooks_node (Class: QuickBooksNode)
+Processing node: ramp_node (Class: RampNode)
+Processing node: sage_node (Class: SageNode)
+Processing node: sap_node (Class: SAPNode)
+Processing node: wave_node (Class: WaveNode)
+Processing node: wise_node (Class: WiseNode)
+Processing node: xero_node (Class: XeroNode)
+Processing node: fleetio_node (Class: FleetioNode)
+Processing node: motive_node (Class: MotiveNode)
+Processing node: samsara_node (Class: SamsaraNode)
+Processing node: filter_node (Class: FilterNode)
+Processing node: item_lists_node (Class: ItemListsNode)
+Processing node: loop_node (Class: LoopNode)
+Processing node: map_node (Class: MapNode)
+Processing node: merge_node (Class: MergeNode)
+Processing node: RouterNode (Class: RouterNode)
+Processing node: set_node (Class: SetNode)
+Processing node: split_batches_node (Class: SplitBatchesNode)
+Processing node: split_in_batches_node (Class: SplitInBatchesNode)
+Processing node: wait_node (Class: WaitNode)
+Processing node: doordash_node (Class: DoorDashNode)
+Processing node: grubhub_node (Class: GrubhubNode)
+Processing node: ubereats_node (Class: UberEatsNode)
+Processing node: zomato_node (Class: ZomatoNode)
+Processing node: jotform_node (Class: JotFormNode)
+Processing node: surveymonkey_node (Class: SurveyMonkeyNode)
+Processing node: typeform_node (Class: TypeformNode)
+Processing node: roblox_node (Class: RobloxNode)
+Processing node: steam_node (Class: SteamNode)
+Processing node: twitch_node (Class: TwitchNode)
+Processing node: gmail_send (Class: GmailSendMessageNode)
+Processing node: gmail_message_fetch (Class: GmailFetchMessagesNode)
+Processing node: google_cloud_action (Class: GoogleCloudNode)
+Processing node: google_drive_loader (Class: GoogleDriveLoaderNode)
+Processing node: google_drive_search (Class: GoogleDriveSearchNode)
+Processing node: google_drive_uploader (Class: GoogleDriveUploaderNode)
+Processing node: google_drive_list (Class: GoogleDriveListNode)
+Processing node: youtube_action (Class: YouTubeNode)
+Processing node: fitbit_node (Class: FitbitNode)
+Processing node: garmin_node (Class: GarminNode)
+Processing node: mindbody_node (Class: MindbodyNode)
+Processing node: myfitnesspal_node (Class: MyFitnessPalNode)
+Processing node: peloton_node (Class: PelotonNode)
+Processing node: strava_node (Class: StravaNode)
+Processing node: whoop_node (Class: WhoopNode)
+Processing node: zenplanner_node (Class: ZenPlannerNode)
+Processing node: bamboohr_node (Class: BambooHRNode)
+Processing node: greenhouse_node (Class: GreenhouseNode)
+Processing node: lever_node (Class: LeverNode)
+Processing node: cloudflare_node (Class: CloudflareNode)
+Processing node: digitalocean_node (Class: DigitalOceanNode)
+Processing node: kubernetes_node (Class: KubernetesNode)
+Processing node: linode_node (Class: LinodeNode)
+Processing node: vultr_node (Class: VultrNode)
+Processing node: csv_loader (Class: CSVLoaderNode)
+Processing node: pdf_loader (Class: PDFLoaderNode)
+Processing node: url_loader (Class: URLLoaderNode)
+Processing node: homeassistant_control (Class: HomeAssistantControlNode)
+Processing node: gitbook_node (Class: GitBookNode)
+Processing node: obsidian_node (Class: ObsidianNode)
+Processing node: clio_node (Class: ClioNode)
+Processing node: docusign_node (Class: DocuSignNode)
+Processing node: ironclad_node (Class: IroncladNode)
+Processing node: opentable_node (Class: OpenTableNode)
+Processing node: yelp_node (Class: YelpNode)
+Processing node: aftership_node (Class: AfterShipNode)
+Processing node: shippo_node (Class: ShippoNode)
+Processing node: shipstation_node (Class: ShipStationNode)
+Processing node: activecampaign_node (Class: ActiveCampaignNode)
+Processing node: attentive_node (Class: AttentiveNode)
+Processing node: brevo_node (Class: BrevoNode)
+Processing node: copper_node (Class: CopperNode)
+Processing node: freshsales_node (Class: FreshsalesNode)
+Processing node: hubspot_node (Class: HubSpotNode)
+Processing node: insightly_node (Class: InsightlyNode)
+Processing node: keap_node (Class: KeapNode)
+Processing node: klaviyo_node (Class: KlaviyoNode)
+Processing node: marketing_ads_action (Class: MarketingAdsNode)
+Processing node: pipedrive_node (Class: PipedriveNode)
+Processing node: salesforce_node (Class: SalesforceNode)
+Processing node: zoho_crm_node (Class: ZohoCRMNode)
+Processing node: zoho_action (Class: ZohoNode)
+Processing node: amazon_sp_node (Class: AmazonSPNode)
+Processing node: ebay_node (Class: EbayNode)
+Processing node: etsy_node (Class: EtsyNode)
+Processing node: target_node (Class: TargetNode)
+Processing node: walmart_node (Class: WalmartNode)
+Processing node: dalle_image_gen (Class: DallEImageGenNode)
+Processing node: elevenlabs_tts (Class: ElevenLabsNode)
+Processing node: frameio_node (Class: FrameioNode)
+Processing node: heygen_node (Class: HeygenNode)
+Processing node: leonardo_ai (Class: LeonardoAINode)
+Processing node: luma_video_node (Class: LumaVideoNode)
+Processing node: stability_ultra (Class: StabilityUltraNode)
+Processing node: twelvelabs_node (Class: TwelveLabsNode)
+Processing node: vimeo_node (Class: VimeoNode)
+Processing node: whisper_transcribe (Class: WhisperTranscribeNode)
+Processing node: wistia_node (Class: WistiaNode)
+Processing node: chat_memory (Class: ChatMemoryNode)
+Processing node: file_chat_memory (Class: FileChatMemoryNode)
+Processing node: mem0_node (Class: Mem0Node)
+Processing node: redis_chat_memory (Class: RedisChatMemoryNode)
+Processing node: zep_node (Class: ZepNode)
+Processing node: datadog_node (Class: DatadogNode)
+Processing node: newrelic_node (Class: NewRelicNode)
+Processing node: pagerduty_node (Class: PagerDutyNode)
+Processing node: splunk_node (Class: SplunkNode)
+Processing node: cohere_rerank_node (Class: CohereRerankNode)
+Processing node: combine_text (Class: CombineTextNode)
+Processing node: document_processing_action (Class: DocumentProcessingNode)
+Processing node: json_cleaner (Class: JSONCleanerNode)
+Processing node: text_parser (Class: TextParserNode)
+Processing node: parse_json_data (Class: ParseJSONDataNode)
+Processing node: ParseDataNode (Class: ParseDataNode)
+Processing node: pdf_parser (Class: PDFParserNode)
+Processing node: regex_extract (Class: RegexNode)
+Processing node: text_splitter (Class: TextSplitterNode)
+Processing node: split_text (Class: SplitTextNode)
+Processing node: unstructured_node (Class: UnstructuredNode)
+Processing node: basecamp_node (Class: BasecampNode)
+Processing node: todoist_node (Class: TodoistNode)
+Processing node: calendly_node (Class: CalendlyNode)
+Processing node: coda_node (Class: CodaNode)
+Processing node: excel_node (Class: ExcelNode)
+Processing node: gmail_node (Class: GmailNode)
+Processing node: google_calendar_node (Class: GoogleCalendarNode)
+Processing node: google_docs_node (Class: GoogleDocsNode)
+Processing node: google_sheets_node (Class: GoogleSheetsNode)
+Processing node: google_tasks_node (Class: GoogleTasksNode)
+Processing node: microsoft_outlook_node (Class: MicrosoftOutlookNode)
+Processing node: microsoft_excel_node (Class: MicrosoftExcelNode)
+Processing node: miro_node (Class: MiroNode)
+Processing node: notion_node (Class: NotionNode)
+Processing node: monday_com_node (Class: MondayComNode)
+Processing node: trello_action (Class: TrelloNode)
+Processing node: fiverr_node (Class: FiverrNode)
+Processing node: toptal_node (Class: ToptalNode)
+Processing node: upwork_node (Class: UpworkNode)
+Processing node: realtor_node (Class: RealtorNode)
+Processing node: redfin_node (Class: RedfinNode)
+Processing node: zillow_node (Class: ZillowNode)
+Processing node: algolia_node (Class: AlgoliaNode)
+Processing node: apify_node (Class: ApifyNode)
+Processing node: bing_search_node (Class: BingSearchNode)
+Processing node: exa_search_node (Class: ExaSearchNode)
+Processing node: firecrawl_node (Class: FirecrawlNode)
+Processing node: glean_search_node (Class: GleanSearchNode)
+Processing node: google_search_node (Class: GoogleSearchNode)
+Processing node: needle_node (Class: NeedleNode)
+Processing node: opensearch_node (Class: OpenSearchNode)
+Processing node: scrapegraph_node (Class: ScrapeGraphNode)
+Processing node: searchapi_node (Class: SearchAPINode)
+Processing node: serper_search_node (Class: SerperSearchNode)
+Processing node: web_search (Class: WebSearchNode)
+Processing node: wolframalpha_node (Class: WolframAlphaNode)
+Processing node: auth0_node (Class: Auth0Node)
+Processing node: base64_node (Class: Base64Node)
+Processing node: clerk_node (Class: ClerkNode)
+Processing node: hash_node (Class: HashNode)
+Processing node: jwt_node (Class: JWTNode)
+Processing node: okta_node (Class: OktaNode)
+Processing node: facebook_node (Class: FacebookNode)
+Processing node: instagram_node (Class: InstagramNode)
+Processing node: instagram_v2_node (Class: InstagramV2Node)
+Processing node: linkedin_node (Class: LinkedInNode)
+Processing node: twitter_action (Class: TwitterNode)
+Processing node: twitter_v2_node (Class: TwitterV2Node)
+Processing node: x_node (Class: XNode)
+Processing node: youtube_node (Class: YouTubeNode)
+Processing node: medium_node (Class: MediumNode)
+Processing node: tumblr_node (Class: TumblrNode)
+Processing node: buffer_node (Class: BufferNode)
+Processing node: facebook_pages_node (Class: FacebookPagesNode)
+Processing node: reddit_node (Class: RedditNode)
+Processing node: pinterest_node (Class: PinterestNode)
+Processing node: hootsuite_node (Class: HootsuiteNode)
+Processing node: later_node (Class: LaterNode)
+Processing node: sprout_social_node (Class: SproutSocialNode)
+Processing node: airtable_action (Class: AirtableNode)
+Processing node: azure_blob_storage_node (Class: AzureBlobStorageNode)
+Processing node: backblaze_b2_node (Class: BackblazeB2Node)
+Processing node: box_node (Class: BoxNode)
+Processing node: database_query (Class: DatabaseQueryNode)
+Processing node: database_insert (Class: DatabaseInsertNode)
+Processing node: database_update (Class: DatabaseUpdateNode)
+Processing node: DatabaseBaseNode (Class: DatabaseBaseNode)
+  Could not instantiate DatabaseBaseNode: Can't instantiate abstract class DatabaseBaseNode with abstract method execute
+Processing node: dropbox_node (Class: DropboxNode)
+Processing node: dualIngestorNode (Class: DualIngestorNode)
+Processing node: ftp_node (Class: FTPNode)
+Processing node: gcs_node (Class: GCSNode)
+Processing node: google_cloud_storage_node (Class: GoogleCloudStorageNode)
+Processing node: milvus_vector_action (Class: MilvusNode)
+Processing node: onedrive_node (Class: OneDriveNode)
+Processing node: pcloud_node (Class: PCloudNode)
+Processing node: qdrant_vector_action (Class: QdrantNode)
+Processing node: sync_com_node (Class: SyncComNode)
+Processing node: upstash_node (Class: UpstashNode)
+Processing node: vectara_node (Class: VectaraNode)
+Processing node: wasabi_node (Class: WasabiNode)
+Processing node: weaviate_vector_action (Class: WeaviateNode)
+Processing node: smartDB (Class: SmartDBNode)
+Processing node: freshdesk_node (Class: FreshdeskNode)
+Processing node: help_scout_node (Class: HelpScoutNode)
+Processing node: hubspot_service_node (Class: HubSpotServiceNode)
+Processing node: intercom_node (Class: IntercomNode)
+Processing node: servicenow_node (Class: ServiceNowNode)
+Processing node: support_ticketing_action (Class: SupportTicketingNode)
+Processing node: zendesk_node (Class: ZendeskNode)
+Processing node: api_tool (Class: APIToolNode)
+Processing node: calculator_tool (Class: CalculatorToolNode)
+Processing node: search_tool (Class: SearchToolNode)
+Processing node: CodeExecutorNode (Class: CodeExecutorNode)
+Processing node: ChunkDoclingNode (Class: ChunkDoclingNode)
+Processing node: DoclingNode (Class: DoclingNode)
+Processing node: FileReaderNode (Class: FileReaderNode)
+Processing node: airbnb_node (Class: AirbnbNode)
+Processing node: amadeus_node (Class: AmadeusNode)
+Processing node: expedia_node (Class: ExpediaNode)
+Processing node: binary_data_node (Class: BinaryDataNode)
+Processing node: compression_node (Class: CompressionNode)
+Processing node: crypto_node (Class: CryptoNode)
+Processing node: data_transformation_node (Class: DataTransformationNode)
+Processing node: date_time_node (Class: DateTimeNode)
+Processing node: html_parser_node (Class: HTMLParserNode)
+Processing node: http_request_node (Class: HTTPRequestNode)
+Processing node: math_node (Class: MathNode)
+Processing node: spreadsheet_parser_node (Class: SpreadsheetParserNode)
+Processing node: ssh_node (Class: SSHNode)
+Processing node: universal_api_node (Class: UniversalAPIConnectorNode)
+Processing node: sageNode (Class: UniversalAPIConnectorNode)
+Processing node: odooNode (Class: UniversalAPIConnectorNode)
+Processing node: dolibarrNode (Class: UniversalAPIConnectorNode)
+Processing node: salesforceNode (Class: UniversalAPIConnectorNode)
+Processing node: hubspotNode (Class: UniversalAPIConnectorNode)
+Processing node: zohoNode (Class: UniversalAPIConnectorNode)
+Processing node: sugarcrmNode (Class: UniversalAPIConnectorNode)
+Processing node: vtigerNode (Class: UniversalAPIConnectorNode)
+Processing node: zapierNode (Class: UniversalAPIConnectorNode)
+Processing node: githubNode (Class: UniversalAPIConnectorNode)
+Processing node: gitlabNode (Class: UniversalAPIConnectorNode)
+Processing node: trelloNode (Class: UniversalAPIConnectorNode)
+Processing node: glpiNode (Class: UniversalAPIConnectorNode)
+Processing node: btrixNode (Class: UniversalAPIConnectorNode)
+Processing node: unicaNode (Class: UniversalAPIConnectorNode)
+Processing node: wait_for_webhook_node (Class: WaitForWebhookNode)
+Processing node: webhook_response_node (Class: WebhookResponseNode)
+Processing node: vertexai_embeddings (Class: VertexAIEmbeddingsNode)
+Processing node: ecommerce_action (Class: EcommerceNode)
+Processing node: healthcare_node (Class: HealthcareNode)
+Processing node: legal_intelligence (Class: LegalIntelligenceNode)
+Processing node: legal_action (Class: LegalNode)
+Processing node: medtech_action (Class: MedTechNode)
+Processing node: real_estate_node (Class: RealEstateNode)
+Finished writing 377 nodes to C:\Users\info\Downloads\studio-V3.0.0-main\backend\data\migrated_nodes.json

@@ -3,8 +3,8 @@ Cohere Embeddings Node - Studio Standard
 Batch 33: Embedding Models
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("cohere_embeddings")
 class CohereEmbeddingsNode(BaseNode):
@@ -17,6 +17,63 @@ class CohereEmbeddingsNode(BaseNode):
     category = "embeddings"
     credentials_required = ["cohere_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Input Type',
+            'name': 'input_type',
+            'type': 'options',
+            'default': 'search_document',
+            'options': [
+                {'name': 'Search Document', 'value': 'search_document'},
+                {'name': 'Search Query', 'value': 'search_query'},
+                {'name': 'Classification', 'value': 'classification'},
+                {'name': 'Clustering', 'value': 'clustering'},
+            ],
+            'description': 'Type of input for optimal embeddings',
+        },
+        {
+            'displayName': 'Max Retries',
+            'name': 'max_retries',
+            'type': 'string',
+            'default': 3,
+            'description': 'Maximum number of API retries',
+        },
+        {
+            'displayName': 'Model Name',
+            'name': 'model_name',
+            'type': 'options',
+            'default': 'embed-english-v3.0',
+            'options': [
+                {'name': 'Embed-English-V3.0', 'value': 'embed-english-v3.0'},
+                {'name': 'Embed-Multilingual-V3.0', 'value': 'embed-multilingual-v3.0'},
+                {'name': 'Embed-English-Light-V3.0', 'value': 'embed-english-light-v3.0'},
+                {'name': 'Embed-Multilingual-Light-V3.0', 'value': 'embed-multilingual-light-v3.0'},
+                {'name': 'Embed-English-V2.0', 'value': 'embed-english-v2.0'},
+                {'name': 'Embed-Multilingual-V2.0', 'value': 'embed-multilingual-v2.0'},
+            ],
+            'description': 'Cohere embedding model to use',
+        },
+        {
+            'displayName': 'Request Timeout',
+            'name': 'request_timeout',
+            'type': 'string',
+            'default': 60,
+            'description': 'Request timeout in seconds',
+        },
+        {
+            'displayName': 'Truncate',
+            'name': 'truncate',
+            'type': 'options',
+            'default': 'END',
+            'options': [
+                {'name': 'None', 'value': 'NONE'},
+                {'name': 'Start', 'value': 'START'},
+                {'name': 'End', 'value': 'END'},
+            ],
+            'description': 'How to truncate text if too long',
+        },
+    ]
     inputs = {
         "model_name": {
             "type": "dropdown",

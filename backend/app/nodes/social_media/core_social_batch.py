@@ -4,8 +4,8 @@ Batch 106: Social Media
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # ============================================
 # FACEBOOK PAGES NODE
@@ -20,6 +20,46 @@ class FacebookPagesNode(BaseNode):
     category = "social_media"
     credentials_required = ["facebook_graph_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_post',
+            'options': [
+                {'name': 'Create Post', 'value': 'create_post'},
+                {'name': 'Get Posts', 'value': 'get_posts'},
+                {'name': 'Get Page Info', 'value': 'get_page_info'},
+                {'name': 'Upload Photo', 'value': 'upload_photo'},
+            ],
+            'description': 'Facebook action',
+        },
+        {
+            'displayName': 'Link',
+            'name': 'link',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Message',
+            'name': 'message',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Page Id',
+            'name': 'page_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Photo Url',
+            'name': 'photo_url',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

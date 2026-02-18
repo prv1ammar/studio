@@ -4,8 +4,8 @@ Batch 77: Health & Fitness
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("myfitnesspal_node")
 class MyFitnessPalNode(BaseNode):
@@ -17,6 +17,28 @@ class MyFitnessPalNode(BaseNode):
     category = "health"
     credentials_required = ["myfitnesspal_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_daily_summary',
+            'options': [
+                {'name': 'Get Daily Summary', 'value': 'get_daily_summary'},
+                {'name': 'Log Meal', 'value': 'log_meal'},
+                {'name': 'Get Goals', 'value': 'get_goals'},
+            ],
+            'description': 'MyFitnessPal action',
+        },
+        {
+            'displayName': 'Date',
+            'name': 'date',
+            'type': 'string',
+            'default': '',
+            'description': 'YYYY-MM-DD',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

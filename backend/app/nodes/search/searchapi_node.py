@@ -4,8 +4,8 @@ Batch 112: Advanced Search & Knowledge
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("searchapi_node")
 class SearchAPINode(BaseNode):
@@ -17,6 +17,31 @@ class SearchAPINode(BaseNode):
     category = "search"
     credentials_required = ["searchapi_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Engine',
+            'name': 'engine',
+            'type': 'options',
+            'default': 'google',
+            'options': [
+                {'name': 'Google', 'value': 'google'},
+                {'name': 'Bing', 'value': 'bing'},
+                {'name': 'Duckduckgo', 'value': 'duckduckgo'},
+                {'name': 'Google News', 'value': 'google_news'},
+                {'name': 'Google Jobs', 'value': 'google_jobs'},
+            ],
+            'description': 'The search engine to use',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'The search query',
+            'required': True,
+        },
+    ]
     inputs = {
         "query": {
             "type": "string",

@@ -4,8 +4,8 @@ Batch 110: Developer Tools & Databases
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # MongoDB uses `motor` for async access.
 
@@ -19,6 +19,42 @@ class MongoDBNode(BaseNode):
     category = "database"
     credentials_required = ["mongodb_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'find',
+            'options': [
+                {'name': 'Find', 'value': 'find'},
+                {'name': 'Insert One', 'value': 'insert_one'},
+                {'name': 'Update One', 'value': 'update_one'},
+                {'name': 'Delete One', 'value': 'delete_one'},
+            ],
+            'description': 'MongoDB action',
+        },
+        {
+            'displayName': 'Collection',
+            'name': 'collection',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Document',
+            'name': 'document',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON Document',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON Query Filter',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

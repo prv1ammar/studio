@@ -4,8 +4,8 @@ Batch 69: Project Collaboration
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("asana_node")
 class AsanaNode(BaseNode):
@@ -17,6 +17,57 @@ class AsanaNode(BaseNode):
     category = "collaboration"
     credentials_required = ["asana_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_tasks',
+            'options': [
+                {'name': 'List Tasks', 'value': 'list_tasks'},
+                {'name': 'Create Task', 'value': 'create_task'},
+                {'name': 'Get Task', 'value': 'get_task'},
+                {'name': 'List Projects', 'value': 'list_projects'},
+                {'name': 'List Workspaces', 'value': 'list_workspaces'},
+            ],
+            'description': 'Asana action',
+        },
+        {
+            'displayName': 'Name',
+            'name': 'name',
+            'type': 'string',
+            'default': '',
+            'description': 'Task name',
+        },
+        {
+            'displayName': 'Notes',
+            'name': 'notes',
+            'type': 'string',
+            'default': '',
+            'description': 'Task description/notes',
+        },
+        {
+            'displayName': 'Project Id',
+            'name': 'project_id',
+            'type': 'string',
+            'default': '',
+            'description': 'GID of the project',
+        },
+        {
+            'displayName': 'Task Id',
+            'name': 'task_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Workspace Id',
+            'name': 'workspace_id',
+            'type': 'string',
+            'default': '',
+            'description': 'GID of the workspace',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

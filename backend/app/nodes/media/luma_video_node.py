@@ -5,8 +5,8 @@ Batch 53: Advanced AI (Visual & Generative)
 from typing import Any, Dict, Optional
 import aiohttp
 import asyncio
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("luma_video_node")
 class LumaVideoNode(BaseNode):
@@ -19,6 +19,52 @@ class LumaVideoNode(BaseNode):
     category = "media"
     credentials_required = ["luma_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Aspect Ratio',
+            'name': 'aspect_ratio',
+            'type': 'options',
+            'default': '16:9',
+            'options': [
+                {'name': '16:9', 'value': '16:9'},
+                {'name': '9:16', 'value': '9:16'},
+                {'name': '1:1', 'value': '1:1'},
+                {'name': '4:3', 'value': '4:3'},
+                {'name': '3:4', 'value': '3:4'},
+            ],
+            'description': 'Output video aspect ratio',
+        },
+        {
+            'displayName': 'Image Url',
+            'name': 'image_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Starting image for Image-to-Video generation',
+        },
+        {
+            'displayName': 'Loop',
+            'name': 'loop',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Create a seamless looping video',
+        },
+        {
+            'displayName': 'Prompt',
+            'name': 'prompt',
+            'type': 'string',
+            'default': '',
+            'description': 'Video description or story',
+            'required': True,
+        },
+        {
+            'displayName': 'Wait For Completion',
+            'name': 'wait_for_completion',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Wait for the video to be rendered (can take minutes)',
+        },
+    ]
     inputs = {
         "prompt": {
             "type": "string",

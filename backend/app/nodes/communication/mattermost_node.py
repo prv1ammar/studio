@@ -4,8 +4,8 @@ Batch 104: Communication Essentials
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("mattermost_node")
 class MattermostNode(BaseNode):
@@ -17,6 +17,47 @@ class MattermostNode(BaseNode):
     category = "communication"
     credentials_required = ["mattermost_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'send_message',
+            'options': [
+                {'name': 'Send Message', 'value': 'send_message'},
+                {'name': 'Create Channel', 'value': 'create_channel'},
+                {'name': 'List Channels', 'value': 'list_channels'},
+                {'name': 'List Teams', 'value': 'list_teams'},
+                {'name': 'Add User To Channel', 'value': 'add_user_to_channel'},
+            ],
+            'description': 'Mattermost action',
+        },
+        {
+            'displayName': 'Channel Id',
+            'name': 'channel_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Channel Name',
+            'name': 'channel_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Message',
+            'name': 'message',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Team Id',
+            'name': 'team_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

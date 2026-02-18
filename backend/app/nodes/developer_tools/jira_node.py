@@ -4,8 +4,8 @@ Batch 110: Developer Tools & Databases
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("jira_node")
 class JiraNode(BaseNode):
@@ -17,6 +17,47 @@ class JiraNode(BaseNode):
     category = "developer_tools"
     credentials_required = ["jira_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_issue',
+            'options': [
+                {'name': 'Create Issue', 'value': 'create_issue'},
+                {'name': 'Get Issue', 'value': 'get_issue'},
+                {'name': 'Search Issues', 'value': 'search_issues'},
+                {'name': 'Add Comment', 'value': 'add_comment'},
+            ],
+            'description': 'Jira action',
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Issue Type',
+            'name': 'issue_type',
+            'type': 'string',
+            'default': 'Task',
+        },
+        {
+            'displayName': 'Project Key',
+            'name': 'project_key',
+            'type': 'string',
+            'default': '',
+            'description': 'Project Key (e.g. PROJ)',
+        },
+        {
+            'displayName': 'Summary',
+            'name': 'summary',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

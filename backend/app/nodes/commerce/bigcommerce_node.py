@@ -4,8 +4,8 @@ Batch 86: E-commerce Core
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("bigcommerce_node")
 class BigCommerceNode(BaseNode):
@@ -17,6 +17,30 @@ class BigCommerceNode(BaseNode):
     category = "commerce"
     credentials_required = ["bigcommerce_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_products',
+            'options': [
+                {'name': 'List Products', 'value': 'list_products'},
+                {'name': 'List Orders', 'value': 'list_orders'},
+                {'name': 'Get Store Info', 'value': 'get_store_info'},
+                {'name': 'List Customers', 'value': 'list_customers'},
+            ],
+            'description': 'BigCommerce action',
+        },
+        {
+            'displayName': 'Store Hash',
+            'name': 'store_hash',
+            'type': 'string',
+            'default': '',
+            'description': 'BigCommerce Store Hash (e.g. ac123xyz)',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 74: Professional Services
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("fiverr_node")
 class FiverrNode(BaseNode):
@@ -17,6 +17,34 @@ class FiverrNode(BaseNode):
     category = "professional_services"
     credentials_required = ["fiverr_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_gigs',
+            'options': [
+                {'name': 'Search Gigs', 'value': 'search_gigs'},
+                {'name': 'Get Order Status', 'value': 'get_order_status'},
+                {'name': 'List Conversations', 'value': 'list_conversations'},
+            ],
+            'description': 'Fiverr action',
+        },
+        {
+            'displayName': 'Order Id',
+            'name': 'order_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query for Gigs',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

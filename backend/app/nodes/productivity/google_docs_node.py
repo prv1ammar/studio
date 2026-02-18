@@ -4,8 +4,8 @@ Batch 91: Productivity Suite (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("google_docs_node")
 class GoogleDocsNode(BaseNode):
@@ -17,6 +17,40 @@ class GoogleDocsNode(BaseNode):
     category = "productivity"
     credentials_required = ["google_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_document',
+            'options': [
+                {'name': 'Create Document', 'value': 'create_document'},
+                {'name': 'Get Document', 'value': 'get_document'},
+                {'name': 'Append Text', 'value': 'append_text'},
+                {'name': 'Replace Text', 'value': 'replace_text'},
+            ],
+            'description': 'Google Docs action',
+        },
+        {
+            'displayName': 'Document Id',
+            'name': 'document_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

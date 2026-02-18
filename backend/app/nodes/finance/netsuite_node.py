@@ -4,8 +4,8 @@ Batch 84: Enterprise Finance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("netsuite_node")
 class NetSuiteNode(BaseNode):
@@ -17,6 +17,30 @@ class NetSuiteNode(BaseNode):
     category = "finance"
     credentials_required = ["netsuite_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_invoices',
+            'options': [
+                {'name': 'List Invoices', 'value': 'list_invoices'},
+                {'name': 'Get Customer', 'value': 'get_customer'},
+                {'name': 'Search Items', 'value': 'search_items'},
+                {'name': 'Create Sales Order', 'value': 'create_sales_order'},
+            ],
+            'description': 'NetSuite action',
+        },
+        {
+            'displayName': 'Account Id',
+            'name': 'account_id',
+            'type': 'string',
+            'default': '',
+            'description': 'NetSuite Account ID (e.g. 1234567-sb1)',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

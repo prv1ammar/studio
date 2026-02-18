@@ -3,8 +3,8 @@ Webhook Response Node - Studio Standard (Universal Method)
 Batch 99: Web & Utilities (Deepening Parity)
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("webhook_response_node")
 class WebhookResponseNode(BaseNode):
@@ -16,6 +16,30 @@ class WebhookResponseNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Response Body',
+            'name': 'response_body',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON Body',
+        },
+        {
+            'displayName': 'Response Code',
+            'name': 'response_code',
+            'type': 'string',
+            'default': 200,
+            'description': 'HTTP Status Code',
+        },
+        {
+            'displayName': 'Response Headers',
+            'name': 'response_headers',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON Headers',
+        },
+    ]
     inputs = {
         "response_code": {
             "type": "number",

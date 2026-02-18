@@ -4,8 +4,8 @@ Batch 31: Data Processing Nodes
 """
 import json
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("parse_json_data")
 class ParseJSONDataNode(BaseNode):
@@ -18,6 +18,39 @@ class ParseJSONDataNode(BaseNode):
     category = "data_processing"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Auto Repair',
+            'name': 'auto_repair',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Automatically repair malformed JSON',
+        },
+        {
+            'displayName': 'Input Value',
+            'name': 'input_value',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON string, object, or Data to parse',
+            'required': True,
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'JQ query to filter/transform the data (e.g., '.items[]', '.name')',
+            'required': True,
+        },
+        {
+            'displayName': 'Return As List',
+            'name': 'return_as_list',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Return results as a list even for single values',
+        },
+    ]
     inputs = {
         "input_value": {
             "type": "any",

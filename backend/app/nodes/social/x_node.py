@@ -4,8 +4,8 @@ Batch 54: Social Engagement & Influence
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("x_node")
 class XNode(BaseNode):
@@ -17,6 +17,42 @@ class XNode(BaseNode):
     category = "social"
     credentials_required = ["x_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'post_tweet',
+            'options': [
+                {'name': 'Post Tweet', 'value': 'post_tweet'},
+                {'name': 'Search Recent', 'value': 'search_recent'},
+                {'name': 'Get User Info', 'value': 'get_user_info'},
+            ],
+            'description': 'X action to perform',
+        },
+        {
+            'displayName': 'Limit',
+            'name': 'limit',
+            'type': 'string',
+            'default': 10,
+            'description': 'Max results for search',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query (for search_recent)',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+            'description': 'Tweet content (for post_tweet)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

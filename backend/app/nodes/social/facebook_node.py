@@ -4,8 +4,8 @@ Batch 92: Social Media Integration (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("facebook_node")
 class FacebookNode(BaseNode):
@@ -17,6 +17,34 @@ class FacebookNode(BaseNode):
     category = "social"
     credentials_required = ["facebook_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_post',
+            'options': [
+                {'name': 'Create Post', 'value': 'create_post'},
+                {'name': 'Get Page Posts', 'value': 'get_page_posts'},
+                {'name': 'Get Page Info', 'value': 'get_page_info'},
+                {'name': 'Create Photo Post', 'value': 'create_photo_post'},
+            ],
+            'description': 'Facebook action',
+        },
+        {
+            'displayName': 'Message',
+            'name': 'message',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Page Id',
+            'name': 'page_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

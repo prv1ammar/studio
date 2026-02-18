@@ -4,8 +4,8 @@ Batch 109: Analytics & Support
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("intercom_node")
 class IntercomNode(BaseNode):
@@ -17,6 +17,34 @@ class IntercomNode(BaseNode):
     category = "support"
     credentials_required = ["intercom_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_contact',
+            'options': [
+                {'name': 'Create Contact', 'value': 'create_contact'},
+                {'name': 'List Contacts', 'value': 'list_contacts'},
+                {'name': 'Send Message', 'value': 'send_message'},
+                {'name': 'Get Conversation', 'value': 'get_conversation'},
+            ],
+            'description': 'Intercom action',
+        },
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

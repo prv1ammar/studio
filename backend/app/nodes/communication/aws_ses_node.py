@@ -7,8 +7,8 @@ import aiohttp
 import hashlib
 import hmac
 from datetime import datetime
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("aws_ses_node")
 class AWSSESNode(BaseNode):
@@ -20,6 +20,53 @@ class AWSSESNode(BaseNode):
     category = "communication"
     credentials_required = ["aws_ses_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'send_email',
+            'options': [
+                {'name': 'Send Email', 'value': 'send_email'},
+                {'name': 'Send Template Email', 'value': 'send_template_email'},
+                {'name': 'Verify Email', 'value': 'verify_email'},
+                {'name': 'List Identities', 'value': 'list_identities'},
+                {'name': 'Get Send Quota', 'value': 'get_send_quota'},
+            ],
+            'description': 'AWS SES action',
+        },
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'From Email',
+            'name': 'from_email',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Subject',
+            'name': 'subject',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Template Name',
+            'name': 'template_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'To Email',
+            'name': 'to_email',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

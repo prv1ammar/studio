@@ -5,8 +5,8 @@ Batch 100: AI & LLM (The Grande Finale)
 from typing import Any, Dict, Optional, List
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("cohere_chat_node")
 class CohereChatNode(BaseNode):
@@ -18,6 +18,50 @@ class CohereChatNode(BaseNode):
     category = "ai"
     credentials_required = ["cohere_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Chat History',
+            'name': 'chat_history',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON array of history',
+        },
+        {
+            'displayName': 'Max Tokens',
+            'name': 'max_tokens',
+            'type': 'string',
+            'default': 1024,
+            'description': 'Max tokens',
+        },
+        {
+            'displayName': 'Message',
+            'name': 'message',
+            'type': 'string',
+            'default': '',
+            'description': 'User message',
+            'required': True,
+        },
+        {
+            'displayName': 'Model',
+            'name': 'model',
+            'type': 'options',
+            'default': 'command-r-plus',
+            'options': [
+                {'name': 'Command-R-Plus', 'value': 'command-r-plus'},
+                {'name': 'Command-R', 'value': 'command-r'},
+                {'name': 'Command', 'value': 'command'},
+            ],
+            'description': 'Model to use',
+        },
+        {
+            'displayName': 'Preamble',
+            'name': 'preamble',
+            'type': 'string',
+            'default': '',
+            'description': 'System prompt / Preamble',
+        },
+    ]
     inputs = {
         "model": {
             "type": "dropdown",

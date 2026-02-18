@@ -4,8 +4,8 @@ Batch 108: Marketing & CRM
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("pipedrive_node")
 class PipedriveNode(BaseNode):
@@ -17,6 +17,40 @@ class PipedriveNode(BaseNode):
     category = "marketing"
     credentials_required = ["pipedrive_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_deal',
+            'options': [
+                {'name': 'Create Deal', 'value': 'create_deal'},
+                {'name': 'Create Person', 'value': 'create_person'},
+                {'name': 'Get Deal', 'value': 'get_deal'},
+                {'name': 'Create Activity', 'value': 'create_activity'},
+            ],
+            'description': 'Pipedrive action',
+        },
+        {
+            'displayName': 'Currency',
+            'name': 'currency',
+            'type': 'string',
+            'default': 'USD',
+        },
+        {
+            'displayName': 'Title',
+            'name': 'title',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Value',
+            'name': 'value',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

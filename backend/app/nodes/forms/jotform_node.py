@@ -4,8 +4,8 @@ Batch 57: Forms & Surveys
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("jotform_node")
 class JotFormNode(BaseNode):
@@ -17,6 +17,35 @@ class JotFormNode(BaseNode):
     category = "forms"
     credentials_required = ["jotform_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_forms',
+            'options': [
+                {'name': 'Get Forms', 'value': 'get_forms'},
+                {'name': 'Get Form Details', 'value': 'get_form_details'},
+                {'name': 'Get Submissions', 'value': 'get_submissions'},
+                {'name': 'Get Form Questions', 'value': 'get_form_questions'},
+            ],
+            'description': 'JotForm action to perform',
+        },
+        {
+            'displayName': 'Form Id',
+            'name': 'form_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the JotForm',
+        },
+        {
+            'displayName': 'Limit',
+            'name': 'limit',
+            'type': 'string',
+            'default': 10,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

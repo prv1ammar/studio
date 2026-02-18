@@ -13,6 +13,34 @@ class WeaviateNode(BaseNode):
     category = "storage"
     credentials_required = ["weaviate_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'search',
+        },
+        {
+            'displayName': 'Alpha',
+            'name': 'alpha',
+            'type': 'string',
+            'default': 0.5,
+            'description': 'Hybrid search alpha (0=keyword, 1=vector)',
+        },
+        {
+            'displayName': 'Class Name',
+            'name': 'class_name',
+            'type': 'string',
+            'default': 'StudioDocument',
+        },
+        {
+            'displayName': 'Query Text',
+            'name': 'query_text',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "search", "enum": ["ingest", "search", "hybrid_search"]},
         "class_name": {"type": "string", "default": "StudioDocument"},

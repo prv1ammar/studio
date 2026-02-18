@@ -3,8 +3,8 @@ Amazon Bedrock Embeddings Node - Studio Standard
 Batch 30: AI Provider Nodes
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("amazon_bedrock_embeddings")
 class AmazonBedrockEmbeddingsNode(BaseNode):
@@ -17,6 +17,50 @@ class AmazonBedrockEmbeddingsNode(BaseNode):
     category = "ai_providers"
     credentials_required = ["aws_bedrock"]
 
+
+    properties = [
+        {
+            'displayName': 'Model Id',
+            'name': 'model_id',
+            'type': 'options',
+            'default': 'amazon.titan-embed-text-v1',
+            'options': [
+                {'name': 'Amazon.Titan-Embed-Text-V1', 'value': 'amazon.titan-embed-text-v1'},
+                {'name': 'Amazon.Titan-Embed-Text-V2:0', 'value': 'amazon.titan-embed-text-v2:0'},
+                {'name': 'Cohere.Embed-English-V3', 'value': 'cohere.embed-english-v3'},
+                {'name': 'Cohere.Embed-Multilingual-V3', 'value': 'cohere.embed-multilingual-v3'},
+            ],
+            'description': 'Bedrock embedding model to use',
+        },
+        {
+            'displayName': 'Normalize',
+            'name': 'normalize',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Normalize embeddings to unit length',
+        },
+        {
+            'displayName': 'Region Name',
+            'name': 'region_name',
+            'type': 'options',
+            'default': 'us-east-1',
+            'options': [
+                {'name': 'Us-East-1', 'value': 'us-east-1'},
+                {'name': 'Us-West-2', 'value': 'us-west-2'},
+                {'name': 'Eu-West-1', 'value': 'eu-west-1'},
+                {'name': 'Ap-Southeast-1', 'value': 'ap-southeast-1'},
+            ],
+            'description': 'AWS region',
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+            'description': 'Text to generate embeddings for',
+            'required': True,
+        },
+    ]
     inputs = {
         "model_id": {
             "type": "dropdown",

@@ -7,8 +7,8 @@ import aiohttp
 import json
 import base64
 from urllib.parse import quote_plus
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("gitlab_devops")
 class GitLabDevOpsNode(BaseNode):
@@ -20,6 +20,59 @@ class GitLabDevOpsNode(BaseNode):
     category = "devops"
     credentials_required = ["gitlab_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_project_info',
+            'options': [
+                {'name': 'Get Project Info', 'value': 'get_project_info'},
+                {'name': 'Create Issue', 'value': 'create_issue'},
+                {'name': 'Create Merge Request', 'value': 'create_merge_request'},
+                {'name': 'List Repository Tree', 'value': 'list_repository_tree'},
+                {'name': 'Get File Content', 'value': 'get_file_content'},
+            ],
+            'description': 'Action to perform on GitLab',
+        },
+        {
+            'displayName': 'Base Url',
+            'name': 'base_url',
+            'type': 'string',
+            'default': 'https://gitlab.com',
+            'description': 'GitLab instance URL',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+            'description': 'Structured data for creation (Issues/MRs)',
+        },
+        {
+            'displayName': 'Path',
+            'name': 'path',
+            'type': 'string',
+            'default': '',
+            'description': 'File or directory path',
+        },
+        {
+            'displayName': 'Project Id',
+            'name': 'project_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Project ID (numeric) or Path (e.g., 'group/project')',
+            'required': True,
+        },
+        {
+            'displayName': 'Ref',
+            'name': 'ref',
+            'type': 'string',
+            'default': 'main',
+            'description': 'Branch, tag, or commit hash',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

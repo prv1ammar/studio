@@ -4,8 +4,8 @@ Batch 46: Communication & Marketing
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("twilio_node")
 class TwilioNode(BaseNode):
@@ -18,6 +18,50 @@ class TwilioNode(BaseNode):
     category = "communication"
     credentials_required = ["twilio_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Channel',
+            'name': 'channel',
+            'type': 'options',
+            'default': 'sms',
+            'options': [
+                {'name': 'Sms', 'value': 'sms'},
+                {'name': 'Whatsapp', 'value': 'whatsapp'},
+            ],
+            'description': 'Communication channel',
+        },
+        {
+            'displayName': 'From Number',
+            'name': 'from_number',
+            'type': 'string',
+            'default': '',
+            'description': 'Twilio sender number (or 'whatsapp:+1234567890')',
+        },
+        {
+            'displayName': 'Media Url',
+            'name': 'media_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Optional media URL for MMS',
+        },
+        {
+            'displayName': 'Message',
+            'name': 'message',
+            'type': 'string',
+            'default': '',
+            'description': 'Message content',
+            'required': True,
+        },
+        {
+            'displayName': 'To',
+            'name': 'to',
+            'type': 'string',
+            'default': '',
+            'description': 'Recipient phone number (e.g., '+1234567890')',
+            'required': True,
+        },
+    ]
     inputs = {
         "channel": {
             "type": "dropdown",

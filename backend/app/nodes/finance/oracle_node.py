@@ -4,8 +4,8 @@ Batch 84: Enterprise Finance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("oracle_node")
 class OracleNode(BaseNode):
@@ -17,6 +17,34 @@ class OracleNode(BaseNode):
     category = "finance"
     credentials_required = ["oracle_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_instances',
+            'options': [
+                {'name': 'List Instances', 'value': 'list_instances'},
+                {'name': 'Get Usage Reports', 'value': 'get_usage_reports'},
+                {'name': 'List Compartments', 'value': 'list_compartments'},
+            ],
+            'description': 'Oracle action',
+        },
+        {
+            'displayName': 'Compartment Id',
+            'name': 'compartment_id',
+            'type': 'string',
+            'default': '',
+            'required': True,
+        },
+        {
+            'displayName': 'Region',
+            'name': 'region',
+            'type': 'string',
+            'default': 'us-ashburn-1',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

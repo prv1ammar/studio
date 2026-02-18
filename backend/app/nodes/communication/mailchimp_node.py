@@ -3,8 +3,8 @@ Mailchimp Marketing Node - Studio Standard
 Batch 46: Communication & Marketing
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("mailchimp_node")
 class MailchimpNode(BaseNode):
@@ -17,6 +17,43 @@ class MailchimpNode(BaseNode):
     category = "communication"
     credentials_required = ["mailchimp_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'subscribe',
+            'options': [
+                {'name': 'Subscribe', 'value': 'subscribe'},
+                {'name': 'Unsubscribe', 'value': 'unsubscribe'},
+                {'name': 'Get Member', 'value': 'get_member'},
+            ],
+            'description': 'Mailchimp action',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+            'description': 'Subscriber email address',
+        },
+        {
+            'displayName': 'List Id',
+            'name': 'list_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Audience/List ID',
+            'required': True,
+        },
+        {
+            'displayName': 'Merge Fields',
+            'name': 'merge_fields',
+            'type': 'string',
+            'default': '',
+            'description': 'Merge fields (e.g., {'FNAME': 'John'})',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

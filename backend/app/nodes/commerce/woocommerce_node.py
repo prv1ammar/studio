@@ -5,8 +5,8 @@ Batch 102: E-commerce & Payments Expansion
 from typing import Any, Dict, Optional, List
 import aiohttp
 import base64
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("woocommerce_node")
 class WooCommerceNode(BaseNode):
@@ -18,6 +18,63 @@ class WooCommerceNode(BaseNode):
     category = "commerce"
     credentials_required = ["woocommerce_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_products',
+            'options': [
+                {'name': 'List Products', 'value': 'list_products'},
+                {'name': 'Create Product', 'value': 'create_product'},
+                {'name': 'Update Product', 'value': 'update_product'},
+                {'name': 'List Orders', 'value': 'list_orders'},
+                {'name': 'Update Order Status', 'value': 'update_order_status'},
+                {'name': 'Get Customer', 'value': 'get_customer'},
+            ],
+            'description': 'WooCommerce action',
+        },
+        {
+            'displayName': 'Name',
+            'name': 'name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Order Id',
+            'name': 'order_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Price',
+            'name': 'price',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Product Id',
+            'name': 'product_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Status',
+            'name': 'status',
+            'type': 'options',
+            'default': '',
+            'options': [
+                {'name': 'Pending', 'value': 'pending'},
+                {'name': 'Processing', 'value': 'processing'},
+                {'name': 'On-Hold', 'value': 'on-hold'},
+                {'name': 'Completed', 'value': 'completed'},
+                {'name': 'Cancelled', 'value': 'cancelled'},
+                {'name': 'Refunded', 'value': 'refunded'},
+                {'name': 'Failed', 'value': 'failed'},
+            ],
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

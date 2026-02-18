@@ -11,6 +11,37 @@ class TextParserNode(BaseNode):
     version = "1.0.0"
     category = "processing"
 
+
+    properties = [
+        {
+            'displayName': 'Input Data',
+            'name': 'input_data',
+            'type': 'string',
+            'default': '',
+            'description': 'Data to parse or stringify',
+        },
+        {
+            'displayName': 'Mode',
+            'name': 'mode',
+            'type': 'string',
+            'default': 'Parser',
+        },
+        {
+            'displayName': 'Separator',
+            'name': 'separator',
+            'type': 'string',
+            'default': '
+',
+            'description': 'Separator for multiple items',
+        },
+        {
+            'displayName': 'Template',
+            'name': 'template',
+            'type': 'string',
+            'default': 'Text: {text}',
+            'description': 'Template with {key} variables',
+        },
+    ]
     inputs = {
         "input_data": {"type": "any", "description": "Data to parse or stringify"},
         "mode": {"type": "string", "enum": ["Parser", "Stringify"], "default": "Parser"},

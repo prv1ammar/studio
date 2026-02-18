@@ -4,8 +4,8 @@ Batch 99: Web & Utilities (Deepening Parity)
 """
 from typing import Any, Dict, Optional, List
 import feedparser
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("rss_feed_node")
 class RSSFeedNode(BaseNode):
@@ -17,6 +17,24 @@ class RSSFeedNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Limit',
+            'name': 'limit',
+            'type': 'string',
+            'default': 10,
+            'description': 'Max entries',
+        },
+        {
+            'displayName': 'Url',
+            'name': 'url',
+            'type': 'string',
+            'default': '',
+            'description': 'Feed URL',
+            'required': True,
+        },
+    ]
     inputs = {
         "url": {
             "type": "string",

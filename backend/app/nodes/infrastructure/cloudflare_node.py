@@ -4,8 +4,8 @@ Batch 113: Intelligent Infrastructure & IoT
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("cloudflare_node")
 class CloudflareNode(BaseNode):
@@ -17,6 +17,36 @@ class CloudflareNode(BaseNode):
     category = "infrastructure"
     credentials_required = ["cloudflare_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_zones',
+            'options': [
+                {'name': 'List Zones', 'value': 'list_zones'},
+                {'name': 'Get Dns Records', 'value': 'get_dns_records'},
+                {'name': 'Create Dns Record', 'value': 'create_dns_record'},
+                {'name': 'Purge Cache', 'value': 'purge_cache'},
+            ],
+            'description': 'Cloudflare action to perform',
+        },
+        {
+            'displayName': 'Dns Name',
+            'name': 'dns_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Record name (e.g., example.com)',
+        },
+        {
+            'displayName': 'Zone Id',
+            'name': 'zone_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Cloudflare Zone ID',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

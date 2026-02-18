@@ -3,8 +3,8 @@ Real Estate Intelligence Node - Studio Standard
 Batch 55: Industry Specific (Real Estate)
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 import json
 
 @register_node("real_estate_node")
@@ -18,6 +18,43 @@ class RealEstateNode(BaseNode):
     category = "verticals"
     credentials_required = ["real_estate_auth"] # Maps to Zillow/Redfin/Realtor.com Proxies
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'extract_criteria',
+            'options': [
+                {'name': 'Extract Criteria', 'value': 'extract_criteria'},
+                {'name': 'Search Properties', 'value': 'search_properties'},
+                {'name': 'Qualify Lead', 'value': 'qualify_lead'},
+                {'name': 'Analyze Market', 'value': 'analyze_market'},
+            ],
+            'description': 'Real Estate action',
+        },
+        {
+            'displayName': 'Budget Max',
+            'name': 'budget_max',
+            'type': 'string',
+            'default': '',
+            'description': 'Maximum price or rent',
+        },
+        {
+            'displayName': 'Location',
+            'name': 'location',
+            'type': 'string',
+            'default': '',
+            'description': 'Target city or neighborhood',
+        },
+        {
+            'displayName': 'User Message',
+            'name': 'user_message',
+            'type': 'string',
+            'default': '',
+            'description': 'User message or property description',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

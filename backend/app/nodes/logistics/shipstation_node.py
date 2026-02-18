@@ -5,8 +5,8 @@ Batch 65: Logistics & Shipping
 from typing import Any, Dict, Optional, List
 import aiohttp
 import base64
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("shipstation_node")
 class ShipStationNode(BaseNode):
@@ -18,6 +18,29 @@ class ShipStationNode(BaseNode):
     category = "logistics"
     credentials_required = ["shipstation_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_orders',
+            'options': [
+                {'name': 'List Orders', 'value': 'list_orders'},
+                {'name': 'Create Order', 'value': 'create_order'},
+                {'name': 'Get Order', 'value': 'get_order'},
+                {'name': 'List Shipments', 'value': 'list_shipments'},
+                {'name': 'Create Label', 'value': 'create_label'},
+            ],
+            'description': 'ShipStation action',
+        },
+        {
+            'displayName': 'Order Id',
+            'name': 'order_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

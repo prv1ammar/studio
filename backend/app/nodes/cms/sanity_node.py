@@ -4,8 +4,8 @@ Batch 71: CMS & Web Engines
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("sanity_node")
 class SanityNode(BaseNode):
@@ -17,6 +17,54 @@ class SanityNode(BaseNode):
     category = "cms"
     credentials_required = ["sanity_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'query',
+            'options': [
+                {'name': 'Query', 'value': 'query'},
+                {'name': 'Get Document', 'value': 'get_document'},
+                {'name': 'Create Document', 'value': 'create_document'},
+            ],
+            'description': 'Sanity action',
+        },
+        {
+            'displayName': 'Api Version',
+            'name': 'api_version',
+            'type': 'string',
+            'default': '2023-01-01',
+        },
+        {
+            'displayName': 'Dataset',
+            'name': 'dataset',
+            'type': 'string',
+            'default': 'production',
+        },
+        {
+            'displayName': 'Document Type',
+            'name': 'document_type',
+            'type': 'string',
+            'default': '',
+            'description': 'Document type for creation',
+        },
+        {
+            'displayName': 'Project Id',
+            'name': 'project_id',
+            'type': 'string',
+            'default': '',
+            'required': True,
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'GROQ query string',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

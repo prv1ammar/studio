@@ -4,8 +4,8 @@ Batch 71: CMS & Web Engines
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("ghost_node")
 class GhostNode(BaseNode):
@@ -17,6 +17,36 @@ class GhostNode(BaseNode):
     category = "cms"
     credentials_required = ["ghost_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_posts',
+            'options': [
+                {'name': 'List Posts', 'value': 'list_posts'},
+                {'name': 'Get Post', 'value': 'get_post'},
+                {'name': 'Create Post', 'value': 'create_post'},
+                {'name': 'List Pages', 'value': 'list_pages'},
+            ],
+            'description': 'Ghost action',
+        },
+        {
+            'displayName': 'Post Id',
+            'name': 'post_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Url',
+            'name': 'url',
+            'type': 'string',
+            'default': '',
+            'description': 'Base URL of your Ghost site (e.g. https://your-site.ghost.io)',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

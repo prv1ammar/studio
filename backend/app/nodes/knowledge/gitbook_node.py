@@ -4,8 +4,8 @@ Batch 60: Knowledge Management
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("gitbook_node")
 class GitBookNode(BaseNode):
@@ -18,6 +18,44 @@ class GitBookNode(BaseNode):
     category = "knowledge"
     credentials_required = ["gitbook_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_spaces',
+            'options': [
+                {'name': 'List Spaces', 'value': 'list_spaces'},
+                {'name': 'Get Space', 'value': 'get_space'},
+                {'name': 'List Pages', 'value': 'list_pages'},
+                {'name': 'Search', 'value': 'search'},
+                {'name': 'Get Page Content', 'value': 'get_page_content'},
+            ],
+            'description': 'GitBook action',
+        },
+        {
+            'displayName': 'Page Id',
+            'name': 'page_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the page',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query',
+        },
+        {
+            'displayName': 'Space Id',
+            'name': 'space_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the GitBook space',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

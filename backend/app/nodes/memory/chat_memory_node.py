@@ -3,8 +3,8 @@ Chat Memory Node - Studio Standard
 Batch 39: Memory & History
 """
 from typing import Any, Dict, Optional
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("chat_memory")
 class ChatMemoryNode(BaseNode):
@@ -17,6 +17,44 @@ class ChatMemoryNode(BaseNode):
     category = "memory"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Input Key',
+            'name': 'input_key',
+            'type': 'string',
+            'default': 'input',
+            'description': 'Key for input variable',
+        },
+        {
+            'displayName': 'Output Key',
+            'name': 'output_key',
+            'type': 'string',
+            'default': 'output',
+            'description': 'Key for output variable',
+        },
+        {
+            'displayName': 'Return Messages',
+            'name': 'return_messages',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Return as list of messages (True) or string (False)',
+        },
+        {
+            'displayName': 'Session Id',
+            'name': 'session_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique session identifier',
+        },
+        {
+            'displayName': 'Window Size',
+            'name': 'window_size',
+            'type': 'string',
+            'default': 10,
+            'description': 'Number of messages to keep in history',
+        },
+    ]
     inputs = {
         "window_size": {
             "type": "number",

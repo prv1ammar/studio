@@ -5,8 +5,8 @@ Batch 37: Tools & Utilities
 import json
 import httpx
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("api_tool")
 class APIToolNode(BaseNode):
@@ -19,6 +19,80 @@ class APIToolNode(BaseNode):
     category = "tools"
     credentials_required = ["api_credential"]
 
+
+    properties = [
+        {
+            'displayName': 'Auth Header Name',
+            'name': 'auth_header_name',
+            'type': 'string',
+            'default': 'Authorization',
+            'description': 'Custom header name for 'header' auth type',
+        },
+        {
+            'displayName': 'Auth Type',
+            'name': 'auth_type',
+            'type': 'options',
+            'default': 'none',
+            'options': [
+                {'name': 'None', 'value': 'none'},
+                {'name': 'Bearer', 'value': 'bearer'},
+                {'name': 'Basic', 'value': 'basic'},
+                {'name': 'Header', 'value': 'header'},
+                {'name': 'Query', 'value': 'query'},
+            ],
+            'description': 'How to apply credentials',
+        },
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+            'description': 'Request body JSON or dictionary',
+        },
+        {
+            'displayName': 'Headers',
+            'name': 'headers',
+            'type': 'string',
+            'default': '',
+            'description': 'Headers dictionary',
+        },
+        {
+            'displayName': 'Method',
+            'name': 'method',
+            'type': 'options',
+            'default': 'GET',
+            'options': [
+                {'name': 'Get', 'value': 'GET'},
+                {'name': 'Post', 'value': 'POST'},
+                {'name': 'Put', 'value': 'PUT'},
+                {'name': 'Delete', 'value': 'DELETE'},
+                {'name': 'Patch', 'value': 'PATCH'},
+            ],
+            'description': 'HTTP method to use',
+        },
+        {
+            'displayName': 'Query Params',
+            'name': 'query_params',
+            'type': 'string',
+            'default': '',
+            'description': 'Query parameters dictionary',
+        },
+        {
+            'displayName': 'Timeout',
+            'name': 'timeout',
+            'type': 'string',
+            'default': 30,
+            'description': 'Request timeout in seconds',
+        },
+        {
+            'displayName': 'Url',
+            'name': 'url',
+            'type': 'string',
+            'default': '',
+            'description': 'Full URL for the request',
+            'required': True,
+        },
+    ]
     inputs = {
         "url": {
             "type": "string",
@@ -169,4 +243,3 @@ class APIToolNode(BaseNode):
             return {"status": "error", "error": f"Request failed: {str(e)}"}
         except Exception as e:
             return {"status": "error", "error": f"API Tool Execution Error: {str(e)}"}
-

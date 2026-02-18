@@ -4,8 +4,8 @@ Batch 71: CMS & Web Engines
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("webflow_node")
 class WebflowNode(BaseNode):
@@ -17,6 +17,43 @@ class WebflowNode(BaseNode):
     category = "cms"
     credentials_required = ["webflow_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_sites',
+            'options': [
+                {'name': 'List Sites', 'value': 'list_sites'},
+                {'name': 'List Collections', 'value': 'list_collections'},
+                {'name': 'List Items', 'value': 'list_items'},
+                {'name': 'Create Item', 'value': 'create_item'},
+            ],
+            'description': 'Webflow action',
+        },
+        {
+            'displayName': 'Collection Id',
+            'name': 'collection_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the collection',
+        },
+        {
+            'displayName': 'Item Data',
+            'name': 'item_data',
+            'type': 'string',
+            'default': '',
+            'description': 'Fields for creating a CMS item',
+        },
+        {
+            'displayName': 'Site Id',
+            'name': 'site_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the Webflow site',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

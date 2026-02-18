@@ -5,8 +5,8 @@ Batch 100: AI & LLM (The Grande Finale)
 from typing import Any, Dict, Optional, List
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("huggingface_inference_node")
 class HuggingFaceInferenceNode(BaseNode):
@@ -18,6 +18,46 @@ class HuggingFaceInferenceNode(BaseNode):
     category = "ai"
     credentials_required = ["huggingface_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Input Text',
+            'name': 'input_text',
+            'type': 'string',
+            'default': '',
+            'description': 'Input text',
+            'required': True,
+        },
+        {
+            'displayName': 'Model Id',
+            'name': 'model_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Model ID (e.g. gpt2, facebook/bart-large-cnn)',
+            'required': True,
+        },
+        {
+            'displayName': 'Parameters',
+            'name': 'parameters',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON parameters (e.g. {max_new_tokens: 50})',
+        },
+        {
+            'displayName': 'Task',
+            'name': 'task',
+            'type': 'options',
+            'default': 'text-generation',
+            'options': [
+                {'name': 'Text-Generation', 'value': 'text-generation'},
+                {'name': 'Summarization', 'value': 'summarization'},
+                {'name': 'Translation', 'value': 'translation'},
+                {'name': 'Conversational', 'value': 'conversational'},
+                {'name': 'Fill-Mask', 'value': 'fill-mask'},
+            ],
+            'description': 'Task type',
+        },
+    ]
     inputs = {
         "model_id": {
             "type": "string",

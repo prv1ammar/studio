@@ -4,8 +4,8 @@ Batch 111: Utilities & Data Processing
 """
 from typing import Any, Dict, Optional, List
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("data_transformation_node")
 class DataTransformationNode(BaseNode):
@@ -17,6 +17,42 @@ class DataTransformationNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'pick_fields',
+            'options': [
+                {'name': 'Pick Fields', 'value': 'pick_fields'},
+                {'name': 'Omit Fields', 'value': 'omit_fields'},
+                {'name': 'Sort List', 'value': 'sort_list'},
+                {'name': 'Filter List', 'value': 'filter_list'},
+            ],
+            'description': 'Transformation action',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON object or list',
+        },
+        {
+            'displayName': 'Fields',
+            'name': 'fields',
+            'type': 'string',
+            'default': '',
+            'description': 'Comma separated fields',
+        },
+        {
+            'displayName': 'Sort Key',
+            'name': 'sort_key',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

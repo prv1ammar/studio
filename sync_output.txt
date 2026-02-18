@@ -1,0 +1,616 @@
+Pre-scan registry size: 0
+DEBUG: NodeRegistry scan starting...
+DEBUG: nodes_dir=C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\nodes, package_root=C:\Users\info\Downloads\studio-V3.0.0-main\backend
+DEBUG: agents_path=C:\Users\info\Downloads\studio-V3.0.0-main\backend\app\agents
+DEBUG: Importing app.nodes.factory
+DEBUG: Importing app.nodes.generic_node
+DEBUG: Importing app.nodes.private_registry
+DEBUG: Importing app.nodes.ai.anthropic_chat_node
+DEBUG: Importing app.nodes.ai.cohere_chat_node
+DEBUG: Importing app.nodes.ai.gemini_chat_node
+DEBUG: Importing app.nodes.ai.huggingface_inference_node
+DEBUG: Importing app.nodes.ai.huggingface_node
+DEBUG: Importing app.nodes.ai.jigsawstack_node
+DEBUG: Importing app.nodes.ai.lmstudio_node
+DEBUG: Importing app.nodes.ai.ollama_node
+DEBUG: Importing app.nodes.ai.openai_chat_node
+DEBUG: Importing app.nodes.ai.perplexity_node
+DEBUG: Importing app.nodes.amazon.amazon_bedrock_converse
+DEBUG: Importing app.nodes.amazon.amazon_bedrock_embedding
+DEBUG: Importing app.nodes.amazon.amazon_bedrock_model
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\sqlmodel\main.py:682: SAWarning: This declarative base already contains a class with the same class name and module name as langflow.services.database.models.api_key.model.ApiKey, and will be replaced in the string-lookup table.
+  DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
+DEBUG: Importing app.nodes.amazon.aws_node
+DEBUG: Importing app.nodes.amazon.bedrock_converse_node
+DEBUG: Importing app.nodes.amazon.bedrock_embeddings_node
+DEBUG: Importing app.nodes.amazon.s3_bucket_uploader
+DEBUG: Importing app.nodes.analytics.amplitude_node
+DEBUG: Importing app.nodes.analytics.analytics_node
+DEBUG: Importing app.nodes.analytics.drift_node
+DEBUG: Importing app.nodes.analytics.fathom_node
+DEBUG: Importing app.nodes.analytics.google_analytics_node
+DEBUG: Importing app.nodes.analytics.heap_node
+DEBUG: Importing app.nodes.analytics.hotjar_node
+DEBUG: Importing app.nodes.analytics.mixpanel_node
+DEBUG: Importing app.nodes.analytics.posthog_node
+DEBUG: Importing app.nodes.analytics.segment_node
+DEBUG: Importing app.nodes.analytics.sentry_node
+DEBUG: Importing app.nodes.anthropic.anthropic
+DEBUG: Importing app.nodes.anthropic.anthropic_model_node
+DEBUG: Importing app.nodes.assemblyai.assemblyai_get_subtitles
+DEBUG: Importing app.nodes.assemblyai.assemblyai_lemur
+DEBUG: Importing app.nodes.assemblyai.assemblyai_list_transcripts
+DEBUG: Importing app.nodes.assemblyai.assemblyai_poll_transcript
+DEBUG: Importing app.nodes.assemblyai.assemblyai_start_transcript
+DEBUG: Importing app.nodes.automotive.avis_node
+DEBUG: Importing app.nodes.automotive.budget_node
+DEBUG: Importing app.nodes.automotive.ford_node
+DEBUG: Importing app.nodes.automotive.hertz_node
+DEBUG: Importing app.nodes.automotive.tesla_node
+DEBUG: Importing app.nodes.bridges.ifttt_node
+DEBUG: Importing app.nodes.bridges.make_node
+DEBUG: Importing app.nodes.bridges.power_automate_node
+DEBUG: Importing app.nodes.bridges.workato_node
+DEBUG: Importing app.nodes.bridges.zapier_nla_node
+DEBUG: Importing app.nodes.cms.ghost_node
+DEBUG: Importing app.nodes.cms.sanity_node
+DEBUG: Importing app.nodes.cms.webflow_node
+DEBUG: Importing app.nodes.cms.wordpress_node
+DEBUG: Importing app.nodes.code.javascript_code_node
+DEBUG: Importing app.nodes.codethon_code_node
+DEBUG: Importing app.nodes.code.shell_command_node
+DEBUG: Importing app.nodes.cohere.cohere_embeddings
+DEBUG: Importing app.nodes.cohere.cohere_embeddings_node
+DEBUG: Importing app.nodes.cohere.cohere_models
+DEBUG: Importing app.nodes.cohere.cohere_rerank
+DEBUG: Importing app.nodes.collaboration.asana_node
+DEBUG: Importing app.nodes.collaboration.clickup_node
+DEBUG: Importing app.nodes.collaboration.linear_node
+DEBUG: Importing app.nodes.collaboration.monday_node
+DEBUG: Importing app.nodes.commerce.bigcommerce_node
+DEBUG: Importing app.nodes.commerce.lemonsqueezy_node
+DEBUG: Importing app.nodes.commerce.magento_node
+DEBUG: Importing app.nodes.commerce.paypal_node
+DEBUG: Importing app.nodes.commerce.shopify_node
+DEBUG: Importing app.nodes.commerce.squarespace_node
+DEBUG: Importing app.nodes.commerce.square_node
+DEBUG: Importing app.nodes.commerce.stripe_node
+DEBUG: Importing app.nodes.commerce.wix_node
+DEBUG: Importing app.nodes.commerce.woocommerce_node
+DEBUG: Importing app.nodes.communication.aws_ses_node
+DEBUG: Importing app.nodes.communication.discord_node
+DEBUG: Importing app.nodes.communication.email_services_batch
+DEBUG: Importing app.nodes.communication.mailchimp_node
+DEBUG: Importing app.nodes.communication.mattermost_node
+DEBUG: Importing app.nodes.communication.microsoft_teams_node
+DEBUG: Importing app.nodes.communication.outlook_node
+DEBUG: Importing app.nodes.communication.sendgrid_node
+DEBUG: Importing app.nodes.communication.slack_node
+DEBUG: Importing app.nodes.communication.smtp_node
+DEBUG: Importing app.nodes.communication.teams_node
+DEBUG: Importing app.nodes.communication.telegram_node
+DEBUG: Importing app.nodes.communication.twilio_node
+DEBUG: Importing app.nodes.communication.whatsapp_node
+DEBUG: Importing app.nodes.communication.zoom_node
+DEBUG: Importing app.nodes.core.file_nodes
+DEBUG: Importing app.nodes.core.memory_node
+DEBUG: Importing app.nodes.core.webhook_node
+DEBUG: Importing app.nodes.core.chat_input.chat_input_node
+DEBUG: Importing app.nodes.core.chat_output.chat_output_node
+DEBUG: Importing app.nodes.database.airtable_node
+DEBUG: Importing app.nodes.database.cassandra_node
+DEBUG: Importing app.nodes.database.clickhouse_node
+DEBUG: Importing app.nodes.database.elasticsearch_node
+DEBUG: Importing app.nodes.database.google_bigquery_node
+DEBUG: Importing app.nodes.database.mongodb_node
+DEBUG: Importing app.nodes.database.mysql_node
+DEBUG: Importing app.nodes.database.postgresql_node
+DEBUG: Importing app.nodes.database.postgres_node
+DEBUG: Importing app.nodes.database.redis_node
+DEBUG: Importing app.nodes.database.snowflake_node
+DEBUG: Importing app.nodes.database.sql_node
+DEBUG: Importing app.nodes.database.supabase_node
+DEBUG: Importing app.nodes.data_source.api_request
+DEBUG: Importing app.nodes.data_source.csv_to_data
+DEBUG: Importing app.nodes.data_source.json_to_data
+DEBUG: Importing app.nodes.data_source.mock_data
+DEBUG: Importing app.nodes.data_source.news_search
+DEBUG: Importing app.nodes.data_source.rss
+DEBUG: Importing app.nodes.data_source.sql_executor
+DEBUG: Importing app.nodes.data_source.url
+DEBUG: Importing app.nodes.data_source.web_search
+DEBUG: Importing app.nodes.developer_tools.aws_lambda_node
+DEBUG: Importing app.nodes.developer_tools.bitbucket_node
+DEBUG: Importing app.nodes.developer_tools.circleci_node
+DEBUG: Importing app.nodes.developer_tools.docker_node
+DEBUG: Importing app.nodes.developer_tools.github_node
+DEBUG: Importing app.nodes.developer_tools.gitlab_node
+DEBUG: Importing app.nodes.developer_tools.jenkins_node
+DEBUG: Importing app.nodes.developer_tools.jira_node
+DEBUG: Importing app.nodes.devops.ansible_node
+DEBUG: Importing app.nodes.devops.confluence_node
+DEBUG: Importing app.nodes.devops.github_node
+DEBUG: Importing app.nodes.devops.gitlab_node
+DEBUG: Importing app.nodes.devops.jira_node
+DEBUG: Importing app.nodes.devops.terraform_node
+DEBUG: Importing app.nodes.devops.trello_node
+DEBUG: Importing app.nodes.discord.webhook
+DEBUG: Importing app.nodes.education.blackboard_node
+DEBUG: Importing app.nodes.education.canvas_node
+DEBUG: Importing app.nodes.education.coursera_node
+DEBUG: Importing app.nodes.education.duolingo_node
+DEBUG: Importing app.nodes.education.skillshare_node
+DEBUG: Importing app.nodes.education.udemy_node
+DEBUG: Importing app.nodes.embeddings.similarity
+DEBUG: Importing app.nodes.embeddings.text_embedder
+DEBUG: Importing app.nodes.events.eventbrite_node
+DEBUG: Importing app.nodes.events.luma_events_node
+DEBUG: Importing app.nodes.events.meetup_node
+DEBUG: Importing app.nodes.FAISS.faiss
+DEBUG: Importing app.nodes.FAISS.faiss_node
+DEBUG: Importing app.nodes.field_service.jobber_node
+DEBUG: Importing app.nodes.field_service.servicetitan_node
+DEBUG: Importing app.nodes.finance.brex_node
+DEBUG: Importing app.nodes.finance.expensify_node
+DEBUG: Importing app.nodes.finance.freshbooks_node
+DEBUG: Importing app.nodes.finance.mollie_node
+DEBUG: Importing app.nodes.finance.netsuite_node
+DEBUG: Importing app.nodes.finance.oracle_node
+DEBUG: Importing app.nodes.finance.plaid_node
+DEBUG: Importing app.nodes.finance.quickbooks_node
+DEBUG: Importing app.nodes.finance.ramp_node
+DEBUG: Importing app.nodes.finance.sage_node
+DEBUG: Importing app.nodes.finance.sap_node
+DEBUG: Importing app.nodes.finance.square_node
+DEBUG: Importing app.nodes.finance.wave_node
+DEBUG: Importing app.nodes.finance.wise_node
+DEBUG: Importing app.nodes.finance.xero_node
+DEBUG: Importing app.nodes.finance.yahoo_finance_node
+DEBUG: Importing app.nodes.fleet.fleetio_node
+DEBUG: Importing app.nodes.fleet.motive_node
+DEBUG: Importing app.nodes.fleet.samsara_node
+DEBUG: Importing app.nodes.flow_controls.conditional_router
+DEBUG: Importing app.nodes.flow_controls.data_conditional_router
+DEBUG: Importing app.nodes.flow_controls.filter_node
+DEBUG: Importing app.nodes.flow_controls.flow_tool
+DEBUG: Importing app.nodes.flow_controls.item_lists_node
+DEBUG: Importing app.nodes.flow_controls.listen
+DEBUG: Importing app.nodes.flow_controls.loop
+DEBUG: Importing app.nodes.flow_controls.loop_node
+DEBUG: Importing app.nodes.flow_controls.map_node
+DEBUG: Importing app.nodes.flow_controls.merge_node
+DEBUG: Importing app.nodes.flow_controls.notify
+DEBUG: Importing app.nodes.flow_controls.pass_message
+DEBUG: Importing app.nodes.flow_controls.router_node
+DEBUG: Importing app.nodes.flow_controls.run_flow
+DEBUG: Importing app.nodes.flow_controls.set_node
+DEBUG: Importing app.nodes.flow_controls.split_batches_node
+DEBUG: Importing app.nodes.flow_controls.split_in_batches_node
+DEBUG: Importing app.nodes.flow_controls.sub_flow
+DEBUG: Importing app.nodes.flow_controls.wait_node
+DEBUG: Importing app.nodes.food_delivery.doordash_node
+DEBUG: Importing app.nodes.food_delivery.grubhub_node
+DEBUG: Importing app.nodes.food_delivery.ubereats_node
+DEBUG: Importing app.nodes.food_delivery.zomato_node
+DEBUG: Importing app.nodes.forms.jotform_node
+DEBUG: Importing app.nodes.forms.surveymonkey_node
+DEBUG: Importing app.nodes.forms.typeform_node
+DEBUG: Importing app.nodes.gaming.roblox_node
+DEBUG: Importing app.nodes.gaming.steam_node
+DEBUG: Importing app.nodes.gaming.twitch_node
+DEBUG: Importing app.nodes.git.git
+DEBUG: Importing app.nodes.git.gitextractor
+DEBUG: Importing app.nodes.google.gmail
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\google\api_core\_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.3) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.
+  warnings.warn(message, FutureWarning)
+DEBUG: Importing app.nodes.google.google_bq_sql_executor
+DEBUG: Importing app.nodes.google.google_cloud_node
+DEBUG: Importing app.nodes.google.google_drive
+DEBUG: Importing app.nodes.google.google_drive_search
+DEBUG: Importing app.nodes.google.google_generative_ai
+DEBUG: Importing app.nodes.google.google_generative_ai_embeddings
+DEBUG: Importing app.nodes.google.google_oauth_token
+DEBUG: Importing app.nodes.google.google_search_api_core
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\google\api_core\_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.3) which Google will stop supporting in new releases of google.cloud.modelarmor_v1 once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.cloud.modelarmor_v1 past that date.
+  warnings.warn(message, FutureWarning)
+DEBUG: Importing app.nodes.google.google_serper_api_core
+DEBUG: Importing app.nodes.google.google_sheets
+DEBUG: Importing app.nodes.google.youtube
+DEBUG: Importing app.nodes.health.fitbit_node
+DEBUG: Importing app.nodes.health.garmin_node
+DEBUG: Importing app.nodes.health.mindbody_node
+DEBUG: Importing app.nodes.health.myfitnesspal_node
+DEBUG: Importing app.nodes.health.peloton_node
+DEBUG: Importing app.nodes.health.strava_node
+DEBUG: Importing app.nodes.health.whoop_node
+DEBUG: Importing app.nodes.health.zenplanner_node
+DEBUG: Importing app.nodes.hr.bamboohr_node
+DEBUG: Importing app.nodes.hr.greenhouse_node
+DEBUG: Importing app.nodes.hr.lever_node
+DEBUG: Importing app.nodes.infrastructure.cloudflare_node
+DEBUG: Importing app.nodes.infrastructure.digitalocean_node
+DEBUG: Importing app.nodes.infrastructure.docker_node
+DEBUG: Importing app.nodes.infrastructure.kubernetes_node
+DEBUG: Importing app.nodes.infrastructure.linode_node
+DEBUG: Importing app.nodes.infrastructure.vultr_node
+DEBUG: Importing app.nodes.input_output.chat
+DEBUG: Importing app.nodes.input_output.chat_output
+DEBUG: Importing app.nodes.input_output.csv_loader_node
+DEBUG: Importing app.nodes.input_output.pdf_loader_node
+DEBUG: Importing app.nodes.input_output.text
+DEBUG: Importing app.nodes.input_output.text_output
+DEBUG: Importing app.nodes.input_output.url_loader_node
+DEBUG: Importing app.nodes.input_output.webhook
+DEBUG: Importing app.nodes.iot.homeassistant_node
+DEBUG: Importing app.nodes.jigsawstack.ai_scrape
+DEBUG: Importing app.nodes.jigsawstack.ai_web_search
+DEBUG: Importing app.nodes.jigsawstack.file_read
+DEBUG: Importing app.nodes.jigsawstack.file_upload
+DEBUG: Importing app.nodes.jigsawstack.image_generation
+DEBUG: Importing app.nodes.jigsawstack.nsfw
+DEBUG: Importing app.nodes.jigsawstack.object_detection
+DEBUG: Importing app.nodes.jigsawstack.sentiment
+DEBUG: Importing app.nodes.jigsawstack.text_to_sql
+DEBUG: Importing app.nodes.jigsawstack.text_translate
+DEBUG: Importing app.nodes.jigsawstack.vocr
+DEBUG: Importing app.nodes.knowledge.confluence_node
+DEBUG: Importing app.nodes.knowledge.gitbook_node
+DEBUG: Importing app.nodes.knowledge.obsidian_node
+DEBUG: Importing app.nodes.langchain_utilities.character
+DEBUG: Importing app.nodes.langchain_utilities.conversation
+DEBUG: Importing app.nodes.langchain_utilities.csv_agent
+DEBUG: Importing app.nodes.langchain_utilities.fake_embeddings
+DEBUG: Importing app.nodes.langchain_utilities.html_link_extractor
+DEBUG: Importing app.nodes.langchain_utilities.json_agent
+DEBUG: Importing app.nodes.langchain_utilities.langchain_hub
+DEBUG: Importing app.nodes.langchain_utilities.language_recursive
+DEBUG: Importing app.nodes.langchain_utilities.language_semantic
+DEBUG: Importing app.nodes.langchain_utilities.llm_checker
+DEBUG: Importing app.nodes.langchain_utilities.llm_math
+DEBUG: Importing app.nodes.langchain_utilities.natural_language
+DEBUG: Importing app.nodes.langchain_utilities.openai_tools
+DEBUG: Importing app.nodes.langchain_utilities.openapi
+DEBUG: Importing app.nodes.langchain_utilities.recursive_character
+DEBUG: Importing app.nodes.langchain_utilities.retrieval_qa
+DEBUG: Importing app.nodes.langchain_utilities.runnable_executor
+DEBUG: Importing app.nodes.langchain_utilities.self_query
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\sqlmodel\main.py:682: SAWarning: This declarative base already contains a class with the same class name and module name as langflow.services.database.models.api_key.model.ApiKey, and will be replaced in the string-lookup table.
+  DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
+DEBUG: Importing app.nodes.langchain_utilities.spider
+DEBUG: Importing app.nodes.langchain_utilities.sql
+DEBUG: Importing app.nodes.langchain_utilities.sql_database
+DEBUG: Importing app.nodes.langchain_utilities.sql_generator
+DEBUG: Importing app.nodes.langchain_utilities.tool_calling
+DEBUG: Importing app.nodes.langchain_utilities.vector_store_info
+DEBUG: Importing app.nodes.langchain_utilities.vector_store_router
+DEBUG: Importing app.nodes.langchain_utilities.xml_agent
+DEBUG: Importing app.nodes.legal.clio_node
+DEBUG: Importing app.nodes.legal.docusign_node
+DEBUG: Importing app.nodes.legal.ironclad_node
+DEBUG: Importing app.nodes.leisure.opentable_node
+DEBUG: Importing app.nodes.leisure.yelp_node
+DEBUG: Importing app.nodes.llm_operations.batch_run
+DEBUG: Importing app.nodes.llm_operations.lambda_filter
+DEBUG: Importing app.nodes.llm_operations.llm_conditional_router
+DEBUG: Importing app.nodes.llm_operations.llm_selector
+DEBUG: Importing app.nodes.llm_operations.structured_output
+DEBUG: Importing app.nodes.logic.translation_node
+DEBUG: Importing app.nodes.logistics.aftership_node
+DEBUG: Importing app.nodes.logistics.shippo_node
+DEBUG: Importing app.nodes.logistics.shipstation_node
+DEBUG: Importing app.nodes.marketing.activecampaign_node
+DEBUG: Importing app.nodes.marketing.attentive_node
+DEBUG: Importing app.nodes.marketing.brevo_node
+DEBUG: Importing app.nodes.marketing.copper_node
+DEBUG: Importing app.nodes.marketing.freshsales_node
+DEBUG: Importing app.nodes.marketing.hubspot_node
+DEBUG: Importing app.nodes.marketing.insightly_node
+DEBUG: Importing app.nodes.marketing.keap_node
+DEBUG: Importing app.nodes.marketing.klaviyo_node
+DEBUG: Importing app.nodes.marketing.mailchimp_node
+DEBUG: Importing app.nodes.marketing.marketing_ads_node
+DEBUG: Importing app.nodes.marketing.pipedrive_node
+DEBUG: Importing app.nodes.marketing.salesforce_node
+DEBUG: Importing app.nodes.marketing.zoho_crm_node
+DEBUG: Importing app.nodes.marketing.zoho_node
+DEBUG: Importing app.nodes.marketplaces.amazon_sp_node
+DEBUG: Importing app.nodes.marketplaces.ebay_node
+DEBUG: Importing app.nodes.marketplaces.etsy_node
+DEBUG: Importing app.nodes.marketplaces.target_node
+DEBUG: Importing app.nodes.marketplaces.walmart_node
+DEBUG: Importing app.nodes.media.dalle_image_node
+DEBUG: Importing app.nodes.media.elevenlabs_tts_node
+DEBUG: Importing app.nodes.media.frameio_node
+DEBUG: Importing app.nodes.media.heygen_node
+DEBUG: Importing app.nodes.media.leonardo_ai_node
+DEBUG: Importing app.nodes.media.luma_video_node
+DEBUG: Importing app.nodes.media.stability_ultra_node
+DEBUG: Importing app.nodes.media.twelvelabs_node
+DEBUG: Importing app.nodes.media.vimeo_node
+DEBUG: Importing app.nodes.media.whisper_audio_node
+DEBUG: Importing app.nodes.media.wistia_node
+DEBUG: Importing app.nodes.memory.chat_memory_node
+DEBUG: Importing app.nodes.memory.file_memory_node
+DEBUG: Importing app.nodes.memory.mem0_node
+DEBUG: Importing app.nodes.memory.redis_memory_node
+DEBUG: Importing app.nodes.memory.zep_node
+DEBUG: Importing app.nodes.nvidia.nvidia
+DEBUG: Importing app.nodes.nvidia.nvidia_embedding
+DEBUG: Importing app.nodes.nvidia.nvidia_ingest
+DEBUG: Importing app.nodes.nvidia.nvidia_rerank
+DEBUG: Importing app.nodes.nvidia.system_assist
+DEBUG: Importing app.nodes.observability.datadog_node
+DEBUG: Importing app.nodes.observability.newrelic_node
+DEBUG: Importing app.nodes.observability.pagerduty_node
+DEBUG: Importing app.nodes.observability.splunk_node
+DEBUG: Importing app.nodes.orchestration.parallel_map_node
+DEBUG: Importing app.nodes.orchestration.sub_workflow_node
+DEBUG: Importing app.nodes.processing.ai_extractor
+DEBUG: Importing app.nodes.processing.alter_metadata
+DEBUG: Importing app.nodes.processing.cohere_rerank_node
+DEBUG: Importing app.nodes.processing.combine_text
+DEBUG: Importing app.nodes.processing.combine_text_node
+DEBUG: Importing app.nodes.processing.create_data
+DEBUG: Importing app.nodes.processing.create_list
+DEBUG: Importing app.nodes.processing.dataframe_operations
+DEBUG: Importing app.nodes.processing.data_operations
+DEBUG: Importing app.nodes.processing.data_to_dataframe
+DEBUG: Importing app.nodes.processing.document_processing_node
+DEBUG: Importing app.nodes.processing.dynamic_create_data
+DEBUG: Importing app.nodes.processing.extract_key
+DEBUG: Importing app.nodes.processing.filter_data
+DEBUG: Importing app.nodes.processing.filter_data_values
+DEBUG: Importing app.nodes.processing.json_cleaner
+DEBUG: Importing app.nodes.processing.json_cleaner_node
+DEBUG: Importing app.nodes.processing.merge_data
+DEBUG: Importing app.nodes.processing.message_to_data
+DEBUG: Importing app.nodes.processing.output_parser
+DEBUG: Importing app.nodes.processing.parser
+DEBUG: Importing app.nodes.processing.parse_data
+DEBUG: Importing app.nodes.processing.parse_dataframe
+DEBUG: Importing app.nodes.processing.parse_json_data
+DEBUG: Importing app.nodes.processing.parse_json_data_node
+DEBUG: Importing app.nodes.processing.parse_node
+DEBUG: Importing app.nodes.processing.pdf_node
+DEBUG: Importing app.nodes.processing.regex
+DEBUG: Importing app.nodes.processing.select_data
+DEBUG: Importing app.nodes.processing.split_node
+DEBUG: Importing app.nodes.processing.split_text
+DEBUG: Importing app.nodes.processing.split_text_node
+DEBUG: Importing app.nodes.processing.store_message
+DEBUG: Importing app.nodes.processing.unified_text_splitter_node
+DEBUG: Importing app.nodes.processing.unstructured_node
+DEBUG: Importing app.nodes.processing.update_data
+DEBUG: Importing app.nodes.productivity.agile_tasks_batch
+DEBUG: Importing app.nodes.productivity.asana_node
+DEBUG: Importing app.nodes.productivity.calendly_node
+DEBUG: Importing app.nodes.productivity.coda_node
+DEBUG: Importing app.nodes.productivity.excel_node
+DEBUG: Importing app.nodes.productivity.github_node
+DEBUG: Importing app.nodes.productivity.gmail_node
+DEBUG: Importing app.nodes.productivity.google_calendar_node
+DEBUG: Importing app.nodes.productivity.google_docs_node
+DEBUG: Importing app.nodes.productivity.google_sheets_node
+DEBUG: Importing app.nodes.productivity.google_tasks_node
+DEBUG: Importing app.nodes.productivity.google_workspace_batch
+DEBUG: Importing app.nodes.productivity.jira_node
+DEBUG: Importing app.nodes.productivity.microsoft_office_batch
+DEBUG: Importing app.nodes.productivity.miro_node
+DEBUG: Importing app.nodes.productivity.notion_node
+DEBUG: Importing app.nodes.productivity.project_management_batch
+DEBUG: Importing app.nodes.productivity.trello_node
+DEBUG: Importing app.nodes.professional_services.fiverr_node
+DEBUG: Importing app.nodes.professional_services.toptal_node
+DEBUG: Importing app.nodes.professional_services.upwork_node
+DEBUG: Importing app.nodes.real_estate.realtor_node
+DEBUG: Importing app.nodes.real_estate.redfin_node
+DEBUG: Importing app.nodes.real_estate.zillow_node
+DEBUG: Importing app.nodes.search.algolia_node
+DEBUG: Importing app.nodes.search.apify_node
+DEBUG: Importing app.nodes.search.arxiv_node
+DEBUG: Importing app.nodes.search.bing_search_node
+DEBUG: Importing app.nodes.search.elasticsearch_node
+DEBUG: Importing app.nodes.search.exa_search_node
+DEBUG: Importing app.nodes.search.firecrawl_node
+DEBUG: Importing app.nodes.search.glean_node
+DEBUG: Importing app.nodes.search.google_search_node
+DEBUG: Importing app.nodes.search.needle_node
+DEBUG: Importing app.nodes.search.opensearch_node
+DEBUG: Importing app.nodes.search.scrapegraph_node
+DEBUG: Importing app.nodes.search.searchapi_node
+DEBUG: Importing app.nodes.search.serper_search_node
+DEBUG: Importing app.nodes.search.web_search_node
+DEBUG: Importing app.nodes.search.wolframalpha_node
+DEBUG: Importing app.nodes.security.auth0_node
+DEBUG: Importing app.nodes.security.base64_node
+DEBUG: Importing app.nodes.security.clerk_node
+DEBUG: Importing app.nodes.security.hash_node
+DEBUG: Importing app.nodes.security.jwt_node
+DEBUG: Importing app.nodes.security.okta_node
+DEBUG: Importing app.nodes.social.facebook_node
+DEBUG: Importing app.nodes.social.instagram_node
+DEBUG: Importing app.nodes.social.instagram_v2_node
+DEBUG: Importing app.nodes.social.linkedin_node
+DEBUG: Importing app.nodes.social.twitter
+DEBUG: Importing app.nodes.social.twitter_v2_node
+DEBUG: Importing app.nodes.social.x_node
+DEBUG: Importing app.nodes.social.youtube_node
+DEBUG: Importing app.nodes.social_media.blogging_batch
+DEBUG: Importing app.nodes.social_media.buffer_node
+DEBUG: Importing app.nodes.social_media.core_social_batch
+DEBUG: Importing app.nodes.social_media.facebook_pages_node
+DEBUG: Importing app.nodes.social_media.hootsuite_node
+DEBUG: Importing app.nodes.social_media.later_node
+DEBUG: Importing app.nodes.social_media.linkedin_node
+DEBUG: Importing app.nodes.social_media.medium_node
+DEBUG: Importing app.nodes.social_media.pinterest_node
+DEBUG: Importing app.nodes.social_media.reddit_node
+DEBUG: Importing app.nodes.social_media.sprout_social_node
+DEBUG: Importing app.nodes.social_media.tumblr_node
+DEBUG: Importing app.nodes.storage.airtable_node
+DEBUG: Importing app.nodes.storage.aws_s3_node
+DEBUG: Importing app.nodes.storage.azure_blob_storage_node
+DEBUG: Importing app.nodes.storage.backblaze_b2_node
+DEBUG: Importing app.nodes.storage.box_node
+DEBUG: Importing app.nodes.storage.database_nodes
+DEBUG: Importing app.nodes.storage.dropbox_node
+DEBUG: Importing app.nodes.storage.dual_ingestor
+DEBUG: Importing app.nodes.storage.ftp_node
+DEBUG: Importing app.nodes.storage.gcs_node
+DEBUG: Importing app.nodes.storage.google_cloud_storage_node
+DEBUG: Importing app.nodes.storage.milvus_node
+DEBUG: Importing app.nodes.storage.onedrive_node
+DEBUG: Importing app.nodes.storage.pcloud_node
+DEBUG: Importing app.nodes.storage.qdrant_node
+DEBUG: Importing app.nodes.storage.sync_com_node
+DEBUG: Importing app.nodes.storage.upstash_node
+DEBUG: Importing app.nodes.storage.vectara_node
+DEBUG: Importing app.nodes.storage.wasabi_node
+DEBUG: Importing app.nodes.storage.weaviate_node
+DEBUG: Importing app.nodes.storage.nocodb.nocodb_node
+DEBUG: Importing app.nodes.storage.supabase.supabase_node
+DEBUG: Importing app.nodes.support.freshdesk_node
+DEBUG: Importing app.nodes.support.help_scout_node
+DEBUG: Importing app.nodes.support.hubspot_service_node
+DEBUG: Importing app.nodes.support.intercom_node
+DEBUG: Importing app.nodes.support.servicenow_node
+DEBUG: Importing app.nodes.support.support_ticketing_node
+DEBUG: Importing app.nodes.support.zendesk_node
+DEBUG: Importing app.nodes.tools.api_tool_node
+DEBUG: Importing app.nodes.tools.calculator
+DEBUG: Importing app.nodes.tools.calculator_tool_node
+DEBUG: Importing app.nodes.tools.google_search_api
+DEBUG: Importing app.nodes.tools.google_serper_api
+C:\Users\info\Downloads\studio-V3.0.0-main\venv\lib\site-packages\sqlmodel\main.py:682: SAWarning: This declarative base already contains a class with the same class name and module name as langflow.services.database.models.api_key.model.ApiKey, and will be replaced in the string-lookup table.
+  DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
+DEBUG: Importing app.nodes.toolsthon_code_structured_tool
+DEBUG: Importing app.nodes.toolsthon_repl
+DEBUG: Importing app.nodes.tools.search_api
+DEBUG: Importing app.nodes.tools.search_tool_node
+DEBUG: Importing app.nodes.tools.searxng
+DEBUG: Importing app.nodes.tools.serp_api
+DEBUG: Importing app.nodes.tools.tavily_search_tool
+DEBUG: Importing app.nodes.tools.wikidata_api
+DEBUG: Importing app.nodes.tools.wikipedia_api
+DEBUG: Importing app.nodes.tools.yahoo_finance
+DEBUG: Importing app.nodes.tools.code_executor.code_executor_node
+DEBUG: Importing app.nodes.tools.docling.chunk_node
+DEBUG: Importing app.nodes.tools.docling.docling_node
+DEBUG: Importing app.nodes.tools.file_reader.file_reader_node
+DEBUG: Importing app.nodes.travel.airbnb_node
+DEBUG: Importing app.nodes.travel.amadeus_node
+DEBUG: Importing app.nodes.travel.expedia_node
+DEBUG: Importing app.nodes.triggers.webhook_node
+DEBUG: Importing app.nodes.utilities.binary_data_node
+DEBUG: Importing app.nodes.utilities.calculator_core
+DEBUG: Importing app.nodes.utilities.compression_node
+DEBUG: Importing app.nodes.utilities.crypto_node
+DEBUG: Importing app.nodes.utilities.current_date
+DEBUG: Importing app.nodes.utilities.data_transformation_node
+DEBUG: Importing app.nodes.utilities.date_time_node
+DEBUG: Importing app.nodes.utilities.html_parser_node
+DEBUG: Importing app.nodes.utilities.http_request_node
+DEBUG: Importing app.nodes.utilities.id_generator
+DEBUG: Importing app.nodes.utilities.markdown_node
+DEBUG: Importing app.nodes.utilities.math_node
+DEBUG: Importing app.nodes.utilitiesthon_repl_core
+DEBUG: Importing app.nodes.utilities.rss_feed_node
+DEBUG: Importing app.nodes.utilities.spreadsheet_parser_node
+DEBUG: Importing app.nodes.utilities.ssh_node
+DEBUG: Importing app.nodes.utilities.universal_api_node
+DEBUG: Importing app.nodes.utilities.wait_for_webhook_node
+DEBUG: Importing app.nodes.utilities.webhook_response_node
+DEBUG: Importing app.nodes.utilities.xml_parser_node
+DEBUG: Importing app.nodes.vertexai.vertexai
+DEBUG: Importing app.nodes.vertexai.vertexai_embeddings
+DEBUG: Importing app.nodes.verticals.ecommerce_node
+DEBUG: Importing app.nodes.verticals.healthcare_node
+DEBUG: Importing app.nodes.verticals.legal_intelligence_node
+DEBUG: Importing app.nodes.verticals.legal_node
+DEBUG: Importing app.nodes.verticals.medtech_node
+DEBUG: Importing app.nodes.verticals.real_estate_node
+DEBUG: Importing app.nodes.youtube.channel
+DEBUG: Importing app.nodes.youtube.comments
+DEBUG: Importing app.nodes.youtube.playlist
+DEBUG: Importing app.nodes.youtube.search
+DEBUG: Importing app.nodes.youtube.trending
+DEBUG: Importing app.nodes.youtube.video_details
+DEBUG: Importing app.nodes.youtube.youtube_transcripts
+NodeRegistry: Scanned 48 modules. Registered 71 nodes.
+Post-scan registry size: 71
+Processing node: GenericNode (Class: GenericNode)
+  Could not instantiate GenericNode: GenericNode.__init__() missing 2 required positional arguments: 'node_type' and 'config'
+Processing node: aws_s3_action (Class: AWSS3Node)
+Processing node: analytics_action (Class: AnalyticsNode)
+Processing node: wordpress_action (Class: WordPressNode)
+Processing node: paypal_action (Class: PayPalNode)
+Processing node: discord_action (Class: DiscordNode)
+Processing node: email_smtp_send (Class: SmtpEmailNode)
+Processing node: telegram_action (Class: TelegramNode)
+Processing node: read_file (Class: ReadFileNode)
+Processing node: write_file (Class: WriteFileNode)
+Processing node: delete_file (Class: DeleteFileNode)
+Processing node: FileBaseNode (Class: FileBaseNode)
+  Could not instantiate FileBaseNode: Can't instantiate abstract class FileBaseNode with abstract method execute
+Processing node: memoryNode (Class: MemoryNode)
+  Could not instantiate memoryNode: MemoryNode.__init__() missing 1 required positional argument: 'config'
+Processing node: webhook_trigger (Class: WebhookTriggerNode)
+Processing node: chatInput (Class: ChatInputNode)
+Processing node: chatOutput (Class: ChatOutputNode)
+Processing node: discord_webhook (Class: DiscordWebhookNode)
+Processing node: RouterNode (Class: RouterNode)
+Processing node: gmail_send (Class: GmailSendMessageNode)
+Processing node: gmail_message_fetch (Class: GmailFetchMessagesNode)
+Processing node: google_cloud_action (Class: GoogleCloudNode)
+Processing node: google_drive_loader (Class: GoogleDriveLoaderNode)
+Processing node: google_drive_search (Class: GoogleDriveSearchNode)
+Processing node: google_drive_uploader (Class: GoogleDriveUploaderNode)
+Processing node: google_drive_list (Class: GoogleDriveListNode)
+Processing node: youtube_action (Class: YouTubeNode)
+Processing node: marketing_ads_action (Class: MarketingAdsNode)
+Processing node: zoho_action (Class: ZohoNode)
+Processing node: document_processing_action (Class: DocumentProcessingNode)
+Processing node: text_parser (Class: TextParserNode)
+Processing node: ParseDataNode (Class: ParseDataNode)
+Processing node: pdf_parser (Class: PDFParserNode)
+Processing node: regex_extract (Class: RegexNode)
+Processing node: text_splitter (Class: SplitTextNode)
+Processing node: trello_action (Class: TrelloNode)
+Processing node: twitter_action (Class: TwitterNode)
+Processing node: airtable_action (Class: AirtableNode)
+Processing node: database_query (Class: DatabaseQueryNode)
+Processing node: database_insert (Class: DatabaseInsertNode)
+Processing node: database_update (Class: DatabaseUpdateNode)
+Processing node: DatabaseBaseNode (Class: DatabaseBaseNode)
+  Could not instantiate DatabaseBaseNode: Can't instantiate abstract class DatabaseBaseNode with abstract method execute
+Processing node: dualIngestorNode (Class: DualIngestorNode)
+Processing node: milvus_vector_action (Class: MilvusNode)
+Processing node: qdrant_vector_action (Class: QdrantNode)
+Processing node: weaviate_vector_action (Class: WeaviateNode)
+Processing node: smartDB (Class: SmartDBNode)
+Processing node: support_ticketing_action (Class: SupportTicketingNode)
+Processing node: CodeExecutorNode (Class: CodeExecutorNode)
+Processing node: ChunkDoclingNode (Class: ChunkDoclingNode)
+Processing node: DoclingNode (Class: DoclingNode)
+Processing node: FileReaderNode (Class: FileReaderNode)
+Processing node: universal_api_node (Class: UniversalAPIConnectorNode)
+Processing node: sageNode (Class: UniversalAPIConnectorNode)
+Processing node: odooNode (Class: UniversalAPIConnectorNode)
+Processing node: dolibarrNode (Class: UniversalAPIConnectorNode)
+Processing node: salesforceNode (Class: UniversalAPIConnectorNode)
+Processing node: hubspotNode (Class: UniversalAPIConnectorNode)
+Processing node: zohoNode (Class: UniversalAPIConnectorNode)
+Processing node: sugarcrmNode (Class: UniversalAPIConnectorNode)
+Processing node: vtigerNode (Class: UniversalAPIConnectorNode)
+Processing node: zapierNode (Class: UniversalAPIConnectorNode)
+Processing node: githubNode (Class: UniversalAPIConnectorNode)
+Processing node: gitlabNode (Class: UniversalAPIConnectorNode)
+Processing node: trelloNode (Class: UniversalAPIConnectorNode)
+Processing node: glpiNode (Class: UniversalAPIConnectorNode)
+Processing node: btrixNode (Class: UniversalAPIConnectorNode)
+Processing node: unicaNode (Class: UniversalAPIConnectorNode)
+Processing node: vertexai_embeddings (Class: VertexAIEmbeddingsNode)
+Processing node: ecommerce_action (Class: EcommerceNode)
+Processing node: legal_action (Class: LegalNode)
+Processing node: medtech_action (Class: MedTechNode)
+Finished writing 67 nodes to C:\Users\info\Downloads\studio-V3.0.0-main\backend\data\migrated_nodes.json

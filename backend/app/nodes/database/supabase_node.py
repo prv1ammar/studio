@@ -4,8 +4,8 @@ Batch 41: Database Actions
 """
 from typing import Any, Dict, Optional, List
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("supabase_db")
 class SupabaseDBNode(BaseNode):
@@ -18,6 +18,66 @@ class SupabaseDBNode(BaseNode):
     category = "database"
     credentials_required = ["supabase_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Columns',
+            'name': 'columns',
+            'type': 'string',
+            'default': '*',
+            'description': 'Columns to select (comma separated)',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+            'description': 'Data payload for Insert/Update/RPC',
+        },
+        {
+            'displayName': 'Limit',
+            'name': 'limit',
+            'type': 'string',
+            'default': 10,
+            'description': 'Limit results for Select',
+        },
+        {
+            'displayName': 'Match Field',
+            'name': 'match_field',
+            'type': 'string',
+            'default': '',
+            'description': 'Field to match for Update/Delete (e.g., 'id')',
+        },
+        {
+            'displayName': 'Match Value',
+            'name': 'match_value',
+            'type': 'string',
+            'default': '',
+            'description': 'Value to match for Update/Delete',
+        },
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'select',
+            'options': [
+                {'name': 'Select', 'value': 'select'},
+                {'name': 'Insert', 'value': 'insert'},
+                {'name': 'Update', 'value': 'update'},
+                {'name': 'Delete', 'value': 'delete'},
+                {'name': 'Rpc', 'value': 'rpc'},
+            ],
+            'description': 'Database operation',
+        },
+        {
+            'displayName': 'Table Name',
+            'name': 'table_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Target table name',
+            'required': True,
+        },
+    ]
     inputs = {
         "operation": {
             "type": "dropdown",

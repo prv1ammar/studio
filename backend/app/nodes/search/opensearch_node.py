@@ -3,8 +3,8 @@ OpenSearch Node - Studio Standard
 Batch 56: Enterprise Search & Discovery
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 import aiohttp
 import json
 
@@ -19,6 +19,58 @@ class OpenSearchNode(BaseNode):
     category = "search"
     credentials_required = ["opensearch_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search',
+            'options': [
+                {'name': 'Search', 'value': 'search'},
+                {'name': 'Index Document', 'value': 'index_document'},
+                {'name': 'Delete Document', 'value': 'delete_document'},
+                {'name': 'Create Index', 'value': 'create_index'},
+            ],
+            'description': 'OpenSearch action',
+        },
+        {
+            'displayName': 'Document',
+            'name': 'document',
+            'type': 'string',
+            'default': '',
+            'description': 'Document for indexing',
+        },
+        {
+            'displayName': 'Index Name',
+            'name': 'index_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Index to operate on',
+            'required': True,
+        },
+        {
+            'displayName': 'Limit',
+            'name': 'limit',
+            'type': 'string',
+            'default': 10,
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query or Query DSL JSON',
+        },
+        {
+            'displayName': 'Url',
+            'name': 'url',
+            'type': 'string',
+            'default': '',
+            'description': 'OpenSearch URL (e.g., 'https://your-domain.region.es.amazonaws.com')',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

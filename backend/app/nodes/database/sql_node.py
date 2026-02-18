@@ -3,8 +3,8 @@ SQL Database Node - Studio Standard
 Batch 41: Database Actions
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("sql_db")
 class SQLDatabaseNode(BaseNode):
@@ -18,6 +18,31 @@ class SQLDatabaseNode(BaseNode):
     category = "database"
     credentials_required = ["database_url"]
 
+
+    properties = [
+        {
+            'displayName': 'Database Url',
+            'name': 'database_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Connection string (e.g., postgresql://user:pass@host:5432/db)',
+        },
+        {
+            'displayName': 'Params',
+            'name': 'params',
+            'type': 'string',
+            'default': '',
+            'description': 'Query parameters (for safety)',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'SQL Query to execute',
+            'required': True,
+        },
+    ]
     inputs = {
         "query": {
             "type": "string",

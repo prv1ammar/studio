@@ -4,8 +4,8 @@ Batch 80: Industrial & Service Ops
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("motive_node")
 class MotiveNode(BaseNode):
@@ -17,6 +17,21 @@ class MotiveNode(BaseNode):
     category = "fleet"
     credentials_required = ["motive_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_vehicles',
+            'options': [
+                {'name': 'Get Vehicles', 'value': 'get_vehicles'},
+                {'name': 'Get Driver Logs', 'value': 'get_driver_logs'},
+                {'name': 'Get Safety Scores', 'value': 'get_safety_scores'},
+            ],
+            'description': 'Motive action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

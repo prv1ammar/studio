@@ -3,8 +3,8 @@ Loop Over Items Node - Studio Standard (Universal Method)
 Batch 93: Advanced Workflow (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("loop_node")
 class LoopNode(BaseNode):
@@ -17,6 +17,23 @@ class LoopNode(BaseNode):
     category = "flow_control"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Batch Size',
+            'name': 'batch_size',
+            'type': 'string',
+            'default': 1,
+            'description': 'Number of items per iteration',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+            'description': 'List of items to iterate over',
+        },
+    ]
     inputs = {
         "batch_size": {
             "type": "number",

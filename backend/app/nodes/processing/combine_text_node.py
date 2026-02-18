@@ -3,8 +3,8 @@ Combine Text Node - Studio Standard
 Batch 34: Text Processing Nodes
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("combine_text")
 class CombineTextNode(BaseNode):
@@ -17,6 +17,38 @@ class CombineTextNode(BaseNode):
     category = "text_processing"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Delimiter',
+            'name': 'delimiter',
+            'type': 'string',
+            'default': ' ',
+            'description': 'String used to separate the text inputs',
+        },
+        {
+            'displayName': 'Remove Empty',
+            'name': 'remove_empty',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Remove empty strings before combining',
+        },
+        {
+            'displayName': 'Texts',
+            'name': 'texts',
+            'type': 'string',
+            'default': '',
+            'description': 'Array of texts to combine',
+            'required': True,
+        },
+        {
+            'displayName': 'Trim Whitespace',
+            'name': 'trim_whitespace',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Trim whitespace from each text before combining',
+        },
+    ]
     inputs = {
         "texts": {
             "type": "array",

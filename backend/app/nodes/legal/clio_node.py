@@ -4,8 +4,8 @@ Batch 67: Legal & Compliance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("clio_node")
 class ClioNode(BaseNode):
@@ -17,6 +17,35 @@ class ClioNode(BaseNode):
     category = "legal"
     credentials_required = ["clio_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_matters',
+            'options': [
+                {'name': 'List Matters', 'value': 'list_matters'},
+                {'name': 'Get Matter', 'value': 'get_matter'},
+                {'name': 'List Contacts', 'value': 'list_contacts'},
+                {'name': 'List Activities', 'value': 'list_activities'},
+            ],
+            'description': 'Clio action',
+        },
+        {
+            'displayName': 'Limit',
+            'name': 'limit',
+            'type': 'string',
+            'default': 20,
+        },
+        {
+            'displayName': 'Matter Id',
+            'name': 'matter_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the legal matter',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

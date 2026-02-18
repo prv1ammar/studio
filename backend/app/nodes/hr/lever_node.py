@@ -5,8 +5,8 @@ Batch 64: HR & Recruiting
 from typing import Any, Dict, Optional, List
 import aiohttp
 import base64
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("lever_node")
 class LeverNode(BaseNode):
@@ -18,6 +18,42 @@ class LeverNode(BaseNode):
     category = "hr"
     credentials_required = ["lever_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_candidates',
+            'options': [
+                {'name': 'List Candidates', 'value': 'list_candidates'},
+                {'name': 'Get Candidate', 'value': 'get_candidate'},
+                {'name': 'List Opportunities', 'value': 'list_opportunities'},
+                {'name': 'Create Candidate', 'value': 'create_candidate'},
+            ],
+            'description': 'Lever action to perform',
+        },
+        {
+            'displayName': 'Candidate Id',
+            'name': 'candidate_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Unique ID of the candidate',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+            'description': 'Candidate email for creation or filtering',
+        },
+        {
+            'displayName': 'Limit',
+            'name': 'limit',
+            'type': 'string',
+            'default': 10,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

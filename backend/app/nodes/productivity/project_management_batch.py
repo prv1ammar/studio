@@ -4,8 +4,8 @@ Batch 105: Productivity Suite
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # ============================================
 # MONDAY.COM NODE
@@ -17,6 +17,54 @@ class MondayComNode(BaseNode):
     category = "productivity"
     credentials_required = ["monday_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_item',
+            'options': [
+                {'name': 'Create Item', 'value': 'create_item'},
+                {'name': 'List Boards', 'value': 'list_boards'},
+                {'name': 'Get Item', 'value': 'get_item'},
+                {'name': 'Update Item', 'value': 'update_item'},
+                {'name': 'Create Subitem', 'value': 'create_subitem'},
+            ],
+            'description': 'Monday.com action',
+        },
+        {
+            'displayName': 'Board Id',
+            'name': 'board_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Column Values',
+            'name': 'column_values',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON object',
+        },
+        {
+            'displayName': 'Group Id',
+            'name': 'group_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Item Id',
+            'name': 'item_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Item Name',
+            'name': 'item_name',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

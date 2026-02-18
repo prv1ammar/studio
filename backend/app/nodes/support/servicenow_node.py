@@ -5,8 +5,8 @@ Batch 97: Support & Ticketing (Deepening Parity)
 from typing import Any, Dict, Optional, List
 import aiohttp
 import base64
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("servicenow_node")
 class ServiceNowNode(BaseNode):
@@ -18,6 +18,51 @@ class ServiceNowNode(BaseNode):
     category = "support"
     credentials_required = ["servicenow_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_incidents',
+            'options': [
+                {'name': 'List Incidents', 'value': 'list_incidents'},
+                {'name': 'Get Record', 'value': 'get_record'},
+                {'name': 'Create Incident', 'value': 'create_incident'},
+                {'name': 'Update Record', 'value': 'update_record'},
+                {'name': 'Delete Record', 'value': 'delete_record'},
+            ],
+            'description': 'ServiceNow action',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON body for create/update',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Encoded query string (sysparm_query)',
+        },
+        {
+            'displayName': 'Sys Id',
+            'name': 'sys_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Record System ID',
+        },
+        {
+            'displayName': 'Table',
+            'name': 'table',
+            'type': 'string',
+            'default': 'incident',
+            'description': 'Table name (e.g. incident, problem, change_request)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

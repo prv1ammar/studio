@@ -4,8 +4,8 @@ Batch 91: Productivity Suite (n8n Critical)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("excel_node")
 class ExcelNode(BaseNode):
@@ -17,6 +17,41 @@ class ExcelNode(BaseNode):
     category = "productivity"
     credentials_required = ["microsoft_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'add_row',
+            'options': [
+                {'name': 'Add Row', 'value': 'add_row'},
+                {'name': 'Get Worksheet', 'value': 'get_worksheet'},
+                {'name': 'List Worksheets', 'value': 'list_worksheets'},
+                {'name': 'Update Range', 'value': 'update_range'},
+            ],
+            'description': 'Excel action',
+        },
+        {
+            'displayName': 'Values',
+            'name': 'values',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON array of values',
+        },
+        {
+            'displayName': 'Workbook Id',
+            'name': 'workbook_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Worksheet Name',
+            'name': 'worksheet_name',
+            'type': 'string',
+            'default': 'Sheet1',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

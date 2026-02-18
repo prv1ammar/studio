@@ -4,8 +4,8 @@ Batch 52: Commerce Expansion
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("lemonsqueezy_node")
 class LemonSqueezyNode(BaseNode):
@@ -17,6 +17,30 @@ class LemonSqueezyNode(BaseNode):
     category = "commerce"
     credentials_required = ["lemonsqueezy_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_orders',
+            'options': [
+                {'name': 'List Orders', 'value': 'list_orders'},
+                {'name': 'Get Order', 'value': 'get_order'},
+                {'name': 'List Subscriptions', 'value': 'list_subscriptions'},
+                {'name': 'Get Subscription', 'value': 'get_subscription'},
+                {'name': 'Get User', 'value': 'get_user'},
+            ],
+            'description': 'LemonSqueezy action to perform',
+        },
+        {
+            'displayName': 'Item Id',
+            'name': 'item_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Specific Order or Subscription ID',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

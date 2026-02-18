@@ -4,8 +4,8 @@ Batch 80: Industrial & Service Ops
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("servicetitan_node")
 class ServiceTitanNode(BaseNode):
@@ -17,6 +17,29 @@ class ServiceTitanNode(BaseNode):
     category = "field_service"
     credentials_required = ["servicetitan_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_jobs',
+            'options': [
+                {'name': 'List Jobs', 'value': 'list_jobs'},
+                {'name': 'Get Job', 'value': 'get_job'},
+                {'name': 'List Technicians', 'value': 'list_technicians'},
+                {'name': 'Get Technician Location', 'value': 'get_technician_location'},
+            ],
+            'description': 'ServiceTitan action',
+        },
+        {
+            'displayName': 'Tenant Id',
+            'name': 'tenant_id',
+            'type': 'string',
+            'default': '',
+            'required': True,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

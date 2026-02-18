@@ -4,8 +4,8 @@ Batch 115: Specialized Tools
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("vectara_node")
 class VectaraNode(BaseNode):
@@ -17,6 +17,41 @@ class VectaraNode(BaseNode):
     category = "storage"
     credentials_required = ["vectara_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search',
+            'options': [
+                {'name': 'Search', 'value': 'search'},
+                {'name': 'Index Document', 'value': 'index_document'},
+            ],
+            'description': 'Vectara action to perform',
+        },
+        {
+            'displayName': 'Corpus Id',
+            'name': 'corpus_id',
+            'type': 'string',
+            'default': '',
+            'description': 'The ID of the Vectara corpus',
+            'required': True,
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Enter your search query or document text',
+        },
+        {
+            'displayName': 'Top K',
+            'name': 'top_k',
+            'type': 'string',
+            'default': 10,
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

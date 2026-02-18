@@ -13,6 +13,45 @@ class MilvusNode(BaseNode):
     category = "storage"
     credentials_required = ["milvus_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'search',
+        },
+        {
+            'displayName': 'Collection Name',
+            'name': 'collection_name',
+            'type': 'string',
+            'default': 'studio_collection',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Query Text',
+            'name': 'query_text',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Query Vector',
+            'name': 'query_vector',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Top K',
+            'name': 'top_k',
+            'type': 'string',
+            'default': 4,
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "search", "enum": ["ingest", "search", "delete_collection"]},
         "collection_name": {"type": "string", "default": "studio_collection"},

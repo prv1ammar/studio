@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional
 import gzip
 import zipfile
 import io
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("compression_node")
 class CompressionNode(BaseNode):
@@ -19,6 +19,44 @@ class CompressionNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'compress',
+            'options': [
+                {'name': 'Compress', 'value': 'compress'},
+                {'name': 'Decompress', 'value': 'decompress'},
+            ],
+            'description': 'Compression action',
+        },
+        {
+            'displayName': 'Content',
+            'name': 'content',
+            'type': 'string',
+            'default': '',
+            'description': 'Content to process',
+        },
+        {
+            'displayName': 'Filename',
+            'name': 'filename',
+            'type': 'string',
+            'default': '',
+            'description': 'Filename inside archive',
+        },
+        {
+            'displayName': 'Format',
+            'name': 'format',
+            'type': 'options',
+            'default': 'gzip',
+            'options': [
+                {'name': 'Gzip', 'value': 'gzip'},
+                {'name': 'Zip', 'value': 'zip'},
+            ],
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -3,8 +3,8 @@ Merge Node - Studio Standard (Universal Method)
 Batch 103: Core Workflow Nodes
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("merge_node")
 class MergeNode(BaseNode):
@@ -16,6 +16,55 @@ class MergeNode(BaseNode):
     category = "flow_controls"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Branch To Keep',
+            'name': 'branch_to_keep',
+            'type': 'options',
+            'default': '',
+            'options': [
+                {'name': 'Input1', 'value': 'input1'},
+                {'name': 'Input2', 'value': 'input2'},
+            ],
+            'description': 'Which branch to keep (for choose_branch mode)',
+        },
+        {
+            'displayName': 'Input1',
+            'name': 'input1',
+            'type': 'string',
+            'default': '',
+            'description': 'First input branch',
+        },
+        {
+            'displayName': 'Input2',
+            'name': 'input2',
+            'type': 'string',
+            'default': '',
+            'description': 'Second input branch',
+        },
+        {
+            'displayName': 'Merge Key',
+            'name': 'merge_key',
+            'type': 'string',
+            'default': '',
+            'description': 'Key to merge by (for merge_by_key mode)',
+        },
+        {
+            'displayName': 'Mode',
+            'name': 'mode',
+            'type': 'options',
+            'default': 'append',
+            'options': [
+                {'name': 'Append', 'value': 'append'},
+                {'name': 'Merge By Key', 'value': 'merge_by_key'},
+                {'name': 'Merge By Position', 'value': 'merge_by_position'},
+                {'name': 'Keep Key Matches', 'value': 'keep_key_matches'},
+                {'name': 'Choose Branch', 'value': 'choose_branch'},
+            ],
+            'description': 'How to merge the data',
+        },
+    ]
     inputs = {
         "mode": {
             "type": "dropdown",

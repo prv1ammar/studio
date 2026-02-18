@@ -11,6 +11,22 @@ class StripeNode(BaseNode):
     category = "integrations"
     credentials_required = ["stripe_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'create_customer',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON payload for Stripe request',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "enum": ["create_customer", "create_payment_intent", "list_charges"], "default": "create_customer"},
         "data": {"type": "any", "description": "JSON payload for Stripe request"}

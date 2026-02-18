@@ -4,8 +4,8 @@ Batch 101: Automation Bridges (Interoperability)
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("workato_node")
 class WorkatoNode(BaseNode):
@@ -17,6 +17,25 @@ class WorkatoNode(BaseNode):
     category = "bridges"
     credentials_required = ["workato_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Payload',
+            'name': 'payload',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON payload',
+            'required': True,
+        },
+        {
+            'displayName': 'Webhook Url',
+            'name': 'webhook_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Workato Webhook URL',
+            'required': True,
+        },
+    ]
     inputs = {
         "webhook_url": {
              "type": "string",
@@ -73,4 +92,3 @@ class WorkatoNode(BaseNode):
 
         except Exception as e:
              return {"status": "error", "error": f"Workato Node Failed: {str(e)}"}
-

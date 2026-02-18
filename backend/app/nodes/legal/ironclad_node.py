@@ -4,8 +4,8 @@ Batch 67: Legal & Compliance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("ironclad_node")
 class IroncladNode(BaseNode):
@@ -17,6 +17,34 @@ class IroncladNode(BaseNode):
     category = "legal"
     credentials_required = ["ironclad_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_workflows',
+            'options': [
+                {'name': 'List Workflows', 'value': 'list_workflows'},
+                {'name': 'Get Workflow', 'value': 'get_workflow'},
+                {'name': 'List Records', 'value': 'list_records'},
+                {'name': 'Get Record', 'value': 'get_record'},
+            ],
+            'description': 'Ironclad action',
+        },
+        {
+            'displayName': 'Record Id',
+            'name': 'record_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Workflow Id',
+            'name': 'workflow_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

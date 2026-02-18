@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional
 import datetime
 import pytz # Assuming pytz installed or use zoneinfo
 from dateutil import parser
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("date_time_node")
 class DateTimeNode(BaseNode):
@@ -19,6 +19,59 @@ class DateTimeNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'format_date',
+            'options': [
+                {'name': 'Format Date', 'value': 'format_date'},
+                {'name': 'Add Time', 'value': 'add_time'},
+                {'name': 'Subtract Time', 'value': 'subtract_time'},
+                {'name': 'Current Date', 'value': 'current_date'},
+                {'name': 'Date Diff', 'value': 'date_diff'},
+            ],
+            'description': 'Date & Time action',
+        },
+        {
+            'displayName': 'Date',
+            'name': 'date',
+            'type': 'string',
+            'default': '',
+            'description': 'Date to process (ISO string or other format)',
+        },
+        {
+            'displayName': 'Format',
+            'name': 'format',
+            'type': 'string',
+            'default': 'YYYY-MM-DD HH:mm:ss',
+            'description': 'Output format (Python strftime or standard)',
+        },
+        {
+            'displayName': 'Unit',
+            'name': 'unit',
+            'type': 'options',
+            'default': 'days',
+            'options': [
+                {'name': 'Seconds', 'value': 'seconds'},
+                {'name': 'Minutes', 'value': 'minutes'},
+                {'name': 'Hours', 'value': 'hours'},
+                {'name': 'Days', 'value': 'days'},
+                {'name': 'Weeks', 'value': 'weeks'},
+                {'name': 'Months', 'value': 'months'},
+                {'name': 'Years', 'value': 'years'},
+            ],
+        },
+        {
+            'displayName': 'Value',
+            'name': 'value',
+            'type': 'string',
+            'default': '',
+            'description': 'Value to add/subtract',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

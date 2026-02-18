@@ -5,8 +5,8 @@ Batch 114: Advanced AI Frameworks & Memory
 from typing import Any, Dict, Optional, List
 import aiohttp
 import json
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("ollama_node")
 class OllamaNode(BaseNode):
@@ -18,6 +18,51 @@ class OllamaNode(BaseNode):
     category = "ai"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Base Url',
+            'name': 'base_url',
+            'type': 'string',
+            'default': 'http://localhost:11434',
+            'description': 'Ollama API URL',
+        },
+        {
+            'displayName': 'Json Mode',
+            'name': 'json_mode',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Enable JSON output mode',
+        },
+        {
+            'displayName': 'Model Name',
+            'name': 'model_name',
+            'type': 'string',
+            'default': '',
+            'description': 'Model name (e.g., llama3, mistral)',
+            'required': True,
+        },
+        {
+            'displayName': 'Prompt',
+            'name': 'prompt',
+            'type': 'string',
+            'default': '',
+            'description': 'The prompt to send to the model',
+            'required': True,
+        },
+        {
+            'displayName': 'Stream',
+            'name': 'stream',
+            'type': 'boolean',
+            'default': False,
+        },
+        {
+            'displayName': 'Temperature',
+            'name': 'temperature',
+            'type': 'string',
+            'default': 0.1,
+        },
+    ]
     inputs = {
         "model_name": {
             "type": "string",

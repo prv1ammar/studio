@@ -14,6 +14,33 @@ class GoogleSheetsNode(BaseNode):
     category = "storage"
     credentials_required = ["google_service_account"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'string',
+            'default': 'read_records',
+        },
+        {
+            'displayName': 'Data',
+            'name': 'data',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Sheet Name',
+            'name': 'sheet_name',
+            'type': 'string',
+            'default': 'Sheet1',
+        },
+        {
+            'displayName': 'Spreadsheet Id',
+            'name': 'spreadsheet_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {"type": "string", "default": "read_records", "enum": ["read_records", "append_row", "create_spreadsheet"]},
         "spreadsheet_id": {"type": "string", "optional": True},

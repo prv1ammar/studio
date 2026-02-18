@@ -4,8 +4,8 @@ Batch 68: Event Management
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("meetup_node")
 class MeetupNode(BaseNode):
@@ -17,6 +17,28 @@ class MeetupNode(BaseNode):
     category = "events"
     credentials_required = ["meetup_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_self',
+            'options': [
+                {'name': 'Get Self', 'value': 'get_self'},
+                {'name': 'List Groups', 'value': 'list_groups'},
+                {'name': 'Search Events', 'value': 'search_events'},
+            ],
+            'description': 'Meetup action',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+            'description': 'Search query for groups or events',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

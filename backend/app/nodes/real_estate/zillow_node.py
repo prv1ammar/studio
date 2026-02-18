@@ -4,8 +4,8 @@ Batch 73: Real Estate & MLS
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("zillow_node")
 class ZillowNode(BaseNode):
@@ -17,6 +17,35 @@ class ZillowNode(BaseNode):
     category = "real_estate"
     credentials_required = ["zillow_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_properties',
+            'options': [
+                {'name': 'Search Properties', 'value': 'search_properties'},
+                {'name': 'Get Property Details', 'value': 'get_property_details'},
+                {'name': 'Get Zestimate', 'value': 'get_zestimate'},
+            ],
+            'description': 'Zillow action',
+        },
+        {
+            'displayName': 'Location',
+            'name': 'location',
+            'type': 'string',
+            'default': '',
+            'description': 'Address or City, State',
+        },
+        {
+            'displayName': 'Zpid',
+            'name': 'zpid',
+            'type': 'string',
+            'default': '',
+            'description': 'Zillow Property ID',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

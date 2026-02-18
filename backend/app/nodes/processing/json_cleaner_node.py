@@ -5,8 +5,8 @@ Batch 31: Data Processing Nodes
 import json
 import unicodedata
 from typing import Any, Dict, Optional
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("json_cleaner")
 class JSONCleanerNode(BaseNode):
@@ -19,6 +19,45 @@ class JSONCleanerNode(BaseNode):
     category = "data_processing"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'Auto Repair',
+            'name': 'auto_repair',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Automatically repair malformed JSON using json-repair',
+        },
+        {
+            'displayName': 'Json Str',
+            'name': 'json_str',
+            'type': 'string',
+            'default': '',
+            'description': 'The JSON string to be cleaned',
+            'required': True,
+        },
+        {
+            'displayName': 'Normalize Unicode',
+            'name': 'normalize_unicode',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Normalize Unicode characters in the JSON string',
+        },
+        {
+            'displayName': 'Remove Control Chars',
+            'name': 'remove_control_chars',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Remove control characters from the JSON string',
+        },
+        {
+            'displayName': 'Validate Json',
+            'name': 'validate_json',
+            'type': 'boolean',
+            'default': True,
+            'description': 'Validate the JSON string to ensure it is well-formed',
+        },
+    ]
     inputs = {
         "json_str": {
             "type": "string",

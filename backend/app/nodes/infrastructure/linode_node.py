@@ -4,8 +4,8 @@ Batch 66: DevOps & Cloud Infrastructure
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("linode_node")
 class LinodeNode(BaseNode):
@@ -17,6 +17,46 @@ class LinodeNode(BaseNode):
     category = "infrastructure"
     credentials_required = ["linode_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_instances',
+            'options': [
+                {'name': 'List Instances', 'value': 'list_instances'},
+                {'name': 'Get Account', 'value': 'get_account'},
+                {'name': 'List Types', 'value': 'list_types'},
+                {'name': 'Create Instance', 'value': 'create_instance'},
+            ],
+            'description': 'Linode action',
+        },
+        {
+            'displayName': 'Image',
+            'name': 'image',
+            'type': 'string',
+            'default': 'linode/ubuntu20.04',
+        },
+        {
+            'displayName': 'Label',
+            'name': 'label',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Region',
+            'name': 'region',
+            'type': 'string',
+            'default': 'us-east',
+        },
+        {
+            'displayName': 'Type',
+            'name': 'type',
+            'type': 'string',
+            'default': 'g6-standard-1',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

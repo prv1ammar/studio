@@ -4,8 +4,8 @@ Batch 80: Industrial & Service Ops
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("samsara_node")
 class SamsaraNode(BaseNode):
@@ -17,6 +17,21 @@ class SamsaraNode(BaseNode):
     category = "fleet"
     credentials_required = ["samsara_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_vehicle_locations',
+            'options': [
+                {'name': 'Get Vehicle Locations', 'value': 'get_vehicle_locations'},
+                {'name': 'Get Vehicle Stats', 'value': 'get_vehicle_stats'},
+                {'name': 'List Assets', 'value': 'list_assets'},
+            ],
+            'description': 'Samsara action',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

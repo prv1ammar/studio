@@ -3,8 +3,8 @@ Anthropic Model Node - Studio Standard
 Batch 36: AI Chat Models
 """
 from typing import Any, Dict, Optional, List
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("anthropic_model")
 class AnthropicModelNode(BaseNode):
@@ -17,6 +17,66 @@ class AnthropicModelNode(BaseNode):
     category = "ai_models"
     credentials_required = ["anthropic_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Anthropic Api Key',
+            'name': 'anthropic_api_key',
+            'type': 'string',
+            'default': '',
+            'description': 'Anthropic API key (overrides credential)',
+        },
+        {
+            'displayName': 'Input Value',
+            'name': 'input_value',
+            'type': 'string',
+            'default': '',
+            'description': 'User message or input text',
+        },
+        {
+            'displayName': 'Max Tokens',
+            'name': 'max_tokens',
+            'type': 'string',
+            'default': 4096,
+            'description': 'Maximum number of tokens to generate',
+        },
+        {
+            'displayName': 'Model Name',
+            'name': 'model_name',
+            'type': 'options',
+            'default': 'claude-3-5-sonnet-20240620',
+            'options': [
+                {'name': 'Claude-3-5-Sonnet-20240620', 'value': 'claude-3-5-sonnet-20240620'},
+                {'name': 'Claude-3-Opus-20240229', 'value': 'claude-3-opus-20240229'},
+                {'name': 'Claude-3-Sonnet-20240229', 'value': 'claude-3-sonnet-20240229'},
+                {'name': 'Claude-3-Haiku-20240307', 'value': 'claude-3-haiku-20240307'},
+                {'name': 'Claude-2.1', 'value': 'claude-2.1'},
+                {'name': 'Claude-2.0', 'value': 'claude-2.0'},
+            ],
+            'description': 'Anthropic model to use',
+        },
+        {
+            'displayName': 'Stream',
+            'name': 'stream',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Stream the response',
+        },
+        {
+            'displayName': 'System Message',
+            'name': 'system_message',
+            'type': 'string',
+            'default': '',
+            'description': 'System message for the model',
+        },
+        {
+            'displayName': 'Temperature',
+            'name': 'temperature',
+            'type': 'string',
+            'default': 0.1,
+            'description': 'Controls randomness (0.0 to 1.0)',
+        },
+    ]
     inputs = {
         "model_name": {
             "type": "dropdown",

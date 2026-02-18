@@ -4,8 +4,8 @@ Batch 99: Web & Utilities (Deepening Parity)
 """
 from typing import Any, Dict, Optional, List
 from bs4 import BeautifulSoup
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("html_parser_node")
 class HTMLParserNode(BaseNode):
@@ -17,6 +17,46 @@ class HTMLParserNode(BaseNode):
     category = "utilities"
     credentials_required = []
 
+
+    properties = [
+        {
+            'displayName': 'All Matches',
+            'name': 'all_matches',
+            'type': 'boolean',
+            'default': False,
+            'description': 'Return all matches?',
+        },
+        {
+            'displayName': 'Attribute',
+            'name': 'attribute',
+            'type': 'string',
+            'default': 'text',
+            'options': [
+                {'name': 'Text', 'value': 'text'},
+                {'name': 'Innerhtml', 'value': 'innerHTML'},
+                {'name': 'Outerhtml', 'value': 'outerHTML'},
+                {'name': 'Href', 'value': 'href'},
+                {'name': 'Src', 'value': 'src'},
+            ],
+            'description': 'Attribute to extract',
+        },
+        {
+            'displayName': 'Html Content',
+            'name': 'html_content',
+            'type': 'string',
+            'default': '',
+            'description': 'HTML string to parse (from HTTP Request)',
+            'required': True,
+        },
+        {
+            'displayName': 'Selector',
+            'name': 'selector',
+            'type': 'string',
+            'default': '',
+            'description': 'CSS Selector (e.g. .class, #id)',
+            'required': True,
+        },
+    ]
     inputs = {
         "html_content": {
             "type": "string",

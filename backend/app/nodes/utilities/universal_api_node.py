@@ -12,6 +12,42 @@ class UniversalAPIConnectorNode(BaseNode):
     node_type = "http_request"
     version = "1.0.0"
     category = "integrations"
+
+    properties = [
+        {
+            'displayName': 'Body',
+            'name': 'body',
+            'type': 'string',
+            'default': '',
+            'description': 'Request body (for POST/PUT)',
+        },
+        {
+            'displayName': 'Headers',
+            'name': 'headers',
+            'type': 'string',
+            'default': {},
+        },
+        {
+            'displayName': 'Method',
+            'name': 'method',
+            'type': 'string',
+            'default': 'GET',
+        },
+        {
+            'displayName': 'Params',
+            'name': 'params',
+            'type': 'string',
+            'default': '',
+            'description': 'Query parameters',
+        },
+        {
+            'displayName': 'Url',
+            'name': 'url',
+            'type': 'string',
+            'default': '',
+            'description': 'Target URL',
+        },
+    ]
     inputs = {
         "url": {"type": "string", "description": "Target URL"},
         "method": {"type": "string", "default": "GET", "enum": ["GET", "POST", "PUT", "DELETE", "PATCH"]},

@@ -4,8 +4,8 @@ Batch 102: E-commerce & Payments Expansion
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("square_node")
 class SquareNode(BaseNode):
@@ -17,6 +17,68 @@ class SquareNode(BaseNode):
     category = "finance"
     credentials_required = ["square_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_payment',
+            'options': [
+                {'name': 'Create Payment', 'value': 'create_payment'},
+                {'name': 'List Customers', 'value': 'list_customers'},
+                {'name': 'Create Customer', 'value': 'create_customer'},
+                {'name': 'List Locations', 'value': 'list_locations'},
+                {'name': 'Create Invoice', 'value': 'create_invoice'},
+                {'name': 'Get Payment', 'value': 'get_payment'},
+            ],
+            'description': 'Square action',
+        },
+        {
+            'displayName': 'Amount',
+            'name': 'amount',
+            'type': 'string',
+            'default': '',
+            'description': 'Amount in cents (e.g., 1000 for $10.00)',
+        },
+        {
+            'displayName': 'Currency',
+            'name': 'currency',
+            'type': 'string',
+            'default': 'USD',
+        },
+        {
+            'displayName': 'Customer Id',
+            'name': 'customer_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Email',
+            'name': 'email',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Family Name',
+            'name': 'family_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Given Name',
+            'name': 'given_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Source Id',
+            'name': 'source_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Payment source (card nonce)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

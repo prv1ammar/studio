@@ -4,8 +4,8 @@ Batch 85: SMB Finance
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("wave_node")
 class WaveNode(BaseNode):
@@ -17,6 +17,29 @@ class WaveNode(BaseNode):
     category = "finance"
     credentials_required = ["wave_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_businesses',
+            'options': [
+                {'name': 'List Businesses', 'value': 'list_businesses'},
+                {'name': 'List Invoices', 'value': 'list_invoices'},
+                {'name': 'Get Account Details', 'value': 'get_account_details'},
+                {'name': 'Create Invoice', 'value': 'create_invoice'},
+            ],
+            'description': 'Wave GraphQL action',
+        },
+        {
+            'displayName': 'Business Id',
+            'name': 'business_id',
+            'type': 'string',
+            'default': '',
+            'description': 'The unique ID of the business in Wave.',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

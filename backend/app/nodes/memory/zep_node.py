@@ -4,8 +4,8 @@ Batch 115: Specialized Tools
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("zep_node")
 class ZepNode(BaseNode):
@@ -17,6 +17,47 @@ class ZepNode(BaseNode):
     category = "memory"
     credentials_required = ["zep_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'get_messages',
+            'options': [
+                {'name': 'Add Message', 'value': 'add_message'},
+                {'name': 'Get Messages', 'value': 'get_messages'},
+                {'name': 'Search Memory', 'value': 'search_memory'},
+            ],
+            'description': 'Zep action to perform',
+        },
+        {
+            'displayName': 'Role',
+            'name': 'role',
+            'type': 'options',
+            'default': 'user',
+            'options': [
+                {'name': 'User', 'value': 'user'},
+                {'name': 'Assistant', 'value': 'assistant'},
+                {'name': 'System', 'value': 'system'},
+            ],
+        },
+        {
+            'displayName': 'Session Id',
+            'name': 'session_id',
+            'type': 'string',
+            'default': '',
+            'description': 'Session ID for the conversation',
+            'required': True,
+        },
+        {
+            'displayName': 'Text',
+            'name': 'text',
+            'type': 'string',
+            'default': '',
+            'description': 'Message text to add or search for',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

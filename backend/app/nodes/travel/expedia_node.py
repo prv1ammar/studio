@@ -4,8 +4,8 @@ Batch 72: Travel & Hospitality
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("expedia_node")
 class ExpediaNode(BaseNode):
@@ -17,6 +17,34 @@ class ExpediaNode(BaseNode):
     category = "travel"
     credentials_required = ["expedia_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_properties',
+            'options': [
+                {'name': 'Search Properties', 'value': 'search_properties'},
+                {'name': 'Get Property Details', 'value': 'get_property_details'},
+                {'name': 'List Regions', 'value': 'list_regions'},
+            ],
+            'description': 'Expedia action',
+        },
+        {
+            'displayName': 'Property Id',
+            'name': 'property_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Region Id',
+            'name': 'region_id',
+            'type': 'string',
+            'default': '',
+            'description': 'ID of the region (e.g. city or neighborhood)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

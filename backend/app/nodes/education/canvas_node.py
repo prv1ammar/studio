@@ -4,8 +4,8 @@ Batch 75: Education & EdTech
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("canvas_node")
 class CanvasNode(BaseNode):
@@ -17,6 +17,36 @@ class CanvasNode(BaseNode):
     category = "education"
     credentials_required = ["canvas_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_courses',
+            'options': [
+                {'name': 'List Courses', 'value': 'list_courses'},
+                {'name': 'List Assignments', 'value': 'list_assignments'},
+                {'name': 'Get Course', 'value': 'get_course'},
+                {'name': 'List Users', 'value': 'list_users'},
+            ],
+            'description': 'Canvas action',
+        },
+        {
+            'displayName': 'Base Url',
+            'name': 'base_url',
+            'type': 'string',
+            'default': '',
+            'description': 'Institutional Canvas URL (e.g. https://canvas.instructure.com)',
+            'required': True,
+        },
+        {
+            'displayName': 'Course Id',
+            'name': 'course_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

@@ -4,8 +4,8 @@ Batch 108: Marketing & CRM
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("zoho_crm_node")
 class ZohoCRMNode(BaseNode):
@@ -17,6 +17,42 @@ class ZohoCRMNode(BaseNode):
     category = "marketing"
     credentials_required = ["zoho_crm_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'create_record',
+            'options': [
+                {'name': 'Create Record', 'value': 'create_record'},
+                {'name': 'Get Record', 'value': 'get_record'},
+                {'name': 'Search Records', 'value': 'search_records'},
+                {'name': 'Update Record', 'value': 'update_record'},
+            ],
+            'description': 'Zoho CRM action',
+        },
+        {
+            'displayName': 'Data Json',
+            'name': 'data_json',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON object of record data',
+        },
+        {
+            'displayName': 'Module',
+            'name': 'module',
+            'type': 'string',
+            'default': 'Leads',
+            'description': 'Module name (e.g. Leads, Contacts, Accounts)',
+        },
+        {
+            'displayName': 'Record Id',
+            'name': 'record_id',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

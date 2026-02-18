@@ -4,8 +4,8 @@ Batch 74: Professional Services
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("toptal_node")
 class ToptalNode(BaseNode):
@@ -17,6 +17,34 @@ class ToptalNode(BaseNode):
     category = "professional_services"
     credentials_required = ["toptal_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'list_talent_requests',
+            'options': [
+                {'name': 'List Talent Requests', 'value': 'list_talent_requests'},
+                {'name': 'Get Request Status', 'value': 'get_request_status'},
+                {'name': 'Create Talent Request', 'value': 'create_talent_request'},
+            ],
+            'description': 'Toptal action',
+        },
+        {
+            'displayName': 'Request Id',
+            'name': 'request_id',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Role',
+            'name': 'role',
+            'type': 'string',
+            'default': '',
+            'description': 'Role required (e.g. Python Developer)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

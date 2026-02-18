@@ -4,8 +4,8 @@ Batch 107: Cloud Storage
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("dropbox_node")
 class DropboxNode(BaseNode):
@@ -17,6 +17,37 @@ class DropboxNode(BaseNode):
     category = "storage"
     credentials_required = ["dropbox_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'upload_file',
+            'options': [
+                {'name': 'Upload File', 'value': 'upload_file'},
+                {'name': 'Download File', 'value': 'download_file'},
+                {'name': 'List Folder', 'value': 'list_folder'},
+                {'name': 'Create Folder', 'value': 'create_folder'},
+                {'name': 'Delete File', 'value': 'delete_file'},
+            ],
+            'description': 'Dropbox action',
+        },
+        {
+            'displayName': 'File Content',
+            'name': 'file_content',
+            'type': 'string',
+            'default': '',
+            'description': 'Content to upload',
+        },
+        {
+            'displayName': 'Path',
+            'name': 'path',
+            'type': 'string',
+            'default': '',
+            'description': 'Path in Dropbox (e.g. /folder/file.txt)',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

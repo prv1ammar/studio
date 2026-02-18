@@ -4,8 +4,8 @@ Batch 110: Developer Tools & Databases
 """
 from typing import Any, Dict, Optional
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 # Similar to S3/Wasabi, running AWS logic without boto3 is complex due to SigV4.
 # Assuming boto3 or aiobotocore is available or using a simple API Gateway trigger URL if provided.
@@ -21,6 +21,32 @@ class AWSLambdaNode(BaseNode):
     category = "developer_tools"
     credentials_required = ["aws_lambda_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'invoke',
+            'options': [
+                {'name': 'Invoke', 'value': 'invoke'},
+            ],
+            'description': 'Lambda action',
+        },
+        {
+            'displayName': 'Function Name',
+            'name': 'function_name',
+            'type': 'string',
+            'default': '',
+        },
+        {
+            'displayName': 'Payload',
+            'name': 'payload',
+            'type': 'string',
+            'default': '',
+            'description': 'JSON payload',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",

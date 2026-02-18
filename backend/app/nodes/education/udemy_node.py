@@ -4,8 +4,8 @@ Batch 81: Leisure, Health & Education
 """
 from typing import Any, Dict, Optional, List
 import aiohttp
-from ...base import BaseNode
-from ...registry import register_node
+from ..base import BaseNode
+from ..registry import register_node
 
 @register_node("udemy_node")
 class UdemyNode(BaseNode):
@@ -17,6 +17,27 @@ class UdemyNode(BaseNode):
     category = "education"
     credentials_required = ["udemy_auth"]
 
+
+    properties = [
+        {
+            'displayName': 'Operation',
+            'name': 'operation',
+            'type': 'options',
+            'default': 'search_courses',
+            'options': [
+                {'name': 'Search Courses', 'value': 'search_courses'},
+                {'name': 'Get Course Details', 'value': 'get_course_details'},
+                {'name': 'Get My Courses', 'value': 'get_my_courses'},
+            ],
+            'description': 'Udemy action',
+        },
+        {
+            'displayName': 'Query',
+            'name': 'query',
+            'type': 'string',
+            'default': '',
+        },
+    ]
     inputs = {
         "action": {
             "type": "dropdown",
