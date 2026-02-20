@@ -178,6 +178,13 @@
       "color": "#ec4899",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "text",
           "display_name": "Input Text",
           "type": "text",
@@ -706,7 +713,15 @@
       "category": "AI Services & Agents",
       "icon": "MessageSquare",
       "color": "#4f46e5",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        }
+      ],
       "outputs": [
         {
           "name": "message",
@@ -726,6 +741,13 @@
       "icon": "History",
       "color": "#6366f1",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "backend",
           "display_name": "Memory Backend",
@@ -1803,6 +1825,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_base",
           "display_name": "API Base URL",
           "type": "text",
@@ -1936,6 +1965,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "OpenAI API Key",
           "type": "password",
@@ -2065,6 +2101,13 @@
       "icon": "/assets/icons/imported/models_and_agents/mcp_tools.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "mcp_server",
           "display_name": "MCP Server",
@@ -2245,6 +2288,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "template",
           "display_name": "Template",
           "type": "text",
@@ -2289,6 +2339,13 @@
       "icon": "/assets/icons/imported/olivya/place_call.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Olivya API Key",
@@ -2377,6 +2434,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "aiml_api_key",
           "display_name": "AI/ML API Key",
           "type": "password",
@@ -2425,6 +2489,13 @@
       "icon": "/assets/icons/imported/aiml/aiml_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "aiml_api_base",
           "display_name": "AI/ML API Base",
@@ -2551,6 +2622,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "Assembly API Key",
           "type": "password",
@@ -2618,6 +2696,13 @@
       "icon": "/assets/icons/imported/assemblyai/assemblyai_lemur.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Assembly API Key",
@@ -2743,6 +2828,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "Assembly API Key",
           "type": "password",
@@ -2823,6 +2915,13 @@
       "icon": "/assets/icons/imported/assemblyai/assemblyai_start_transcript.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Assembly API Key",
@@ -2952,6 +3051,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "Assembly API Key",
           "type": "password",
@@ -3008,6 +3114,13 @@
       "icon": "/assets/icons/integrations/salesforce.svg",
       "color": "#00a1e0",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "base_url",
           "display_name": "API Base URL",
@@ -3086,6 +3199,13 @@
       "color": "#ff7a59",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "base_url",
           "display_name": "API Base URL",
           "type": "string",
@@ -3156,6 +3276,13 @@
       "icon": "/assets/icons/integrations/zoho.svg",
       "color": "#f44336",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "base_url",
           "display_name": "API Base URL",
@@ -3255,6 +3382,13 @@
       "color": "#e91e63",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "action",
           "display_name": "Action",
           "type": "select",
@@ -3338,6 +3472,13 @@
       "icon": "/assets/icons/integrations/vtiger.svg",
       "color": "#ff9800",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "base_url",
           "display_name": "API Base URL",
@@ -3424,6 +3565,13 @@
       "icon": "/assets/icons/imported/cloudflare/cloudflare_workers_ai_embeddings.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "account_id",
           "display_name": "Cloudflare account ID",
@@ -3829,6 +3977,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "input_value",
           "display_name": "Input Value",
           "type": "text",
@@ -3865,6 +4020,13 @@
       "icon": "/assets/icons/imported/files_and_knowledge/directory.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "depth",
           "display_name": "Depth",
@@ -4206,6 +4368,13 @@
       "icon": "/assets/icons/imported/files_and_knowledge/knowledge_retrieval.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Embedding Provider API Key",
@@ -4928,6 +5097,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "delimiter",
           "display_name": "Delimiter",
           "type": "text",
@@ -4982,6 +5158,13 @@
       "icon": "/assets/icons/imported/processing/create_data.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "number_of_fields",
           "display_name": "Number of Fields",
@@ -5038,6 +5221,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "texts",
           "display_name": "Texts",
           "type": "text",
@@ -5080,6 +5270,13 @@
       "icon": "/assets/icons/imported/processing/dataframe_operations.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "df",
           "display_name": "DataFrame",
@@ -5126,6 +5323,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "data",
           "display_name": "Data",
           "type": "text",
@@ -5171,6 +5375,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "data_list",
           "display_name": "Data or Data List",
           "type": "text",
@@ -5205,6 +5416,13 @@
       "icon": "/assets/icons/imported/processing/dynamic_create_data.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "form_fields",
           "display_name": "Input Configuration",
@@ -5259,6 +5477,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "data_input",
           "display_name": "Data Input",
           "type": "text",
@@ -5303,6 +5528,13 @@
       "icon": "/assets/icons/imported/processing/filter_data.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "data",
           "display_name": "Data",
@@ -5420,6 +5652,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "json_str",
           "display_name": "JSON String",
           "type": "text",
@@ -5485,6 +5724,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "data_inputs",
           "display_name": "Data Inputs",
           "type": "text",
@@ -5535,6 +5781,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "message",
           "display_name": "Message",
           "type": "text",
@@ -5569,6 +5822,13 @@
       "icon": "/assets/icons/imported/processing/output_parser.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "parser_type",
           "display_name": "Parser",
@@ -5614,6 +5874,13 @@
       "icon": "/assets/icons/imported/processing/data_to_message.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "data",
           "display_name": "Data",
@@ -5677,6 +5944,13 @@
       "icon": "/assets/icons/imported/processing/parse_dataframe.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "df",
           "display_name": "DataFrame",
@@ -5852,6 +6126,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "input_text",
           "display_name": "Input Text",
           "type": "text",
@@ -5904,6 +6185,13 @@
       "icon": "/assets/icons/imported/processing/select_data.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "data_index",
           "display_name": "Data Index",
@@ -6182,6 +6470,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "number_of_fields",
           "display_name": "Number of Fields",
           "type": "number",
@@ -6447,6 +6742,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "body",
           "display_name": "Body",
           "type": "text",
@@ -6583,6 +6885,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "csv_file",
           "display_name": "CSV File",
           "type": "file",
@@ -6648,6 +6957,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "json_file",
           "display_name": "JSON File",
           "type": "file",
@@ -6703,6 +7019,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "num_rows",
           "display_name": "Number of Rows",
           "type": "number",
@@ -6751,6 +7074,13 @@
       "icon": "/assets/icons/imported/data_source/news_search.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "ceid",
           "display_name": "Country:Language (ceid)",
@@ -6847,6 +7177,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "rss_url",
           "display_name": "RSS Feed URL",
           "type": "text",
@@ -6891,6 +7228,13 @@
       "icon": "/assets/icons/imported/data_source/sql_database.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "add_error",
           "display_name": "Add Error",
@@ -6956,6 +7300,13 @@
       "icon": "/assets/icons/imported/data_source/url.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "autoset_encoding",
           "display_name": "Autoset Encoding",
@@ -7108,6 +7459,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "ceid",
           "display_name": "Country:Language (ceid)",
           "type": "text",
@@ -7215,6 +7573,13 @@
       "color": "#ff4f00",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "base_url",
           "display_name": "API Base URL",
           "type": "string",
@@ -7274,6 +7639,13 @@
       "icon": "/assets/icons/integrations/github.svg",
       "color": "#24292e",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "base_url",
           "display_name": "API Base URL",
@@ -7354,6 +7726,13 @@
       "icon": "/assets/icons/integrations/gitlab.svg",
       "color": "#fc6d26",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "base_url",
           "display_name": "API Base URL",
@@ -7440,6 +7819,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "repository_url",
           "display_name": "Repository URL",
           "type": "text",
@@ -7503,6 +7889,13 @@
       "icon": "/assets/icons/imported/git/git.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "branch",
           "display_name": "Branch",
@@ -7573,6 +7966,13 @@
       "icon": "/assets/icons/integrations/sage.svg",
       "color": "#10b981",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "action",
           "display_name": "Action",
@@ -7645,6 +8045,13 @@
       "icon": "/assets/icons/integrations/odoo.svg",
       "color": "#8b5cf6",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "base_url",
           "display_name": "API Base URL",
@@ -7743,6 +8150,13 @@
       "color": "#3b82f6",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "action",
           "display_name": "Action",
           "type": "select",
@@ -7810,6 +8224,13 @@
       "color": "#2ca01c",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "credentials_id",
           "display_name": "QuickBooks Creds",
           "type": "credentials",
@@ -7854,6 +8275,13 @@
       "color": "#003087",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "credentials_id",
           "display_name": "PayPal Creds",
           "type": "credentials",
@@ -7897,6 +8325,13 @@
       "icon": "CreditCard",
       "color": "#6772e5",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "credentials_id",
           "display_name": "Stripe Token",
@@ -7947,6 +8382,13 @@
       "icon": "/assets/icons/imported/icosacomputing/combinatorial_reasoner.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "model_name",
           "display_name": "Model Name",
@@ -8043,6 +8485,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "input_value",
           "display_name": "Text",
           "type": "textarea",
@@ -8078,6 +8527,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "input_value",
           "display_name": "Inputs",
           "type": "textarea",
@@ -8112,6 +8568,13 @@
       "icon": "/assets/icons/imported/input_output/webhook.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "curl",
           "display_name": "cURL",
@@ -8169,6 +8632,13 @@
       "icon": "/assets/icons/imported/homeassistant/home_assistant_control.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "base_url",
           "display_name": "Home Assistant URL",
@@ -8242,6 +8712,13 @@
       "icon": "/assets/icons/imported/homeassistant/list_home_assistant_states.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "base_url",
           "display_name": "Home Assistant URL",
@@ -8536,6 +9013,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "compare_value",
           "display_name": "Match Text",
           "type": "text",
@@ -8615,6 +9099,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "flow_name",
           "display_name": "Flow Name",
           "type": "dropdown",
@@ -8679,6 +9170,13 @@
       "icon": "/assets/icons/imported/flow_controls/listen.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "context_key",
           "display_name": "Context Key",
@@ -8820,6 +9318,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "ignored_message",
           "display_name": "Ignored Message",
           "type": "text",
@@ -8864,6 +9369,13 @@
       "icon": "/assets/icons/imported/flow_controls/run_flow.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "cache_flow",
           "display_name": "Cache Flow",
@@ -8918,6 +9430,13 @@
       "icon": "/assets/icons/imported/flow_controls/sub_flow.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "flow_name",
           "display_name": "Flow Name",
@@ -9073,6 +9592,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "collection_id",
           "display_name": "Collection ID",
           "type": "text",
@@ -9139,6 +9665,13 @@
       "icon": "/assets/icons/imported/amazon/amazon_bedrock_converse.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "additional_model_fields",
           "display_name": "Additional Model Fields",
@@ -9406,6 +9939,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "aws_access_key_id",
           "display_name": "AWS Access Key ID",
           "type": "password",
@@ -9540,6 +10080,13 @@
       "icon": "/assets/icons/imported/amazon/amazon_bedrock.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "aws_access_key_id",
           "display_name": "AWS Access Key ID",
@@ -9858,6 +10405,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "Anthropic API Key",
           "type": "password",
@@ -9990,6 +10544,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "Azure OpenAI API Key",
           "type": "password",
@@ -10085,6 +10646,13 @@
       "icon": "/assets/icons/imported/azure/azure_openai.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Azure Chat OpenAI API Key",
@@ -10221,6 +10789,13 @@
       "icon": "/assets/icons/imported/baidu/qianfan.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "endpoint",
           "display_name": "Endpoint",
@@ -10381,6 +10956,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "bing_search_url",
           "display_name": "Bing Search URL",
           "type": "text",
@@ -10453,6 +11035,13 @@
       "icon": "/assets/icons/imported/cohere/cohere_embeddings.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Cohere API Key",
@@ -10544,6 +11133,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "cohere_api_key",
           "display_name": "Cohere API Key",
           "type": "password",
@@ -10627,6 +11223,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "Cohere API Key",
           "type": "password",
@@ -10706,6 +11309,13 @@
       "icon": "/assets/icons/imported/deepseek/deepseek.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_base",
           "display_name": "DeepSeek API Base",
@@ -10852,6 +11462,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "embedding_vectors",
           "display_name": "Embedding Vectors",
           "type": "text",
@@ -10949,6 +11566,13 @@
       "icon": "/assets/icons/imported/groq/groq.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Groq API Key",
@@ -11086,6 +11710,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "HuggingFace API Key",
           "type": "password",
@@ -11140,6 +11771,13 @@
       "icon": "/assets/icons/imported/huggingface/hugging_face.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "huggingfacehub_api_token",
           "display_name": "HuggingFace HubAPI Token",
@@ -11337,6 +11975,13 @@
       "icon": "/assets/icons/imported/ibm/ibm_watsonxai.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Watsonx API Key",
@@ -11547,6 +12192,13 @@
       "icon": "/assets/icons/imported/ibm/ibm_watsonxai.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Watsonx API Key",
@@ -12132,6 +12784,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "LM Studio API Key",
           "type": "password",
@@ -12196,6 +12855,13 @@
       "icon": "/assets/icons/imported/lmstudio/lm_studio.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "LM Studio API Key",
@@ -12330,6 +12996,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "endpoint",
           "display_name": "API Endpoint",
           "type": "text",
@@ -12416,6 +13089,13 @@
       "icon": "/assets/icons/imported/mistral/mistralai.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Mistral API Key",
@@ -12887,6 +13567,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "base_url",
           "display_name": "NVIDIA Base URL",
           "type": "text",
@@ -12954,6 +13641,13 @@
       "icon": "/assets/icons/imported/nvidia/nvidia.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "NVIDIA API Key",
@@ -13461,6 +14155,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "NVIDIA API Key",
           "type": "password",
@@ -13548,6 +14249,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "prompt",
           "display_name": "System-Assist Prompt",
           "type": "text",
@@ -13582,6 +14290,13 @@
       "icon": "/assets/icons/imported/ollama/ollama_embeddings.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "base_url",
           "display_name": "Ollama Base URL",
@@ -13627,6 +14342,13 @@
       "icon": "/assets/icons/imported/ollama/ollama.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Ollama API Key",
@@ -13951,6 +14673,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "chunk_size",
           "display_name": "Chunk Size",
           "type": "number",
@@ -14190,6 +14919,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "OpenAI API Key",
           "type": "password",
@@ -14374,6 +15110,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "API Key",
           "type": "password",
@@ -14496,6 +15239,13 @@
       "icon": "/assets/icons/imported/perplexity/perplexity.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Perplexity API Key",
@@ -14627,6 +15377,13 @@
       "icon": "/assets/icons/imported/sambanova/sambanova.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Sambanova API Key",
@@ -14765,6 +15522,13 @@
       "icon": "/assets/icons/imported/vertexai/vertex_ai_embeddings.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "credentials",
           "display_name": "Credentials",
@@ -14920,6 +15684,13 @@
       "icon": "/assets/icons/imported/vertexai/vertex_ai.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "credentials",
           "display_name": "Credentials",
@@ -15084,6 +15855,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "VLM Run API Key",
           "type": "password",
@@ -15173,6 +15951,13 @@
       "icon": "/assets/icons/imported/xai/xai.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "xAI API Key",
@@ -15321,6 +16106,13 @@
       "color": "#FC6D26",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "credentials_id",
           "display_name": "GitLab Token",
           "type": "credentials",
@@ -15371,6 +16163,13 @@
       "color": "#0079bf",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "credentials_id",
           "display_name": "Trello Creds",
           "type": "credentials",
@@ -15420,6 +16219,13 @@
       "icon": "List",
       "color": "#0052cc",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "credentials_id",
           "display_name": "Jira Creds",
@@ -15701,6 +16507,13 @@
       "color": "#34A853",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "credentials_id",
           "display_name": "Google Drive Token",
           "type": "credentials",
@@ -15974,6 +16787,13 @@
       "color": "#000000",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "credentials_id",
           "display_name": "Notion Token",
           "type": "credentials",
@@ -16200,6 +17020,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "block_id",
           "display_name": "Page/Block ID",
           "type": "text",
@@ -16263,6 +17090,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "database_id",
           "display_name": "Database ID",
           "type": "text",
@@ -16315,6 +17149,13 @@
       "icon": "/assets/icons/imported/notion/list_pages.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "database_id",
           "display_name": "Database ID",
@@ -16379,6 +17220,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "notion_secret",
           "display_name": "Notion Secret",
           "type": "password",
@@ -16431,6 +17279,13 @@
       "icon": "/assets/icons/imported/notion/create_page.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "database_id",
           "display_name": "Database ID",
@@ -16495,6 +17350,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "notion_secret",
           "display_name": "Notion Secret",
           "type": "password",
@@ -16557,6 +17419,13 @@
       "icon": "/assets/icons/imported/notion/search.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "filter_value",
           "display_name": "Filter Type",
@@ -16637,6 +17506,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "notion_secret",
           "display_name": "Notion Secret",
           "type": "password",
@@ -16679,6 +17555,13 @@
       "icon": "/assets/icons/imported/confluence/confluence.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Confluence API Key",
@@ -16781,6 +17664,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "JigsawStack API Key",
           "type": "password",
@@ -16855,6 +17745,13 @@
       "icon": "/assets/icons/imported/jigsawstack/ai_web_search.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "ai_overview",
           "display_name": "AI Overview",
@@ -16943,6 +17840,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "JigsawStack API Key",
           "type": "password",
@@ -16987,6 +17891,13 @@
       "icon": "/assets/icons/imported/jigsawstack/file_upload.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "JigsawStack API Key",
@@ -17062,6 +17973,13 @@
       "icon": "/assets/icons/imported/jigsawstack/image_generation.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "JigsawStack API Key",
@@ -17211,6 +18129,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "JigsawStack API Key",
           "type": "password",
@@ -17255,6 +18180,13 @@
       "icon": "/assets/icons/imported/jigsawstack/object_detection.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "annotated_image",
           "display_name": "Return Annotated Image",
@@ -17360,6 +18292,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "JigsawStack API Key",
           "type": "password",
@@ -17412,6 +18351,13 @@
       "icon": "/assets/icons/imported/jigsawstack/text_to_sql.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "JigsawStack API Key",
@@ -17478,6 +18424,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "JigsawStack API Key",
           "type": "password",
@@ -17532,6 +18485,13 @@
       "icon": "/assets/icons/imported/jigsawstack/vocr.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "JigsawStack API Key",
@@ -17617,6 +18577,13 @@
       "icon": "/assets/icons/imported/maritalk/maritalk.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "MariTalk API Key",
@@ -17728,6 +18695,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "function_code",
           "display_name": "Function Code",
           "type": "text",
@@ -17780,6 +18754,13 @@
       "icon": "/assets/icons/imported/agentql/extract_web_data.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "AgentQL API Key",
@@ -18211,6 +19192,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "actor_id",
           "display_name": "Actor",
           "type": "text",
@@ -18294,6 +19282,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "max_results",
           "display_name": "Max Results",
           "type": "number",
@@ -18355,6 +19350,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "input_value",
           "display_name": "Search Query",
           "type": "text",
@@ -18409,6 +19411,13 @@
       "icon": "/assets/icons/imported/exa/exa_search.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "metaphor_api_key",
           "display_name": "Exa Search API Key",
@@ -18474,6 +19483,13 @@
       "icon": "/assets/icons/imported/firecrawl/firecrawl_crawl_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Firecrawl API Key",
@@ -18560,6 +19576,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "Firecrawl API Key",
           "type": "password",
@@ -18634,6 +19657,13 @@
       "icon": "/assets/icons/imported/firecrawl/firecrawl_map_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Firecrawl API Key",
@@ -18710,6 +19740,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "Firecrawl API Key",
           "type": "password",
@@ -18784,6 +19821,13 @@
       "icon": "/assets/icons/imported/glean/glean_search_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "glean_access_token",
           "display_name": "Glean Access Token",
@@ -18860,6 +19904,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "clean_query",
           "display_name": "Clean Query",
           "type": "boolean",
@@ -18914,6 +19965,13 @@
       "icon": "/assets/icons/imported/google/gmail_loader.svg",
       "color": "#EA4335",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "json_string",
           "display_name": "JSON String of the Service Account Token",
@@ -18970,6 +20028,13 @@
       "color": "#4285F4",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "Google Generative AI API Key",
           "type": "password",
@@ -19015,6 +20080,13 @@
       "color": "#34A853",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "document_id",
           "display_name": "Document ID",
           "type": "text",
@@ -19059,6 +20131,13 @@
       "icon": "/assets/icons/imported/google/google_drive_search.svg",
       "color": "#34A853",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "query_item",
           "display_name": "Query Item",
@@ -19184,6 +20263,13 @@
       "icon": "/assets/icons/imported/google/google_generative_ai.svg",
       "color": "#4285F4",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Google API Key",
@@ -19343,6 +20429,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "oauth_credentials",
           "display_name": "Credentials File",
           "type": "file",
@@ -19387,6 +20480,13 @@
       "icon": "/assets/icons/imported/google/google_search_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "google_api_key",
           "display_name": "Google API Key",
@@ -19452,6 +20552,13 @@
       "icon": "/assets/icons/imported/google/google_serper_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "input_value",
           "display_name": "Input",
@@ -19625,6 +20732,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "ScrapeGraph API Key",
           "type": "password",
@@ -19670,6 +20784,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "ScrapeGraph API Key",
           "type": "password",
@@ -19714,6 +20835,13 @@
       "icon": "/assets/icons/imported/scrapegraph/scrapegraph_smart_scraper_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "ScrapeGraph API Key",
@@ -19769,6 +20897,13 @@
       "icon": "/assets/icons/imported/searchapi/searchapi.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "SearchAPI API Key",
@@ -19859,6 +20994,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "input_value",
           "display_name": "Input",
           "type": "textarea",
@@ -19942,6 +21084,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "Tavily API Key",
           "type": "password",
@@ -20009,6 +21158,13 @@
       "icon": "/assets/icons/imported/tavily/tavily_search_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Tavily API Key",
@@ -20176,6 +21332,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "query",
           "display_name": "Query",
           "type": "textarea",
@@ -20210,6 +21373,13 @@
       "icon": "/assets/icons/imported/wikipedia/wikipedia.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "doc_content_chars_max",
           "display_name": "Document content characters max",
@@ -20285,6 +21455,13 @@
       "icon": "/assets/icons/imported/yahoosearch/yahoo_finance.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "method",
           "display_name": "Data Method",
@@ -20367,6 +21544,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "YouTube API Key",
           "type": "password",
@@ -20441,6 +21625,13 @@
       "icon": "/assets/icons/imported/youtube/youtube_comments.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "YouTube API Key",
@@ -20530,6 +21721,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "playlist_url",
           "display_name": "Playlist URL",
           "type": "text",
@@ -20564,6 +21762,13 @@
       "icon": "/assets/icons/imported/youtube/youtube_search.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "YouTube API Key",
@@ -20645,6 +21850,13 @@
       "icon": "/assets/icons/imported/youtube/youtube_transcripts.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "chunk_size_seconds",
           "display_name": "Chunk Size (seconds)",
@@ -20730,6 +21942,13 @@
       "icon": "/assets/icons/imported/youtube/youtube_trending.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "YouTube API Key",
@@ -20861,6 +22080,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "YouTube API Key",
           "type": "password",
@@ -20948,6 +22174,13 @@
       "color": "#0079bf",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "base_url",
           "display_name": "API Base URL",
           "type": "string",
@@ -21025,6 +22258,13 @@
       "color": "#2c3e50",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "action",
           "display_name": "Action",
           "type": "select",
@@ -21101,6 +22341,13 @@
       "icon": "/assets/icons/integrations/bitrix24.svg",
       "color": "#2196f3",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "base_url",
           "display_name": "API Base URL",
@@ -21180,6 +22427,13 @@
       "color": "#673ab7",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "action",
           "display_name": "Action",
           "type": "select",
@@ -21245,6 +22499,13 @@
       "icon": "/assets/icons/imported/cometapi/cometapi.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "CometAPI Key",
@@ -21522,6 +22783,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "chunk_overlap",
           "display_name": "Chunk Overlap",
           "type": "number",
@@ -21649,6 +22917,13 @@
       "icon": "/assets/icons/imported/langchain_utilities/html_link_extractor.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "data_input",
           "display_name": "Input",
@@ -21910,6 +23185,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "langchain_api_key",
           "display_name": "LangChain API Key",
           "type": "password",
@@ -21955,6 +23237,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "dimensions",
           "display_name": "Dimensions",
           "type": "number",
@@ -21989,6 +23278,13 @@
       "icon": "/assets/icons/imported/langchain_utilities/language_recursive_text_splitter.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "chunk_overlap",
           "display_name": "Chunk Overlap",
@@ -22082,6 +23378,13 @@
       "icon": "/assets/icons/imported/langchain_utilities/natural_language_text_splitter.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "chunk_overlap",
           "display_name": "Chunk Overlap",
@@ -22414,6 +23717,13 @@
       "icon": "/assets/icons/imported/langchain_utilities/recursive_character_text_splitter.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "chunk_overlap",
           "display_name": "Chunk Overlap",
@@ -22779,6 +24089,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "uri",
           "display_name": "URI",
           "type": "text",
@@ -23088,6 +24405,13 @@
       "icon": "/assets/icons/imported/langchain_utilities/spider_web_crawler__scraper.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "blacklist",
           "display_name": "Blacklist",
@@ -23665,6 +24989,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "expression",
           "display_name": "Expression",
           "type": "text",
@@ -23707,6 +25038,13 @@
       "icon": "/assets/icons/imported/tools/google_search_api_deprecated.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "google_api_key",
           "display_name": "Google API Key",
@@ -23780,6 +25118,13 @@
       "icon": "/assets/icons/imported/tools/google_serper_api_deprecated.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "k",
           "display_name": "Number of results",
@@ -23978,6 +25323,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "description",
           "display_name": "Tool Description",
           "type": "text",
@@ -24040,6 +25392,13 @@
       "icon": "/assets/icons/imported/tools/searxng_search.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "categories",
           "display_name": "Categories",
@@ -24105,6 +25464,13 @@
       "icon": "/assets/icons/imported/tools/search_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "SearchAPI API Key",
@@ -24199,6 +25565,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "input_value",
           "display_name": "Input",
           "type": "textarea",
@@ -24281,6 +25654,13 @@
       "icon": "/assets/icons/imported/tools/tavily_search_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Tavily API Key",
@@ -24456,6 +25836,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "query",
           "display_name": "Query",
           "type": "textarea",
@@ -24498,6 +25885,13 @@
       "icon": "/assets/icons/imported/tools/wikipedia_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "doc_content_chars_max",
           "display_name": "Document content characters max",
@@ -24581,6 +25975,13 @@
       "icon": "/assets/icons/imported/tools/yahoo_finance.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "method",
           "display_name": "Data Method",
@@ -24671,6 +26072,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "expression",
           "display_name": "Expression",
           "type": "text",
@@ -24705,6 +26113,13 @@
       "icon": "/assets/icons/imported/utilities/current_date.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "timezone",
           "display_name": "Timezone",
@@ -25340,6 +26755,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "unique_id",
           "display_name": "Value",
           "type": "text",
@@ -25551,6 +26973,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "TwelveLabs API Key",
           "type": "password",
@@ -25665,6 +27094,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "TwelveLabs API Key",
           "type": "password",
@@ -25742,6 +27178,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "TwelveLabs API Key",
           "type": "password",
@@ -25809,6 +27252,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "TwelveLabs API Key",
           "type": "password",
@@ -25865,6 +27315,13 @@
       "icon": "/assets/icons/imported/twelvelabs/video_file.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "file_path",
           "display_name": "Video File",
@@ -26619,6 +28076,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "cluster_kwargs",
           "display_name": "Cluster arguments",
           "type": "json",
@@ -27114,6 +28578,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key",
           "display_name": "Cleanlab API Key",
           "type": "password",
@@ -27243,6 +28714,13 @@
       "icon": "/assets/icons/imported/cleanlab/cleanlab_rag_evaluator.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_key",
           "display_name": "Cleanlab API Key",
@@ -27904,6 +29382,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "assistant_name",
           "display_name": "Assistant Name",
           "type": "text",
@@ -27969,6 +29454,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "env_set",
           "display_name": "Environment Set",
           "type": "textarea",
@@ -28003,6 +29495,13 @@
       "icon": "/assets/icons/imported/datastax/get_assistant_name.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "assistant_id",
           "display_name": "Assistant ID",
@@ -28049,6 +29548,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "limit",
           "display_name": "Limit",
           "type": "number",
@@ -28081,6 +29587,13 @@
       "icon": "/assets/icons/imported/datastax/run_assistant.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "assistant_id",
           "display_name": "Assistant ID",
@@ -30753,6 +32266,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_endpoint",
           "display_name": "Astra DB API Endpoint",
           "type": "dropdown",
@@ -30929,6 +32449,13 @@
       "icon": "/assets/icons/imported/datastax/astra_db_chat_memory.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "api_endpoint",
           "display_name": "Astra DB API Endpoint",
@@ -31215,6 +32742,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_endpoint",
           "display_name": "Astra DB API Endpoint",
           "type": "dropdown",
@@ -31412,6 +32946,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_key_name",
           "display_name": "API Key name",
           "type": "text",
@@ -31507,6 +33048,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "dotenv_file_content",
           "display_name": "Dotenv file content",
           "type": "text",
@@ -31541,6 +33089,13 @@
       "icon": "/assets/icons/imported/datastax/get_environment_variable.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "env_var_name",
           "display_name": "Environment Variable Name",
@@ -33423,6 +34978,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "database",
           "display_name": "database",
           "type": "text",
@@ -33905,6 +35467,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "diversity_bias",
           "display_name": "Diversity Bias",
           "type": "number",
@@ -34353,6 +35922,13 @@
       "color": "#6b7280",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "api_base_path",
           "display_name": "API Base Path",
           "type": "dropdown",
@@ -34514,6 +36090,13 @@
       "color": "#db2777",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "operation",
           "display_name": "Operation",
           "type": "dropdown",
@@ -34563,6 +36146,13 @@
       "color": "#059669",
       "inputs": [
         {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
+        {
           "name": "operation",
           "display_name": "Operation",
           "type": "dropdown",
@@ -34611,6 +36201,13 @@
       "icon": "Shield",
       "color": "#1e3a8a",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "operation",
           "display_name": "Operation",
@@ -34662,6 +36259,13 @@
       "icon": "/assets/icons/imported/wolframalpha/wolframalpha_api.svg",
       "color": "#6b7280",
       "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data flow input"
+        },
         {
           "name": "app_id",
           "display_name": "WolframAlpha App ID",

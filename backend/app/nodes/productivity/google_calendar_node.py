@@ -42,16 +42,44 @@ class GoogleCalendarNode(BaseNode):
             'description': 'Calendar ID (default: primary)',
         },
         {
-            'displayName': 'Start Time',
-            'name': 'start_time',
-            'type': 'string',
-            'default': '',
-        },
-        {
             'displayName': 'Summary',
             'name': 'summary',
             'type': 'string',
             'default': '',
+            'description': 'The title of the event',
+            'displayOptions': {'show': {'operation': ['create_event', 'update_event']}},
+        },
+        {
+            'displayName': 'Description',
+            'name': 'description',
+            'type': 'string',
+            'default': '',
+            'description': 'Write the event description',
+            'displayOptions': {'show': {'operation': ['create_event', 'update_event']}},
+        },
+        {
+            'displayName': 'Start Time',
+            'name': 'start_time',
+            'type': 'string',
+            'default': '',
+            'description': 'ISO 8601 format (e.g., 2024-01-01T10:00:00Z)',
+            'displayOptions': {'show': {'operation': ['create_event', 'update_event']}},
+        },
+        {
+            'displayName': 'End Time',
+            'name': 'end_time',
+            'type': 'string',
+            'default': '',
+            'description': 'ISO 8601 format',
+            'displayOptions': {'show': {'operation': ['create_event', 'update_event']}},
+        },
+        {
+            'displayName': 'Attendees',
+            'name': 'attendees',
+            'type': 'string',
+            'default': '',
+            'description': 'Email addresses separated by commas',
+            'displayOptions': {'show': {'operation': ['create_event', 'update_event']}},
         },
     ]
     inputs = {
@@ -66,14 +94,11 @@ class GoogleCalendarNode(BaseNode):
             "default": "primary",
             "description": "Calendar ID (default: primary)"
         },
-        "summary": {
-            "type": "string",
-            "optional": True
-        },
-        "start_time": {
-            "type": "string",
-            "optional": True
-        }
+        "summary": {"type": "string", "optional": True},
+        "description": {"type": "string", "optional": True},
+        "start_time": {"type": "string", "optional": True},
+        "end_time": {"type": "string", "optional": True},
+        "attendees": {"type": "string", "optional": True}
     }
 
     outputs = {
@@ -103,8 +128,11 @@ class GoogleCalendarNode(BaseNode):
             async with aiohttp.ClientSession() as session:
                 if action == "create_event":
                     summary = self.get_config("summary") or str(input_data)
+                    description = self.get_config("description", "")
                     start_time = self.get_config("start_time")
-                    
+                    end_time_config = self.get_config("end_time")
+                    attendees_str = self.get_config("attendees", "")
+
                     # Default to 1 hour from now if no time specified
                     if not start_time:
                         start_dt = datetime.utcnow() + timedelta(hours=1)
@@ -112,17 +140,36 @@ class GoogleCalendarNode(BaseNode):
                         start_time = start_dt.isoformat() + "Z"
                         end_time = end_dt.isoformat() + "Z"
                     else:
-                        end_time = (datetime.fromisoformat(start_time.replace("Z", "")) + timedelta(hours=1)).isoformat() + "Z"
+                        if not end_time_config:
+                            # Auto-calculate end time (1h later) if not provided
+                            try:
+                                dt = datetime.fromisoformat(start_time.replace("Z", ""))
+                                end_dt = dt + timedelta(hours=1)
+                                end_time = end_dt.isoformat() + "Z"
+                            except:
+                                end_time = start_time # Fallback
+                        else:
+                            end_time = end_time_config
                     
+                    # Process Attendees
+                    attendees = []
+                    if attendees_str:
+                        attendees = [{"email": email.strip()} for email in attendees_str.split(",") if email.strip()]
+
                     url = f"{base_url}/calendars/{calendar_id}/events"
                     payload = {
                         "summary": summary,
-                        "start": {"dateTime": start_time, "timeZone": "UTC"},
-                        "end": {"dateTime": end_time, "timeZone": "UTC"}
+                        "description": description,
+                        "start": {"dateTime": start_time},
+                        "end": {"dateTime": end_time}
                     }
+                    if attendees:
+                        payload["attendees"] = attendees
+
                     async with session.post(url, headers=headers, json=payload) as resp:
                         if resp.status not in [200, 201]:
-                            return {"status": "error", "error": f"Google Calendar Error: {resp.status}"}
+                            err_body = await resp.text()
+                            return {"status": "error", "error": f"Google Calendar Error: {resp.status} - {err_body}"}
                         res_data = await resp.json()
                         return {"status": "success", "data": {"result": res_data}}
 

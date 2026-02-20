@@ -74,6 +74,19 @@ def sync():
                 if "description" in spec: input_def["description"] = spec["description"]
                 node_def["inputs"].append(input_def)
 
+            # Ensure every node has a default input handle (unless it's a trigger)
+            has_explicit_handle = any(i.get("type") == "handle" or i["name"] == "input" for i in node_def["inputs"])
+            is_trigger = node_def.get("category") == "Triggers" or "trigger" in node_id.lower()
+            
+            if not has_explicit_handle and not is_trigger:
+                node_def["inputs"].append({
+                    "name": "input",
+                    "display_name": "Input",
+                    "type": "handle",
+                    "required": False,
+                    "description": "Main data input"
+                })
+
             # Process credentials
             creds = getattr(node_class, "credentials_required", [])
             if not creds and hasattr(instance, "credentials_required"):

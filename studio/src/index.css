@@ -1327,6 +1327,22 @@ body {
   border-left: 3px solid var(--accent);
 }
 
+.field-info {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.field-info a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.field-info a:hover {
+  text-decoration: underline;
+}
+
 .add-cred-dash {
   width: 100%;
   padding: 16px;

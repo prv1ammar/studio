@@ -144,6 +144,54 @@ export default function CredentialModal({ isOpen, onClose }) {
 
                             {/* Dynamic Fields based on Type */}
                             <div className="dynamic-cred-fields">
+                                {newCred.type === 'google' && (
+                                    <>
+                                        <div className="form-group">
+                                            <label>Client ID</label>
+                                            <input
+                                                placeholder="3875...apps.googleusercontent.com"
+                                                onChange={e => setNewCred({ ...newCred, data: { ...newCred.data, client_id: e.target.value } })}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Client Secret</label>
+                                            <input
+                                                type="password"
+                                                placeholder="GOCSPX-..."
+                                                onChange={e => setNewCred({ ...newCred, data: { ...newCred.data, client_secret: e.target.value } })}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Access Token (Required for Execution)</label>
+                                            <input
+                                                type="password"
+                                                placeholder="ya29.a0Af..."
+                                                onChange={e => setNewCred({ ...newCred, data: { ...newCred.data, access_token: e.target.value } })}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Refresh Token (Optional)</label>
+                                            <input
+                                                type="password"
+                                                onChange={e => setNewCred({ ...newCred, data: { ...newCred.data, refresh_token: e.target.value } })}
+                                            />
+                                        </div>
+                                        <p className="field-info">
+                                            To get your Access Token using your Client ID, use the <a href="https://developers.google.com/oauthplayground/" target="_blank" rel="noreferrer">OAuth Playground</a>.
+                                        </p>
+                                    </>
+                                )}
+
+                                {newCred.type === 'slack' && (
+                                    <div className="form-group">
+                                        <label>Bot User OAuth Token</label>
+                                        <input
+                                            type="password"
+                                            placeholder="xoxb-..."
+                                            onChange={e => setNewCred({ ...newCred, data: { ...newCred.data, access_token: e.target.value } })}
+                                        />
+                                    </div>
+                                )}
                                 {newCred.type === 'hubspot' && (
                                     <div className="form-group">
                                         <label>Private App Access Token</label>

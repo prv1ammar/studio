@@ -83,11 +83,16 @@ const AgentNode = ({ id, data, selected }) => {
         return TYPE_COLORS[type] || TYPE_COLORS.Any;
     };
 
-    const inputs = (data.inputs || []).filter(input => input.type === 'handle');
+    const inputs = (data.inputs || []).filter(input =>
+        input.type === 'handle' ||
+        input.name === 'input' ||
+        input.name === 'input_data' ||
+        input.display_name?.toLowerCase().includes('in:')
+    );
     const outputs = data.outputs || [];
 
     return (
-        <div className={`prime-node-wrapper ${selected ? 'selected' : ''}`}>
+        <div className={`prime-node-wrapper ${selected ? 'selected' : ''}`} style={{ position: 'relative' }}>
             {/* Header */}
             <div className="prime-node-header">
                 <div
@@ -131,16 +136,14 @@ const AgentNode = ({ id, data, selected }) => {
                         {inputs.map((input, idx) => {
                             const portColor = getPortColor(input);
                             return (
-                                <div key={`in-${idx}`} className="port-row-input">
-                                    <div className="port-handle-wrapper">
-                                        <Handle
-                                            type="target"
-                                            position={Position.Left}
-                                            id={input.name}
-                                            className="custom-handle"
-                                            style={{ background: portColor }}
-                                        />
-                                    </div>
+                                <div key={`in-${idx}`} className="port-row-input" style={{ position: 'relative' }}>
+                                    <Handle
+                                        type="target"
+                                        position={Position.Left}
+                                        id={input.name}
+                                        className="custom-handle custom-handle-target"
+                                        style={{ background: portColor, left: '-9px' }}
+                                    />
                                     <span className="port-label">{input.display_name || input.name}</span>
                                 </div>
                             );
@@ -151,17 +154,15 @@ const AgentNode = ({ id, data, selected }) => {
                         {outputs.map((output, idx) => {
                             const portColor = getPortColor(output);
                             return (
-                                <div key={`out-${idx}`} className="port-row-output">
+                                <div key={`out-${idx}`} className="port-row-output" style={{ position: 'relative' }}>
                                     <span className="port-label">{output.display_name || output.name}</span>
-                                    <div className="port-handle-wrapper">
-                                        <Handle
-                                            type="source"
-                                            position={Position.Right}
-                                            id={output.name}
-                                            className="custom-handle"
-                                            style={{ background: portColor }}
-                                        />
-                                    </div>
+                                    <Handle
+                                        type="source"
+                                        position={Position.Right}
+                                        id={output.name}
+                                        className="custom-handle custom-handle-source"
+                                        style={{ background: portColor, right: '-9px' }}
+                                    />
                                 </div>
                             );
                         })}

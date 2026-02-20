@@ -1071,132 +1071,114 @@ const App = () => {
                                     </p>
                                 )}
 
-                                {/* n8n-style properties support */}
-                                {(selectedNode.data.properties || []).map((field) => {
-                                    // Check displayOptions for conditional visibility
-                                    if (field.displayOptions?.show) {
-                                        const shouldShow = Object.entries(field.displayOptions.show).every(([key, values]) => {
-                                            const currentValue = selectedNode.data[key];
-                                            return values.includes(currentValue);
-                                        });
-                                        if (!shouldShow) return null;
+                                {(() => {
+                                    const hasProperties = selectedNode.data.properties && selectedNode.data.properties.length > 0;
+                                    const fields = [];
+
+                                    // Add n8n properties
+                                    if (hasProperties) {
+                                        selectedNode.data.properties.forEach(p => fields.push({ ...p, isProperty: true }));
                                     }
 
-                                    return (
-                                        <div key={field.name} style={{ marginBottom: '16px' }}>
-                                            <label className="ins-field-label">
-                                                {field.displayName || field.name}
-                                                {field.required && <span style={{ color: 'var(--error)' }}> *</span>}
-                                            </label>
+                                    // Add legacy inputs (only if not already covered by a property name)
+                                    if (selectedNode.data.inputs) {
+                                        selectedNode.data.inputs
+                                            .filter(i => i.type !== 'handle')
+                                            .forEach(i => {
+                                                const isDuplicate = fields.some(f => f.name === i.name) ||
+                                                    (i.name === 'action' && fields.some(f => f.name === 'operation')) ||
+                                                    (i.name === 'operation' && fields.some(f => f.name === 'action'));
 
-                                            {field.type === 'boolean' ? (
-                                                <div className="ins-toggle-group">
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={selectedNode.data[field.name] ?? field.default ?? false}
-                                                        onChange={(e) => updateNodeData(field.name, e.target.checked)}
-                                                    />
-                                                    <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
-                                                        {field.description || 'Enable this option'}
-                                                    </span>
-                                                </div>
-                                            ) : field.type === 'options' ? (
-                                                <select
-                                                    className="ins-input"
-                                                    value={selectedNode.data[field.name] ?? field.default ?? ''}
-                                                    onChange={(e) => updateNodeData(field.name, e.target.value)}
-                                                >
-                                                    <option value="">Select...</option>
-                                                    {(field.options || []).map((opt) => (
-                                                        <option key={opt.value} value={opt.value}>{opt.name}</option>
-                                                    ))}
-                                                </select>
-                                            ) : (
-                                                <input
-                                                    className="ins-input"
-                                                    type={field.type === 'number' ? 'number' : 'text'}
-                                                    value={selectedNode.data[field.name] ?? field.default ?? ''}
-                                                    onChange={(e) => updateNodeData(field.name, field.type === 'number' ? parseFloat(e.target.value) : e.target.value)}
-                                                    placeholder={field.placeholder || field.description}
-                                                />
-                                            )}
-
-                                            {field.description && field.type !== 'boolean' && (
-                                                <p style={{ fontSize: '11px', color: 'var(--text-tertiary)', marginTop: '4px' }}>
-                                                    {field.description}
-                                                </p>
-                                            )}
-                                        </div>
-                                    );
-                                })}
-
-                                {/* Legacy inputs support (for backward compatibility) */}
-                                {(selectedNode.data.inputs || []).filter(input => input.type !== 'handle').map((field) => (
-                                    <div key={field.name} style={{ marginBottom: '16px' }}>
-                                        <label className="ins-field-label">
-                                            {field.display_name || field.name}
-                                            {field.required && <span style={{ color: 'var(--error)' }}> *</span>}
-                                        </label>
-
-                                        {field.type === 'boolean' ? (
-                                            <div className="ins-toggle-group">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={selectedNode.data[field.name] ?? field.default ?? false}
-                                                    onChange={(e) => updateNodeData(field.name, e.target.checked)}
-                                                />
-                                                <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
-                                                    {field.description || 'Enable this option'}
-                                                </span>
-                                            </div>
-                                        ) : (field.type === 'dropdown' || field.type === 'multiselect' || field.options || field.name.toLowerCase().includes('api_key') || field.name.toLowerCase().includes('token') || field.name.toLowerCase().includes('credential')) ? (
-                                            <select
-                                                className="ins-input"
-                                                multiple={field.type === 'multiselect'}
-                                                style={field.type === 'multiselect' ? { height: 'auto', minHeight: '80px' } : {}}
-                                                value={selectedNode.data[field.name] ?? (field.type === 'multiselect' ? [] : field.default ?? '')}
-                                                onChange={(e) => {
-                                                    if (field.type === 'multiselect') {
-                                                        const values = Array.from(e.target.selectedOptions).map(o => o.value);
-                                                        updateNodeData(field.name, values);
-                                                    } else {
-                                                        updateNodeData(field.name, e.target.value);
-                                                    }
-                                                }}
-                                            >
-                                                {field.type !== 'multiselect' && <option value="">Select...</option>}
-
-                                                {/* Auto-inject Credentials if it looks like an auth field */}
-                                                {(field.name.toLowerCase().includes('api_key') || field.name.toLowerCase().includes('token') || field.name.toLowerCase().includes('credential')) &&
-                                                    credentialList.map(c => (
-                                                        <option key={c.value} value={c.value}>🔒 {c.label} ({c.type})</option>
-                                                    ))
+                                                if (!isDuplicate) {
+                                                    fields.push({ ...i, displayName: i.display_name || i.name, isProperty: false });
                                                 }
+                                            });
+                                    }
 
-                                                {/* Standard options */}
-                                                {(field.options || []).map((opt) => {
-                                                    const label = typeof opt === 'object' ? opt.label : opt;
-                                                    const value = typeof opt === 'object' ? opt.value : opt;
-                                                    return <option key={value} value={value}>{label}</option>;
-                                                })}
-                                            </select>
-                                        ) : (
-                                            <input
-                                                className="ins-input"
-                                                type={field.type === 'password' ? 'password' : field.type === 'number' ? 'number' : 'text'}
-                                                value={selectedNode.data[field.name] ?? field.default ?? ''}
-                                                onChange={(e) => updateNodeData(field.name, field.type === 'number' ? parseFloat(e.target.value) : e.target.value)}
-                                                placeholder={field.description}
-                                            />
-                                        )}
+                                    return fields.map((field) => {
+                                        // Conditional Visibility (n8n displayOptions style)
+                                        if (field.displayOptions?.show) {
+                                            const shouldShow = Object.entries(field.displayOptions.show).every(([key, values]) => {
+                                                const currentValue = selectedNode.data[key] ?? field.default;
+                                                const allowedValues = Array.isArray(values) ? values : [values];
+                                                return allowedValues.includes(currentValue);
+                                            });
+                                            if (!shouldShow) return null;
+                                        }
 
-                                        {field.description && field.type !== 'boolean' && (
-                                            <p style={{ fontSize: '11px', color: 'var(--text-tertiary)', marginTop: '4px' }}>
-                                                {field.description}
-                                            </p>
-                                        )}
-                                    </div>
-                                ))}
+                                        const val = selectedNode.data[field.name] ?? field.default ?? '';
+
+                                        return (
+                                            <div key={field.name} style={{ marginBottom: '16px' }}>
+                                                <label className="ins-field-label">
+                                                    {field.displayName || field.name}
+                                                    {field.required && <span style={{ color: 'var(--error)' }}> *</span>}
+                                                </label>
+
+                                                {field.type === 'boolean' ? (
+                                                    <div className="ins-toggle-group" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={!!val}
+                                                            onChange={(e) => updateNodeData(field.name, e.target.checked)}
+                                                        />
+                                                        <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+                                                            {field.description || 'Enable'}
+                                                        </span>
+                                                    </div>
+                                                ) : (field.type === 'options' || field.type === 'dropdown' || field.type === 'credentials') ? (
+                                                    <select
+                                                        className="ins-input"
+                                                        value={val}
+                                                        onChange={(e) => {
+                                                            const newVal = e.target.value;
+                                                            const updates = { [field.name]: newVal };
+                                                            // Sync action/operation aliases
+                                                            if (field.name === 'operation') updates.action = newVal;
+                                                            if (field.name === 'action') updates.operation = newVal;
+                                                            updateNodeData(updates);
+                                                        }}
+                                                    >
+                                                        <option value="">Select...</option>
+                                                        {field.type === 'credentials' && credentialList.map(c => (
+                                                            <option key={c.value} value={c.value}>🔒 {c.label}</option>
+                                                        ))}
+                                                        {(field.options || []).map((opt) => {
+                                                            const optName = typeof opt === 'object' ? (opt.displayName || opt.name || opt.label) : opt;
+                                                            const optVal = typeof opt === 'object' ? (opt.value ?? opt.name) : opt;
+                                                            return <option key={optVal} value={optVal}>{optName}</option>;
+                                                        })}
+                                                    </select>
+                                                ) : (field.type === 'textarea' || field.type === 'json') ? (
+                                                    <textarea
+                                                        className="ins-input"
+                                                        style={{ height: '120px', padding: '10px', fontFamily: field.type === 'json' ? 'monospace' : 'inherit' }}
+                                                        value={typeof val === 'object' ? JSON.stringify(val, null, 2) : val}
+                                                        onChange={(e) => updateNodeData(field.name, e.target.value)}
+                                                        placeholder={field.placeholder || field.description}
+                                                    />
+                                                ) : (
+                                                    <input
+                                                        className="ins-input"
+                                                        type={field.type === 'number' ? 'number' : field.type === 'password' ? 'password' : 'text'}
+                                                        value={val}
+                                                        onChange={(e) => {
+                                                            const newVal = field.type === 'number' ? parseFloat(e.target.value) : e.target.value;
+                                                            updateNodeData(field.name, newVal);
+                                                        }}
+                                                        placeholder={field.placeholder || field.description}
+                                                    />
+                                                )}
+
+                                                {field.description && field.type !== 'boolean' && (
+                                                    <p style={{ fontSize: '11px', color: 'var(--text-tertiary)', marginTop: '4px' }}>
+                                                        {field.description}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        );
+                                    });
+                                })()}
                             </div>
                         </>
                     ) : (

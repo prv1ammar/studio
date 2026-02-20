@@ -50,6 +50,13 @@
           "required": false,
           "default": 1024,
           "description": "Max output tokens"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -177,6 +184,13 @@
           "required": false,
           "default": 1024,
           "description": "Max tokens"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -296,6 +310,13 @@
           "type": "string",
           "required": true,
           "description": "User prompt or JSON contents array"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -410,6 +431,13 @@
           "type": "string",
           "required": false,
           "description": "JSON parameters (e.g. {max_new_tokens: 50})"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -535,6 +563,13 @@
           "type": "string",
           "required": false,
           "description": "URL for scraping or search"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -651,6 +686,13 @@
           "type": "number",
           "required": false,
           "default": 1024
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -766,6 +808,13 @@
           "required": false,
           "default": false,
           "description": "Enable JSON output mode"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -894,6 +943,13 @@
           "required": false,
           "default": 0.7,
           "description": "Randomness (0.0 to 2.0)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -1008,6 +1064,13 @@
           "type": "string",
           "required": true,
           "description": "The search query or prompt"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -1107,6 +1170,13 @@
           "display_name": "Content",
           "type": "any",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -1245,6 +1315,13 @@
           "required": false,
           "default": false,
           "description": "Disable streaming responses"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -1428,6 +1505,13 @@
           "required": false,
           "default": true,
           "description": "Normalize embeddings to unit length"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -1563,6 +1647,13 @@
           "type": "string",
           "required": false,
           "description": "Type/Name of the event to track"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -1663,6 +1754,13 @@
           "display_name": "Properties",
           "type": "object",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -1740,6 +1838,13 @@
           "display_name": "Email",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -1824,6 +1929,13 @@
           "type": "string",
           "required": false,
           "description": "YYYY-MM-DD"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -1933,6 +2045,13 @@
           "type": "string",
           "required": false,
           "description": "Comma separated metrics"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -2045,6 +2164,13 @@
           "type": "string",
           "required": false,
           "description": "JSON properties"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -2142,6 +2268,13 @@
           "display_name": "Survey Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -2231,6 +2364,13 @@
           "display_name": "Distinct Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -2329,6 +2469,13 @@
           "display_name": "Properties",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -2429,6 +2576,13 @@
           "display_name": "Properties",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -2534,6 +2688,13 @@
           "type": "string",
           "required": false,
           "description": "Sentry DSN (if not in credentials)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -2677,6 +2838,13 @@
           "type": "string",
           "required": false,
           "description": "User message or input text"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -2813,6 +2981,13 @@
           "display_name": "Pickup Location",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -2896,6 +3071,13 @@
           "type": "string",
           "required": true,
           "description": "Vehicle Identification Number"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -2984,6 +3166,13 @@
           "display_name": "Location",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -3070,6 +3259,13 @@
           "display_name": "Vehicle Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -3164,6 +3360,13 @@
           "type": "string",
           "required": false,
           "description": "Value 3"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -3236,6 +3439,13 @@
           "type": "string",
           "required": true,
           "description": "JSON payload to send"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -3295,6 +3505,13 @@
           "type": "string",
           "required": true,
           "description": "JSON payload"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -3360,6 +3577,13 @@
           "type": "string",
           "required": true,
           "description": "JSON payload"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -3438,6 +3662,13 @@
           "display_name": "Post Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -3566,6 +3797,13 @@
           "type": "string",
           "required": false,
           "description": "Document type for creation"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -3697,6 +3935,13 @@
           "type": "json",
           "required": false,
           "description": "Fields for creating a CMS item"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -3811,6 +4056,13 @@
           "type": "string",
           "required": false,
           "default": "publish"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -3900,6 +4152,13 @@
           "required": false,
           "default": 30,
           "description": "Timeout in seconds"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -4023,6 +4282,13 @@
           "required": false,
           "default": 60,
           "description": "Request timeout in seconds"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -4208,6 +4474,13 @@
           "display_name": "Task Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -4291,6 +4564,13 @@
           "display_name": "Task Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -4375,6 +4655,13 @@
           "display_name": "Issue Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -4502,6 +4789,13 @@
           "display_name": "Item Name",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -4599,6 +4893,13 @@
           "type": "string",
           "required": true,
           "description": "BigCommerce Store Hash (e.g. ac123xyz)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -4689,6 +4990,13 @@
           "type": "string",
           "required": false,
           "description": "Specific Order or Subscription ID"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -4781,6 +5089,13 @@
           "type": "string",
           "required": true,
           "description": "Magento Base URL (e.g. https://yourstore.com)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -4870,6 +5185,13 @@
           "type": "any",
           "required": false,
           "description": "Order amount or full data dict"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -4970,6 +5292,13 @@
           "display_name": "Customer Email",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -5081,6 +5410,13 @@
           ],
           "default": "list_orders",
           "description": "Squarespace action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -5198,6 +5534,13 @@
           "display_name": "Family Name",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -5330,6 +5673,13 @@
           "type": "string",
           "required": true,
           "description": "Wix Site ID"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -5449,6 +5799,13 @@
             "refunded",
             "failed"
           ]
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -5622,6 +5979,13 @@
           "display_name": "Template Name",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -5735,6 +6099,13 @@
           "display_name": "Content",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -5824,6 +6195,13 @@
           "display_name": "Text",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -5940,6 +6318,13 @@
           "display_name": "Html Body",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -6007,6 +6392,13 @@
           "display_name": "Text",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -6074,6 +6466,13 @@
           "display_name": "Text",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -6137,6 +6536,13 @@
           "display_name": "Last Name",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -6209,6 +6615,13 @@
           "display_name": "Team Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -6344,6 +6757,13 @@
           "type": "string",
           "required": false,
           "description": "JSON adaptive card"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -6475,6 +6895,13 @@
           "display_name": "Body",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -6606,6 +7033,13 @@
           "type": "string",
           "required": false,
           "description": "JSON for template variables"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -6711,6 +7145,13 @@
           "display_name": "Slack Api",
           "type": "credential",
           "required": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [],
@@ -6962,6 +7403,13 @@
           "required": false,
           "default": 10,
           "description": "Number of messages to retrieve"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -7074,6 +7522,13 @@
           "type": "boolean",
           "required": false,
           "default": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -7168,6 +7623,13 @@
           "display_name": "Message",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -7266,6 +7728,13 @@
           "type": "string",
           "required": false,
           "default": "Markdown"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -7356,6 +7825,13 @@
           "required": false,
           "default": "en_US",
           "description": "Template language code"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -7476,6 +7952,13 @@
           "display_name": "Meeting Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -7569,6 +8052,13 @@
           "type": "string",
           "required": false,
           "description": "Path relative to sandbox root"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -7610,6 +8100,13 @@
           "type": "string",
           "required": false,
           "description": "Text content to write"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -7650,6 +8147,13 @@
           "display_name": "File Path",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -7754,7 +8258,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -7765,7 +8277,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -7822,6 +8342,13 @@
           "type": "string",
           "required": false,
           "description": "JSON object of fields"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -7926,6 +8453,13 @@
           "display_name": "Keyspace",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -7990,6 +8524,13 @@
           "required": false,
           "default": "default",
           "description": "Database name"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -8082,6 +8623,13 @@
           "display_name": "Document Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -8214,6 +8762,13 @@
           "display_name": "Table Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -8342,6 +8897,13 @@
           "type": "string",
           "required": false,
           "description": "JSON Document"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -8449,6 +9011,13 @@
           "display_name": "Table",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -8543,6 +9112,13 @@
           "type": "string",
           "required": false,
           "description": "SQL Query"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -8638,6 +9214,13 @@
           "type": "string",
           "required": false,
           "description": "JSON array of parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -8746,6 +9329,13 @@
           "type": "number",
           "required": false,
           "description": "Expiration in seconds"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -8846,6 +9436,13 @@
           "type": "json",
           "required": false,
           "description": "Query parameters (for safety)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -8934,6 +9531,13 @@
           "type": "string",
           "required": false,
           "description": "JSON payload"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -9026,6 +9630,13 @@
           "display_name": "Title",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -9126,6 +9737,13 @@
           "display_name": "Branch",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -9219,6 +9837,13 @@
           "required": false,
           "default": false,
           "description": "Show all containers (even stopped ones)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -9370,6 +9995,13 @@
           "type": "string",
           "required": false,
           "description": "Head branch for PRs"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -9534,6 +10166,13 @@
           "display_name": "Description",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -9647,6 +10286,13 @@
           "type": "string",
           "required": false,
           "description": "Build number"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -9800,6 +10446,13 @@
           "type": "string",
           "required": false,
           "description": "Transition ID for status changes"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -9961,6 +10614,13 @@
           "display_name": "Job Template Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -10058,6 +10718,13 @@
           "display_name": "Workspace Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -10174,6 +10841,13 @@
           "type": "json",
           "required": false,
           "description": "Structured data (name, description, etc.)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -10263,7 +10937,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -10307,6 +10989,13 @@
           "display_name": "Course Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -10408,6 +11097,13 @@
           "display_name": "Course Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -10515,6 +11211,13 @@
           "display_name": "Course Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -10591,6 +11294,13 @@
           "display_name": "Duolingo Auth",
           "type": "credential",
           "required": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": []
@@ -10609,6 +11319,13 @@
           "display_name": "Skillshare Auth",
           "type": "credential",
           "required": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": []
@@ -10646,6 +11363,13 @@
           "display_name": "Query",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -10735,6 +11459,13 @@
           "display_name": "Event Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -10835,6 +11566,13 @@
           "type": "string",
           "required": false,
           "description": "Unique API ID of the event"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -10925,6 +11663,13 @@
           "type": "string",
           "required": false,
           "description": "Search query for groups or events"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -11027,6 +11772,13 @@
           "required": false,
           "default": false,
           "description": "Allow loading pickle files (only if you trust the source)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -11118,6 +11870,13 @@
           "display_name": "Jobber Auth",
           "type": "credential",
           "required": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": []
@@ -11156,6 +11915,13 @@
           "display_name": "Tenant Id",
           "type": "string",
           "required": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -11237,6 +12003,13 @@
           ],
           "default": "list_accounts",
           "description": "Brex action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -11317,6 +12090,13 @@
           ],
           "default": "get_reports",
           "description": "Expensify action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -11394,6 +12174,13 @@
           "type": "string",
           "required": false,
           "description": "FreshBooks Account ID (required for invoices/clients)."
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -11489,6 +12276,13 @@
           "type": "string",
           "required": true,
           "description": "NetSuite Account ID (e.g. 1234567-sb1)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -11583,6 +12377,13 @@
           "type": "string",
           "required": false,
           "default": "us-ashburn-1"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -11703,6 +12504,13 @@
           "type": "string",
           "required": false,
           "description": "Unique user ID for link token"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -11820,6 +12628,13 @@
           ],
           "default": "list_transactions",
           "description": "Ramp action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -11900,6 +12715,13 @@
           ],
           "default": "get_sales_invoices",
           "description": "Sage action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -11977,6 +12799,13 @@
           "type": "string",
           "required": true,
           "description": "SAP S/4HANA or Business One OData URL"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -12066,6 +12895,13 @@
           "type": "string",
           "required": false,
           "description": "The unique ID of the business in Wave."
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -12169,6 +13005,13 @@
           "required": false,
           "default": true,
           "description": "Use Wise Sandbox environment"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -12271,6 +13114,13 @@
           "type": "string",
           "required": true,
           "description": "Xero Tenant ID"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -12352,6 +13202,13 @@
           ],
           "default": "get_vehicles",
           "description": "Fleetio action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -12421,6 +13278,13 @@
           ],
           "default": "get_vehicles",
           "description": "Motive action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -12490,6 +13354,13 @@
           ],
           "default": "get_vehicle_locations",
           "description": "Samsara action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -12572,6 +13443,13 @@
           "type": "any",
           "required": false,
           "description": "Value to compare against"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -12718,6 +13596,13 @@
           "type": "string",
           "required": false,
           "description": "Field to check for duplicates"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -12846,6 +13731,13 @@
           "type": "any",
           "required": false,
           "description": "List of items to iterate over"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -12915,6 +13807,13 @@
           "type": "string",
           "required": false,
           "description": "JSON object of mapping { \"new_field\": \"{{ old_field }} + value\" }"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -13015,6 +13914,13 @@
             "input2"
           ],
           "description": "Which branch to keep (for choose_branch mode)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -13111,7 +14017,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -13150,6 +14064,13 @@
           "required": false,
           "default": false,
           "description": "Keep only the set values, remove others"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -13229,6 +14150,13 @@
           "type": "any",
           "required": false,
           "description": "Data to split into batches"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -13309,6 +14237,13 @@
           "required": false,
           "default": false,
           "description": "Reset batch counter"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -13415,6 +14350,13 @@
           "type": "string",
           "required": false,
           "description": "Wait until this date (YYYY-MM-DD HH:MM format)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -13544,6 +14486,13 @@
           "display_name": "External Delivery Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -13617,6 +14566,13 @@
           "display_name": "Grubhub Auth",
           "type": "credential",
           "required": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": []
@@ -13655,6 +14611,13 @@
           "display_name": "Order Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -13740,6 +14703,13 @@
           "display_name": "Query",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -13830,6 +14800,13 @@
           "type": "number",
           "required": false,
           "default": 10
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -13938,6 +14915,13 @@
           "type": "number",
           "required": false,
           "default": 10
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -14054,6 +15038,13 @@
           "type": "string",
           "required": false,
           "description": "ISO 8601 date string to filter responses"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -14168,6 +15159,13 @@
           "display_name": "User Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -14265,6 +15263,13 @@
           "type": "string",
           "required": false,
           "description": "ID of the game/app"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -14367,6 +15372,13 @@
           "type": "string",
           "required": false,
           "description": "Unique ID of the broadcaster"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -14469,6 +15481,13 @@
           "type": "string",
           "required": false,
           "description": "Email content body"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -14546,6 +15565,13 @@
           "type": "string",
           "required": false,
           "description": "Gmail search query (e.g. 'label:inbox')"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -14605,6 +15631,13 @@
           "display_name": "Resource Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -14658,7 +15691,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -14669,7 +15710,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -14680,7 +15729,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -14691,7 +15748,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -14729,6 +15794,13 @@
           "type": "number",
           "required": false,
           "default": 5
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -14810,6 +15882,13 @@
           "type": "string",
           "required": false,
           "description": "YYYY-MM-DD"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -14886,6 +15965,13 @@
           ],
           "default": "get_daily_summary",
           "description": "Garmin action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -14942,6 +16028,13 @@
           "display_name": "Mindbody Auth",
           "type": "credential",
           "required": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": []
@@ -14980,6 +16073,13 @@
           "type": "string",
           "required": false,
           "description": "YYYY-MM-DD"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -15043,6 +16143,13 @@
           "display_name": "Peloton Auth",
           "type": "credential",
           "required": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": []
@@ -15081,6 +16188,13 @@
           "type": "string",
           "required": false,
           "description": "Required for stats"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -15165,6 +16279,13 @@
           ],
           "default": "get_recovery_data",
           "description": "Whoop action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -15225,6 +16346,13 @@
           "display_name": "Zenplanner Auth",
           "type": "credential",
           "required": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": []
@@ -15271,6 +16399,13 @@
           "type": "number",
           "required": false,
           "default": 100
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -15386,6 +16521,13 @@
           "type": "number",
           "required": false,
           "default": 10
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -15501,6 +16643,13 @@
           "type": "string",
           "required": false,
           "description": "Record name (e.g., example.com)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -15617,6 +16766,13 @@
           "type": "string",
           "required": false,
           "default": "ubuntu-20-04-x64"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -15746,6 +16902,13 @@
           "type": "string",
           "required": true,
           "description": "K8s API Server URL (e.g., https://1.2.3.4)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -15880,6 +17043,13 @@
           "type": "string",
           "required": false,
           "default": "linode/ubuntu20.04"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -16013,6 +17183,13 @@
           "type": "number",
           "required": false,
           "default": 387
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -16144,6 +17321,13 @@
           "required": false,
           "default": 0,
           "description": "Row number to use as header (0-indexed)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -16258,6 +17442,13 @@
           "required": false,
           "default": false,
           "description": "Extract images from the PDF (Unstructured only)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -16359,6 +17550,13 @@
           "required": false,
           "default": 1,
           "description": "Maximum depth for crawling (Firecrawl only)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -16461,6 +17659,13 @@
           ],
           "default": "toggle",
           "description": "Service action to perform"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -16561,6 +17766,13 @@
           "type": "string",
           "required": false,
           "description": "Search query"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -16681,6 +17893,13 @@
           "type": "number",
           "required": false,
           "default": 20
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -16802,6 +18021,13 @@
           "required": false,
           "default": "https://demo.docusign.net/restapi/v2.1",
           "description": "API Base URL (e.g. demo vs production)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -16922,6 +18148,13 @@
           "display_name": "Record Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -17021,6 +18254,13 @@
           "type": "string",
           "required": false,
           "description": "City or Restaurant name"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -17109,6 +18349,13 @@
           "display_name": "Term",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [],
@@ -17176,6 +18423,13 @@
           ],
           "default": "list_shipments",
           "description": "Shippo action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -17264,6 +18518,13 @@
           "display_name": "Order Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -17366,6 +18627,13 @@
           "display_name": "First Name",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -17476,6 +18744,13 @@
           "type": "array",
           "required": false,
           "description": "List IDs to add contact to"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -17597,6 +18872,13 @@
           "display_name": "Email",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -17694,6 +18976,13 @@
           "display_name": "Last Name",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -17801,6 +19090,13 @@
           "type": "string",
           "required": false,
           "description": "JSON object of properties"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -17911,6 +19207,13 @@
           "display_name": "Last Name",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -18011,6 +19314,13 @@
           "display_name": "Family Name",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -18128,6 +19438,13 @@
           ],
           "default": "subscribed",
           "description": "Subscriber status"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -18254,6 +19571,13 @@
           "display_name": "Params",
           "type": "object",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -18353,6 +19677,13 @@
           "type": "string",
           "required": false,
           "default": "USD"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -18473,6 +19804,13 @@
           "type": "string",
           "required": false,
           "description": "SOQL Query"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -18595,6 +19933,13 @@
           "display_name": "Record Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -18688,6 +20033,13 @@
           "display_name": "Data",
           "type": "object",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -18757,6 +20109,13 @@
           "required": false,
           "default": "ATVPDKIKX0DER",
           "description": "Amazon Marketplace ID"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -18837,6 +20196,13 @@
           ],
           "default": "get_orders",
           "description": "eBay action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -18913,6 +20279,13 @@
           "type": "string",
           "required": true,
           "description": "Unique ID of your Etsy shop"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -18996,6 +20369,13 @@
           "display_name": "Query",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -19071,6 +20451,13 @@
           ],
           "default": "list_orders",
           "description": "Walmart action"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -19193,6 +20580,13 @@
           "required": false,
           "default": 1,
           "description": "Number of images (DALL-E 2 only)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -19366,6 +20760,13 @@
           "required": false,
           "default": 0.75,
           "description": "Clarity + Similarity boost (0-1)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -19487,6 +20888,13 @@
           "display_name": "Comment",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -19612,6 +21020,13 @@
           "type": "string",
           "required": false,
           "description": "Required for get_video_status"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -19764,6 +21179,13 @@
           "type": "boolean",
           "required": false,
           "default": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -19911,6 +21333,13 @@
           "required": false,
           "default": true,
           "description": "Wait for the video to be rendered (can take minutes)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -20067,6 +21496,13 @@
           ],
           "default": "png",
           "description": "Output file format"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -20215,6 +21651,13 @@
           "type": "string",
           "required": false,
           "description": "URL of the video to index"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -20321,6 +21764,13 @@
           "type": "string",
           "required": false,
           "description": "ID of the folder/project"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -20430,6 +21880,13 @@
           "type": "string",
           "required": false,
           "description": "Unique hashed ID for the media"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -20544,6 +22001,13 @@
           "required": false,
           "default": true,
           "description": "Return as list of messages (True) or string (False)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -20630,6 +22094,13 @@
           "required": false,
           "default": 10,
           "description": "Number of recent messages to keep in active buffer"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -20723,6 +22194,13 @@
           "type": "string",
           "required": true,
           "description": "Unique identifier for the user"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -20852,6 +22330,13 @@
           "required": false,
           "default": true,
           "description": "Return messages list or string history"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -20983,6 +22468,13 @@
             "system"
           ],
           "default": "user"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -21110,6 +22602,13 @@
           ],
           "default": "us1",
           "description": "Datadog site region"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -21206,6 +22705,13 @@
           "display_name": "Newrelic Auth",
           "type": "credential",
           "required": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": []
@@ -21245,6 +22751,13 @@
           "display_name": "Incident Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -21350,6 +22863,13 @@
           "required": false,
           "default": 3,
           "description": "Number of top results to return"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -21457,6 +22977,13 @@
           "required": false,
           "default": true,
           "description": "Trim whitespace from each text before combining"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -21561,6 +23088,13 @@
           "display_name": "Transform Rules",
           "type": "object",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -21672,6 +23206,13 @@
           "required": false,
           "default": true,
           "description": "Automatically repair malformed JSON using json-repair"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -21744,7 +23285,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -21776,6 +23325,13 @@
           "type": "boolean",
           "required": false,
           "default": true
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -21845,6 +23401,13 @@
           "type": "string",
           "required": false,
           "description": "Regex pattern to match"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -21923,6 +23486,13 @@
           "type": "string",
           "required": false,
           "description": "Text to split"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -22012,6 +23582,13 @@
           "type": "string",
           "required": false,
           "default": "https://api.unstructured.io/general/v0/general"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -22143,6 +23720,13 @@
           "display_name": "Subject",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -22224,6 +23808,13 @@
           "type": "number",
           "required": false,
           "description": "1 (normal) to 4 (urgent)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -22277,6 +23868,13 @@
           "display_name": "Event Uuid",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -22386,6 +23984,13 @@
           "type": "string",
           "required": false,
           "description": "JSON for row data/updates"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -22515,6 +24120,13 @@
           "type": "string",
           "required": false,
           "description": "JSON array of values"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -22657,6 +24269,13 @@
           "type": "string",
           "required": false,
           "description": "Comma separated emails"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -22809,6 +24428,13 @@
           "display_name": "Find Text",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -22879,6 +24505,13 @@
           "type": "json",
           "required": false,
           "description": "Array of arrays for values (e.g., [[val1, val2]])"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -23029,6 +24662,13 @@
           "type": "string",
           "required": false,
           "description": "RFC 3339 timestamp (e.g., 2024-12-31T23:59:59.000Z)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -23173,6 +24813,13 @@
           "display_name": "End Time",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -23308,6 +24955,13 @@
           "type": "any",
           "required": false,
           "description": "Row values (array of arrays)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -23370,6 +25024,13 @@
           "type": "string",
           "required": false,
           "description": "Content for sticky note"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -23484,6 +25145,13 @@
           "type": "json",
           "required": false,
           "description": "Filter object for Query Database"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -23629,6 +25297,13 @@
           "display_name": "Item Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -23749,6 +25424,13 @@
           "display_name": "Name",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -23841,6 +25523,13 @@
           "display_name": "Order Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -23936,6 +25625,13 @@
           "display_name": "Request Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -24033,6 +25729,13 @@
           "type": "string",
           "required": false,
           "description": "ID/Key of the job"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -24146,6 +25849,13 @@
           "display_name": "Property Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -24247,6 +25957,13 @@
           "display_name": "Property Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -24343,6 +26060,13 @@
           "type": "string",
           "required": false,
           "description": "Zillow Property ID"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -24462,6 +26186,13 @@
           "type": "number",
           "required": false,
           "default": 10
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -24588,6 +26319,13 @@
           "required": false,
           "default": true,
           "description": "Wait for actor to complete before returning"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -24676,6 +26414,13 @@
           "required": false,
           "default": "en-US",
           "description": "The market to search in (e.g., en-US, fr-FR)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -24779,6 +26524,13 @@
           "required": false,
           "default": true,
           "description": "Extract only the main content (skip headers/footers)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -24902,6 +26654,13 @@
           "type": "string",
           "required": false,
           "description": "Email or ID to act as (X-Scio-ActAs header)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -24974,6 +26733,13 @@
           "required": false,
           "default": 10,
           "description": "Number of results to return"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -25046,6 +26812,13 @@
           "required": false,
           "default": 20,
           "description": "Number of results to return (min: 20)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -25126,6 +26899,13 @@
           ],
           "default": "google",
           "description": "The search engine to use"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -25228,6 +27008,13 @@
           "required": false,
           "default": 10,
           "description": "Number of results to return"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -25347,6 +27134,13 @@
           ],
           "default": "basic",
           "description": "Depth of search (Tavily specific)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -25462,6 +27256,13 @@
           ],
           "default": "plaintext",
           "description": "The format of the response"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -25546,6 +27347,13 @@
           "type": "string",
           "required": true,
           "description": "Text to process"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -25626,6 +27434,13 @@
           "display_name": "User Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -25721,6 +27536,13 @@
           "type": "string",
           "required": false,
           "description": "Optional salt to append before hashing"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -25836,6 +27658,13 @@
           ],
           "default": "HS256",
           "description": "Signing algorithm"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -25964,6 +27793,13 @@
           "display_name": "Message",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -26070,6 +27906,13 @@
           "type": "string",
           "required": true,
           "description": "The ID of the Instagram Business account"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -26188,6 +28031,13 @@
           "display_name": "Caption",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -26298,6 +28148,13 @@
           "display_name": "Article Url",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -26390,6 +28247,13 @@
           "type": "number",
           "required": false,
           "default": 10
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -26464,6 +28328,13 @@
           "display_name": "Query",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -26565,6 +28436,13 @@
           "required": false,
           "default": 10,
           "description": "Max results for search"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -26681,6 +28559,13 @@
           "display_name": "Comment Text",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -26826,6 +28711,13 @@
           "display_name": "Publication Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -27010,6 +28902,13 @@
           "type": "string",
           "required": false,
           "description": "URL for photo/video content"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -27180,6 +29079,13 @@
           "display_name": "Media Thumbnail",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -27306,6 +29212,13 @@
           "display_name": "Photo Url",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -27436,6 +29349,13 @@
           ],
           "default": "self",
           "description": "Post type (self=text)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -27570,6 +29490,13 @@
           "display_name": "Description",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -27675,6 +29602,13 @@
           "display_name": "Text",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -27758,6 +29692,13 @@
           "display_name": "Image Url",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -27834,6 +29775,13 @@
           "display_name": "Customer Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -27920,6 +29868,13 @@
           "type": "object",
           "required": false,
           "description": "Fields for writing"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -28020,6 +29975,13 @@
           "display_name": "File Content",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -28125,6 +30087,13 @@
           "display_name": "File Content",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -28234,6 +30203,13 @@
           "type": "string",
           "required": false,
           "description": "Content to upload"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -28329,6 +30305,13 @@
           "required": false,
           "default": {},
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -28383,6 +30366,13 @@
           "type": "object",
           "required": false,
           "description": "Dictionary of column:value"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -28444,6 +30434,13 @@
           "type": "object",
           "required": false,
           "description": "Parameters for the WHERE clause"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -28506,6 +30503,13 @@
           "type": "string",
           "required": false,
           "description": "Content to upload"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -28578,7 +30582,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -28622,6 +30634,13 @@
           "display_name": "File Content",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -28728,6 +30747,13 @@
           "display_name": "Content",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -28843,6 +30869,13 @@
           "display_name": "File Content",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -28964,6 +30997,13 @@
           "type": "number",
           "required": false,
           "default": 4
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -29068,6 +31108,13 @@
           "display_name": "File Name",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -29187,6 +31234,13 @@
           "type": "string",
           "required": false,
           "description": "Folder name"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -29302,6 +31356,13 @@
           "type": "number",
           "required": false,
           "default": 4
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -29392,6 +31453,13 @@
           "display_name": "File Content",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -29491,6 +31559,13 @@
           "type": "number",
           "required": false,
           "default": 10
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -29605,6 +31680,13 @@
           "type": "number",
           "required": false,
           "default": 10
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -29702,6 +31784,13 @@
           "display_name": "Key",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -29794,6 +31883,13 @@
           "required": false,
           "default": 0.5,
           "description": "Hybrid search alpha (0=keyword, 1=vector)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -29848,7 +31944,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -29913,6 +32017,13 @@
           "required": false,
           "default": 2,
           "description": "2 (open), 3 (pending), etc."
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -30030,6 +32141,13 @@
           "display_name": "Subject",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -30146,6 +32264,13 @@
           "required": false,
           "default": "1",
           "description": "Stage ID"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -30264,6 +32389,13 @@
           "display_name": "Body",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -30380,6 +32512,13 @@
           "type": "string",
           "required": false,
           "description": "JSON body for create/update"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -30523,6 +32662,13 @@
           "display_name": "Params",
           "type": "object",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -30638,6 +32784,13 @@
           "display_name": "Ticket Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -30764,6 +32917,13 @@
           "type": "string",
           "required": false,
           "description": "API Key for chosen provider (overrides credential)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -30847,7 +33007,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -30858,7 +33026,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -30869,7 +33045,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -30880,7 +33064,15 @@
       "category": "Native Integrations",
       "icon": "Box",
       "color": "#3b82f6",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
+        }
+      ],
       "outputs": []
     },
     {
@@ -30916,6 +33108,13 @@
           "display_name": "Listing Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -31019,6 +33218,13 @@
           "type": "string",
           "required": false,
           "description": "City IATA code for hotel search"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -31139,6 +33345,13 @@
           "display_name": "Property Id",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -31235,6 +33448,13 @@
           "display_name": "Content",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -31338,6 +33558,13 @@
           "type": "string",
           "required": false,
           "description": "Filename inside archive"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -31454,6 +33681,13 @@
           "type": "string",
           "required": false,
           "description": "Key for HMAC"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -31580,6 +33814,13 @@
           "display_name": "Sort Key",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -31707,6 +33948,13 @@
             "years"
           ],
           "default": "days"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -31859,6 +34107,13 @@
           "required": false,
           "default": false,
           "description": "Return all matches?"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -32004,6 +34259,13 @@
             "header"
           ],
           "default": "none"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -32190,6 +34452,13 @@
           "display_name": "Max",
           "type": "number",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -32306,6 +34575,13 @@
           "type": "string",
           "required": false,
           "default": ","
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -32406,6 +34682,13 @@
           "display_name": "Command",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -32497,6 +34780,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -32601,6 +34891,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -32705,6 +35002,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -32809,6 +35113,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -32913,6 +35224,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -33017,6 +35335,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -33121,6 +35446,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -33225,6 +35557,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -33329,6 +35668,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -33433,6 +35779,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -33537,6 +35890,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -33641,6 +36001,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -33745,6 +36112,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -33849,6 +36223,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -33953,6 +36334,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -34057,6 +36445,13 @@
           "type": "object",
           "required": false,
           "description": "Query parameters"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -34141,6 +36536,13 @@
           "required": false,
           "default": 60,
           "description": "Timeout in seconds"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -34207,6 +36609,13 @@
           "type": "string",
           "required": false,
           "description": "JSON Headers"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -34276,6 +36685,13 @@
           "type": "string",
           "required": false,
           "default": "us-central1"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -34349,6 +36765,13 @@
           "display_name": "Data",
           "type": "object",
           "required": false
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -34443,6 +36866,13 @@
           ],
           "default": "standard",
           "description": "Pre-determined priority if available"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -34591,6 +37021,13 @@
           "type": "array",
           "required": false,
           "description": "List of specific clauses to focus on (e.g. Indemnification, Force Majeure)"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -34738,6 +37175,13 @@
           "type": "string",
           "required": false,
           "description": "Legal text to analyze"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -34820,6 +37264,13 @@
           "type": "any",
           "required": false,
           "description": "Patient data, notes, or lab results"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -34916,6 +37367,13 @@
           "type": "number",
           "required": false,
           "description": "Maximum price or rent"
+        },
+        {
+          "name": "input",
+          "display_name": "Input",
+          "type": "handle",
+          "required": false,
+          "description": "Main data input"
         }
       ],
       "outputs": [
