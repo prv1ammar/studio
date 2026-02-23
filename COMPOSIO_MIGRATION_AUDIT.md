@@ -28,7 +28,7 @@
 - `trello_composio.py` (Check if missing from audit list)
 - `todoist_composio.py` (MIGRATED)
 - `coda_composio.py`
-- `miro_composio.py`é"z
+- `miro_composio.py`
 
 
 ### 3. File Storage & Docs

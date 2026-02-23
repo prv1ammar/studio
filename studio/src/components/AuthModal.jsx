@@ -42,15 +42,15 @@ export default function AuthModal({ isOpen, onAuthSuccess }) {
 
     return (
         <div className="modal-overlay">
-            <div className="modal-container p-0 overflow-hidden w-[420px] bg-[#0d1117] border border-white/10 rounded-2xl shadow-2xl relative">
+            <div className="modal-container" style={{ padding: 0, overflow: 'hidden', width: '420px', maxWidth: '95vw', background: 'var(--bg-modal)', border: '1px solid var(--border-default)', borderRadius: '16px', boxShadow: 'var(--shadow-xl)' }}>
                 <div className="h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 w-full" />
 
                 <div className="p-8">
                     <header className="text-center mb-10">
-                        <div className="mx-auto mb-6 flex justify-center transform hover:scale-105 transition-transform duration-300">
-                            <img src="/logo.png" alt="Logo" className="h-16 object-contain" />
+                        <div style={{ margin: '0 auto', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
+                            <img src="/tybot_logo.png" alt="Logo" style={{ height: '64px', objectFit: 'contain' }} />
                         </div>
-                        <h2 className="text-2xl font-bold text-white tracking-tight">{isLogin ? 'Welcome Back' : 'Get Started'}</h2>
+                        <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.025em' }}>{isLogin ? 'Welcome Back' : 'Get Started'}</h2>
                         <p className="text-gray-400 text-sm mt-3 leading-relaxed">
                             {isLogin
                                 ? 'Sign in to access your enterprise automation workspace'
@@ -125,7 +125,7 @@ export default function AuthModal({ isOpen, onAuthSuccess }) {
                         </button>
                     </form>
 
-                    <footer className="mt-8 text-center border-t border-white/5 pt-6 flex flex-col gap-3">
+                    <footer style={{ marginTop: '32px', textAlign: 'center', borderTop: '1px solid var(--border-subtle)', paddingTop: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         <span className="text-gray-500 text-xs">
                             {isLogin ? "New to Tyboo Studio?" : "Already part of the team?"}
                         </span>

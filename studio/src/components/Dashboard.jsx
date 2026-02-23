@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
     Activity, Shield, Zap, Terminal, RefreshCw, XCircle,
     CheckCircle, AlertCircle, Cpu, HardDrive, Cpu as WorkerIcon,
-    Search, Filter, ChevronRight, Clock, User
+    Search, Filter, ChevronRight, Clock, User, History
 } from 'lucide-react';
 import { API_BASE_URL } from '../config';
 
@@ -43,9 +43,9 @@ export default function Dashboard({ isOpen, onClose }) {
 
     if (!isOpen) return null;
 
-    const filteredLogs = logs.filter(log =>
-        log.action.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (log.user_id && log.user_id.toLowerCase().includes(searchQuery.toLowerCase()))
+    const filteredLogs = (Array.isArray(logs) ? logs : []).filter(log =>
+        (log?.action || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (log?.user_id && String(log.user_id).toLowerCase().includes(searchQuery.toLowerCase()))
     );
 
     return (
@@ -160,13 +160,13 @@ export default function Dashboard({ isOpen, onClose }) {
                                         </button>
                                     </div>
                                     <div className="mini-log-list">
-                                        {logs.slice(0, 8).map((log, i) => (
+                                        {(Array.isArray(logs) ? logs : []).slice(0, 8).map((log, i) => (
                                             <div key={i} className="mini-log-item">
-                                                <div className={`log-indicator ${getLogColor(log.action)}`}></div>
+                                                <div className={`log-indicator ${getLogColor(log?.action || '')}`}></div>
                                                 <div className="log-info">
-                                                    <span className="log-action-text">{log.action.replace('_', ' ')}</span>
+                                                    <span className="log-action-text">{(log?.action || 'Unknown').replace('_', ' ')}</span>
                                                     <span className="log-meta">
-                                                        {log.user_id ? log.user_id.split('-')[0] : 'System'} • {new Date(log.timestamp).toLocaleTimeString()}
+                                                        {log?.user_id ? String(log.user_id).split('-')[0] : 'System'} • {new Date(log?.timestamp).toLocaleTimeString()}
                                                     </span>
                                                 </div>
                                                 <div className="log-details-preview">
@@ -209,11 +209,11 @@ export default function Dashboard({ isOpen, onClose }) {
                                     <div className="table-body">
                                         {filteredLogs.map((log, i) => (
                                             <div key={i} className="table-row">
-                                                <div className="col-time"><Clock size={12} /> {new Date(log.timestamp).toLocaleString()}</div>
+                                                <div className="col-time"><Clock size={12} /> {new Date(log?.timestamp).toLocaleString()}</div>
                                                 <div className="col-action">
-                                                    <span className={`log-tag ${getLogColor(log.action)}`}>{log.action}</span>
+                                                    <span className={`log-tag ${getLogColor(log?.action || '')}`}>{log?.action || 'Unknown'}</span>
                                                 </div>
-                                                <div className="col-user"><User size={12} /> {log.user_id || 'System'}</div>
+                                                <div className="col-user"><User size={12} /> {log?.user_id || 'System'}</div>
                                                 <div className="col-data">
                                                     <code title={JSON.stringify(log.details)}>
                                                         {JSON.stringify(log.details).length > 100
@@ -239,22 +239,32 @@ export default function Dashboard({ isOpen, onClose }) {
                                             <div className="col-action">Action</div>
                                         </div>
                                         <div className="table-body">
-                                            {logs.filter(l => l.action.startsWith('workflow_')).map((exec, i) => (
-                                                <div key={i} className="table-row clickable" onClick={async () => {
-                                                    setSelectedExecution(exec);
-                                                    const res = await axios.get(`${API_BASE_URL}/execution/${exec.details.execution_id}/nodes`);
-                                                    setNodeHistory(res.data);
-                                                }}>
-                                                    <div className="col-time">{new Date(exec.timestamp).toLocaleString()}</div>
-                                                    <div className="col-id text-xs font-mono">{exec.details.execution_id}</div>
-                                                    <div className="col-status">
-                                                        <span className={`log-tag ${exec.action === 'workflow_success' ? 'green' : 'red'}`}>
-                                                            {exec.action.replace('workflow_', '')}
-                                                        </span>
+                                            {(Array.isArray(logs) ? logs : []).filter(l => (l?.action || '').startsWith('workflow_')).map((exec, i) => {
+                                                const execId = exec?.details?.execution_id || exec?.details?.job_id || 'Unknown';
+
+                                                return (
+                                                    <div key={i} className="table-row clickable" onClick={async () => {
+                                                        if (execId === 'Unknown') return;
+                                                        setSelectedExecution(exec);
+                                                        try {
+                                                            const res = await axios.get(`${API_BASE_URL}/execution/${execId}/nodes`);
+                                                            setNodeHistory(res.data);
+                                                        } catch (e) {
+                                                            console.error("Failed to fetch node history", e);
+                                                            setNodeHistory([]);
+                                                        }
+                                                    }}>
+                                                        <div className="col-time">{new Date(exec?.timestamp).toLocaleString()}</div>
+                                                        <div className="col-id text-xs font-mono">{execId}</div>
+                                                        <div className="col-status">
+                                                            <span className={`log-tag ${exec?.action === 'workflow_success' ? 'green' : exec?.action === 'workflow_run_async_queued' ? 'blue' : 'red'}`}>
+                                                                {(exec?.action || '').replace('workflow_', '')}
+                                                            </span>
+                                                        </div>
+                                                        <div className="col-action"><ChevronRight size={14} /></div>
                                                     </div>
-                                                    <div className="col-action"><ChevronRight size={14} /></div>
-                                                </div>
-                                            ))}
+                                                )
+                                            })}
                                         </div>
                                     </div>
                                 ) : (
@@ -264,7 +274,7 @@ export default function Dashboard({ isOpen, onClose }) {
                                         </button>
 
                                         <div className="detail-header mb-6">
-                                            <h3>Execution History: {selectedExecution.details.execution_id}</h3>
+                                            <h3>Execution History: {selectedExecution?.details?.execution_id || selectedExecution?.details?.job_id || 'Unknown'}</h3>
                                         </div>
 
                                         <div className="node-history-timeline">
@@ -389,7 +399,8 @@ function HealthBar({ label, value, max, unit }) {
 }
 
 function getLogColor(action) {
-    if (action.includes('fail') || action.includes('error') || action.includes('delete')) return 'red';
-    if (action.includes('success') || action.includes('add') || action.includes('save') || action.includes('login')) return 'green';
+    const safeAction = action || '';
+    if (safeAction.includes('fail') || safeAction.includes('error') || safeAction.includes('delete')) return 'red';
+    if (safeAction.includes('success') || safeAction.includes('add') || safeAction.includes('save') || safeAction.includes('login')) return 'green';
     return 'blue';
 }

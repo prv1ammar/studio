@@ -57,6 +57,7 @@ class Workflow(SQLModel, table=True):
     description: Optional[str] = None
     definition: Dict[str, Any] = Field(default={}, sa_column=Column(JSON))
     workspace_id: str = Field(foreign_key="workspace.id", index=True)
+    user_id: str = Field(foreign_key="user.id", index=True)
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
@@ -78,11 +79,11 @@ class Credential(SQLModel, table=True):
     type: str
     encrypted_data: str
     user_id: str = Field(foreign_key="user.id")
-    workspace_id: str = Field(foreign_key="workspace.id", index=True)
+    workspace_id: Optional[str] = Field(default=None, foreign_key="workspace.id", index=True)
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
     user: User = Relationship(back_populates="credentials")
-    workspace: Workspace = Relationship(back_populates="credentials")
+    workspace: Optional[Workspace] = Relationship(back_populates="credentials")
 
 class Comment(SQLModel, table=True):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True)

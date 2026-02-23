@@ -255,10 +255,22 @@ class LangflowComponentAdapter(BaseNode):
 
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Any:
         # 1. Prepare initialization parameters from config
-        # Map our config to the component's expected inputs
         init_params = {}
         if isinstance(self.config, dict):
-            init_params.update(self.config)
+            from app.core.credentials import cred_manager
+            for k, v in self.config.items():
+                if isinstance(v, str) and v.startswith("CRED_"):
+                    cred_id = v.replace("CRED_", "")
+                    cred_obj = await cred_manager.get_credential(cred_id)
+                    if cred_obj and "data" in cred_obj:
+                        c_data = cred_obj["data"]
+                        # Prioritize sensible fields then fallback to any first value
+                        secret_val = c_data.get("api_key") or c_data.get("access_token") or c_data.get("bot_token") or c_data.get("client_secret") or (next(iter(c_data.values())) if c_data else v)
+                        init_params[k] = secret_val
+                    else:
+                        init_params[k] = v
+                else:
+                    init_params[k] = v
         
         # 2. Instantiate the legacy component
         try:

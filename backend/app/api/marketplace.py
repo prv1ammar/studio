@@ -96,6 +96,7 @@ async def clone_template(
     new_workflow = Workflow(
         name=f"{template.name} (Cloned)",
         workspace_id=target_workspace_id,
+        user_id=current_user.id,
         definition=template.definition
     )
     

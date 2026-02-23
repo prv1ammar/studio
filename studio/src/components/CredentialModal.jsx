@@ -130,20 +130,63 @@ export default function CredentialModal({ isOpen, onClose }) {
                                 <label>Service Type</label>
                                 <select value={newCred.type} onChange={e => setNewCred({ ...newCred, type: e.target.value, data: {} })}>
                                     <option value="generic">Generic API Key</option>
+                                    <option value="openai">OpenAI</option>
+                                    <option value="anthropic">Anthropic</option>
+                                    <option value="gemini">Google Gemini</option>
+                                    <option value="groq">Groq</option>
+                                    <option value="github">GitHub</option>
+                                    <option value="supabase">Supabase</option>
+                                    <option value="tavily">Tavily</option>
                                     <option value="google">Google OAuth</option>
                                     <option value="slack">Slack Token</option>
-                                    <option value="hubspot">HubSpot</option>
-                                    <option value="salesforce">Salesforce</option>
-                                    <option value="pipedrive">Pipedrive</option>
                                     <option value="discord">Discord</option>
+                                    <option value="salesforce">Salesforce</option>
                                     <option value="telegram">Telegram</option>
-                                    <option value="mailchimp">Mailchimp</option>
                                     <option value="notion">Notion</option>
                                 </select>
                             </div>
 
                             {/* Dynamic Fields based on Type */}
                             <div className="dynamic-cred-fields">
+                                {['openai', 'anthropic', 'gemini', 'groq', 'tavily'].includes(newCred.type) && (
+                                    <div className="form-group">
+                                        <label>API Key</label>
+                                        <input
+                                            type="password"
+                                            placeholder="sk-..."
+                                            onChange={e => setNewCred({ ...newCred, data: { ...newCred.data, api_key: e.target.value } })}
+                                        />
+                                    </div>
+                                )}
+                                {newCred.type === 'github' && (
+                                    <div className="form-group">
+                                        <label>Personal Access Token (Classic or Fine-Grained)</label>
+                                        <input
+                                            type="password"
+                                            placeholder="ghp_..."
+                                            onChange={e => setNewCred({ ...newCred, data: { ...newCred.data, access_token: e.target.value } })}
+                                        />
+                                    </div>
+                                )}
+                                {newCred.type === 'supabase' && (
+                                    <>
+                                        <div className="form-group">
+                                            <label>Supabase URL</label>
+                                            <input
+                                                placeholder="https://xyz.supabase.co"
+                                                onChange={e => setNewCred({ ...newCred, data: { ...newCred.data, url: e.target.value } })}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Service Role Key / Anon Key</label>
+                                            <input
+                                                type="password"
+                                                placeholder="eyJhb..."
+                                                onChange={e => setNewCred({ ...newCred, data: { ...newCred.data, api_key: e.target.value } })}
+                                            />
+                                        </div>
+                                    </>
+                                )}
                                 {newCred.type === 'google' && (
                                     <>
                                         <div className="form-group">
@@ -282,6 +325,16 @@ export default function CredentialModal({ isOpen, onClose }) {
                                             />
                                         </div>
                                     </>
+                                )}
+                                {newCred.type === 'notion' && (
+                                    <div className="form-group">
+                                        <label>Internal Integration Token</label>
+                                        <input
+                                            type="password"
+                                            placeholder="secret_..."
+                                            onChange={e => setNewCred({ ...newCred, data: { ...newCred.data, api_key: e.target.value } })}
+                                        />
+                                    </div>
                                 )}
                                 {newCred.type === 'generic' && (
                                     <div className="form-group">

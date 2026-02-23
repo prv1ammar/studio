@@ -256,7 +256,8 @@ async def import_workspace_bundle(
             name=wf_data["name"],
             description=wf_data.get("description"),
             definition=wf_data["definition"],
-            workspace_id=new_ws.id
+            workspace_id=new_ws.id,
+            user_id=current_user.id
         )
         db.add(wf)
 

@@ -19,7 +19,7 @@ const PublishModal = ({ onClose, publishData }) => {
             <div className="template-modal" style={{ maxWidth: '600px', height: 'auto', paddingBottom: '2rem' }}>
                 <div className="template-header">
                     <div>
-                        <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'white', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '10px' }}>
                             <Globe className="text-accent-primary" size={20} /> Workflow Published!
                         </h2>
                         <p style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>Your agent is now live as a production-ready API.</p>
@@ -50,11 +50,11 @@ const PublishModal = ({ onClose, publishData }) => {
                         </label>
 
                         <pre style={{
-                            background: '#050608',
+                            background: 'var(--bg-app)',
                             padding: '1.25rem',
                             borderRadius: '12px',
                             fontSize: '0.75rem',
-                            color: '#a0a6b8',
+                            color: 'var(--text-secondary)',
                             overflowX: 'auto',
                             border: '1px solid var(--border-strong)',
                             fontFamily: 'var(--font-mono)',

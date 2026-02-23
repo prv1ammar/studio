@@ -22,7 +22,7 @@ import {
     X, User, CheckCircle, Zap, Bot, Brain, Layers, Terminal,
     Download, Upload, Loader2, Layout, Activity, Trash2, Copy,
     Eye, EyeOff, Maximize2, Minimize2, Scissors, Box, Link, Wrench, Shield, Key,
-    LogIn, UserPlus, Camera, History, Users
+    LogIn, UserPlus, Camera, History, Users, Moon, Sun, Save, Folder
 } from 'lucide-react';
 
 import CredentialModal from './components/CredentialModal';
@@ -38,6 +38,7 @@ import WorkspaceModal from './components/WorkspaceModal';
 import NodeReference from './components/NodeReference';
 import CollaborationOverlay from './components/CollaborationOverlay';
 import CommentSidebar from './components/CommentSidebar';
+import WorkflowBrowserModal from './components/WorkflowBrowserModal';
 import { API_BASE_URL } from './config';
 
 const nodeTypes = { agentNode: AgentNode };
@@ -111,7 +112,71 @@ const App = () => {
     const [credentialList, setCredentialList] = useState([]);
     const [nodeSearchTerm, setNodeSearchTerm] = useState('');
     const [showDocs, setShowDocs] = useState(false);
+    const [theme, setTheme] = useState(localStorage.getItem('studio_theme') || 'dark');
+    const [isWorkflowBrowserOpen, setIsWorkflowBrowserOpen] = useState(false);
+    const [isDirty, setIsDirty] = useState(false);
     const socketRef = useRef(null);
+
+    // Watch for unsaved changes before unload
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            if (isDirty) {
+                e.preventDefault();
+                e.returnValue = ''; // Standard way to trigger browser warning
+            }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [isDirty]);
+
+    const handleNodesChange = useCallback((changes) => {
+        onNodesChange(changes);
+        setIsDirty(true);
+    }, [onNodesChange]);
+
+    const handleEdgesChange = useCallback((changes) => {
+        onEdgesChange(changes);
+        setIsDirty(true);
+    }, [onEdgesChange]);
+
+    const handleSaveWorkflow = async () => {
+        try {
+            const flow = reactFlowInstance ? reactFlowInstance.toObject() : { nodes, edges };
+            const payload = {
+                name: workflowName,
+                graph: flow
+            };
+            const response = await axios.post(`${API_BASE_URL}/workflows/save`, payload, {
+                params: currentWorkspaceId ? { workspace_id: currentWorkspaceId } : null
+            });
+            if (response.data.status === 'success') {
+                if (response.data.id) setWorkflowId(response.data.id);
+                setIsDirty(false);
+                alert('Workflow saved successfully!');
+            }
+        } catch (error) {
+            console.error('Failed to save workflow', error);
+            alert('Failed to save workflow. Please try again.');
+        }
+    };
+
+
+    // Apply global theme class
+    useEffect(() => {
+        document.documentElement.className = theme;
+        localStorage.setItem('studio_theme', theme);
+
+        // Also apply it to the body for absolute safety
+        if (theme === 'light') {
+            document.body.classList.add('light');
+            document.body.classList.remove('dark');
+        } else {
+            document.body.classList.add('dark');
+            document.body.classList.remove('light');
+        }
+    }, [theme]);
+
+    const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark');
 
     // Fetch user profile on mount or auth change
     useEffect(() => {
@@ -260,10 +325,10 @@ const App = () => {
                 }
                 setLibrary(res.data);
                 console.log('📚 Node Library Loaded:', {
-                    categories: Object.keys(res.data).length,
+                    categoryCount: Object.keys(res.data).length,
                     totalNodes: Object.values(res.data).flat().length,
                     hasPrompts: 'Prompts' in res.data || 'Models_And_Agents' in res.data,
-                    categories: Object.keys(res.data).slice(0, 20)
+                    firstCategories: Object.keys(res.data).slice(0, 20)
                 });
                 if (res.data && Object.keys(res.data).length > 0) {
                     setExpandedCats([Object.keys(res.data)[0]]);
@@ -684,9 +749,38 @@ const App = () => {
             <CollaborationOverlay collaborators={collaborators} />
             {/* Header */}
             <header className="studio-header">
-                <div className="logo-container" onClick={() => window.location.reload()}>
-                    <img src="/logo.png" alt="Zap Logo" className="h-8 object-contain mr-2" />
-                    <span className="title-text">Tyboo Studio</span>
+                <div className="logo-container" onClick={() => window.location.reload()} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                    <img src="/tybot_logo.png" alt="Tyboo Logo" className="h-8 object-contain mr-2" />
+                    <span className="title-text" style={{ marginRight: '16px', letterSpacing: '1px', fontSize: '16px' }}>TYBOO</span>
+                </div>
+
+                <div className="workflow-title-edit" style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ color: 'var(--text-tertiary)', fontSize: '14px', marginRight: '8px' }}>/</span>
+                    <input
+                        className="workflow-name-input"
+                        value={workflowName}
+                        onChange={(e) => { setWorkflowName(e.target.value); setIsDirty(true); }}
+                        placeholder="Name your workflow..."
+                        style={{
+                            background: 'transparent',
+                            border: '1px solid transparent',
+                            color: 'var(--text-primary)',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            minWidth: '150px',
+                            outline: 'none',
+                            transition: 'all 0.2s ease',
+                        }}
+                        onMouseEnter={(e) => e.target.style.background = 'var(--bg-tertiary)'}
+                        onMouseLeave={(e) => { if (document.activeElement !== e.target) e.target.style.background = 'transparent'; }}
+                        onFocus={(e) => { e.target.style.background = 'var(--bg-tertiary)'; e.target.style.border = '1px solid var(--border-focus)'; }}
+                        onBlur={(e) => { e.target.style.background = 'transparent'; e.target.style.border = '1px solid transparent'; }}
+                    />
+                    {isDirty && (
+                        <div style={{ width: '8px', height: '8px', background: 'var(--warning)', borderRadius: '50%', marginLeft: '8px' }} title="Unsaved changes"></div>
+                    )}
                 </div>
 
                 <div className="prime-header-right">
@@ -699,24 +793,36 @@ const App = () => {
                         ))}
                     </div>
 
-                    <div className="user-profile flex items-center gap-3 px-3 py-1 bg-white/5 rounded-full border border-white/10 mr-4 cursor-default">
-                        <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-[10px] font-bold shadow-lg shadow-blue-500/20">
+                    <div className="user-profile" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '6px 14px', background: 'var(--bg-elevated)', borderRadius: '24px', border: '1px solid var(--border-subtle)', marginLeft: '12px', marginRight: '16px' }}>
+                        <div style={{ width: '28px', height: '28px', background: 'var(--accent)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 'bold', color: 'white', flexShrink: 0 }}>
                             {(userProfile?.full_name?.[0] || userEmail?.[0] || 'U').toUpperCase()}
                         </div>
-                        <div className="flex flex-col">
-                            <span className="text-xs font-bold text-white leading-tight">
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <span style={{ fontSize: '12px', fontWeight: '700', color: 'var(--text-primary)', lineHeight: 1.2 }}>
                                 {userProfile?.full_name || userEmail?.split('@')[0]}
                             </span>
                             {userProfile?.company_name && (
-                                <span className="text-[10px] text-gray-500 leading-tight">
+                                <span style={{ fontSize: '10px', color: 'var(--text-tertiary)', lineHeight: 1.2, marginTop: '2px' }}>
                                     {userProfile.company_name}
                                 </span>
                             )}
                         </div>
-                        <button onClick={handleLogout} className="p-1 ml-2 hover:text-red-400 transition-colors border-l border-white/10 pl-2" title="Logout">
+                        <button
+                            onClick={handleLogout}
+                            style={{ background: 'none', border: 'none', borderLeft: '1px solid var(--border-default)', paddingLeft: '12px', marginLeft: '6px', cursor: 'pointer', color: 'var(--error)' }}
+                            title="Logout"
+                        >
                             <LogIn size={14} className="rotate-180" />
                         </button>
                     </div>
+
+                    <button className="prime-btn" onClick={() => setIsWorkflowBrowserOpen(true)}>
+                        <Folder size={16} /> My Workflows
+                    </button>
+
+                    <button className="prime-btn" onClick={handleSaveWorkflow} style={{ background: isDirty ? 'var(--warning-bg)' : '', color: isDirty ? 'var(--warning)' : '' }}>
+                        <Save size={16} /> Save
+                    </button>
 
                     <button className="prime-btn" onClick={() => setShowTemplates(true)}>
                         <Layout size={16} /> Templates
@@ -765,7 +871,10 @@ const App = () => {
                         <Camera size={16} /> Snapshot
                     </button>
 
-
+                    <button className="prime-btn" onClick={toggleTheme} title="Toggle Light/Dark Theme">
+                        {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                        {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                    </button>
 
                     <button className="prime-btn accent" onClick={handleSend} disabled={isRunning}>
                         {isRunning ? <Loader2 size={16} className="animate-spin" /> : <Play size={16} />}
@@ -867,9 +976,9 @@ const App = () => {
                     <ReactFlow
                         nodes={nodes}
                         edges={edges}
-                        onNodesChange={onNodesChange}
-                        onEdgesChange={onEdgesChange}
-                        onConnect={onConnect}
+                        onNodesChange={handleNodesChange}
+                        onEdgesChange={handleEdgesChange}
+                        onConnect={(params) => { onConnect(params); setIsDirty(true); }}
                         onInit={setReactFlowInstance}
                         onDrop={onDrop}
                         onDragOver={(e) => e.preventDefault()}
@@ -900,26 +1009,28 @@ const App = () => {
                                     {showMinimap ? <EyeOff size={16} /> : <Eye size={16} />}
                                 </button>
 
-                                <div className="relative group">
+                                <div style={{ position: 'relative' }} className="group">
                                     <input
                                         className="search-prime-input"
-                                        style={{ width: '200px', height: '32px' }}
+                                        style={{ width: '220px', height: '32px', background: 'var(--bg-elevated)', border: '1px solid var(--border-default)', borderRadius: '8px', padding: '0 12px', color: 'var(--text-primary)', outline: 'none' }}
                                         placeholder="Find node..."
                                         value={nodeSearchTerm}
                                         onChange={(e) => setNodeSearchTerm(e.target.value)}
                                     />
                                     {nodeSearchTerm && (
-                                        <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1b1e] border border-white/10 rounded-lg shadow-2xl max-h-60 overflow-y-auto z-50">
+                                        <div style={{ position: 'absolute', top: '100%', left: 0, width: '100%', marginTop: '4px', background: 'var(--bg-surface)', backdropFilter: 'var(--backdrop-blur)', WebkitBackdropFilter: 'var(--backdrop-blur)', border: '1px solid var(--border-default)', borderRadius: '8px', boxShadow: 'var(--shadow-xl)', maxHeight: '240px', overflowY: 'auto', zIndex: 50 }}>
                                             {nodes
                                                 .filter(n => n.data?.label?.toLowerCase().includes(nodeSearchTerm.toLowerCase()) || n.type?.toLowerCase().includes(nodeSearchTerm.toLowerCase()))
                                                 .map(n => (
                                                     <div
                                                         key={n.id}
                                                         onClick={() => focusNode(n.id)}
-                                                        className="p-2 hover:bg-white/5 border-b border-white/5 cursor-pointer text-xs text-white flex items-center justify-between"
+                                                        style={{ padding: '8px 12px', cursor: 'pointer', borderBottom: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', color: 'var(--text-primary)', transition: 'background 0.2s' }}
+                                                        onMouseEnter={(e) => e.currentTarget.style.background = 'var(--bg-hover)'}
+                                                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                                                     >
-                                                        <span>{n.data?.label || n.type}</span>
-                                                        <span className="text-[10px] opacity-40 uppercase">{n.type?.replace('agentNode', 'Agent')}</span>
+                                                        <span style={{ fontWeight: 600 }}>{n.data?.label || n.type}</span>
+                                                        <span style={{ fontSize: '10px', color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>{n.type?.replace('agentNode', 'Agent')}</span>
                                                     </div>
                                                 ))
                                             }
@@ -1157,10 +1268,40 @@ const App = () => {
                                                         onChange={(e) => updateNodeData(field.name, e.target.value)}
                                                         placeholder={field.placeholder || field.description}
                                                     />
+                                                ) : (field.type === 'password' || field.name.toLowerCase().includes('api_key') || field.name.toLowerCase().includes('token') || field.name.toLowerCase().includes('secret')) ? (
+                                                    <div style={{ display: 'flex', gap: '8px' }}>
+                                                        <input
+                                                            className="ins-input"
+                                                            type="password"
+                                                            value={typeof val === 'string' && val.startsWith('CRED_') ? '' : val}
+                                                            onChange={(e) => updateNodeData(field.name, e.target.value)}
+                                                            placeholder={typeof val === 'string' && val.startsWith('CRED_') ? 'Vault used (locked)' : (field.placeholder || field.description || 'Raw secret...')}
+                                                            style={{ flex: 1, backgroundColor: typeof val === 'string' && val.startsWith('CRED_') ? 'var(--bg-tertiary)' : undefined }}
+                                                            disabled={typeof val === 'string' && val.startsWith('CRED_')}
+                                                        />
+                                                        <select
+                                                            className="ins-input"
+                                                            value={typeof val === 'string' && val.startsWith('CRED_') ? val.replace('CRED_', '') : ''}
+                                                            onChange={(e) => {
+                                                                if (e.target.value) {
+                                                                    updateNodeData(field.name, `CRED_${e.target.value}`);
+                                                                } else {
+                                                                    updateNodeData(field.name, '');
+                                                                }
+                                                            }}
+                                                            style={{ width: '100px', cursor: 'pointer' }}
+                                                            title="Select Secure Credential"
+                                                        >
+                                                            <option value="">No Vault</option>
+                                                            {credentialList.map(c => (
+                                                                <option key={c.value} value={c.value}>🔒 {c.label}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
                                                 ) : (
                                                     <input
                                                         className="ins-input"
-                                                        type={field.type === 'number' ? 'number' : field.type === 'password' ? 'password' : 'text'}
+                                                        type={field.type === 'number' ? 'number' : 'text'}
                                                         value={val}
                                                         onChange={(e) => {
                                                             const newVal = field.type === 'number' ? parseFloat(e.target.value) : e.target.value;
@@ -1190,7 +1331,23 @@ const App = () => {
                 </aside>
             </div>
 
-            {/* Modals */}
+            {/* Modals & Overlays */}
+            <WorkflowBrowserModal
+                isOpen={isWorkflowBrowserOpen}
+                onClose={() => setIsWorkflowBrowserOpen(false)}
+                currentWorkspaceId={currentWorkspaceId}
+                onLoadWorkflow={(name, flowObj) => {
+                    setWorkflowName(name);
+                    setNodes(flowObj.nodes || []);
+                    setEdges(flowObj.edges || []);
+                    if (reactFlowInstance && flowObj.viewport) {
+                        reactFlowInstance.setViewport(flowObj.viewport);
+                    }
+                    setIsWorkflowBrowserOpen(false);
+                    setIsDirty(false);
+                }}
+            />
+
             {showTemplates && (
                 <TemplateGallery
                     currentWorkspaceId={currentWorkspaceId}

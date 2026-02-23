@@ -1,11 +1,11 @@
 /* Copilot Bar - Clean Modern Design */
 .copilot-container {
     position: absolute;
-    top: 72px;
+    top: 32px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 500;
-    width: 560px;
+    width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,17 +15,22 @@
 .copilot-input-wrapper {
     width: 100%;
     background: var(--bg-surface);
+    backdrop-filter: var(--backdrop-blur);
+    -webkit-backdrop-filter: var(--backdrop-blur);
     border: 1px solid var(--border-default);
-    border-radius: 8px;
-    padding: 4px;
+    border-radius: 12px;
+    padding: 6px;
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .copilot-input-wrapper:focus-within {
     border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), var(--shadow-xl);
+    background: var(--bg-app);
 }
 
 .sparkle-icon {
@@ -82,21 +87,25 @@
 
 .chip-suggestion {
     background: var(--bg-surface);
+    backdrop-filter: blur(8px);
     border: 1px solid var(--border-default);
-    padding: 6px 12px;
-    border-radius: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    box-shadow: var(--shadow-sm);
 }
 
 .chip-suggestion:hover {
-    background: var(--bg-hover);
-    border-color: var(--accent);
+    background: var(--bg-elevated);
+    border-color: var(--accent-hover);
     color: var(--text-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }

@@ -151,7 +151,12 @@ class WorkerSettings:
     ARQ Worker configuration with multi-queue support
     """
     functions = [run_workflow_task, run_webhook_task]
-    redis_settings = RedisSettings.from_dsn(settings.REDIS_URL)
+    redis_settings = RedisSettings(
+        host=settings.REDIS_HOST,
+        port=int(settings.REDIS_PORT),
+        database=int(settings.REDIS_DB),
+        password=settings.REDIS_PASSWORD if settings.REDIS_PASSWORD else None,
+    )
     on_startup = startup
     on_shutdown = shutdown
     job_timeout = settings.WORKFLOW_TIMEOUT

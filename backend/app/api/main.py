@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+from datetime import datetime
 from typing import Dict, List, Any, Optional
 
 # Fix for Windows symlink permission error in HuggingFace Hub
@@ -72,7 +73,13 @@ async def startup_event():
     # Initialize Redis for Pub/Sub and Arq for task queuing
     try:
         app.state.redis = aioredis.from_url(settings.REDIS_URL, decode_responses=True)
-        app.state.redis_pool = await create_pool(RedisSettings.from_dsn(settings.REDIS_URL))
+        _redis_password = settings.REDIS_PASSWORD if settings.REDIS_PASSWORD else None
+        app.state.redis_pool = await create_pool(RedisSettings(
+            host=settings.REDIS_HOST,
+            port=int(settings.REDIS_PORT),
+            database=int(settings.REDIS_DB),
+            password=_redis_password,
+        ))
         
         # Initialize rate limiter
         from app.core.rate_limiter import rate_limiter
@@ -626,6 +633,7 @@ async def save_workflow_snapshot(workflow_data: Dict[str, Any], workspace_id: Op
             workflow = Workflow(
                 name=workflow_name,
                 workspace_id=workspace_id,
+                user_id=current_user.id,
                 definition=workflow_data
             )
             db.add(workflow)
@@ -775,6 +783,7 @@ async def save_workflow(request: SaveRequest, workspace_id: Optional[str] = None
             workflow = Workflow(
                 name=request.name,
                 workspace_id=workspace_id,
+                user_id=current_user.id,
                 definition=request.graph
             )
             db.add(workflow)

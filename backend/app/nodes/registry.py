@@ -46,7 +46,7 @@ class NodeRegistry:
 
         # Scan all directories in nodes root
         module_count = 0
-        EXCLUDE_DIRS = ["__pycache__", "deactivated", "agentql", "vendor", "custom_component", "node_system", "agents"]
+        EXCLUDE_DIRS = ["__pycache__", "deactivated", "agentql", "vendor", "custom_component", "node_system"]
         
         for root, dirs, files in os.walk(nodes_dir):
             # Prune directories to skip

@@ -90,7 +90,8 @@ async def clone_template_to_workspace(
         name=f"Copy of {template.name}",
         description=template.description,
         definition=template.definition,
-        workspace_id=workspace_id
+        workspace_id=workspace_id,
+        user_id=current_user.id
     )
     
     db.add(new_workflow)
