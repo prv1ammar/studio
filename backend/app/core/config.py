@@ -1,11 +1,24 @@
 import os
 from pathlib import Path
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from dotenv import load_dotenv
 
 # Resolve .env from the project root (3 levels up from this file)
-_env_path = Path(__file__).resolve().parents[3] / ".env"
+_project_root = Path(__file__).resolve().parents[3]
+_env_path = _project_root / ".env"
+
+# Force load .env into environment variables BEFORE Settings class is defined
+# This helps ensure local .env values are available
+if _env_path.exists():
+    load_dotenv(_env_path, override=True)
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=str(_env_path),
+        env_file_encoding="utf-8",
+        extra="ignore"
+    )
+
     REDIS_HOST: str = "localhost"
     REDIS_PORT: str = "6379"
     REDIS_PASSWORD: str = ""
@@ -13,6 +26,7 @@ class Settings(BaseSettings):
 
     @property
     def REDIS_URL(self) -> str:
+        # Use credentials directly from fields
         if self.REDIS_PASSWORD:
             auth = f":{self.REDIS_PASSWORD}@"
         else:
@@ -46,9 +60,4 @@ class Settings(BaseSettings):
     CACHE_TTL: int = 300  # Redis cache TTL in seconds
     ENABLE_RESULT_CACHING: bool = True
 
-    class Config:
-        env_file = str(_env_path)
-        env_file_encoding = "utf-8"
-        extra = "ignore"
-
-settings = Settings(_env_file=str(_env_path))
+settings = Settings()
