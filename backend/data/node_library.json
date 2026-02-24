@@ -10,29 +10,23 @@
       "color": "#ec4899",
       "inputs": [
         {
-          "name": "input_data",
-          "display_name": "Input Text",
-          "type": "handle",
-          "required": true
-        },
-        {
           "name": "api_key",
           "display_name": "API Key",
           "type": "password",
           "required": true,
-          "default": "sk-RVApjtnPznKZ4UXosZYEOQ"
+          "default": ""
         },
         {
           "name": "base_url",
           "display_name": "Base URL",
           "type": "text",
-          "default": "https://toknroutertybot.tybotflow.com/"
+          "default": ""
         },
         {
           "name": "model_name",
           "display_name": "Model Name",
           "type": "text",
-          "default": "gpt-4.1-mini"
+          "default": ""
         },
         {
           "name": "temperature",
@@ -83,6 +77,12 @@
           "display_name": "Tools",
           "type": "handle",
           "info": "Connect Tool nodes (e.g., SmartDB)."
+        },
+        {
+          "name": "memory",
+          "display_name": "Connect Memory",
+          "type": "handle",
+          "info": "Connect a memory node for history."
         }
       ],
       "outputs": [
@@ -115,13 +115,13 @@
           "display_name": "API Key",
           "type": "password",
           "required": true,
-          "default": "sk-RVApjtnPznKZ4UXosZYEOQ"
+          "default": ""
         },
         {
           "name": "base_url",
           "display_name": "Base URL",
           "type": "text",
-          "default": "https://toknroutertybot.tybotflow.com/"
+          "default": ""
         },
         {
           "name": "model_name",
@@ -159,7 +159,7 @@
           "name": "base_url",
           "display_name": "NocoDB URL",
           "type": "text",
-          "default": "https://nocodb.tybot.ma"
+          "default": ""
         },
         {
           "name": "api_key",
@@ -289,16 +289,17 @@
       "category": "Native Integrations",
       "icon": "/assets/icons/imported/input_output/chat_input.svg",
       "color": "#3b82f6",
-      "inputs": [
+      "inputs": [],
+      "outputs": [
         {
-          "name": "input",
-          "display_name": "Input",
-          "type": "handle",
-          "required": false,
-          "description": "Main data input"
+          "name": "output",
+          "display_name": "Output",
+          "types": [
+            "Any"
+          ],
+          "description": "Main data output"
         }
-      ],
-      "outputs": []
+      ]
     },
     {
       "id": "chatOutput",
@@ -2985,7 +2986,7 @@
             "claude-3-opus-20240229",
             "claude-3-haiku-20240307"
           ],
-          "default": "claude-3-5-sonnet-20240620",
+          "default": "",
           "description": "Model to use"
         },
         {
@@ -3054,7 +3055,7 @@
           "displayName": "Model",
           "name": "model",
           "type": "options",
-          "default": "claude-3-5-sonnet-20240620",
+          "default": "",
           "options": [
             {
               "name": "Claude-3-5-Sonnet-20240620",
@@ -3630,7 +3631,7 @@
           "display_name": "Base Url",
           "type": "string",
           "required": false,
-          "default": "http://localhost:1234/v1",
+          "default": "",
           "description": "LM Studio server URL"
         },
         {
@@ -3683,7 +3684,7 @@
           "displayName": "Base Url",
           "name": "base_url",
           "type": "string",
-          "default": "http://localhost:1234/v1",
+          "default": "",
           "description": "LM Studio server URL"
         },
         {
@@ -3744,7 +3745,7 @@
           "display_name": "Base Url",
           "type": "string",
           "required": false,
-          "default": "http://localhost:11434",
+          "default": "",
           "description": "Ollama API URL"
         },
         {
@@ -3805,7 +3806,7 @@
           "displayName": "Base Url",
           "name": "base_url",
           "type": "string",
-          "default": "http://localhost:11434",
+          "default": "",
           "description": "Ollama API URL"
         },
         {
@@ -3870,7 +3871,7 @@
             "gpt-4-turbo",
             "gpt-3.5-turbo"
           ],
-          "default": "gpt-4o",
+          "default": "",
           "description": "Model to use"
         },
         {
@@ -3947,7 +3948,7 @@
           "displayName": "Model",
           "name": "model",
           "type": "options",
-          "default": "gpt-4o",
+          "default": "",
           "options": [
             {
               "name": "Gpt-4O",
@@ -5594,7 +5595,7 @@
             "claude-2.1",
             "claude-2.0"
           ],
-          "default": "claude-3-5-sonnet-20240620",
+          "default": "",
           "description": "Anthropic model to use"
         },
         {
@@ -5699,7 +5700,7 @@
           "displayName": "Model Name",
           "name": "model_name",
           "type": "options",
-          "default": "claude-3-5-sonnet-20240620",
+          "default": "",
           "options": [
             {
               "name": "Claude-3-5-Sonnet-20240620",
@@ -10733,16 +10734,16 @@
           "type": "string",
           "required": false,
           "description": "JSON object of fields"
-        },
-        {
-          "name": "input",
-          "display_name": "Input",
-          "type": "handle",
-          "required": false,
-          "description": "Main data input"
         }
       ],
       "outputs": [
+        {
+          "name": "tool",
+          "display_name": "Tool",
+          "types": [
+            "Tool"
+          ]
+        },
         {
           "name": "result",
           "display_name": "Result",
@@ -19551,7 +19552,7 @@
           "display_name": "Base Url",
           "type": "string",
           "required": false,
-          "default": "https://demo.docusign.net/restapi/v2.1",
+          "default": "",
           "description": "API Base URL (e.g. demo vs production)"
         },
         {
@@ -19623,7 +19624,7 @@
           "displayName": "Base Url",
           "name": "base_url",
           "type": "string",
-          "default": "https://demo.docusign.net/restapi/v2.1",
+          "default": "",
           "description": "API Base URL (e.g. demo vs production)"
         },
         {
@@ -23138,7 +23139,7 @@
           "display_name": "Redis Url",
           "type": "string",
           "required": false,
-          "default": "redis://localhost:6379",
+          "default": "",
           "description": "Redis connection URL"
         },
         {
@@ -23186,13 +23187,6 @@
           "required": false,
           "default": true,
           "description": "Return messages list or string history"
-        },
-        {
-          "name": "input",
-          "display_name": "Input",
-          "type": "handle",
-          "required": false,
-          "description": "Main data input"
         }
       ],
       "outputs": [
@@ -23244,7 +23238,7 @@
           "displayName": "Redis Url",
           "name": "redis_url",
           "type": "string",
-          "default": "redis://localhost:6379",
+          "default": "",
           "description": "Redis connection URL"
         },
         {
@@ -24920,7 +24914,7 @@
           "display_name": "Calendar Id",
           "type": "string",
           "required": false,
-          "default": "primary"
+          "default": ""
         },
         {
           "name": "summary",
@@ -24961,16 +24955,16 @@
           "type": "string",
           "required": false,
           "description": "Comma separated emails"
-        },
-        {
-          "name": "input",
-          "display_name": "Input",
-          "type": "handle",
-          "required": false,
-          "description": "Main data input"
         }
       ],
       "outputs": [
+        {
+          "name": "tool",
+          "display_name": "Tool",
+          "types": [
+            "Tool"
+          ]
+        },
         {
           "name": "result",
           "display_name": "Result",
@@ -25031,7 +25025,7 @@
           "displayName": "Calendar Id",
           "name": "calendar_id",
           "type": "string",
-          "default": "primary"
+          "default": ""
         },
         {
           "displayName": "Description",
@@ -30005,16 +29999,16 @@
           "type": "object",
           "required": false,
           "description": "Fields for writing"
-        },
-        {
-          "name": "input",
-          "display_name": "Input",
-          "type": "handle",
-          "required": false,
-          "description": "Main data input"
         }
       ],
       "outputs": [
+        {
+          "name": "tool",
+          "display_name": "Tool",
+          "types": [
+            "Tool"
+          ]
+        },
         {
           "name": "records",
           "display_name": "Records",
@@ -35847,6 +35841,12 @@
           "display_name": "Connect Tools",
           "type": "handle",
           "info": "Connect one or more tool nodes."
+        },
+        {
+          "name": "memory",
+          "display_name": "Connect Memory",
+          "type": "handle",
+          "info": "Connect a memory node for history."
         }
       ],
       "outputs": [
@@ -35934,6 +35934,12 @@
           "type": "handle"
         },
         {
+          "name": "memory",
+          "display_name": "Connect Memory",
+          "type": "handle",
+          "info": "Connect a memory node for history."
+        },
+        {
           "name": "system_prompt",
           "display_name": "Instructions",
           "type": "textarea",
@@ -35974,6 +35980,12 @@
           "name": "tools",
           "display_name": "Connect Tools",
           "type": "handle"
+        },
+        {
+          "name": "memory",
+          "display_name": "Connect Memory",
+          "type": "handle",
+          "info": "Connect a memory node for history."
         }
       ],
       "outputs": [
@@ -37673,7 +37685,7 @@
           "type": "text",
           "required": false,
           "description": "Base URL path for API requests, leave blank if not using a proxy or service emulator.",
-          "default": "https://api.groq.com",
+          "default": "",
           "options": null,
           "advanced": true
         },
@@ -38890,7 +38902,7 @@
           "type": "text",
           "required": true,
           "description": "",
-          "default": "http://localhost:1234/v1",
+          "default": "",
           "options": null,
           "advanced": false
         },
@@ -38962,7 +38974,7 @@
           "type": "text",
           "required": false,
           "description": "Endpoint of the LM Studio API. Defaults to 'http://localhost:1234/v1' if not specified.",
-          "default": "http://localhost:1234/v1",
+          "default": "",
           "options": null,
           "advanced": false
         },
@@ -39663,7 +39675,7 @@
           "type": "text",
           "required": true,
           "description": "",
-          "default": "https://integrate.api.nvidia.com/v1",
+          "default": "",
           "options": null,
           "advanced": false
         },
@@ -39748,7 +39760,7 @@
           "type": "text",
           "required": false,
           "description": "The base URL of the NVIDIA API. Defaults to https://integrate.api.nvidia.com/v1.",
-          "default": "https://integrate.api.nvidia.com/v1",
+          "default": "",
           "options": null,
           "advanced": false
         },
@@ -40261,7 +40273,7 @@
           "type": "text",
           "required": false,
           "description": "The base URL of the NVIDIA API. Defaults to https://integrate.api.nvidia.com/v1.",
-          "default": "https://integrate.api.nvidia.com/v1",
+          "default": "",
           "options": null,
           "advanced": false
         },
@@ -40387,7 +40399,7 @@
           "type": "text",
           "required": true,
           "description": "Endpoint of the Ollama API. Defaults to http://localhost:11434.",
-          "default": "http://localhost:11434",
+          "default": "",
           "options": null,
           "advanced": false
         },
@@ -40449,7 +40461,7 @@
           "type": "text",
           "required": false,
           "description": "Endpoint of the Ollama API. Defaults to http://localhost:11434.",
-          "default": "http://localhost:11434",
+          "default": "",
           "options": null,
           "advanced": false
         },
@@ -41075,7 +41087,7 @@
           "type": "dropdown",
           "required": false,
           "description": "",
-          "default": "gpt-4o-mini",
+          "default": "",
           "options": [
             "gpt-4o-mini",
             "gpt-4o",
@@ -41896,7 +41908,7 @@
           "type": "text",
           "required": false,
           "description": "The base URL of the xAI API. Defaults to https://api.x.ai/v1",
-          "default": "https://api.x.ai/v1",
+          "default": "",
           "options": null,
           "advanced": true
         },
@@ -42862,7 +42874,7 @@
           "type": "dropdown",
           "required": false,
           "description": "To see the model names, first choose a provider. Then, enter your API key and click the refresh button next to the model name.",
-          "default": "gpt-4o-mini",
+          "default": "",
           "options": [
             "gpt-4o-mini",
             "gpt-4o",
@@ -43178,7 +43190,7 @@
           "type": "dropdown",
           "required": false,
           "description": "Select the model to use",
-          "default": "gpt-4o-mini",
+          "default": "",
           "options": [
             "gpt-4o-mini",
             "gpt-4o",
@@ -43898,7 +43910,7 @@
           "type": "dropdown",
           "required": false,
           "description": "To see the model names, first choose a provider. Then, enter your API key and click the refresh button next to the model name.",
-          "default": "gpt-4o-mini",
+          "default": "",
           "options": [
             "gpt-4o-mini",
             "gpt-4o",
@@ -51292,7 +51304,7 @@
           "type": "dropdown",
           "required": false,
           "description": "",
-          "default": "gpt-4o-mini",
+          "default": "",
           "options": [
             "1024-x-1024/50-steps/bedrock/amazon.nova-canvas-v1:0",
             "1024-x-1024/50-steps/stability.stable-diffusion-xl-v1",
@@ -54224,7 +54236,7 @@
           "type": "dropdown",
           "required": true,
           "description": "The model Cleanlab uses to evaluate the response. This does NOT need to be the same model that generated the response.",
-          "default": "gpt-4o-mini",
+          "default": "",
           "options": [
             "gpt-4.1",
             "gpt-4.1-mini",
@@ -54371,7 +54383,7 @@
           "type": "dropdown",
           "required": true,
           "description": "The model Cleanlab uses to evaluate the context, query, and response. This does NOT need to be the same model that generated the response.",
-          "default": "gpt-4o-mini",
+          "default": "",
           "options": [
             "gpt-4.1",
             "gpt-4.1-mini",
@@ -62134,7 +62146,7 @@
           "type": "dropdown",
           "required": false,
           "description": "To see the model names, first choose a provider. Then, enter your API key and click the refresh button next to the model name.",
-          "default": "gpt-4o-mini",
+          "default": "",
           "options": [
             "gpt-4o-mini",
             "gpt-4o",
@@ -65705,7 +65717,7 @@
           "type": "dropdown",
           "required": false,
           "description": "",
-          "default": "gpt-4o-mini",
+          "default": "",
           "options": [
             "gpt-4o-mini",
             "gpt-4o",
