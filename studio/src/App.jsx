@@ -22,7 +22,7 @@ import {
     X, User, CheckCircle, Zap, Bot, Brain, Layers, Terminal,
     Download, Upload, Loader2, Layout, Activity, Trash2, Copy,
     Eye, EyeOff, Maximize2, Minimize2, Scissors, Box, Link, Wrench, Shield, Key,
-    LogIn, UserPlus, Camera, History, Users, Moon, Sun, Save, Folder
+    LogIn, UserPlus, Camera, History, Users, Moon, Sun, Save, Folder, MoreHorizontal
 } from 'lucide-react';
 
 import CredentialModal from './components/CredentialModal';
@@ -115,6 +115,20 @@ const App = () => {
     const [theme, setTheme] = useState(localStorage.getItem('studio_theme') || 'dark');
     const [isWorkflowBrowserOpen, setIsWorkflowBrowserOpen] = useState(false);
     const [isDirty, setIsDirty] = useState(false);
+    const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
+    const menuRef = useRef(null);
+
+    // Close header menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setIsHeaderMenuOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     const socketRef = useRef(null);
 
     // Watch for unsaved changes before unload
@@ -463,7 +477,7 @@ const App = () => {
     useEffect(() => {
         const fetchCredentialsMetadata = async () => {
             if (!selectedNode) return;
-            const credField = selectedNode.data.inputs?.find(i => i.type === 'credentials');
+            const credField = selectedNode.data.inputs?.find(i => i.type === 'credentials' || i.type === 'credential');
             if (!credField) return;
 
             try {
@@ -824,17 +838,72 @@ const App = () => {
                         <Save size={16} /> Save
                     </button>
 
-                    <button className="prime-btn" onClick={() => setShowTemplates(true)}>
-                        <Layout size={16} /> Templates
+                    <button className="prime-btn accent" onClick={handleSend} disabled={isRunning}>
+                        {isRunning ? <Loader2 size={16} className="animate-spin" /> : <Play size={16} />}
+                        Run
                     </button>
 
-                    <button className="prime-btn" onClick={handlePublishTemplate} title="Publish current workflow as a template">
-                        <Copy size={16} /> Publish
-                    </button>
+                    <div className="header-menu-container" ref={menuRef}>
+                        <button
+                            className="menu-dot-btn"
+                            onClick={() => setIsHeaderMenuOpen(!isHeaderMenuOpen)}
+                            title="More Actions"
+                        >
+                            <MoreHorizontal size={20} />
+                        </button>
 
-                    <button className="prime-btn" onClick={() => document.getElementById('import-input').click()}>
-                        <Upload size={16} /> Import
-                    </button>
+                        {isHeaderMenuOpen && (
+                            <div className="menu-dropdown">
+                                <button className="menu-dropdown-item" onClick={() => { setShowTemplates(true); setIsHeaderMenuOpen(false); }}>
+                                    <Layout size={16} /> Templates
+                                </button>
+                                <button className="menu-dropdown-item" onClick={() => { handlePublishTemplate(); setIsHeaderMenuOpen(false); }}>
+                                    <Copy size={16} /> Publish
+                                </button>
+
+                                <div className="menu-divider" />
+
+                                <button className="menu-dropdown-item" onClick={() => { document.getElementById('import-input').click(); setIsHeaderMenuOpen(false); }}>
+                                    <Upload size={16} /> Import Workflow
+                                </button>
+                                <button className="menu-dropdown-item" onClick={() => { handleExport(); setIsHeaderMenuOpen(false); }}>
+                                    <Download size={16} /> Export Workflow
+                                </button>
+
+                                <div className="menu-divider" />
+
+                                <button className="menu-dropdown-item" onClick={() => { setIsCredModalOpen(true); setIsHeaderMenuOpen(false); }}>
+                                    <Shield size={16} /> Security & Credentials
+                                </button>
+                                <button className="menu-dropdown-item" onClick={() => { setIsLogOpen(true); setIsHeaderMenuOpen(false); }}>
+                                    <Activity size={16} /> System Monitor
+                                </button>
+                                <button className="menu-dropdown-item" onClick={() => { setIsVersionOpen(true); setIsHeaderMenuOpen(false); }}>
+                                    <History size={16} /> Version History
+                                </button>
+
+                                <div className="menu-divider" />
+
+                                <button className="menu-dropdown-item" onClick={() => { setShowDocs(true); setIsHeaderMenuOpen(false); }}>
+                                    <BookOpen size={16} /> Documentation
+                                </button>
+                                <button className="menu-dropdown-item" onClick={() => { handleSnapshot(); setIsHeaderMenuOpen(false); }}>
+                                    <Camera size={16} /> Take Snapshot
+                                </button>
+                                <button className="menu-dropdown-item" onClick={() => { toggleTheme(); setIsHeaderMenuOpen(false); }}>
+                                    {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                                    {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                                </button>
+
+                                <div className="menu-divider" />
+
+                                <button className="menu-dropdown-item" style={{ color: 'var(--error)' }} onClick={() => { handleClear(); setIsHeaderMenuOpen(false); }}>
+                                    <Trash2 size={16} /> Clear Canvas
+                                </button>
+                            </div>
+                        )}
+                    </div>
+
                     <input
                         id="import-input"
                         type="file"
@@ -842,44 +911,6 @@ const App = () => {
                         onChange={handleImport}
                         style={{ display: 'none' }}
                     />
-
-                    <button className="prime-btn" onClick={handleExport}>
-                        <Download size={16} /> Export
-                    </button>
-
-                    <button className="prime-btn" onClick={handleClear}>
-                        <Trash2 size={16} /> Clear
-                    </button>
-
-                    <button className="prime-btn" onClick={() => setIsCredModalOpen(true)}>
-                        <Shield size={16} /> Security
-                    </button>
-
-                    <button className="prime-btn" onClick={() => setIsLogOpen(true)}>
-                        <Activity size={16} /> Monitor
-                    </button>
-
-                    <button className="prime-btn" onClick={() => setShowDocs(true)}>
-                        <BookOpen size={16} /> Docs
-                    </button>
-
-                    <button className="prime-btn" onClick={() => setIsVersionOpen(true)}>
-                        <History size={16} /> History
-                    </button>
-
-                    <button className="prime-btn" onClick={handleSnapshot}>
-                        <Camera size={16} /> Snapshot
-                    </button>
-
-                    <button className="prime-btn" onClick={toggleTheme} title="Toggle Light/Dark Theme">
-                        {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-                        {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-                    </button>
-
-                    <button className="prime-btn accent" onClick={handleSend} disabled={isRunning}>
-                        {isRunning ? <Loader2 size={16} className="animate-spin" /> : <Play size={16} />}
-                        Run
-                    </button>
                 </div>
 
                 {/* System Health Stats In Header */}
@@ -1237,7 +1268,7 @@ const App = () => {
                                                             {field.description || 'Enable'}
                                                         </span>
                                                     </div>
-                                                ) : (field.type === 'options' || field.type === 'dropdown' || field.type === 'credentials') ? (
+                                                ) : (field.type === 'options' || field.type === 'dropdown' || field.type === 'credentials' || field.type === 'credential') ? (
                                                     <select
                                                         className="ins-input"
                                                         value={val}
@@ -1251,7 +1282,7 @@ const App = () => {
                                                         }}
                                                     >
                                                         <option value="">Select...</option>
-                                                        {field.type === 'credentials' && credentialList.map(c => (
+                                                        {(field.type === 'credentials' || field.type === 'credential') && credentialList.map(c => (
                                                             <option key={c.value} value={c.value}>🔒 {c.label}</option>
                                                         ))}
                                                         {(field.options || []).map((opt) => {

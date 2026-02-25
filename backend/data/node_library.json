@@ -12,7 +12,7 @@
         {
           "name": "api_key",
           "display_name": "API Key",
-          "type": "password",
+          "type": "credential",
           "required": true,
           "default": ""
         },

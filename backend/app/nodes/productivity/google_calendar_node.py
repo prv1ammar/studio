@@ -16,7 +16,7 @@ class GoogleCalendarNode(BaseNode):
     node_type = "google_calendar_node"
     version = "1.0.0"
     category = "productivity"
-    credentials_required = ["google_auth"]
+    credentials_required = ["google_calendar_auth"]
 
 
     properties = [
@@ -109,7 +109,7 @@ class GoogleCalendarNode(BaseNode):
     async def execute(self, input_data: Any, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         try:
             # 1. Authentication
-            creds = await self.get_credential("google_auth")
+            creds = await self.get_credential("google_calendar_auth")
             access_token = creds.get("access_token")
             
             if not access_token:

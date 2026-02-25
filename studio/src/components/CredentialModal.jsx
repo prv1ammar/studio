@@ -143,12 +143,14 @@ export default function CredentialModal({ isOpen, onClose }) {
                                     <option value="salesforce">Salesforce</option>
                                     <option value="telegram">Telegram</option>
                                     <option value="notion">Notion</option>
+                                    <option value="litellm">Tyboo LiteLLM</option>
+                                    <option value="airtable">Airtable</option>
                                 </select>
                             </div>
 
                             {/* Dynamic Fields based on Type */}
                             <div className="dynamic-cred-fields">
-                                {['openai', 'anthropic', 'gemini', 'groq', 'tavily'].includes(newCred.type) && (
+                                {['openai', 'anthropic', 'gemini', 'groq', 'tavily', 'litellm', 'airtable'].includes(newCred.type) && (
                                     <div className="form-group">
                                         <label>API Key</label>
                                         <input
